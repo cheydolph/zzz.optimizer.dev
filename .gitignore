@@ -39,7 +39,6 @@ testem.log
 
 # Miscellaneous files to ignore
 .claude
-*.md
 !README.md
 
 # Scripts folder (contains sensitive UIDs and analysis data)
