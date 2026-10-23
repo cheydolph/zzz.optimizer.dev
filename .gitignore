@@ -40,6 +40,7 @@ testem.log
 # Miscellaneous files to ignore
 .claude
 *.md
+test-data/local
 !README.md
 
 # Scripts folder (contains sensitive UIDs and analysis data)
