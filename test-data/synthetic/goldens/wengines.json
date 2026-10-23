@@ -1,0 +1,2749 @@
+{
+  "wEngines": [
+    {
+      "id": "12001",
+      "name": "[Lunar] Pleniluna",
+      "rarity": "B",
+      "specialty": "Attack",
+      "baseAtk": 475,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "ATK%",
+        "value": 20
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Basic Attack, Dash Attack, and Dodge Counter DMG increases by %"
+      },
+      "icon": "assets/data/images/wengines/Weapon_B_Common_01.webp"
+    },
+    {
+      "id": "12002",
+      "name": "[Lunar] Decrescent",
+      "rarity": "B",
+      "specialty": "Attack",
+      "baseAtk": 475,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "ATK%",
+        "value": 20
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Launching a Chain Attack or Ultimate increases the equipper's DMG by % for 6s."
+      },
+      "icon": "assets/data/images/wengines/Weapon_B_Common_02.webp"
+    },
+    {
+      "id": "12003",
+      "name": "[Lunar] Noviluna",
+      "rarity": "B",
+      "specialty": "Attack",
+      "baseAtk": 475,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "CRIT_Rate",
+        "value": 16
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Launching an EX Special Attack generates [NUMBER] Energy for the equipper. This effect can trigger once every 12s."
+      },
+      "icon": "assets/data/images/wengines/Weapon_B_Common_03.webp"
+    },
+    {
+      "id": "12004",
+      "name": "[Reverb] Mark I",
+      "rarity": "B",
+      "specialty": "Support",
+      "baseAtk": 475,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "ATK%",
+        "value": 20
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Launching an EX Special Attack increases all squad members' Impact by % for 10s. This effect can trigger once every 20s. Passive effects of the same name do not stack.",
+        "properties": [
+          {
+            "name": "Impact",
+            "type": "Impact",
+            "values": {
+              "W1": 8,
+              "W2": 9,
+              "W3": 10,
+              "W4": 11,
+              "W5": 12
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_B_Common_04.webp"
+    },
+    {
+      "id": "12005",
+      "name": "[Reverb] Mark II",
+      "rarity": "B",
+      "specialty": "Support",
+      "baseAtk": 475,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "Energy_Regen",
+        "value": 40
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Launching an EX Special Attack or Chain Attack increases all squad members' Anomaly Mastery and Anomaly Proficiency by [NUMBER] for 10s. This effect can trigger once every 20s. Passive effects of the same name do not stack.",
+        "properties": [
+          {
+            "name": "Anomaly Mastery",
+            "type": "Anomaly_Mastery",
+            "values": {
+              "W1": 10,
+              "W2": 12,
+              "W3": 13,
+              "W4": 15,
+              "W5": 16
+            }
+          },
+          {
+            "name": "Anomaly Proficiency",
+            "type": "Anomaly_Proficiency",
+            "values": {
+              "W1": 10,
+              "W2": 12,
+              "W3": 13,
+              "W4": 15,
+              "W5": 16
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_B_Common_05.webp"
+    },
+    {
+      "id": "12006",
+      "name": "[Reverb] Mark III",
+      "rarity": "B",
+      "specialty": "Support",
+      "baseAtk": 32,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "HP%",
+        "value": 8
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Launching a Chain Attack or Ultimate increases all squad members' ATK by % for 10s. This effect can trigger once every 20s. Passive effects of the same name do not stack.",
+        "properties": [
+          {
+            "name": "ATK",
+            "type": "ATK%",
+            "values": {
+              "W1": 8,
+              "W2": 9,
+              "W3": 10,
+              "W4": 11,
+              "W5": 12
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_B_Common_06.webp"
+    },
+    {
+      "id": "12007",
+      "name": "[Vortex] Revolver",
+      "rarity": "B",
+      "specialty": "Stun",
+      "baseAtk": 475,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "ATK%",
+        "value": 20
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "EX Special Attacks inflict % more Daze."
+      },
+      "icon": "assets/data/images/wengines/Weapon_B_Common_07.webp"
+    },
+    {
+      "id": "12008",
+      "name": "[Vortex] Arrow",
+      "rarity": "B",
+      "specialty": "Stun",
+      "baseAtk": 475,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "Impact",
+        "value": 12
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "The equipper's attacks inflict 8% more Daze on their main target.",
+        "properties": [
+          {
+            "name": "ATK",
+            "type": "ATK%",
+            "values": {
+              "W1": 8,
+              "W2": 9,
+              "W3": 10,
+              "W4": 11,
+              "W5": 12
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_B_Common_08.webp"
+    },
+    {
+      "id": "12009",
+      "name": "[Vortex] Hatchet",
+      "rarity": "B",
+      "specialty": "Stun",
+      "baseAtk": 475,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "Energy_Regen",
+        "value": 40
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Upon becoming the active character in combat, the equipper's Impact increases by % for 10s. This effect can trigger once every 20s.",
+        "properties": [
+          {
+            "name": "Impact",
+            "type": "Impact",
+            "values": {
+              "W1": 9,
+              "W2": 10,
+              "W3": 11,
+              "W4": 12,
+              "W5": 13
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_B_Common_09.webp"
+    },
+    {
+      "id": "12010",
+      "name": "[Magnetic Storm] Alpha",
+      "rarity": "B",
+      "specialty": "Anomaly",
+      "baseAtk": 475,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "ATK%",
+        "value": 20
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Accumulating Anomaly Buildup increases the equipper's Anomaly Mastery by [NUMBER] for 10s. This effect can trigger once every 20s.",
+        "properties": [
+          {
+            "name": "Anomaly Mastery",
+            "type": "Anomaly_Mastery",
+            "values": {
+              "W1": 25,
+              "W2": 28,
+              "W3": 32,
+              "W4": 36,
+              "W5": 40
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_B_Common_10.webp"
+    },
+    {
+      "id": "12011",
+      "name": "[Magnetic Storm] Bravo",
+      "rarity": "B",
+      "specialty": "Anomaly",
+      "baseAtk": 475,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "Anomaly_Proficiency",
+        "value": 60
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Accumulating Anomaly Buildup increases the equipper's Anomaly Proficiency by [NUMBER] for 10s. This effect can trigger once every 20s.",
+        "properties": [
+          {
+            "name": "Anomaly Proficiency",
+            "type": "Anomaly_Proficiency",
+            "values": {
+              "W1": 25,
+              "W2": 28,
+              "W3": 32,
+              "W4": 36,
+              "W5": 40
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_B_Common_11.webp"
+    },
+    {
+      "id": "12012",
+      "name": "[Magnetic Storm] Charlie",
+      "rarity": "B",
+      "specialty": "Anomaly",
+      "baseAtk": 475,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "PEN_Ratio",
+        "value": 16
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Whenever a squad member inflicts an Attribute Anomaly on an enemy, the equipper generates [NUMBER] Energy. This effect can trigger once every 12s."
+      },
+      "icon": "assets/data/images/wengines/Weapon_B_Common_12.webp"
+    },
+    {
+      "id": "12013",
+      "name": "[Identity] Base",
+      "rarity": "B",
+      "specialty": "Defense",
+      "baseAtk": 475,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "DEF%",
+        "value": 32
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "When attacked, the equipper's DEF increases by % for 8s.",
+        "properties": [
+          {
+            "name": "DEF",
+            "type": "DEF%",
+            "values": {
+              "W1": 20,
+              "W2": 23,
+              "W3": 26,
+              "W4": 29,
+              "W5": 32
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_B_Common_13.webp"
+    },
+    {
+      "id": "12014",
+      "name": "[Identity] Inflection",
+      "rarity": "B",
+      "specialty": "Defense",
+      "baseAtk": 475,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "DEF%",
+        "value": 32
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "When attacked, reduces the attacker's DMG by 6% for 12s."
+      },
+      "icon": "assets/data/images/wengines/Weapon_B_Common_14.webp"
+    },
+    {
+      "id": "12015",
+      "name": "[Cinder] Cobalt",
+      "rarity": "B",
+      "specialty": "Rupture",
+      "baseAtk": 475,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "HP%",
+        "value": 20
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Upon becoming the active character in combat, the equipper's ATK increases by % for 10s. This effect can trigger once every 20s.",
+        "properties": [
+          {
+            "name": "ATK",
+            "type": "ATK%",
+            "values": {
+              "W1": 7.2,
+              "W2": 8.2,
+              "W3": 9.3,
+              "W4": 10.4,
+              "W5": 11.5
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_B_Common_15.webp"
+    },
+    {
+      "id": "12016",
+      "name": "[Lunar] Semiluna",
+      "rarity": "B",
+      "specialty": "Armorer",
+      "baseAtk": 282,
+      "baseStatType": "DEF",
+      "subStat": {
+        "type": "DEF%",
+        "value": 32
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "When an [EX Special Attack] is activated, [Basic Attack] DMG increases by % for 10s; repeated triggers reset the duration."
+      },
+      "icon": "assets/data/images/wengines/Weapon_B_Common_16.webp"
+    },
+    {
+      "id": "13001",
+      "name": "Street Superstar",
+      "rarity": "A",
+      "specialty": "Attack",
+      "baseAtk": 594,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "ATK%",
+        "value": 25
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Whenever a squad member launches a Chain Attack, the equipper gains 1 Charge stack, stacking up to 3 times. Upon activating their own Ultimate, the equipper consumes all Charge stacks, and each stack increases the skill's DMG by %."
+      },
+      "icon": "assets/data/images/wengines/Weapon_A_Common_01.webp"
+    },
+    {
+      "id": "13002",
+      "name": "Slice of Time",
+      "rarity": "A",
+      "specialty": "Support",
+      "baseAtk": 594,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "PEN_Ratio",
+        "value": 20
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Any squad members' Dodge Counter, EX Special Attack, Assist Attack, or Chain Attack respectively generates [NUMBERS] more Decibels and generates [NUMBER] Energy for the equipper. This effect can trigger once every 12s. The cooldown for each type of attack is independent of others. Passive effects of the same name do not stack."
+      },
+      "icon": "assets/data/images/wengines/Weapon_A_Common_02.webp"
+    },
+    {
+      "id": "13003",
+      "name": "Rainforest Gourmet",
+      "rarity": "A",
+      "specialty": "Anomaly",
+      "baseAtk": 594,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "Anomaly_Proficiency",
+        "value": 75
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "For every 10 Energy consumed, the equipper gains a buff that increases ATK by % for 10s, stacking up to 10 times. The duration of each stack is calculated separately.",
+        "properties": [
+          {
+            "name": "ATK",
+            "type": "ATK%",
+            "values": {
+              "W1": 2.5,
+              "W2": 2.8,
+              "W3": 3.2,
+              "W4": 3.6,
+              "W5": 4
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_A_Common_03.webp"
+    },
+    {
+      "id": "13004",
+      "name": "Starlight Engine",
+      "rarity": "A",
+      "specialty": "Attack",
+      "baseAtk": 594,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "ATK%",
+        "value": 25
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Launching a Dodge Counter or Quick Assist increases the equipper's ATK by 12% for 12s.",
+        "properties": [
+          {
+            "name": "ATK",
+            "type": "ATK%",
+            "values": {
+              "W1": 12,
+              "W2": 13.8,
+              "W3": 15.6,
+              "W4": 17.4,
+              "W5": 19.2
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_A_Common_04.webp"
+    },
+    {
+      "id": "13005",
+      "name": "Steam Oven",
+      "rarity": "A",
+      "specialty": "Stun",
+      "baseAtk": 594,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "Energy_Regen",
+        "value": 50
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "For every 10 Energy accumulated, the equipper's Impact is increased by %, stacking up to 8 times. After Energy is consumed, this bonus remains for 8 more seconds. The duration of each stack is calculated separately.",
+        "properties": [
+          {
+            "name": "Impact",
+            "type": "Impact",
+            "values": {
+              "W1": 16,
+              "W2": 18.4,
+              "W3": 20.8,
+              "W4": 23.2,
+              "W5": 25.6
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_A_Common_05.webp"
+    },
+    {
+      "id": "13006",
+      "name": "Precious Fossilized Core",
+      "rarity": "A",
+      "specialty": "Stun",
+      "baseAtk": 594,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "Impact",
+        "value": 15
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "When the target's HP is no lower than 50%, the equipper inflicts 10% more Daze to the target. When the target's HP is no lower than 75%, this bonus is further increased by 10%."
+      },
+      "icon": "assets/data/images/wengines/Weapon_A_Common_06.webp"
+    },
+    {
+      "id": "13007",
+      "name": "Original Transmorpher",
+      "rarity": "A",
+      "specialty": "Defense",
+      "baseAtk": 594,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "HP%",
+        "value": 25
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Increases Max HP by %. When attacked, the equipper's Impact is increased by % for 12s.",
+        "properties": [
+          {
+            "name": "HP",
+            "type": "HP%",
+            "values": {
+              "W1": 8,
+              "W2": 9,
+              "W3": 10,
+              "W4": 11,
+              "W5": 12.5
+            }
+          },
+          {
+            "name": "Impact",
+            "type": "Impact",
+            "values": {
+              "W1": 10,
+              "W2": 11.5,
+              "W3": 13,
+              "W4": 14.5,
+              "W5": 16
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_A_Common_07.webp"
+    },
+    {
+      "id": "13008",
+      "name": "Weeping Gemini",
+      "rarity": "A",
+      "specialty": "Anomaly",
+      "baseAtk": 594,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "ATK%",
+        "value": 25
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Whenever a squad member inflicts an Attribute Anomaly on an enemy, the equipper gains a buff that increases Anomaly Proficiency by [NUMBER], stacking up to 4 times. This effect expires when the target recovers from Stun or is defeated. The duration of each stack is calculated separately.",
+        "properties": [
+          {
+            "name": "Anomaly Proficiency",
+            "type": "Anomaly_Proficiency",
+            "values": {
+              "W1": 120,
+              "W2": 136,
+              "W3": 152,
+              "W4": 168,
+              "W5": 192
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_A_Common_08.webp"
+    },
+    {
+      "id": "13009",
+      "name": "Electro-Lip Gloss",
+      "rarity": "A",
+      "specialty": "Anomaly",
+      "baseAtk": 594,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "Anomaly_Proficiency",
+        "value": 75
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "When there are enemies inflicted with Attribute Anomaly on the field, the equipper's ATK increases by % and they deal an additional % more DMG to the target.",
+        "properties": [
+          {
+            "name": "ATK",
+            "type": "ATK%",
+            "values": {
+              "W1": 10,
+              "W2": 11.5,
+              "W3": 13,
+              "W4": 14.5,
+              "W5": 16
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_A_Common_09.webp"
+    },
+    {
+      "id": "13010",
+      "name": "Bunny Band",
+      "rarity": "A",
+      "specialty": "Defense",
+      "baseAtk": 594,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "DEF%",
+        "value": 40
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Increases Max HP by %. Increases the equipper's ATK by % when they are shielded.",
+        "properties": [
+          {
+            "name": "HP",
+            "type": "HP%",
+            "values": {
+              "W1": 8,
+              "W2": 9.2,
+              "W3": 10.4,
+              "W4": 11.6,
+              "W5": 12.8
+            }
+          },
+          {
+            "name": "ATK",
+            "type": "ATK%",
+            "values": {
+              "W1": 10,
+              "W2": 11.5,
+              "W3": 13,
+              "W4": 14.5,
+              "W5": 16
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_A_Common_10.webp"
+    },
+    {
+      "id": "13011",
+      "name": "Spring Embrace",
+      "rarity": "A",
+      "specialty": "Defense",
+      "baseAtk": 594,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "ATK%",
+        "value": 25
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Reduces DMG taken by %. When attacked, the equipper's Energy Generation Rate increases by % for 12s. When the equipper switches off-field, this buff will be transferred to the new on-field character with its duration refreshed. Passive effects of the same name do not stack.",
+        "properties": [
+          {
+            "name": "Energy Regen",
+            "type": "Energy_Regen",
+            "values": {
+              "W1": 10,
+              "W2": 11.5,
+              "W3": 13,
+              "W4": 14.5,
+              "W5": 16
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_A_Common_11.webp"
+    },
+    {
+      "id": "13012",
+      "name": "Puzzle Sphere",
+      "rarity": "A",
+      "specialty": "Rupture",
+      "baseAtk": 594,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "ATK%",
+        "value": 25
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Upon launching an EX Special Attack, the equipper's CRIT DMG increases by % for 12s. Additionally, if the target's current HP is below 50% of their Max HP, EX Special Attack DMG increases by %.",
+        "properties": [
+          {
+            "name": "CRIT DMG",
+            "type": "CRIT_DMG",
+            "values": {
+              "W1": 16,
+              "W2": 18.4,
+              "W3": 20.8,
+              "W4": 23.2,
+              "W5": 25.6
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_A_Common_12.webp"
+    },
+    {
+      "id": "13013",
+      "name": "Gilded Blossom",
+      "rarity": "A",
+      "specialty": "Attack",
+      "baseAtk": 594,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "ATK%",
+        "value": 25
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "ATK increases by %, and DMG dealt by EX Special Attacks increases by %.",
+        "properties": [
+          {
+            "name": "ATK",
+            "type": "ATK%",
+            "values": {
+              "W1": 6,
+              "W2": 6.9,
+              "W3": 7.8,
+              "W4": 8.7,
+              "W5": 9.6
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_A_Common_13.webp"
+    },
+    {
+      "id": "13014",
+      "name": "Radiowave Journey",
+      "rarity": "A",
+      "specialty": "Rupture",
+      "baseAtk": 594,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "HP%",
+        "value": 25
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "When launching a Chain Attack or Ultimate, the equipper gains 1 stack of a buff effect. Each stack increases the equipper's Sheer Force by [NUMBER], stacking up to 3 times, and lasting 12s. The duration of each stack is calculated separately.",
+        "properties": [
+          {
+            "name": "Sheer Force",
+            "type": "Sheer Force",
+            "values": {
+              "W1": 240,
+              "W2": 276,
+              "W3": 312,
+              "W4": 348,
+              "W5": 384
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_A_Common_14.webp"
+    },
+    {
+      "id": "13015",
+      "name": "Marcato Desire",
+      "rarity": "A",
+      "specialty": "Attack",
+      "baseAtk": 594,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "CRIT_Rate",
+        "value": 20
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "When an EX Special Attack or Chain Attack hits an enemy, the equipper's ATK increases by % for 8s. While the target is under an Attribute Anomaly, this effect is increased by an additional %.",
+        "properties": [
+          {
+            "name": "ATK",
+            "type": "ATK%",
+            "values": {
+              "W1": 12,
+              "W2": 13.8,
+              "W3": 15.6,
+              "W4": 17.4,
+              "W5": 19.2
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_A_Common_15.webp"
+    },
+    {
+      "id": "13016",
+      "name": "Reel Projector",
+      "rarity": "A",
+      "specialty": "Defense",
+      "baseAtk": 594,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "Impact",
+        "value": 15
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "When a squad member's HP is greater than or equal to 50%, they take % less DMG, and % less Miasma Contamination. Only one instance of this effect can exist in the same squad."
+      },
+      "icon": "assets/data/images/wengines/Weapon_A_Common_16.webp"
+    },
+    {
+      "id": "13017",
+      "name": "Catty Luck",
+      "rarity": "A",
+      "specialty": "Armorer",
+      "baseAtk": 356,
+      "baseStatType": "DEF",
+      "subStat": {
+        "type": "DEF%",
+        "value": 40
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "DEF increases by %; when casting [EX Special Attack], DEF additionally increases by % for 40 sec; repeated triggers reset the duration.",
+        "properties": [
+          {
+            "name": "DEF",
+            "type": "DEF%",
+            "values": {
+              "W1": 16,
+              "W2": 18,
+              "W3": 20,
+              "W4": 22,
+              "W5": 24
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_A_Common_17.webp"
+    },
+    {
+      "id": "13018",
+      "name": "Boisterous Echoes",
+      "rarity": "A",
+      "specialty": "Anomaly",
+      "baseAtk": 594,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "Anomaly_Proficiency",
+        "value": 75
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "When the equipper triggers [Vortex], restore [NUMBER] Energy. This effect can trigger once every 10s. When the equipper attacks enemies afflicted with Attribute Anomaly, DMG dealt increases by %."
+      },
+      "icon": "assets/data/images/wengines/Weapon_A_Common_18.webp"
+    },
+    {
+      "id": "13019",
+      "name": "Cauldron of Clarity",
+      "rarity": "A",
+      "specialty": "Rupture",
+      "baseAtk": 594,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "HP%",
+        "value": 25
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "When the equipper activates an EX Special Attack, they gain 1 stack of a buff. Each stack increases the equipper's DMG by %, up to 3 stacks, and lasting 20s. This effect can trigger once every 0.5s, and repeated triggers reset the duration. At 3 stacks, the equipper's CRIT Rate increases by %.",
+        "properties": [
+          {
+            "name": "CRIT Rate",
+            "type": "CRIT_Rate",
+            "values": {
+              "W1": 6.5,
+              "W2": 7.5,
+              "W3": 8.5,
+              "W4": 9.4,
+              "W5": 10.4
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_A_Common_19.webp"
+    },
+    {
+      "id": "13020",
+      "name": "The Simmering Pot",
+      "rarity": "A",
+      "specialty": "Stun",
+      "baseAtk": 594,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "Impact",
+        "value": 15
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "When activating an Assist Follow-Up, the equipper's Daze inflicted on the target increases by %, and DMG dealt increases by % for 30s. Repeated triggers reset the duration."
+      },
+      "icon": "assets/data/images/wengines/Weapon_A_Common_20.webp"
+    },
+    {
+      "id": "13021",
+      "name": "Bloodmarrow Coffer",
+      "rarity": "A",
+      "specialty": "Armorer",
+      "baseAtk": 356,
+      "baseStatType": "DEF",
+      "subStat": {
+        "type": "CRIT_Rate",
+        "value": 20
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "When the equipper's CRIT Rate exceeds 100%, every 1% of CRIT Rate above that increases DMG dealt by the equipper by %, up to a max increase of %."
+      },
+      "icon": "assets/data/images/wengines/Weapon_A_Common_21.webp"
+    },
+    {
+      "id": "13022",
+      "name": "Candlelight Conspiracy",
+      "rarity": "A",
+      "specialty": "Armorer",
+      "baseAtk": 356,
+      "baseStatType": "DEF",
+      "subStat": {
+        "type": "DEF%",
+        "value": 40
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "When the equipper launches an [EX Special Attack], their CRIT Rate increases by % for 40s. The equipper deals % increased DMG to enemies whose current HP is below 50% of their max HP.",
+        "properties": [
+          {
+            "name": "CRIT Rate",
+            "type": "CRIT_Rate",
+            "values": {
+              "W1": 8,
+              "W2": 9.2,
+              "W3": 10.4,
+              "W4": 11.6,
+              "W5": 12.8
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_A_Common_22.webp"
+    },
+    {
+      "id": "13101",
+      "name": "Demara Battery Mark II",
+      "rarity": "A",
+      "specialty": "Stun",
+      "baseAtk": 624,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "Impact",
+        "value": 15
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Increases Electric DMG by %. When the equipper hits an enemy with a Dodge Counter or Assist Attack, their Energy Generation Rate increases by % for 8s.",
+        "properties": [
+          {
+            "name": "Energy Regen",
+            "type": "Energy_Regen",
+            "values": {
+              "W1": 18,
+              "W2": 20.5,
+              "W3": 23,
+              "W4": 25,
+              "W5": 27.5
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_A_1011.webp"
+    },
+    {
+      "id": "13103",
+      "name": "The Vault",
+      "rarity": "A",
+      "specialty": "Support",
+      "baseAtk": 624,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "Energy_Regen",
+        "value": 50
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Dealing Ether DMG using an EX Special Attack, Chain Attack, or Ultimate increases all units' DMG against the target by % and increases the equipper's Energy Regen by /s for 2s. Passive effects of the same name do not stack."
+      },
+      "icon": "assets/data/images/wengines/Weapon_A_1031.webp"
+    },
+    {
+      "id": "13106",
+      "name": "Housekeeper",
+      "rarity": "A",
+      "specialty": "Attack",
+      "baseAtk": 624,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "ATK%",
+        "value": 25
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "While off-field, the equipper's Energy Regen increases by /s. When an EX Special Attack hits an enemy, the equipper's Physical DMG increases by %, stacking up to 15 times and lasting 1s. Repeated triggers reset the duration."
+      },
+      "icon": "assets/data/images/wengines/Weapon_A_1061.webp"
+    },
+    {
+      "id": "13108",
+      "name": "Starlight Engine Replica",
+      "rarity": "A",
+      "specialty": "Attack",
+      "baseAtk": 624,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "ATK%",
+        "value": 25
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Increases the equipper's Physical DMG against the target by % for 8s upon hitting an enemy at least 6 meters away with a Basic Attack or Dash Attack."
+      },
+      "icon": "assets/data/images/wengines/Weapon_A_1081.webp"
+    },
+    {
+      "id": "13111",
+      "name": "Drill Rig - Red Axis",
+      "rarity": "A",
+      "specialty": "Attack",
+      "baseAtk": 624,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "Energy_Regen",
+        "value": 50
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "When launching an EX Special Attack or Chain Attack, Electric DMG from Basic Attacks and Dash Attacks increases by % for 10s. This effect can trigger once every 15s."
+      },
+      "icon": "assets/data/images/wengines/Weapon_A_1111.webp"
+    },
+    {
+      "id": "13112",
+      "name": "Big Cylinder",
+      "rarity": "A",
+      "specialty": "Defense",
+      "baseAtk": 624,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "DEF%",
+        "value": 40
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Reduces DMG taken by %. After being attacked, the next attack to hit an enemy will trigger a critical hit and deal % of the equipper's DEF as additional DMG. This effect can be triggered once every 7.5s."
+      },
+      "icon": "assets/data/images/wengines/Weapon_A_1121.webp"
+    },
+    {
+      "id": "13113",
+      "name": "Bashful Demon",
+      "rarity": "A",
+      "specialty": "Support",
+      "baseAtk": 624,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "ATK%",
+        "value": 25
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Increases Ice DMG by %. When launching an EX Special Attack, all squad members' ATK increases by % for 12s, stacking up to 4 times. Repeated triggers reset the duration. Passive effects of the same name do not stack.",
+        "properties": [
+          {
+            "name": "ATK",
+            "type": "ATK%",
+            "values": {
+              "W1": 8,
+              "W2": 9.2,
+              "W3": 10.4,
+              "W4": 11.6,
+              "W5": 12.8
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_A_1131.webp"
+    },
+    {
+      "id": "13115",
+      "name": "Kaboom the Cannon",
+      "rarity": "A",
+      "specialty": "Support",
+      "baseAtk": 624,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "Energy_Regen",
+        "value": 50
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "When any friendly unit in the squad attacks and hits an enemy, all friendly units' ATK increases by % for 8s, stacking up to 4 times. The duration of each stack is calculated separately, and each friendly unit can provide 1 stack of the buff. Passive effects of the same name do not stack.",
+        "properties": [
+          {
+            "name": "ATK",
+            "type": "ATK%",
+            "values": {
+              "W1": 10,
+              "W2": 11.2,
+              "W3": 12.8,
+              "W4": 14.4,
+              "W5": 16
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_A_1151.webp"
+    },
+    {
+      "id": "13127",
+      "name": "Peacekeeper - Specialized",
+      "rarity": "A",
+      "specialty": "Defense",
+      "baseAtk": 624,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "ATK%",
+        "value": 25
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "While Shielded, the equipper's Energy Regen increases by /s. The Anomaly Buildup of EX Special Attacks and Assist Follow-Ups increase by %."
+      },
+      "icon": "assets/data/images/wengines/Weapon_A_1271.webp"
+    },
+    {
+      "id": "13128",
+      "name": "Roaring Ride",
+      "rarity": "A",
+      "specialty": "Anomaly",
+      "baseAtk": 624,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "ATK%",
+        "value": 25
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "When EX Special Attack hits an enemy, one of three possible effects is randomly triggered for 5 seconds. This effect can trigger once every 0.3s. The same types of effects cannot stack. Repeated triggers reset the duration, allowing several effects to be active at once: Increases the equipper's ATK by %, increases the equipper's Anomaly Proficiency by [NUMBER], or increases the equipper's Anomaly Buildup Rate by %.",
+        "properties": [
+          {
+            "name": "ATK",
+            "type": "ATK%",
+            "values": {
+              "W1": 8,
+              "W2": 9.2,
+              "W3": 10.4,
+              "W4": 11.6,
+              "W5": 12.8
+            }
+          },
+          {
+            "name": "Anomaly Proficiency",
+            "type": "Anomaly_Proficiency",
+            "values": {
+              "W1": 40,
+              "W2": 46,
+              "W3": 52,
+              "W4": 58,
+              "W5": 64
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_A_1281.webp"
+    },
+    {
+      "id": "13135",
+      "name": "Box Cutter",
+      "rarity": "A",
+      "specialty": "Stun",
+      "baseAtk": 624,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "Impact",
+        "value": 15
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Upon launching an Aftershock, the equipper's Physical DMG increases by %, and Daze increases by %, lasting 10s."
+      },
+      "icon": "assets/data/images/wengines/Weapon_A_1351.webp"
+    },
+    {
+      "id": "13142",
+      "name": "Tremor Trigram Vessel",
+      "rarity": "A",
+      "specialty": "Defense",
+      "baseAtk": 624,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "ATK%",
+        "value": 25
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "The equipper's EX Special Attack and Ultimate DMG increases by %. Whenever any squad member takes DMG or recovers HP, the equipper gains [NUMBER] Energy. This effect can trigger once every 5s."
+      },
+      "icon": "assets/data/images/wengines/Weapon_A_1421.webp"
+    },
+    {
+      "id": "13144",
+      "name": "Grill O'Wisp",
+      "rarity": "A",
+      "specialty": "Rupture",
+      "baseAtk": 624,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "HP%",
+        "value": 25
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "The equipper's Fire DMG increases by %. When the equipper's HP decreases, their CRIT Rate increases by % for 5s.",
+        "properties": [
+          {
+            "name": "CRIT Rate",
+            "type": "CRIT_Rate",
+            "values": {
+              "W1": 15,
+              "W2": 17.25,
+              "W3": 19.5,
+              "W4": 21.75,
+              "W5": 24
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_A_1441.webp"
+    },
+    {
+      "id": "14001",
+      "name": "Cannon Rotor",
+      "rarity": "A",
+      "specialty": "Attack",
+      "baseAtk": 594,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "CRIT_Rate",
+        "value": 20
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Increases ATK by %. Landing a critical hit on an enemy will inflict an additional % of ATK as DMG. This effect can trigger once every 8s.",
+        "properties": [
+          {
+            "name": "ATK",
+            "type": "ATK%",
+            "values": {
+              "W1": 7.5,
+              "W2": 8.6,
+              "W3": 9.7,
+              "W4": 10.8,
+              "W5": 12
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_Common_01.webp"
+    },
+    {
+      "id": "14002",
+      "name": "Unfettered Game Ball",
+      "rarity": "A",
+      "specialty": "Support",
+      "baseAtk": 594,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "Energy_Regen",
+        "value": 50
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Whenever the equipper's attack triggers an Attribute Counter effect, all units' CRIT Rate against the struck enemy increases by % for 12s. Passive effects of the same name do not stack.",
+        "properties": [
+          {
+            "name": "CRIT Rate",
+            "type": "CRIT_Rate",
+            "values": {
+              "W1": 12,
+              "W2": 13.5,
+              "W3": 15.5,
+              "W4": 17.5,
+              "W5": 20
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_Common_02.webp"
+    },
+    {
+      "id": "14003",
+      "name": "Six Shooter",
+      "rarity": "A",
+      "specialty": "Stun",
+      "baseAtk": 594,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "Impact",
+        "value": 15
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "The equipper gains 1 Charge stack every 3s, stacking up to 6 times. When launching an EX Special Attack, consumes all Charge stacks and each stack consumed increases the skill's Daze inflicted by 4%."
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_Common_03.webp"
+    },
+    {
+      "id": "14102",
+      "name": "Steel Cushion",
+      "rarity": "S",
+      "specialty": "Attack",
+      "baseAtk": 684,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "CRIT_Rate",
+        "value": 24
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Increases Physical DMG by %. The equipper's DMG increases by % when hitting the enemy from behind."
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1021.webp"
+    },
+    {
+      "id": "14104",
+      "name": "The Brimstone",
+      "rarity": "S",
+      "specialty": "Attack",
+      "baseAtk": 684,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "ATK%",
+        "value": 30
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Upon hitting an enemy with a Basic Attack, Dash Attack, or Dodge Counter, the equipper's ATK increases by % for 8s, stacking up to 8 times. This effect can trigger once every 0.5s. The duration of each stack is calculated separately.",
+        "properties": [
+          {
+            "name": "ATK",
+            "type": "ATK%",
+            "values": {
+              "W1": 28,
+              "W2": 35.2,
+              "W3": 41.6,
+              "W4": 48,
+              "W5": 56
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1041.webp"
+    },
+    {
+      "id": "14105",
+      "name": "Kraken's Cradle",
+      "rarity": "S",
+      "specialty": "Rupture",
+      "baseAtk": 713,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "HP%",
+        "value": 30
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "When the equipper's HP decreases, their Ice Sheer DMG increases by %, stacking up to 3 times and lasting 25s. The duration of each stack is calculated separately. This effect can trigger once every 0.5s. When the equipper's HP falls to 50% of Max HP or below, CRIT Rate increases by %.",
+        "properties": [
+          {
+            "name": "CRIT Rate",
+            "type": "CRIT_Rate",
+            "values": {
+              "W1": 20,
+              "W2": 23,
+              "W3": 26,
+              "W4": 29,
+              "W5": 32
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1051.webp"
+    },
+    {
+      "id": "14107",
+      "name": "Tusks of Fury",
+      "rarity": "S",
+      "specialty": "Defense",
+      "baseAtk": 713,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "Impact",
+        "value": 18
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "The Shield value provided by the equipper increases by 30%. When any squad member triggers Interrupt or Perfect Dodge, all squad members' DMG increases by 18% and Daze dealt increases by 12% for 20s. Passive effects of the same name do not stack."
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1071.webp"
+    },
+    {
+      "id": "14109",
+      "name": "Hailstorm Shrine",
+      "rarity": "S",
+      "specialty": "Anomaly",
+      "baseAtk": 743,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "CRIT_Rate",
+        "value": 24
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "CRIT DMG increases by %. When using an EX Special Attack or when any squad member applies an Attribute Anomaly to an enemy, the equipper's Ice DMG increases by %, stacking up to 2 times and lasting 15s. The duration of each stack is calculated separately.",
+        "properties": [
+          {
+            "name": "CRIT DMG",
+            "type": "CRIT_DMG",
+            "values": {
+              "W1": 50,
+              "W2": 57,
+              "W3": 65,
+              "W4": 72,
+              "W5": 80
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1091.webp"
+    },
+    {
+      "id": "14110",
+      "name": "Hellfire Gears",
+      "rarity": "S",
+      "specialty": "Stun",
+      "baseAtk": 684,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "Impact",
+        "value": 18
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "While off-field, the equipper's Energy Regen increases by /s. When using an EX Special Attack, the equipper's Impact is increased by % for 10s, stacking up to 2 times. The duration of each stack is calculated separately.",
+        "properties": [
+          {
+            "name": "Impact",
+            "type": "Impact",
+            "values": {
+              "W1": 20,
+              "W2": 25,
+              "W3": 30,
+              "W4": 35,
+              "W5": 40
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1101.webp"
+    },
+    {
+      "id": "14114",
+      "name": "The Restrained",
+      "rarity": "S",
+      "specialty": "Stun",
+      "baseAtk": 684,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "Impact",
+        "value": 18
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "When an attack hits an enemy, DMG and Daze from Basic Attacks increase by 6% for 8s, stacking up to 5 times. This effect can trigger at most once during each skill. The duration of each stack is calculated separately."
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1141.webp"
+    },
+    {
+      "id": "14116",
+      "name": "Blazing Laurel",
+      "rarity": "S",
+      "specialty": "Stun",
+      "baseAtk": 713,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "Impact",
+        "value": 18
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Upon launching a Quick Assist or Perfect Assist, the equipper's Impact increases by % for 8s. When the equipper launches and hits an enemy with a Basic Attack, apply Wilt to the target for 30s, stacking up to 20 times, repeated triggers reset the duration. When any squad member hits an enemy, for every stack of Wilt applied to the target, the CRIT DMG of the Ice DMG and Fire DMG dealt by that attack increases by %. Only one instance of this effect can exist in the same squad.",
+        "properties": [
+          {
+            "name": "Impact",
+            "type": "Impact",
+            "values": {
+              "W1": 25,
+              "W2": 28.75,
+              "W3": 32.5,
+              "W4": 36.25,
+              "W5": 40
+            }
+          },
+          {
+            "name": "CRIT DMG",
+            "type": "CRIT_DMG",
+            "values": {
+              "W1": 30,
+              "W2": 34.4,
+              "W3": 39,
+              "W4": 43.4,
+              "W5": 48
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1161.webp"
+    },
+    {
+      "id": "14117",
+      "name": "Flamemaker Shaker",
+      "rarity": "S",
+      "specialty": "Anomaly",
+      "baseAtk": 713,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "ATK%",
+        "value": 30
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "While off-field, the equipper's Energy Regen increases by /s. When hitting an enemy with an EX Special Attack or Assist Attack, the equipper's DMG increases by %, stacking up to 10 times and lasting for 6s. This effect can trigger once every 0.3s. While off-field, the stack effect is doubled. Repeated triggers reset the duration. Upon obtaining the DMG increase effect, if the number of current stacks is greater than or equal to 5, then the equipper's Anomaly Proficiency increases by [NUMBER]. This Anomaly Proficiency increase does not stack and lasts for 6s.",
+        "properties": [
+          {
+            "name": "Anomaly Proficiency",
+            "type": "Anomaly_Proficiency",
+            "values": {
+              "W1": 50,
+              "W2": 62,
+              "W3": 75,
+              "W4": 87,
+              "W5": 100
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1171.webp"
+    },
+    {
+      "id": "14118",
+      "name": "Fusion Compiler",
+      "rarity": "S",
+      "specialty": "Anomaly",
+      "baseAtk": 684,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "PEN_Ratio",
+        "value": 24
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "When using a Special Attack or EX Special Attack, the equipper's Anomaly Proficiency is increased by [NUMBER] for 8s, stacking up to 3 times. The duration of each stack is calculated separately.",
+        "properties": [
+          {
+            "name": "Anomaly Proficiency",
+            "type": "Anomaly_Proficiency",
+            "values": {
+              "W1": 75,
+              "W2": 93,
+              "W3": 111,
+              "W4": 129,
+              "W5": 150
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1181.webp"
+    },
+    {
+      "id": "14119",
+      "name": "Deep Sea Visitor",
+      "rarity": "S",
+      "specialty": "Attack",
+      "baseAtk": 713,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "CRIT_Rate",
+        "value": 24
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Increases Ice DMG by %. Upon hitting an enemy with a Basic Attack, the equipper's CRIT Rate increases by % for 8s. When dealing Ice DMG with a Dash Attack, the equipper's CRIT Rate increases by an additional % for 15s. The duration of each effect is calculated separately.",
+        "properties": [
+          {
+            "name": "CRIT Rate",
+            "type": "CRIT_Rate",
+            "values": {
+              "W1": 20,
+              "W2": 25,
+              "W3": 30,
+              "W4": 35,
+              "W5": 40
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1191.webp"
+    },
+    {
+      "id": "14120",
+      "name": "Zanshin Herb Case",
+      "rarity": "S",
+      "specialty": "Attack",
+      "baseAtk": 713,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "CRIT_DMG",
+        "value": 48
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "CRIT Rate increases by %. Dash Attack Electric DMG increases by %. When any squad member applies an Attribute Anomaly or Stuns an enemy, the equipper's CRIT Rate increases by an additional % for 15s.",
+        "properties": [
+          {
+            "name": "CRIT Rate",
+            "type": "CRIT_Rate",
+            "values": {
+              "W1": 20,
+              "W2": 23,
+              "W3": 26,
+              "W4": 29,
+              "W5": 32
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1201.webp"
+    },
+    {
+      "id": "14121",
+      "name": "Weeping Cradle",
+      "rarity": "S",
+      "specialty": "Support",
+      "baseAtk": 684,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "PEN_Ratio",
+        "value": 24
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "While off-field, the equipper's Energy Regen increases by /s. Attacks from the equipper increase all units' DMG against a struck target by % for 3 seconds. During this period, this effect is further increased by % every 0.5s, up to a maximum additional increase of %. Repeated triggers only refresh the duration without refreshing the DMG increase effect. Passive effects of the same name do not stack."
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1211.webp"
+    },
+    {
+      "id": "14122",
+      "name": "Timeweaver",
+      "rarity": "S",
+      "specialty": "Anomaly",
+      "baseAtk": 713,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "ATK%",
+        "value": 30
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "The equipper's Electric Anomaly Buildup Rate increases by %. When Special Attacks or EX Special Attacks hit enemies suffering an Attribute Anomaly, the equipper's Anomaly Proficiency increases by [NUMBER] for 15s. When the equipper's Anomaly Proficiency is greater than or equal to 375, Disorder DMG inflicted by the equipper increases by %.",
+        "properties": [
+          {
+            "name": "Anomaly Proficiency",
+            "type": "Anomaly_Proficiency",
+            "values": {
+              "W1": 75,
+              "W2": 85,
+              "W3": 95,
+              "W4": 105,
+              "W5": 115
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1221.webp"
+    },
+    {
+      "id": "14124",
+      "name": "Riot Suppressor Mark VI",
+      "rarity": "S",
+      "specialty": "Attack",
+      "baseAtk": 713,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "CRIT_DMG",
+        "value": 48
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Increases CRIT Rate by %. Launching an EX Special Attack grants the equipper 8 Charge stacks, up to a maximum of 8 stacks. Whenever the equipper's Basic Attack or Dash Attack deals Ether DMG, consumes a Charge stack and increases the skill's DMG by %.",
+        "properties": [
+          {
+            "name": "CRIT Rate",
+            "type": "CRIT_Rate",
+            "values": {
+              "W1": 15,
+              "W2": 18.8,
+              "W3": 22.6,
+              "W4": 26.4,
+              "W5": 30
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1241.webp"
+    },
+    {
+      "id": "14125",
+      "name": "Ice-Jade Teapot",
+      "rarity": "S",
+      "specialty": "Stun",
+      "baseAtk": 713,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "Impact",
+        "value": 18
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "When a Basic Attack hits an enemy, gain 1 stack of Tea-riffic. Each stack of Tea-riffic increases the user's Impact by %, stacking up to 30 times, and lasting for 8s. The duration of each stack is calculated separately. Upon acquiring Tea-riffic, if the equipper possesses stacks of Tea-riffic greater than or equal to 15, all squad members' DMG is increased by % for 10s. Passive effects of the same name do not stack.",
+        "properties": [
+          {
+            "name": "Impact",
+            "type": "Impact",
+            "values": {
+              "W1": 21,
+              "W2": 26.4,
+              "W3": 31.5,
+              "W4": 36.6,
+              "W5": 42
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1251.webp"
+    },
+    {
+      "id": "14126",
+      "name": "Sharpened Stinger",
+      "rarity": "S",
+      "specialty": "Anomaly",
+      "baseAtk": 713,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "Anomaly_Proficiency",
+        "value": 90
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Upon activating a Dash Attack, gain 1 stack of Predatory Instinct. Each stack of Predatory Instinct increases the equipper's Physical DMG by % for 10s, stacking up to 3 times. This effect can trigger once every 0.5s and repeated triggers reset the duration. When entering combat or triggering Perfect Dodge, gain 3 stacks of Predatory Instinct. While Predatory Instinct is at maximum stacks, the equipper's Anomaly Buildup Rate increases by %."
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1261.webp"
+    },
+    {
+      "id": "14129",
+      "name": "Myriad Eclipse",
+      "rarity": "S",
+      "specialty": "Attack",
+      "baseAtk": 713,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "CRIT_Rate",
+        "value": 24
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Increases CRIT DMG by %. When using an EX Special Attack, Chain Attack, or Ultimate to deal Ice DMG, the equipper gains the Absolute Zero Death Sentence effect for 3s. While Absolute Zero Death Sentence is active, the character ignores % of the enemy's DEF when landing a hit.",
+        "properties": [
+          {
+            "name": "CRIT DMG",
+            "type": "CRIT_DMG",
+            "values": {
+              "W1": 45,
+              "W2": 51.75,
+              "W3": 58.5,
+              "W4": 65.25,
+              "W5": 72
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1291.webp"
+    },
+    {
+      "id": "14130",
+      "name": "Bellicose Blaze",
+      "rarity": "S",
+      "specialty": "Attack",
+      "baseAtk": 713,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "Energy_Regen",
+        "value": 60
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Increases CRIT Rate by %. When the equipper triggers an Aftershock that deals Fire DMG, their attacks ignore % of the target's DEF for 8s. Can stack once every 3s, up to 2 stacks. Repeated triggers reset the duration.",
+        "properties": [
+          {
+            "name": "CRIT Rate",
+            "type": "CRIT_Rate",
+            "values": {
+              "W1": 20,
+              "W2": 23,
+              "W3": 26,
+              "W4": 29,
+              "W5": 32
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1301.webp"
+    },
+    {
+      "id": "14131",
+      "name": "Elegant Vanity",
+      "rarity": "S",
+      "specialty": "Support",
+      "baseAtk": 713,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "ATK%",
+        "value": 30
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "When any squad member enters the field through a Quick Assist, Chain Attack, Defensive Assist, or Evasive Assist, the equipper gains [NUMBER] Energy. This effect can trigger once every 5s. When the equipper consumes 25 or more Energy, the DMG dealt by all squad members increases by %, stacking up to 2 times, and lasting 20s. Repeated triggers reset the duration. Only one instance of this effect can exist in the same squad."
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1311.webp"
+    },
+    {
+      "id": "14132",
+      "name": "Heartstring Nocturne",
+      "rarity": "S",
+      "specialty": "Attack",
+      "baseAtk": 713,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "CRIT_Rate",
+        "value": 24
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "CRIT DMG increases by %. When the equipper enters combat, or activates a Chain Attack or Ultimate, they gain 1 stack of Heartstring. Each stack of Heartstring allows the equipper's Chain Attack and Ultimate to ignore % of the target's Fire RES, stacking up to 2 times and lasting 30s. Repeated triggers reset the duration.",
+        "properties": [
+          {
+            "name": "CRIT DMG",
+            "type": "CRIT_DMG",
+            "values": {
+              "W1": 50,
+              "W2": 57.5,
+              "W3": 65,
+              "W4": 72.5,
+              "W5": 80
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1321.webp"
+    },
+    {
+      "id": "14133",
+      "name": "Flight of Fancy",
+      "rarity": "S",
+      "specialty": "Anomaly",
+      "baseAtk": 713,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "Anomaly_Proficiency",
+        "value": 90
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Increases Anomaly Buildup Rate by %. When the equipper deals Ether DMG, their Anomaly Proficiency increases by [NUMBER] for 5s, stacking up to 6 times. This effect can trigger once every 0.5s, and repeated triggers reset the duration.",
+        "properties": [
+          {
+            "name": "Anomaly Proficiency",
+            "type": "Anomaly_Proficiency",
+            "values": {
+              "W1": 120,
+              "W2": 138,
+              "W3": 156,
+              "W4": 174,
+              "W5": 192
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1331.webp"
+    },
+    {
+      "id": "14134",
+      "name": "Half-Sugar Bunny",
+      "rarity": "S",
+      "specialty": "Defense",
+      "baseAtk": 713,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "HP%",
+        "value": 30
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "The equipper's Energy Regen increases by /s. All squad members gain % ATK and % Max HP. Only one instance of this effect can exist in the same squad. When the equipper activates or extends an Ether Veil, all squad members gain % CRIT DMG for 60s. Repeated triggers reset the duration.",
+        "properties": [
+          {
+            "name": "HP",
+            "type": "HP%",
+            "values": {
+              "W1": 10,
+              "W2": 11.5,
+              "W3": 13,
+              "W4": 14.5,
+              "W5": 16
+            }
+          },
+          {
+            "name": "ATK",
+            "type": "ATK%",
+            "values": {
+              "W1": 10,
+              "W2": 11.5,
+              "W3": 13,
+              "W4": 14.5,
+              "W5": 16
+            }
+          },
+          {
+            "name": "CRIT DMG",
+            "type": "CRIT_DMG",
+            "values": {
+              "W1": 30,
+              "W2": 34.5,
+              "W3": 39,
+              "W4": 43.5,
+              "W5": 48
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1341.webp"
+    },
+    {
+      "id": "14136",
+      "name": "Spectral Gaze",
+      "rarity": "S",
+      "specialty": "Stun",
+      "baseAtk": 713,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "CRIT_Rate",
+        "value": 24
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "When the equipper's Aftershock hits an enemy, causing Electric DMG, the target's DEF is reduced by % for 5s. Passive effects of the same name do not stack. When this effect is triggered, if the equipper is not the active character, they gain 1 stack of Spirit Lock, up to a maximum of 3 stacks. This can trigger only once per use of a skill. Each stack of Spirit Lock increases the equipper's Impact by %, lasting 12s. The duration of each stack is calculated separately. At full stacks of Spirit Lock, the equipper's Impact increases by an additional %.",
+        "properties": [
+          {
+            "name": "Impact",
+            "type": "Impact",
+            "values": {
+              "W1": 20,
+              "W2": 23,
+              "W3": 26,
+              "W4": 29,
+              "W5": 32
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1361.webp"
+    },
+    {
+      "id": "14137",
+      "name": "Qingming Birdcage",
+      "rarity": "S",
+      "specialty": "Rupture",
+      "baseAtk": 743,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "HP%",
+        "value": 30
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "CRIT Rate increases by %. When the equipper launches an EX Special Attack, the character gains 1 stack of Qingming Companion effect, stacking up to 2 times and lasting 15s. On entering combat, immediately gain 2 stacks. Repeated triggers reset the duration. Each stack of the Qingming Companion effect increases the equipper's Ether DMG by %, and increases Ultimate and EX Special Attack Ether Sheer DMG by %.",
+        "properties": [
+          {
+            "name": "CRIT Rate",
+            "type": "CRIT_Rate",
+            "values": {
+              "W1": 20,
+              "W2": 23,
+              "W3": 26,
+              "W4": 29,
+              "W5": 32
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1371.webp"
+    },
+    {
+      "id": "14138",
+      "name": "Severed Innocence",
+      "rarity": "S",
+      "specialty": "Attack",
+      "baseAtk": 713,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "CRIT_DMG",
+        "value": 48
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "CRIT DMG is increased by %. When the equipper lands a hit with a Basic Attack, Special Attack, or Aftershock, they gain 1 stack of a buff. Each stack increases the equipper's CRIT DMG by an additional %, stacking up to 3 times. The effect lasts for 30s, with each stack's duration calculated separately, and can only be triggered once per use of a skill. With all 3 stacks, the equipper's Electric DMG increases by %.",
+        "properties": [
+          {
+            "name": "CRIT DMG",
+            "type": "CRIT_DMG",
+            "values": {
+              "W1": 60,
+              "W2": 69,
+              "W3": 78,
+              "W4": 87,
+              "W5": 96
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1381.webp"
+    },
+    {
+      "id": "14139",
+      "name": "Roaring Fur-nace",
+      "rarity": "S",
+      "specialty": "Stun",
+      "baseAtk": 713,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "ATK%",
+        "value": 30
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "The Daze dealt by the equipper's EX Special Attack, Chain Attack, and Ultimate increases by %. When using a Chain Attack or Ultimate to deal Fire DMG, the DMG dealt by all squad members increases by %, stacking up to 2 times and lasting 30s. The duration of each stack is calculated separately. Triggers once per use of a skill. Only one instance of this effect can exist in the same squad."
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1391.webp"
+    },
+    {
+      "id": "14140",
+      "name": "Practiced Perfection",
+      "rarity": "S",
+      "specialty": "Anomaly",
+      "baseAtk": 713,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "ATK%",
+        "value": 30
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "The equipper's Anomaly Mastery increases by [NUMBER]. When inflicting Assault, the equipper's Physical DMG increases by % for 20s, stacking up to 2 times. Repeated triggers reset the duration. When the equipper enters combat, immediately gain 2 stacks.",
+        "properties": [
+          {
+            "name": "Anomaly Mastery",
+            "type": "Anomaly_Mastery",
+            "values": {
+              "W1": 60,
+              "W2": 69,
+              "W3": 78,
+              "W4": 87,
+              "W5": 96
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1401.webp"
+    },
+    {
+      "id": "14141",
+      "name": "Metanukimorphosis",
+      "rarity": "S",
+      "specialty": "Support",
+      "baseAtk": 713,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "Energy_Regen",
+        "value": 60
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "When the equipper's EX Special Attack or Ultimate deals Physical DMG, their Anomaly Mastery increases by [NUMBER] for 40s. When the equipper's Aftershock hits an enemy, all squad members' Anomaly Proficiency increases by [NUMBER] for 40s. Only one instance of this effect can exist in the same squad.",
+        "properties": [
+          {
+            "name": "Anomaly Mastery",
+            "type": "Anomaly_Mastery",
+            "values": {
+              "W1": 30,
+              "W2": 34,
+              "W3": 39,
+              "W4": 43,
+              "W5": 48
+            }
+          },
+          {
+            "name": "Anomaly Proficiency",
+            "type": "Anomaly_Proficiency",
+            "values": {
+              "W1": 60,
+              "W2": 69,
+              "W3": 78,
+              "W4": 87,
+              "W5": 96
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1411.webp"
+    },
+    {
+      "id": "14143",
+      "name": "Cloudcleave Radiance",
+      "rarity": "S",
+      "specialty": "Attack",
+      "baseAtk": 743,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "CRIT_DMG",
+        "value": 48
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "The equipper's DMG ignores % of the target's Physical RES. When the equipper activates an Ether Veil, the equipper's DMG increases by % and CRIT DMG increases by % for 40s. Repeated triggers reset the duration.",
+        "properties": [
+          {
+            "name": "CRIT DMG",
+            "type": "CRIT_DMG",
+            "values": {
+              "W1": 25,
+              "W2": 28.7,
+              "W3": 32.5,
+              "W4": 36.2,
+              "W5": 40
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1431.webp"
+    },
+    {
+      "id": "14145",
+      "name": "Dreamlit Hearth",
+      "rarity": "S",
+      "specialty": "Support",
+      "baseAtk": 713,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "HP%",
+        "value": 30
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "The equipper's Energy Regen increases by /s. When the equipper activates Ether Veil or extends its duration, all squad members gain % increased DMG and % increased Max HP for 45s. Repeated triggers reset the duration. Only one instance of this effect can exist in the same squad.",
+        "properties": [
+          {
+            "name": "HP",
+            "type": "HP%",
+            "values": {
+              "W1": 15,
+              "W2": 17.3,
+              "W3": 19.5,
+              "W4": 21.8,
+              "W5": 24
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1451.webp"
+    },
+    {
+      "id": "14146",
+      "name": "Cordis Germina",
+      "rarity": "S",
+      "specialty": "Attack",
+      "baseAtk": 713,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "CRIT_Rate",
+        "value": 24
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Increases CRIT Rate by %. When the equipper deals DMG with a Basic Attack or EX Special Attack, they gain 1 stack of a buff. Each stack increases the equipper's Electric DMG by %, up to 2 stacks. Each stack lasts 40s. The duration of each stack is calculated separately. Can trigger once per use of a skill. At 2 stacks, the wearer's Basic Attack and Ultimate DMG ignore % of enemy DEF.",
+        "properties": [
+          {
+            "name": "CRIT Rate",
+            "type": "CRIT_Rate",
+            "values": {
+              "W1": 15,
+              "W2": 17,
+              "W3": 19,
+              "W4": 21,
+              "W5": 23
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1461.webp"
+    },
+    {
+      "id": "14147",
+      "name": "Wrathful Vajra",
+      "rarity": "S",
+      "specialty": "Rupture",
+      "baseAtk": 713,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "HP%",
+        "value": 30
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "CRIT Rate increases by %. When the equipper launches an EX Special Attack, their Fire Sheer DMG increases by %, stacking up to 2 times and lasting 20s. The duration of each stack is calculated separately.",
+        "properties": [
+          {
+            "name": "CRIT Rate",
+            "type": "CRIT_Rate",
+            "values": {
+              "W1": 20,
+              "W2": 23,
+              "W3": 26,
+              "W4": 29,
+              "W5": 32
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1471.webp"
+    },
+    {
+      "id": "14148",
+      "name": "Yesterday Calls",
+      "rarity": "S",
+      "specialty": "Stun",
+      "baseAtk": 713,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "CRIT_Rate",
+        "value": 24
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "While off-field, the equipper's Energy Regen increases by /s. When the equipper deals Physical DMG with an EX Special Attack, the Daze dealt by the equipper's attacks increases by % for 10s, stacking up to 3 times. At 3 stacks, all squad members gain % additional CRIT DMG for 40s. Repeated triggers reset the duration. Only one instance of this CRIT DMG boost effect can exist in the same squad.",
+        "properties": [
+          {
+            "name": "CRIT DMG",
+            "type": "CRIT_DMG",
+            "values": {
+              "W1": 30,
+              "W2": 34.5,
+              "W3": 39,
+              "W4": 43.5,
+              "W5": 48
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1481.webp"
+    },
+    {
+      "id": "14149",
+      "name": "Thoughtbop",
+      "rarity": "S",
+      "specialty": "Support",
+      "baseAtk": 713,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "Energy_Regen",
+        "value": 60
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "While not the active character, the equipper's Energy Regen increases by /s. When the equipper uses an EX Special Attack and deals Physical DMG, all squad members gain a buff: DMG dealt increases by % for 40s, stacking up to 2 times. Repeated triggers reset the duration. At 2 stacks, characters gain an additional % ATK. Only one instance of this effect can exist in the same squad.",
+        "properties": [
+          {
+            "name": "ATK",
+            "type": "ATK%",
+            "values": {
+              "W1": 10,
+              "W2": 11.5,
+              "W3": 13,
+              "W4": 14.5,
+              "W5": 16
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1491.webp"
+    },
+    {
+      "id": "14150",
+      "name": "Angel in the Shell",
+      "rarity": "S",
+      "specialty": "Anomaly",
+      "baseAtk": 713,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "Anomaly_Mastery",
+        "value": 30
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Increases the equipper's Anomaly Proficiency by [NUMBER]. When the equipper is an Ether character, and comes on-field or uses a Special Attack or EX Special Attack, they gain a buff: DMG dealt to enemies afflicted with Attribute Anomalies increases by %, and all Attribute Anomaly DMG they trigger increases by %, lasting 15s. Repeated triggers reset the duration, and the effect is removed when switching off-field.",
+        "properties": [
+          {
+            "name": "Anomaly Proficiency",
+            "type": "Anomaly_Proficiency",
+            "values": {
+              "W1": 90,
+              "W2": 103,
+              "W3": 117,
+              "W4": 130,
+              "W5": 144
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1501.webp"
+    },
+    {
+      "id": "14151",
+      "name": "Neon Fantasies",
+      "rarity": "S",
+      "specialty": "Stun",
+      "baseAtk": 713,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "Anomaly_Mastery",
+        "value": 30
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Increases the equipper's Anomaly Proficiency by [NUMBER] points. When the equipper deals Ether attribute DMG with [EX Special Attack] or [Basic Attack], the whole squad's DMG dealt increases by % for 40s. Max 2 stacks. Can trigger once per use of a skill. Repeated triggers reset the duration. When at 2 stacks, the equipper's Anomaly Proficiency is further increased by [NUMBER]. This effect is unique to the squad.",
+        "properties": [
+          {
+            "name": "Anomaly Proficiency",
+            "type": "Anomaly_Proficiency",
+            "values": {
+              "W1": 90,
+              "W2": 103,
+              "W3": 117,
+              "W4": 130,
+              "W5": 145
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1511.webp"
+    },
+    {
+      "id": "14152",
+      "name": "Serpentine Seeker",
+      "rarity": "S",
+      "specialty": "Attack",
+      "baseAtk": 713,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "Energy_Regen",
+        "value": 60
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Increases CRIT Rate by %. When the equipper consumes at least 20 Energy in a single instance, for every 20 Energy consumed, gain a buff for 3s: Ignore % of the target's DEF when dealing Electric DMG. Gaining this buff again extends the duration, up to a maximum of 30s. When entering Assist state, gain this buff for 10s. When the equipper is not the active character on-field, the buff duration does not decrease.",
+        "properties": [
+          {
+            "name": "CRIT Rate",
+            "type": "CRIT_Rate",
+            "values": {
+              "W1": 25,
+              "W2": 28.8,
+              "W3": 32.5,
+              "W4": 36.3,
+              "W5": 40
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1521.webp"
+    },
+    {
+      "id": "14153",
+      "name": "Starlight Rider Faceplate",
+      "rarity": "S",
+      "specialty": "Rupture",
+      "baseAtk": 713,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "HP%",
+        "value": 30
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "CRIT Rate increases by %. When the equipper launches a Basic Attack, their Physical Sheer DMG increases by %, stacking up to 2 times and lasting 30s. Repeated triggers reset the duration.",
+        "properties": [
+          {
+            "name": "CRIT Rate",
+            "type": "CRIT_Rate",
+            "values": {
+              "W1": 20,
+              "W2": 23,
+              "W3": 26,
+              "W4": 29,
+              "W5": 32
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1531.webp"
+    },
+    {
+      "id": "14154",
+      "name": "Frostfall Sickle",
+      "rarity": "S",
+      "specialty": "Anomaly",
+      "baseAtk": 713,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "Anomaly_Mastery",
+        "value": 30
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "When an Ice equipper uses [Special Attack] or [EX Special Attack], their Ice DMG increases by % for 40s. Max 2 stacks. Can trigger once per use of a skill. Repeated triggers reset the duration. When at 2 stacks, the character's [Abloom] DMG is additionally increased by %."
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1541.webp"
+    },
+    {
+      "id": "14155",
+      "name": "Sol Exuvia",
+      "rarity": "S",
+      "specialty": "Attack",
+      "baseAtk": 713,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "ATK%",
+        "value": 30
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "CRIT Rate increases by %. If Pyrois equips this W-Engine, using [Ultimate] grants the [Solar Eclipse] effect. Under [Solar Eclipse], the equipper's DMG ignores % of DEF, lasting 45s. Repeated triggers reset the duration. Entering combat also grants the [Solar Eclipse] effect.",
+        "properties": [
+          {
+            "name": "CRIT Rate",
+            "type": "CRIT_Rate",
+            "values": {
+              "W1": 20,
+              "W2": 20,
+              "W3": 20,
+              "W4": 20,
+              "W5": 20
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_Common_04.webp"
+    },
+    {
+      "id": "14156",
+      "name": "Joyau Dore",
+      "rarity": "S",
+      "specialty": "Anomaly",
+      "baseAtk": 713,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "Energy_Regen",
+        "value": 60
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "The equipper's Anomaly Proficiency increases by [NUMBER]. When the equipper's EX Special Attack deals Wind DMG, the DMG dealt by their Vortex and Windswept increases by % for 40s, stacking up to 2 times. Repeated triggers reset the duration. This effect can trigger once per skill use. At 2 stacks, all squad members gain [NUMBER] Anomaly Proficiency. Only one instance of this effect can exist in the same squad",
+        "properties": [
+          {
+            "name": "Anomaly Proficiency",
+            "type": "Anomaly_Proficiency",
+            "values": {
+              "W1": 70,
+              "W2": 80,
+              "W3": 90,
+              "W4": 100,
+              "W5": 110
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1561.webp"
+    },
+    {
+      "id": "14157",
+      "name": "Head Lackey",
+      "rarity": "S",
+      "specialty": "Stun",
+      "baseAtk": 713,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "CRIT_Rate",
+        "value": 24
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Increases the equipper's Impact by [NUMBER]. DMG dealt ignores % of the target's Fire RES. When the equipper is not the on-field character, Energy Regen is increased by /s. When the equipper deals Fire DMG with an [EX Special Attack], increases DMG dealt by the whole squad by % for 30s. Max 2 stacks. Repeated triggers reset the duration. Can be triggered once per skill at most. Only one instance of this effect can exist in the same squad.",
+        "properties": [
+          {
+            "name": "Impact",
+            "type": "Impact",
+            "values": {
+              "W1": 30,
+              "W2": 33,
+              "W3": 36,
+              "W4": 39,
+              "W5": 42
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1571.webp"
+    },
+    {
+      "id": "14158",
+      "name": "Ode of Resurrected Wings",
+      "rarity": "S",
+      "specialty": "Anomaly",
+      "baseAtk": 743,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "ATK%",
+        "value": 36
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Anomaly Proficiency increases by 96; When the equipper triggers a [Refringe], they gain % increased Attribute Anomaly DMG, and all squad members gain % increased DMG dealt. Both effects last 30s. Repeated triggers reset the duration.",
+        "properties": [
+          {
+            "name": "Anomaly Proficiency",
+            "type": "Anomaly_Proficiency",
+            "values": {
+              "W1": 96,
+              "W2": 105,
+              "W3": 115,
+              "W4": 125,
+              "W5": 135
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1581.webp"
+    },
+    {
+      "id": "14159",
+      "name": "Knight's Extolment",
+      "rarity": "S",
+      "specialty": "Attack",
+      "baseAtk": 713,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "CRIT_DMG",
+        "value": 48
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "When the equipper lands a Heavy Strike using [Basic Attack] or [EX Special Attack], they gain 1 stack of [Vanguard]. [Vanguard] stacks up to 2 times, with each skill type providing at most 1 stack. Each stack increases CRIT DMG by %, lasting 25s; Using the above skills refreshes [Vanguard] duration; When at 2 stacks of [Vanguard], gain [Bone-Piercing]: ignore % of the target's ICE Res. ",
+        "properties": [
+          {
+            "name": "CRIT DMG",
+            "type": "CRIT_DMG",
+            "values": {
+              "W1": 64,
+              "W2": 73.6,
+              "W3": 83.2,
+              "W4": 92.8,
+              "W5": 102.4
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1591.webp"
+    },
+    {
+      "id": "14161",
+      "name": "Crimson Thirst",
+      "rarity": "S",
+      "specialty": "Armorer",
+      "baseAtk": 431,
+      "baseStatType": "DEF",
+      "subStat": {
+        "type": "DEF%",
+        "value": 48
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "The equipper's CRIT Rate increases by %; Electric DMG increases by %; when the equipper launches an EX Special Attack or triggers Maim, the Electric Sharp DMG dealt increases by %, lasting 40s. Repeated triggers reset the duration.",
+        "properties": [
+          {
+            "name": "CRIT Rate",
+            "type": "CRIT_Rate",
+            "values": {
+              "W1": 25,
+              "W2": 27.5,
+              "W3": 30,
+              "W4": 32.5,
+              "W5": 35
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1611.webp"
+    },
+    {
+      "id": "14162",
+      "name": "Crimson Moon Casket",
+      "rarity": "S",
+      "specialty": "Stun",
+      "baseAtk": 713,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "Energy_Regen",
+        "value": 60
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Increases the equipper's CRIT Rate by %. DMG dealt ignores % of the target's Wind Attribute RES. When the equipper launches an [EX Special Attack] that deals Wind DMG, the Daze inflicted is increased by %, and DMG dealt by all other characters in the squad is increased by %, lasting 50s. Repeated triggers reset the duration. The DMG increase effect is unique across the whole squad.",
+        "properties": [
+          {
+            "name": "CRIT Rate",
+            "type": "CRIT_Rate",
+            "values": {
+              "W1": 24,
+              "W2": 26,
+              "W3": 28,
+              "W4": 30,
+              "W5": 32
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1621.webp"
+    },
+    {
+      "id": "14164",
+      "name": "Nirvana's First Plume",
+      "rarity": "S",
+      "specialty": "Anomaly",
+      "baseAtk": 713,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "Anomaly_Mastery",
+        "value": 30
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Increases the equipper's Anomaly Proficiency by [NUMBER]. When Attribute Anomaly DMG dealt by any squad member to an enemy CRITs, the equipper's Fire DMG increases by % for 20s. Repeated triggers reset the duration.",
+        "properties": [
+          {
+            "name": "Anomaly Proficiency",
+            "type": "Anomaly_Proficiency",
+            "values": {
+              "W1": 90,
+              "W2": 99,
+              "W3": 108,
+              "W4": 117,
+              "W5": 126
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1641.webp"
+    }
+  ]
+}

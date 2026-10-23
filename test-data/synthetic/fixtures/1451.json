@@ -1,0 +1,5508 @@
+{
+  "agentId": "1451",
+  "agentName": "Lucia",
+  "cases": [
+    {
+      "id": "mindscape-0",
+      "note": "Mindscape 0, defaults otherwise",
+      "build": {
+        "id": "syn-1451-mindscape-0",
+        "agentId": "1451",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "12005",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1451-mindscape-0-Drive1",
+            "slot": "Drive1",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 45,
+                "rolls": 5
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1451-mindscape-0-Drive2",
+            "slot": "Drive2",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 36,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 14.4,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1451-mindscape-0-Drive3",
+            "slot": "Drive3",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1451-mindscape-0-Drive4",
+            "slot": "Drive4",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "DEF",
+                "value": 90,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1451-mindscape-0-Drive5",
+            "slot": "Drive5",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 112,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 54,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1451-mindscape-0-Drive6",
+            "slot": "Drive6",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Energy_Regen",
+              "value": 60
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "mindscape-1",
+      "note": "Mindscape 1, defaults otherwise",
+      "build": {
+        "id": "syn-1451-mindscape-1",
+        "agentId": "1451",
+        "level": 60,
+        "mindscapeLevel": 1,
+        "equippedWEngineId": "12005",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1451-mindscape-1-Drive1",
+            "slot": "Drive1",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 45,
+                "rolls": 5
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1451-mindscape-1-Drive2",
+            "slot": "Drive2",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 36,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 14.4,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1451-mindscape-1-Drive3",
+            "slot": "Drive3",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1451-mindscape-1-Drive4",
+            "slot": "Drive4",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "DEF",
+                "value": 90,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1451-mindscape-1-Drive5",
+            "slot": "Drive5",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 112,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 54,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1451-mindscape-1-Drive6",
+            "slot": "Drive6",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Energy_Regen",
+              "value": 60
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "mindscape-2",
+      "note": "Mindscape 2, defaults otherwise",
+      "build": {
+        "id": "syn-1451-mindscape-2",
+        "agentId": "1451",
+        "level": 60,
+        "mindscapeLevel": 2,
+        "equippedWEngineId": "12005",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1451-mindscape-2-Drive1",
+            "slot": "Drive1",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 45,
+                "rolls": 5
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1451-mindscape-2-Drive2",
+            "slot": "Drive2",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 36,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 14.4,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1451-mindscape-2-Drive3",
+            "slot": "Drive3",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1451-mindscape-2-Drive4",
+            "slot": "Drive4",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "DEF",
+                "value": 90,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1451-mindscape-2-Drive5",
+            "slot": "Drive5",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 112,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 54,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1451-mindscape-2-Drive6",
+            "slot": "Drive6",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Energy_Regen",
+              "value": 60
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "mindscape-3",
+      "note": "Mindscape 3, defaults otherwise",
+      "build": {
+        "id": "syn-1451-mindscape-3",
+        "agentId": "1451",
+        "level": 60,
+        "mindscapeLevel": 3,
+        "equippedWEngineId": "12005",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1451-mindscape-3-Drive1",
+            "slot": "Drive1",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 45,
+                "rolls": 5
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1451-mindscape-3-Drive2",
+            "slot": "Drive2",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 36,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 14.4,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1451-mindscape-3-Drive3",
+            "slot": "Drive3",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1451-mindscape-3-Drive4",
+            "slot": "Drive4",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "DEF",
+                "value": 90,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1451-mindscape-3-Drive5",
+            "slot": "Drive5",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 112,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 54,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1451-mindscape-3-Drive6",
+            "slot": "Drive6",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Energy_Regen",
+              "value": 60
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "mindscape-4",
+      "note": "Mindscape 4, defaults otherwise",
+      "build": {
+        "id": "syn-1451-mindscape-4",
+        "agentId": "1451",
+        "level": 60,
+        "mindscapeLevel": 4,
+        "equippedWEngineId": "12005",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1451-mindscape-4-Drive1",
+            "slot": "Drive1",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 45,
+                "rolls": 5
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1451-mindscape-4-Drive2",
+            "slot": "Drive2",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 36,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 14.4,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1451-mindscape-4-Drive3",
+            "slot": "Drive3",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1451-mindscape-4-Drive4",
+            "slot": "Drive4",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "DEF",
+                "value": 90,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1451-mindscape-4-Drive5",
+            "slot": "Drive5",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 112,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 54,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1451-mindscape-4-Drive6",
+            "slot": "Drive6",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Energy_Regen",
+              "value": 60
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "mindscape-5",
+      "note": "Mindscape 5, defaults otherwise",
+      "build": {
+        "id": "syn-1451-mindscape-5",
+        "agentId": "1451",
+        "level": 60,
+        "mindscapeLevel": 5,
+        "equippedWEngineId": "12005",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1451-mindscape-5-Drive1",
+            "slot": "Drive1",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 45,
+                "rolls": 5
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1451-mindscape-5-Drive2",
+            "slot": "Drive2",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 36,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 14.4,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1451-mindscape-5-Drive3",
+            "slot": "Drive3",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1451-mindscape-5-Drive4",
+            "slot": "Drive4",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "DEF",
+                "value": 90,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1451-mindscape-5-Drive5",
+            "slot": "Drive5",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 112,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 54,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1451-mindscape-5-Drive6",
+            "slot": "Drive6",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Energy_Regen",
+              "value": 60
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "mindscape-6",
+      "note": "Mindscape 6, defaults otherwise",
+      "build": {
+        "id": "syn-1451-mindscape-6",
+        "agentId": "1451",
+        "level": 60,
+        "mindscapeLevel": 6,
+        "equippedWEngineId": "12005",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1451-mindscape-6-Drive1",
+            "slot": "Drive1",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 45,
+                "rolls": 5
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1451-mindscape-6-Drive2",
+            "slot": "Drive2",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 36,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 14.4,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1451-mindscape-6-Drive3",
+            "slot": "Drive3",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1451-mindscape-6-Drive4",
+            "slot": "Drive4",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "DEF",
+                "value": 90,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1451-mindscape-6-Drive5",
+            "slot": "Drive5",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 112,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 54,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1451-mindscape-6-Drive6",
+            "slot": "Drive6",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Energy_Regen",
+              "value": 60
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "pin-CRIT",
+      "note": "preferredBuildType CRIT",
+      "build": {
+        "id": "syn-1451-pin-CRIT",
+        "agentId": "1451",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "12005",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1451-pin-CRIT-Drive1",
+            "slot": "Drive1",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 45,
+                "rolls": 5
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1451-pin-CRIT-Drive2",
+            "slot": "Drive2",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 36,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 14.4,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1451-pin-CRIT-Drive3",
+            "slot": "Drive3",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1451-pin-CRIT-Drive4",
+            "slot": "Drive4",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "DEF",
+                "value": 90,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1451-pin-CRIT-Drive5",
+            "slot": "Drive5",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 112,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 54,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1451-pin-CRIT-Drive6",
+            "slot": "Drive6",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Energy_Regen",
+              "value": 60
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          }
+        },
+        "preferredBuildType": "CRIT"
+      }
+    },
+    {
+      "id": "pin-stale",
+      "note": "preferredBuildType no longer defined for the agent",
+      "build": {
+        "id": "syn-1451-pin-stale",
+        "agentId": "1451",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "12005",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1451-pin-stale-Drive1",
+            "slot": "Drive1",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 45,
+                "rolls": 5
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1451-pin-stale-Drive2",
+            "slot": "Drive2",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 36,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 14.4,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1451-pin-stale-Drive3",
+            "slot": "Drive3",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1451-pin-stale-Drive4",
+            "slot": "Drive4",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "DEF",
+                "value": 90,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1451-pin-stale-Drive5",
+            "slot": "Drive5",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 112,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 54,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1451-pin-stale-Drive6",
+            "slot": "Drive6",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Energy_Regen",
+              "value": 60
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          }
+        },
+        "preferredBuildType": "RemovedBuildType"
+      }
+    },
+    {
+      "id": "all-on",
+      "note": "M6, R5, every toggle on",
+      "build": {
+        "id": "syn-1451-all-on",
+        "agentId": "1451",
+        "level": 60,
+        "mindscapeLevel": 6,
+        "equippedWEngineId": "12005",
+        "wEngineRefinement": 5,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1451-all-on-Drive1",
+            "slot": "Drive1",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 45,
+                "rolls": 5
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1451-all-on-Drive2",
+            "slot": "Drive2",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 36,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 14.4,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1451-all-on-Drive3",
+            "slot": "Drive3",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1451-all-on-Drive4",
+            "slot": "Drive4",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "DEF",
+                "value": 90,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1451-all-on-Drive5",
+            "slot": "Drive5",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 112,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 54,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1451-all-on-Drive6",
+            "slot": "Drive6",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Energy_Regen",
+              "value": 60
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "off-wengine-bonuses",
+      "note": "includeWEngineBonuses off",
+      "build": {
+        "id": "syn-1451-off-wengine-bonuses",
+        "agentId": "1451",
+        "level": 60,
+        "mindscapeLevel": 6,
+        "equippedWEngineId": "12005",
+        "wEngineRefinement": 5,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1451-off-wengine-bonuses-Drive1",
+            "slot": "Drive1",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 45,
+                "rolls": 5
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1451-off-wengine-bonuses-Drive2",
+            "slot": "Drive2",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 36,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 14.4,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1451-off-wengine-bonuses-Drive3",
+            "slot": "Drive3",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1451-off-wengine-bonuses-Drive4",
+            "slot": "Drive4",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "DEF",
+                "value": 90,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1451-off-wengine-bonuses-Drive5",
+            "slot": "Drive5",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 112,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 54,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1451-off-wengine-bonuses-Drive6",
+            "slot": "Drive6",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Energy_Regen",
+              "value": 60
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          }
+        },
+        "includeWEngineBonuses": false
+      }
+    },
+    {
+      "id": "off-mindscape-bonuses",
+      "note": "includeMindscapeBonuses off",
+      "build": {
+        "id": "syn-1451-off-mindscape-bonuses",
+        "agentId": "1451",
+        "level": 60,
+        "mindscapeLevel": 6,
+        "equippedWEngineId": "12005",
+        "wEngineRefinement": 5,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1451-off-mindscape-bonuses-Drive1",
+            "slot": "Drive1",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 45,
+                "rolls": 5
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1451-off-mindscape-bonuses-Drive2",
+            "slot": "Drive2",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 36,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 14.4,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1451-off-mindscape-bonuses-Drive3",
+            "slot": "Drive3",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1451-off-mindscape-bonuses-Drive4",
+            "slot": "Drive4",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "DEF",
+                "value": 90,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1451-off-mindscape-bonuses-Drive5",
+            "slot": "Drive5",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 112,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 54,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1451-off-mindscape-bonuses-Drive6",
+            "slot": "Drive6",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Energy_Regen",
+              "value": 60
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          }
+        },
+        "includeMindscapeBonuses": false
+      }
+    },
+    {
+      "id": "off-passive-bonuses",
+      "note": "includePassiveBonuses off",
+      "build": {
+        "id": "syn-1451-off-passive-bonuses",
+        "agentId": "1451",
+        "level": 60,
+        "mindscapeLevel": 6,
+        "equippedWEngineId": "12005",
+        "wEngineRefinement": 5,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1451-off-passive-bonuses-Drive1",
+            "slot": "Drive1",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 45,
+                "rolls": 5
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1451-off-passive-bonuses-Drive2",
+            "slot": "Drive2",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 36,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 14.4,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1451-off-passive-bonuses-Drive3",
+            "slot": "Drive3",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1451-off-passive-bonuses-Drive4",
+            "slot": "Drive4",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "DEF",
+                "value": 90,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1451-off-passive-bonuses-Drive5",
+            "slot": "Drive5",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 112,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 54,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1451-off-passive-bonuses-Drive6",
+            "slot": "Drive6",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Energy_Regen",
+              "value": 60
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          }
+        },
+        "includePassiveBonuses": false
+      }
+    },
+    {
+      "id": "off-set-bonuses",
+      "note": "includeSetBonuses off",
+      "build": {
+        "id": "syn-1451-off-set-bonuses",
+        "agentId": "1451",
+        "level": 60,
+        "mindscapeLevel": 6,
+        "equippedWEngineId": "12005",
+        "wEngineRefinement": 5,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1451-off-set-bonuses-Drive1",
+            "slot": "Drive1",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 45,
+                "rolls": 5
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1451-off-set-bonuses-Drive2",
+            "slot": "Drive2",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 36,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 14.4,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1451-off-set-bonuses-Drive3",
+            "slot": "Drive3",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1451-off-set-bonuses-Drive4",
+            "slot": "Drive4",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "DEF",
+                "value": 90,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1451-off-set-bonuses-Drive5",
+            "slot": "Drive5",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 112,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 54,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1451-off-set-bonuses-Drive6",
+            "slot": "Drive6",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Energy_Regen",
+              "value": 60
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          }
+        },
+        "includeSetBonuses": false
+      }
+    },
+    {
+      "id": "off-4pc-bonuses",
+      "note": "include4pcBonuses off",
+      "build": {
+        "id": "syn-1451-off-4pc-bonuses",
+        "agentId": "1451",
+        "level": 60,
+        "mindscapeLevel": 6,
+        "equippedWEngineId": "12005",
+        "wEngineRefinement": 5,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1451-off-4pc-bonuses-Drive1",
+            "slot": "Drive1",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 45,
+                "rolls": 5
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1451-off-4pc-bonuses-Drive2",
+            "slot": "Drive2",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 36,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 14.4,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1451-off-4pc-bonuses-Drive3",
+            "slot": "Drive3",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1451-off-4pc-bonuses-Drive4",
+            "slot": "Drive4",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "DEF",
+                "value": 90,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1451-off-4pc-bonuses-Drive5",
+            "slot": "Drive5",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 112,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 54,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1451-off-4pc-bonuses-Drive6",
+            "slot": "Drive6",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Energy_Regen",
+              "value": 60
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          }
+        },
+        "include4pcBonuses": false
+      }
+    },
+    {
+      "id": "disabled-disc",
+      "note": "Drive4 disabled through enabledDiscs",
+      "build": {
+        "id": "syn-1451-disabled-disc",
+        "agentId": "1451",
+        "level": 60,
+        "mindscapeLevel": 6,
+        "equippedWEngineId": "12005",
+        "wEngineRefinement": 5,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1451-disabled-disc-Drive1",
+            "slot": "Drive1",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 45,
+                "rolls": 5
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1451-disabled-disc-Drive2",
+            "slot": "Drive2",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 36,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 14.4,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1451-disabled-disc-Drive3",
+            "slot": "Drive3",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1451-disabled-disc-Drive4",
+            "slot": "Drive4",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "DEF",
+                "value": 90,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1451-disabled-disc-Drive5",
+            "slot": "Drive5",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 112,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 54,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1451-disabled-disc-Drive6",
+            "slot": "Drive6",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Energy_Regen",
+              "value": 60
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          }
+        },
+        "enabledDiscs": {
+          "Drive1": true,
+          "Drive2": true,
+          "Drive3": true,
+          "Drive4": false,
+          "Drive5": true,
+          "Drive6": true
+        }
+      }
+    },
+    {
+      "id": "no-wengine",
+      "note": "No W-Engine",
+      "build": {
+        "id": "syn-1451-no-wengine",
+        "agentId": "1451",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": null,
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1451-no-wengine-Drive1",
+            "slot": "Drive1",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 45,
+                "rolls": 5
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1451-no-wengine-Drive2",
+            "slot": "Drive2",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 36,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 14.4,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1451-no-wengine-Drive3",
+            "slot": "Drive3",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1451-no-wengine-Drive4",
+            "slot": "Drive4",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "DEF",
+                "value": 90,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1451-no-wengine-Drive5",
+            "slot": "Drive5",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 112,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 54,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1451-no-wengine-Drive6",
+            "slot": "Drive6",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Energy_Regen",
+              "value": 60
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "mismatched-wengine",
+      "note": "W-Engine of another specialty, R5",
+      "build": {
+        "id": "syn-1451-mismatched-wengine",
+        "agentId": "1451",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "12013",
+        "wEngineRefinement": 5,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1451-mismatched-wengine-Drive1",
+            "slot": "Drive1",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 45,
+                "rolls": 5
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1451-mismatched-wengine-Drive2",
+            "slot": "Drive2",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 36,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 14.4,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1451-mismatched-wengine-Drive3",
+            "slot": "Drive3",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1451-mismatched-wengine-Drive4",
+            "slot": "Drive4",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "DEF",
+                "value": 90,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1451-mismatched-wengine-Drive5",
+            "slot": "Drive5",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 112,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 54,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1451-mismatched-wengine-Drive6",
+            "slot": "Drive6",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Energy_Regen",
+              "value": 60
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "main-stats-0",
+      "note": "Main stats ATK% / Element_DMG / ATK%",
+      "build": {
+        "id": "syn-1451-main-stats-0",
+        "agentId": "1451",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "12005",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1451-main-stats-0-Drive1",
+            "slot": "Drive1",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 45,
+                "rolls": 5
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1451-main-stats-0-Drive2",
+            "slot": "Drive2",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 36,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 14.4,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1451-main-stats-0-Drive3",
+            "slot": "Drive3",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1451-main-stats-0-Drive4",
+            "slot": "Drive4",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "DEF",
+                "value": 90,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1451-main-stats-0-Drive5",
+            "slot": "Drive5",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Element_DMG",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 112,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 54,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1451-main-stats-0-Drive6",
+            "slot": "Drive6",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "main-stats-3",
+      "note": "Main stats CRIT_DMG / ATK% / Impact",
+      "build": {
+        "id": "syn-1451-main-stats-3",
+        "agentId": "1451",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "12005",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1451-main-stats-3-Drive1",
+            "slot": "Drive1",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 45,
+                "rolls": 5
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1451-main-stats-3-Drive2",
+            "slot": "Drive2",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 36,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 14.4,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1451-main-stats-3-Drive3",
+            "slot": "Drive3",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1451-main-stats-3-Drive4",
+            "slot": "Drive4",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_DMG",
+              "value": 48
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 28.8,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1451-main-stats-3-Drive5",
+            "slot": "Drive5",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 112,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 54,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1451-main-stats-3-Drive6",
+            "slot": "Drive6",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Impact",
+              "value": 18
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "five-discs",
+      "note": "Drive6 empty (INCOMPLETE)",
+      "build": {
+        "id": "syn-1451-five-discs",
+        "agentId": "1451",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "12005",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1451-five-discs-Drive1",
+            "slot": "Drive1",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 45,
+                "rolls": 5
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1451-five-discs-Drive2",
+            "slot": "Drive2",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 36,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 14.4,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1451-five-discs-Drive3",
+            "slot": "Drive3",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1451-five-discs-Drive4",
+            "slot": "Drive4",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "DEF",
+                "value": 90,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1451-five-discs-Drive5",
+            "slot": "Drive5",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 112,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 54,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "duplicate-substats",
+      "note": "Drive2 repeats a substat (validation INCOMPLETE)",
+      "build": {
+        "id": "syn-1451-duplicate-substats",
+        "agentId": "1451",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "12005",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1451-duplicate-substats-Drive1",
+            "slot": "Drive1",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 45,
+                "rolls": 5
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1451-duplicate-substats-Drive2",
+            "slot": "Drive2",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 14.4,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1451-duplicate-substats-Drive3",
+            "slot": "Drive3",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1451-duplicate-substats-Drive4",
+            "slot": "Drive4",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "DEF",
+                "value": 90,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1451-duplicate-substats-Drive5",
+            "slot": "Drive5",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 112,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 54,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1451-duplicate-substats-Drive6",
+            "slot": "Drive6",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Energy_Regen",
+              "value": 60
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "blank-substats",
+      "note": "Drive3 has three substats saved as type '' value 0 (BUG-25)",
+      "build": {
+        "id": "syn-1451-blank-substats",
+        "agentId": "1451",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "12005",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1451-blank-substats-Drive1",
+            "slot": "Drive1",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 45,
+                "rolls": 5
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1451-blank-substats-Drive2",
+            "slot": "Drive2",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 36,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 14.4,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1451-blank-substats-Drive3",
+            "slot": "Drive3",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              },
+              {
+                "type": "",
+                "value": 0,
+                "rolls": 0
+              },
+              {
+                "type": "",
+                "value": 0,
+                "rolls": 0
+              },
+              {
+                "type": "",
+                "value": 0,
+                "rolls": 0
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1451-blank-substats-Drive4",
+            "slot": "Drive4",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "DEF",
+                "value": 90,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1451-blank-substats-Drive5",
+            "slot": "Drive5",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 112,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 54,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1451-blank-substats-Drive6",
+            "slot": "Drive6",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Energy_Regen",
+              "value": 60
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "plan",
+      "note": "Upgrade plan with custom priorities, main-stat preferences, breakpoints",
+      "build": {
+        "id": "syn-1451-plan",
+        "agentId": "1451",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "12005",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1451-plan-Drive1",
+            "slot": "Drive1",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 45,
+                "rolls": 5
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1451-plan-Drive2",
+            "slot": "Drive2",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 36,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 14.4,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1451-plan-Drive3",
+            "slot": "Drive3",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1451-plan-Drive4",
+            "slot": "Drive4",
+            "set": "Yunkui Tales",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "DEF",
+                "value": 90,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1451-plan-Drive5",
+            "slot": "Drive5",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 112,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 54,
+                "rolls": 6
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1451-plan-Drive6",
+            "slot": "Drive6",
+            "set": "Branch & Blade Song",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Energy_Regen",
+              "value": 60
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1451",
+            "lock": false
+          }
+        }
+      },
+      "plan": {
+        "id": "plan-1451-plan",
+        "name": "Synthetic plan",
+        "agentId": "1451",
+        "description": "",
+        "setPreferences": {
+          "type": "4pc+2pc",
+          "preferredSets": [
+            "Yunkui Tales",
+            "Branch & Blade Song"
+          ]
+        },
+        "mainStatPreferences": {
+          "Drive4": {
+            "HP%": "Not Acceptable",
+            "ATK%": "Acceptable",
+            "DEF%": "Not Acceptable",
+            "CRIT_Rate": "Acceptable",
+            "CRIT_DMG": "Not Acceptable",
+            "Anomaly_Proficiency": "Not Acceptable"
+          },
+          "Drive5": {
+            "HP%": "Acceptable",
+            "ATK%": "Acceptable",
+            "DEF%": "Not Acceptable",
+            "Element_DMG": "Not Acceptable",
+            "PEN_Ratio": "Acceptable"
+          },
+          "Drive6": {
+            "HP%": "Not Acceptable",
+            "ATK%": "Not Acceptable",
+            "DEF%": "Not Acceptable",
+            "Anomaly_Mastery": "Not Acceptable",
+            "Impact": "Not Acceptable",
+            "Energy_Regen": "Acceptable"
+          }
+        },
+        "substatPriorities": {
+          "Drive1": {
+            "HP%": "Essential",
+            "ATK%": "Essential",
+            "DEF%": "Ignore",
+            "ATK": "Essential",
+            "CRIT_Rate": "Nice",
+            "Anomaly_Proficiency": "Ignore"
+          },
+          "Drive2": {
+            "HP%": "Important",
+            "ATK%": "Nice",
+            "HP": "Ignore",
+            "ATK": "Essential",
+            "CRIT_Rate": "Important",
+            "Anomaly_Proficiency": "Ignore",
+            "PEN": "Ignore"
+          },
+          "Drive3": {
+            "HP%": "Essential",
+            "ATK%": "Important",
+            "DEF%": "Ignore",
+            "HP": "Ignore",
+            "ATK": "Essential",
+            "DEF": "Ignore",
+            "CRIT_Rate": "Essential",
+            "CRIT_DMG": "Ignore",
+            "Anomaly_Proficiency": "Ignore",
+            "PEN": "Ignore"
+          },
+          "Drive4": {
+            "HP%": "Essential",
+            "ATK%": "Nice",
+            "DEF%": "Ignore",
+            "HP": "Ignore",
+            "ATK": "Essential",
+            "CRIT_Rate": "Essential",
+            "Anomaly_Proficiency": "Ignore",
+            "PEN": "Ignore"
+          },
+          "Drive5": {
+            "HP%": "Nice",
+            "ATK%": "Important",
+            "DEF%": "Ignore",
+            "HP": "Ignore",
+            "ATK": "Important",
+            "DEF": "Ignore",
+            "CRIT_Rate": "Nice",
+            "Anomaly_Proficiency": "Ignore",
+            "PEN": "Ignore"
+          },
+          "Drive6": {
+            "HP%": "Important",
+            "ATK%": "Nice",
+            "DEF%": "Ignore",
+            "HP": "Ignore",
+            "ATK": "Essential",
+            "CRIT_Rate": "Nice"
+          }
+        },
+        "customBreakpoints": {
+          "hp": {
+            "min": 8500,
+            "optimal": 10000
+          },
+          "atk": {
+            "min": 1480,
+            "optimal": 1480
+          },
+          "def": {
+            "min": 609,
+            "optimal": 609
+          },
+          "impact": {
+            "min": 0,
+            "optimal": 0
+          },
+          "anomalyMastery": {
+            "min": 0,
+            "optimal": 0
+          },
+          "critRate": {
+            "min": 0,
+            "optimal": 0
+          },
+          "critDmg": {
+            "min": 0,
+            "optimal": 0
+          },
+          "anomalyProficiency": {
+            "min": 0,
+            "optimal": 0
+          },
+          "pen": {
+            "min": 0,
+            "optimal": 0
+          },
+          "penRatio": {
+            "min": 0,
+            "optimal": 0
+          },
+          "energyRegen": {
+            "min": 0,
+            "optimal": 0
+          }
+        },
+        "createdAt": "2026-01-01T00:00:00.000Z",
+        "updatedAt": "2026-01-01T00:00:00.000Z"
+      }
+    }
+  ]
+}

@@ -43,6 +43,9 @@ testem.log
 test-data/local
 !README.md
 
+# Golden test harness bundle (rebuilt on every run)
+/test-harness/.build
+
 # Scripts folder (contains sensitive UIDs and analysis data)
 /scripts
 

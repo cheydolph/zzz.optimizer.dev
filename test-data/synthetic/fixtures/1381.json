@@ -1,0 +1,6997 @@
+{
+  "agentId": "1381",
+  "agentName": "Soldier 0 - Anby",
+  "cases": [
+    {
+      "id": "mindscape-0",
+      "note": "Mindscape 0, defaults otherwise",
+      "build": {
+        "id": "syn-1381-mindscape-0",
+        "agentId": "1381",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "13111",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1381-mindscape-0-Drive1",
+            "slot": "Drive1",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 14.4,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1381-mindscape-0-Drive2",
+            "slot": "Drive2",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 9.6,
+                "rolls": 4
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1381-mindscape-0-Drive3",
+            "slot": "Drive3",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 18,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1381-mindscape-0-Drive4",
+            "slot": "Drive4",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 28.8,
+                "rolls": 6
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1381-mindscape-0-Drive5",
+            "slot": "Drive5",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Element_DMG",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 24,
+                "rolls": 5
+              },
+              {
+                "type": "ATK%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1381-mindscape-0-Drive6",
+            "slot": "Drive6",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "mindscape-1",
+      "note": "Mindscape 1, defaults otherwise",
+      "build": {
+        "id": "syn-1381-mindscape-1",
+        "agentId": "1381",
+        "level": 60,
+        "mindscapeLevel": 1,
+        "equippedWEngineId": "13111",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1381-mindscape-1-Drive1",
+            "slot": "Drive1",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 14.4,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1381-mindscape-1-Drive2",
+            "slot": "Drive2",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 9.6,
+                "rolls": 4
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1381-mindscape-1-Drive3",
+            "slot": "Drive3",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 18,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1381-mindscape-1-Drive4",
+            "slot": "Drive4",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 28.8,
+                "rolls": 6
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1381-mindscape-1-Drive5",
+            "slot": "Drive5",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Element_DMG",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 24,
+                "rolls": 5
+              },
+              {
+                "type": "ATK%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1381-mindscape-1-Drive6",
+            "slot": "Drive6",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "mindscape-2",
+      "note": "Mindscape 2, defaults otherwise",
+      "build": {
+        "id": "syn-1381-mindscape-2",
+        "agentId": "1381",
+        "level": 60,
+        "mindscapeLevel": 2,
+        "equippedWEngineId": "13111",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1381-mindscape-2-Drive1",
+            "slot": "Drive1",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 14.4,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1381-mindscape-2-Drive2",
+            "slot": "Drive2",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 9.6,
+                "rolls": 4
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1381-mindscape-2-Drive3",
+            "slot": "Drive3",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 18,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1381-mindscape-2-Drive4",
+            "slot": "Drive4",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 28.8,
+                "rolls": 6
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1381-mindscape-2-Drive5",
+            "slot": "Drive5",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Element_DMG",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 24,
+                "rolls": 5
+              },
+              {
+                "type": "ATK%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1381-mindscape-2-Drive6",
+            "slot": "Drive6",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "mindscape-3",
+      "note": "Mindscape 3, defaults otherwise",
+      "build": {
+        "id": "syn-1381-mindscape-3",
+        "agentId": "1381",
+        "level": 60,
+        "mindscapeLevel": 3,
+        "equippedWEngineId": "13111",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1381-mindscape-3-Drive1",
+            "slot": "Drive1",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 14.4,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1381-mindscape-3-Drive2",
+            "slot": "Drive2",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 9.6,
+                "rolls": 4
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1381-mindscape-3-Drive3",
+            "slot": "Drive3",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 18,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1381-mindscape-3-Drive4",
+            "slot": "Drive4",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 28.8,
+                "rolls": 6
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1381-mindscape-3-Drive5",
+            "slot": "Drive5",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Element_DMG",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 24,
+                "rolls": 5
+              },
+              {
+                "type": "ATK%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1381-mindscape-3-Drive6",
+            "slot": "Drive6",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "mindscape-4",
+      "note": "Mindscape 4, defaults otherwise",
+      "build": {
+        "id": "syn-1381-mindscape-4",
+        "agentId": "1381",
+        "level": 60,
+        "mindscapeLevel": 4,
+        "equippedWEngineId": "13111",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1381-mindscape-4-Drive1",
+            "slot": "Drive1",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 14.4,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1381-mindscape-4-Drive2",
+            "slot": "Drive2",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 9.6,
+                "rolls": 4
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1381-mindscape-4-Drive3",
+            "slot": "Drive3",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 18,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1381-mindscape-4-Drive4",
+            "slot": "Drive4",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 28.8,
+                "rolls": 6
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1381-mindscape-4-Drive5",
+            "slot": "Drive5",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Element_DMG",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 24,
+                "rolls": 5
+              },
+              {
+                "type": "ATK%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1381-mindscape-4-Drive6",
+            "slot": "Drive6",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "mindscape-5",
+      "note": "Mindscape 5, defaults otherwise",
+      "build": {
+        "id": "syn-1381-mindscape-5",
+        "agentId": "1381",
+        "level": 60,
+        "mindscapeLevel": 5,
+        "equippedWEngineId": "13111",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1381-mindscape-5-Drive1",
+            "slot": "Drive1",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 14.4,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1381-mindscape-5-Drive2",
+            "slot": "Drive2",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 9.6,
+                "rolls": 4
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1381-mindscape-5-Drive3",
+            "slot": "Drive3",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 18,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1381-mindscape-5-Drive4",
+            "slot": "Drive4",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 28.8,
+                "rolls": 6
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1381-mindscape-5-Drive5",
+            "slot": "Drive5",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Element_DMG",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 24,
+                "rolls": 5
+              },
+              {
+                "type": "ATK%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1381-mindscape-5-Drive6",
+            "slot": "Drive6",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "mindscape-6",
+      "note": "Mindscape 6, defaults otherwise",
+      "build": {
+        "id": "syn-1381-mindscape-6",
+        "agentId": "1381",
+        "level": 60,
+        "mindscapeLevel": 6,
+        "equippedWEngineId": "13111",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1381-mindscape-6-Drive1",
+            "slot": "Drive1",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 14.4,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1381-mindscape-6-Drive2",
+            "slot": "Drive2",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 9.6,
+                "rolls": 4
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1381-mindscape-6-Drive3",
+            "slot": "Drive3",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 18,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1381-mindscape-6-Drive4",
+            "slot": "Drive4",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 28.8,
+                "rolls": 6
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1381-mindscape-6-Drive5",
+            "slot": "Drive5",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Element_DMG",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 24,
+                "rolls": 5
+              },
+              {
+                "type": "ATK%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1381-mindscape-6-Drive6",
+            "slot": "Drive6",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "pin-CRIT",
+      "note": "preferredBuildType CRIT",
+      "build": {
+        "id": "syn-1381-pin-CRIT",
+        "agentId": "1381",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "13111",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1381-pin-CRIT-Drive1",
+            "slot": "Drive1",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 14.4,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1381-pin-CRIT-Drive2",
+            "slot": "Drive2",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 9.6,
+                "rolls": 4
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1381-pin-CRIT-Drive3",
+            "slot": "Drive3",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 18,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1381-pin-CRIT-Drive4",
+            "slot": "Drive4",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 28.8,
+                "rolls": 6
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1381-pin-CRIT-Drive5",
+            "slot": "Drive5",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Element_DMG",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 24,
+                "rolls": 5
+              },
+              {
+                "type": "ATK%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1381-pin-CRIT-Drive6",
+            "slot": "Drive6",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          }
+        },
+        "preferredBuildType": "CRIT"
+      }
+    },
+    {
+      "id": "pin-stale",
+      "note": "preferredBuildType no longer defined for the agent",
+      "build": {
+        "id": "syn-1381-pin-stale",
+        "agentId": "1381",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "13111",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1381-pin-stale-Drive1",
+            "slot": "Drive1",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 14.4,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1381-pin-stale-Drive2",
+            "slot": "Drive2",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 9.6,
+                "rolls": 4
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1381-pin-stale-Drive3",
+            "slot": "Drive3",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 18,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1381-pin-stale-Drive4",
+            "slot": "Drive4",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 28.8,
+                "rolls": 6
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1381-pin-stale-Drive5",
+            "slot": "Drive5",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Element_DMG",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 24,
+                "rolls": 5
+              },
+              {
+                "type": "ATK%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1381-pin-stale-Drive6",
+            "slot": "Drive6",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          }
+        },
+        "preferredBuildType": "RemovedBuildType"
+      }
+    },
+    {
+      "id": "all-on",
+      "note": "M6, R5, every toggle on",
+      "build": {
+        "id": "syn-1381-all-on",
+        "agentId": "1381",
+        "level": 60,
+        "mindscapeLevel": 6,
+        "equippedWEngineId": "13111",
+        "wEngineRefinement": 5,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1381-all-on-Drive1",
+            "slot": "Drive1",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 14.4,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1381-all-on-Drive2",
+            "slot": "Drive2",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 9.6,
+                "rolls": 4
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1381-all-on-Drive3",
+            "slot": "Drive3",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 18,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1381-all-on-Drive4",
+            "slot": "Drive4",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 28.8,
+                "rolls": 6
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1381-all-on-Drive5",
+            "slot": "Drive5",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Element_DMG",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 24,
+                "rolls": 5
+              },
+              {
+                "type": "ATK%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1381-all-on-Drive6",
+            "slot": "Drive6",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "off-wengine-bonuses",
+      "note": "includeWEngineBonuses off",
+      "build": {
+        "id": "syn-1381-off-wengine-bonuses",
+        "agentId": "1381",
+        "level": 60,
+        "mindscapeLevel": 6,
+        "equippedWEngineId": "13111",
+        "wEngineRefinement": 5,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1381-off-wengine-bonuses-Drive1",
+            "slot": "Drive1",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 14.4,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1381-off-wengine-bonuses-Drive2",
+            "slot": "Drive2",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 9.6,
+                "rolls": 4
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1381-off-wengine-bonuses-Drive3",
+            "slot": "Drive3",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 18,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1381-off-wengine-bonuses-Drive4",
+            "slot": "Drive4",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 28.8,
+                "rolls": 6
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1381-off-wengine-bonuses-Drive5",
+            "slot": "Drive5",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Element_DMG",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 24,
+                "rolls": 5
+              },
+              {
+                "type": "ATK%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1381-off-wengine-bonuses-Drive6",
+            "slot": "Drive6",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          }
+        },
+        "includeWEngineBonuses": false
+      }
+    },
+    {
+      "id": "off-mindscape-bonuses",
+      "note": "includeMindscapeBonuses off",
+      "build": {
+        "id": "syn-1381-off-mindscape-bonuses",
+        "agentId": "1381",
+        "level": 60,
+        "mindscapeLevel": 6,
+        "equippedWEngineId": "13111",
+        "wEngineRefinement": 5,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1381-off-mindscape-bonuses-Drive1",
+            "slot": "Drive1",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 14.4,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1381-off-mindscape-bonuses-Drive2",
+            "slot": "Drive2",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 9.6,
+                "rolls": 4
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1381-off-mindscape-bonuses-Drive3",
+            "slot": "Drive3",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 18,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1381-off-mindscape-bonuses-Drive4",
+            "slot": "Drive4",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 28.8,
+                "rolls": 6
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1381-off-mindscape-bonuses-Drive5",
+            "slot": "Drive5",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Element_DMG",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 24,
+                "rolls": 5
+              },
+              {
+                "type": "ATK%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1381-off-mindscape-bonuses-Drive6",
+            "slot": "Drive6",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          }
+        },
+        "includeMindscapeBonuses": false
+      }
+    },
+    {
+      "id": "off-passive-bonuses",
+      "note": "includePassiveBonuses off",
+      "build": {
+        "id": "syn-1381-off-passive-bonuses",
+        "agentId": "1381",
+        "level": 60,
+        "mindscapeLevel": 6,
+        "equippedWEngineId": "13111",
+        "wEngineRefinement": 5,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1381-off-passive-bonuses-Drive1",
+            "slot": "Drive1",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 14.4,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1381-off-passive-bonuses-Drive2",
+            "slot": "Drive2",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 9.6,
+                "rolls": 4
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1381-off-passive-bonuses-Drive3",
+            "slot": "Drive3",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 18,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1381-off-passive-bonuses-Drive4",
+            "slot": "Drive4",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 28.8,
+                "rolls": 6
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1381-off-passive-bonuses-Drive5",
+            "slot": "Drive5",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Element_DMG",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 24,
+                "rolls": 5
+              },
+              {
+                "type": "ATK%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1381-off-passive-bonuses-Drive6",
+            "slot": "Drive6",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          }
+        },
+        "includePassiveBonuses": false
+      }
+    },
+    {
+      "id": "off-set-bonuses",
+      "note": "includeSetBonuses off",
+      "build": {
+        "id": "syn-1381-off-set-bonuses",
+        "agentId": "1381",
+        "level": 60,
+        "mindscapeLevel": 6,
+        "equippedWEngineId": "13111",
+        "wEngineRefinement": 5,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1381-off-set-bonuses-Drive1",
+            "slot": "Drive1",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 14.4,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1381-off-set-bonuses-Drive2",
+            "slot": "Drive2",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 9.6,
+                "rolls": 4
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1381-off-set-bonuses-Drive3",
+            "slot": "Drive3",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 18,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1381-off-set-bonuses-Drive4",
+            "slot": "Drive4",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 28.8,
+                "rolls": 6
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1381-off-set-bonuses-Drive5",
+            "slot": "Drive5",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Element_DMG",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 24,
+                "rolls": 5
+              },
+              {
+                "type": "ATK%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1381-off-set-bonuses-Drive6",
+            "slot": "Drive6",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          }
+        },
+        "includeSetBonuses": false
+      }
+    },
+    {
+      "id": "off-4pc-bonuses",
+      "note": "include4pcBonuses off",
+      "build": {
+        "id": "syn-1381-off-4pc-bonuses",
+        "agentId": "1381",
+        "level": 60,
+        "mindscapeLevel": 6,
+        "equippedWEngineId": "13111",
+        "wEngineRefinement": 5,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1381-off-4pc-bonuses-Drive1",
+            "slot": "Drive1",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 14.4,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1381-off-4pc-bonuses-Drive2",
+            "slot": "Drive2",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 9.6,
+                "rolls": 4
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1381-off-4pc-bonuses-Drive3",
+            "slot": "Drive3",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 18,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1381-off-4pc-bonuses-Drive4",
+            "slot": "Drive4",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 28.8,
+                "rolls": 6
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1381-off-4pc-bonuses-Drive5",
+            "slot": "Drive5",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Element_DMG",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 24,
+                "rolls": 5
+              },
+              {
+                "type": "ATK%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1381-off-4pc-bonuses-Drive6",
+            "slot": "Drive6",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          }
+        },
+        "include4pcBonuses": false
+      }
+    },
+    {
+      "id": "disabled-disc",
+      "note": "Drive4 disabled through enabledDiscs",
+      "build": {
+        "id": "syn-1381-disabled-disc",
+        "agentId": "1381",
+        "level": 60,
+        "mindscapeLevel": 6,
+        "equippedWEngineId": "13111",
+        "wEngineRefinement": 5,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1381-disabled-disc-Drive1",
+            "slot": "Drive1",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 14.4,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1381-disabled-disc-Drive2",
+            "slot": "Drive2",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 9.6,
+                "rolls": 4
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1381-disabled-disc-Drive3",
+            "slot": "Drive3",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 18,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1381-disabled-disc-Drive4",
+            "slot": "Drive4",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 28.8,
+                "rolls": 6
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1381-disabled-disc-Drive5",
+            "slot": "Drive5",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Element_DMG",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 24,
+                "rolls": 5
+              },
+              {
+                "type": "ATK%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1381-disabled-disc-Drive6",
+            "slot": "Drive6",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          }
+        },
+        "enabledDiscs": {
+          "Drive1": true,
+          "Drive2": true,
+          "Drive3": true,
+          "Drive4": false,
+          "Drive5": true,
+          "Drive6": true
+        }
+      }
+    },
+    {
+      "id": "no-wengine",
+      "note": "No W-Engine",
+      "build": {
+        "id": "syn-1381-no-wengine",
+        "agentId": "1381",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": null,
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1381-no-wengine-Drive1",
+            "slot": "Drive1",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 14.4,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1381-no-wengine-Drive2",
+            "slot": "Drive2",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 9.6,
+                "rolls": 4
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1381-no-wengine-Drive3",
+            "slot": "Drive3",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 18,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1381-no-wengine-Drive4",
+            "slot": "Drive4",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 28.8,
+                "rolls": 6
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1381-no-wengine-Drive5",
+            "slot": "Drive5",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Element_DMG",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 24,
+                "rolls": 5
+              },
+              {
+                "type": "ATK%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1381-no-wengine-Drive6",
+            "slot": "Drive6",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "mismatched-wengine",
+      "note": "W-Engine of another specialty, R5",
+      "build": {
+        "id": "syn-1381-mismatched-wengine",
+        "agentId": "1381",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "14122",
+        "wEngineRefinement": 5,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1381-mismatched-wengine-Drive1",
+            "slot": "Drive1",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 14.4,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1381-mismatched-wengine-Drive2",
+            "slot": "Drive2",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 9.6,
+                "rolls": 4
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1381-mismatched-wengine-Drive3",
+            "slot": "Drive3",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 18,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1381-mismatched-wengine-Drive4",
+            "slot": "Drive4",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 28.8,
+                "rolls": 6
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1381-mismatched-wengine-Drive5",
+            "slot": "Drive5",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Element_DMG",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 24,
+                "rolls": 5
+              },
+              {
+                "type": "ATK%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1381-mismatched-wengine-Drive6",
+            "slot": "Drive6",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "main-stats-0",
+      "note": "Main stats HP% / ATK% / HP%",
+      "build": {
+        "id": "syn-1381-main-stats-0",
+        "agentId": "1381",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "13111",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1381-main-stats-0-Drive1",
+            "slot": "Drive1",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 14.4,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1381-main-stats-0-Drive2",
+            "slot": "Drive2",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 9.6,
+                "rolls": 4
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1381-main-stats-0-Drive3",
+            "slot": "Drive3",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 18,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1381-main-stats-0-Drive4",
+            "slot": "Drive4",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 28.8,
+                "rolls": 6
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1381-main-stats-0-Drive5",
+            "slot": "Drive5",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 24,
+                "rolls": 5
+              },
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1381-main-stats-0-Drive6",
+            "slot": "Drive6",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "main-stats-3",
+      "note": "Main stats CRIT_Rate / PEN_Ratio / Anomaly_Mastery",
+      "build": {
+        "id": "syn-1381-main-stats-3",
+        "agentId": "1381",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "13111",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1381-main-stats-3-Drive1",
+            "slot": "Drive1",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 14.4,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1381-main-stats-3-Drive2",
+            "slot": "Drive2",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 9.6,
+                "rolls": 4
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1381-main-stats-3-Drive3",
+            "slot": "Drive3",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 18,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1381-main-stats-3-Drive4",
+            "slot": "Drive4",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 28.8,
+                "rolls": 6
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1381-main-stats-3-Drive5",
+            "slot": "Drive5",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "PEN_Ratio",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 24,
+                "rolls": 5
+              },
+              {
+                "type": "ATK%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1381-main-stats-3-Drive6",
+            "slot": "Drive6",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Anomaly_Mastery",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "five-discs",
+      "note": "Drive6 empty (INCOMPLETE)",
+      "build": {
+        "id": "syn-1381-five-discs",
+        "agentId": "1381",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "13111",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1381-five-discs-Drive1",
+            "slot": "Drive1",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 14.4,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1381-five-discs-Drive2",
+            "slot": "Drive2",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 9.6,
+                "rolls": 4
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1381-five-discs-Drive3",
+            "slot": "Drive3",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 18,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1381-five-discs-Drive4",
+            "slot": "Drive4",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 28.8,
+                "rolls": 6
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1381-five-discs-Drive5",
+            "slot": "Drive5",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Element_DMG",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 24,
+                "rolls": 5
+              },
+              {
+                "type": "ATK%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "duplicate-substats",
+      "note": "Drive2 repeats a substat (validation INCOMPLETE)",
+      "build": {
+        "id": "syn-1381-duplicate-substats",
+        "agentId": "1381",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "13111",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1381-duplicate-substats-Drive1",
+            "slot": "Drive1",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 14.4,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1381-duplicate-substats-Drive2",
+            "slot": "Drive2",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 9.6,
+                "rolls": 4
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1381-duplicate-substats-Drive3",
+            "slot": "Drive3",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 18,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1381-duplicate-substats-Drive4",
+            "slot": "Drive4",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 28.8,
+                "rolls": 6
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1381-duplicate-substats-Drive5",
+            "slot": "Drive5",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Element_DMG",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 24,
+                "rolls": 5
+              },
+              {
+                "type": "ATK%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1381-duplicate-substats-Drive6",
+            "slot": "Drive6",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "blank-substats",
+      "note": "Drive3 has three substats saved as type '' value 0 (BUG-25)",
+      "build": {
+        "id": "syn-1381-blank-substats",
+        "agentId": "1381",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "13111",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1381-blank-substats-Drive1",
+            "slot": "Drive1",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 14.4,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1381-blank-substats-Drive2",
+            "slot": "Drive2",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 9.6,
+                "rolls": 4
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1381-blank-substats-Drive3",
+            "slot": "Drive3",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "",
+                "value": 0,
+                "rolls": 0
+              },
+              {
+                "type": "",
+                "value": 0,
+                "rolls": 0
+              },
+              {
+                "type": "",
+                "value": 0,
+                "rolls": 0
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1381-blank-substats-Drive4",
+            "slot": "Drive4",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 28.8,
+                "rolls": 6
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1381-blank-substats-Drive5",
+            "slot": "Drive5",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Element_DMG",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 24,
+                "rolls": 5
+              },
+              {
+                "type": "ATK%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1381-blank-substats-Drive6",
+            "slot": "Drive6",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "plan",
+      "note": "Upgrade plan with custom priorities, main-stat preferences, breakpoints",
+      "build": {
+        "id": "syn-1381-plan",
+        "agentId": "1381",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "13111",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1381-plan-Drive1",
+            "slot": "Drive1",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 14.4,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1381-plan-Drive2",
+            "slot": "Drive2",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 9.6,
+                "rolls": 4
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1381-plan-Drive3",
+            "slot": "Drive3",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 18,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1381-plan-Drive4",
+            "slot": "Drive4",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 28.8,
+                "rolls": 6
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1381-plan-Drive5",
+            "slot": "Drive5",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Element_DMG",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 24,
+                "rolls": 5
+              },
+              {
+                "type": "ATK%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1381-plan-Drive6",
+            "slot": "Drive6",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          }
+        }
+      },
+      "plan": {
+        "id": "plan-1381-plan",
+        "name": "Synthetic plan",
+        "agentId": "1381",
+        "description": "",
+        "setPreferences": {
+          "type": "4pc+2pc",
+          "preferredSets": [
+            "Puffer Electro",
+            "Soul Rock"
+          ]
+        },
+        "mainStatPreferences": {
+          "Drive4": {
+            "HP%": "Not Acceptable",
+            "ATK%": "Acceptable",
+            "DEF%": "Not Acceptable",
+            "CRIT_Rate": "Acceptable",
+            "CRIT_DMG": "Not Acceptable",
+            "Anomaly_Proficiency": "Not Acceptable"
+          },
+          "Drive5": {
+            "HP%": "Not Acceptable",
+            "ATK%": "Not Acceptable",
+            "DEF%": "Acceptable",
+            "Element_DMG": "Acceptable",
+            "PEN_Ratio": "Not Acceptable"
+          },
+          "Drive6": {
+            "HP%": "Not Acceptable",
+            "ATK%": "Acceptable",
+            "DEF%": "Not Acceptable",
+            "Anomaly_Mastery": "Not Acceptable",
+            "Impact": "Not Acceptable",
+            "Energy_Regen": "Acceptable"
+          }
+        },
+        "substatPriorities": {
+          "Drive1": {
+            "HP%": "Ignore",
+            "ATK%": "Essential",
+            "DEF": "Ignore",
+            "CRIT_Rate": "Important",
+            "CRIT_DMG": "Essential",
+            "Anomaly_Proficiency": "Ignore",
+            "PEN": "Nice"
+          },
+          "Drive2": {
+            "ATK%": "Important",
+            "DEF%": "Ignore",
+            "DEF": "Ignore",
+            "CRIT_Rate": "Essential",
+            "CRIT_DMG": "Nice",
+            "Anomaly_Proficiency": "Ignore",
+            "PEN": "Nice"
+          },
+          "Drive3": {
+            "HP%": "Ignore",
+            "ATK%": "Nice",
+            "DEF%": "Ignore",
+            "ATK": "Ignore",
+            "DEF": "Ignore",
+            "CRIT_Rate": "Important",
+            "CRIT_DMG": "Important",
+            "PEN": "Essential"
+          },
+          "Drive4": {
+            "HP%": "Ignore",
+            "ATK%": "Nice",
+            "HP": "Ignore",
+            "DEF": "Ignore",
+            "CRIT_Rate": "Nice",
+            "CRIT_DMG": "Important",
+            "PEN": "Important"
+          },
+          "Drive5": {
+            "ATK%": "Nice",
+            "HP": "Ignore",
+            "CRIT_Rate": "Essential",
+            "CRIT_DMG": "Nice",
+            "PEN": "Essential"
+          },
+          "Drive6": {
+            "HP%": "Ignore",
+            "ATK%": "Important",
+            "HP": "Ignore",
+            "DEF": "Ignore",
+            "CRIT_Rate": "Nice",
+            "CRIT_DMG": "Essential",
+            "PEN": "Nice"
+          }
+        },
+        "customBreakpoints": {
+          "hp": {
+            "min": 8250,
+            "optimal": 8250
+          },
+          "atk": {
+            "min": 1900,
+            "optimal": 2200
+          },
+          "def": {
+            "min": 660,
+            "optimal": 660
+          },
+          "impact": {
+            "min": 0,
+            "optimal": 0
+          },
+          "anomalyMastery": {
+            "min": 0,
+            "optimal": 0
+          },
+          "critRate": {
+            "min": 48,
+            "optimal": 58
+          },
+          "critDmg": {
+            "min": 110,
+            "optimal": 120
+          },
+          "anomalyProficiency": {
+            "min": 0,
+            "optimal": 0
+          },
+          "pen": {
+            "min": 0,
+            "optimal": 0
+          },
+          "penRatio": {
+            "min": 0,
+            "optimal": 0
+          },
+          "energyRegen": {
+            "min": 0,
+            "optimal": 0
+          }
+        },
+        "createdAt": "2026-01-01T00:00:00.000Z",
+        "updatedAt": "2026-01-01T00:00:00.000Z"
+      }
+    },
+    {
+      "id": "plan-impossible-cells",
+      "note": "Upgrade plan with Drive1 HP, Drive2 ATK, Drive3 DEF priorities set (BUG-26, LOGIC-27)",
+      "build": {
+        "id": "syn-1381-plan-impossible-cells",
+        "agentId": "1381",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "13111",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1381-plan-impossible-cells-Drive1",
+            "slot": "Drive1",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 14.4,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1381-plan-impossible-cells-Drive2",
+            "slot": "Drive2",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 9.6,
+                "rolls": 4
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1381-plan-impossible-cells-Drive3",
+            "slot": "Drive3",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 18,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1381-plan-impossible-cells-Drive4",
+            "slot": "Drive4",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 28.8,
+                "rolls": 6
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1381-plan-impossible-cells-Drive5",
+            "slot": "Drive5",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Element_DMG",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 24,
+                "rolls": 5
+              },
+              {
+                "type": "ATK%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1381-plan-impossible-cells-Drive6",
+            "slot": "Drive6",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          }
+        }
+      },
+      "plan": {
+        "id": "plan-1381-plan-impossible-cells",
+        "name": "Synthetic plan-impossible-cells",
+        "agentId": "1381",
+        "description": "",
+        "setPreferences": {
+          "type": "4pc+2pc",
+          "preferredSets": [
+            "Puffer Electro",
+            "Soul Rock"
+          ]
+        },
+        "mainStatPreferences": {
+          "Drive4": {
+            "HP%": "Not Acceptable",
+            "ATK%": "Acceptable",
+            "DEF%": "Not Acceptable",
+            "CRIT_Rate": "Acceptable",
+            "CRIT_DMG": "Not Acceptable",
+            "Anomaly_Proficiency": "Not Acceptable"
+          },
+          "Drive5": {
+            "HP%": "Not Acceptable",
+            "ATK%": "Not Acceptable",
+            "DEF%": "Not Acceptable",
+            "Element_DMG": "Acceptable",
+            "PEN_Ratio": "Not Acceptable"
+          },
+          "Drive6": {
+            "HP%": "Not Acceptable",
+            "ATK%": "Acceptable",
+            "DEF%": "Acceptable",
+            "Anomaly_Mastery": "Not Acceptable",
+            "Impact": "Not Acceptable",
+            "Energy_Regen": "Not Acceptable"
+          }
+        },
+        "substatPriorities": {
+          "Drive1": {
+            "ATK%": "Important",
+            "HP": "Essential",
+            "ATK": "Ignore",
+            "DEF": "Ignore",
+            "CRIT_Rate": "Important",
+            "CRIT_DMG": "Nice",
+            "Anomaly_Proficiency": "Ignore",
+            "PEN": "Essential"
+          },
+          "Drive2": {
+            "HP%": "Ignore",
+            "ATK%": "Important",
+            "DEF%": "Ignore",
+            "HP": "Ignore",
+            "CRIT_Rate": "Essential",
+            "CRIT_DMG": "Essential",
+            "Anomaly_Proficiency": "Ignore",
+            "PEN": "Nice",
+            "ATK": "Important"
+          },
+          "Drive3": {
+            "HP%": "Ignore",
+            "ATK%": "Essential",
+            "DEF%": "Ignore",
+            "ATK": "Ignore",
+            "CRIT_Rate": "Important",
+            "CRIT_DMG": "Essential",
+            "Anomaly_Proficiency": "Ignore",
+            "PEN": "Nice",
+            "DEF": "Essential"
+          },
+          "Drive4": {
+            "HP%": "Ignore",
+            "ATK%": "Nice",
+            "DEF%": "Ignore",
+            "ATK": "Ignore",
+            "CRIT_Rate": "Essential",
+            "CRIT_DMG": "Essential",
+            "Anomaly_Proficiency": "Ignore",
+            "PEN": "Important"
+          },
+          "Drive5": {
+            "HP%": "Ignore",
+            "ATK%": "Important",
+            "DEF%": "Ignore",
+            "HP": "Ignore",
+            "ATK": "Ignore",
+            "CRIT_Rate": "Important",
+            "CRIT_DMG": "Nice",
+            "PEN": "Essential"
+          },
+          "Drive6": {
+            "ATK%": "Important",
+            "DEF%": "Ignore",
+            "ATK": "Ignore",
+            "DEF": "Ignore",
+            "CRIT_Rate": "Essential",
+            "CRIT_DMG": "Important",
+            "Anomaly_Proficiency": "Ignore",
+            "PEN": "Nice"
+          }
+        },
+        "customBreakpoints": {
+          "hp": {
+            "min": 8250,
+            "optimal": 8250
+          },
+          "atk": {
+            "min": 1900,
+            "optimal": 2200
+          },
+          "def": {
+            "min": 660,
+            "optimal": 660
+          },
+          "impact": {
+            "min": 0,
+            "optimal": 0
+          },
+          "anomalyMastery": {
+            "min": 0,
+            "optimal": 0
+          },
+          "critRate": {
+            "min": 48,
+            "optimal": 58
+          },
+          "critDmg": {
+            "min": 110,
+            "optimal": 144
+          },
+          "anomalyProficiency": {
+            "min": 0,
+            "optimal": 0
+          },
+          "pen": {
+            "min": 0,
+            "optimal": 0
+          },
+          "penRatio": {
+            "min": 0,
+            "optimal": 0
+          },
+          "energyRegen": {
+            "min": 0,
+            "optimal": 0
+          }
+        },
+        "createdAt": "2026-01-01T00:00:00.000Z",
+        "updatedAt": "2026-01-01T00:00:00.000Z"
+      }
+    },
+    {
+      "id": "wengine-14124-r1",
+      "note": "Riot Suppressor Mark VI R1",
+      "build": {
+        "id": "syn-1381-wengine-14124-r1",
+        "agentId": "1381",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "14124",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1381-wengine-14124-r1-Drive1",
+            "slot": "Drive1",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 14.4,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1381-wengine-14124-r1-Drive2",
+            "slot": "Drive2",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 9.6,
+                "rolls": 4
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1381-wengine-14124-r1-Drive3",
+            "slot": "Drive3",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 18,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1381-wengine-14124-r1-Drive4",
+            "slot": "Drive4",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 28.8,
+                "rolls": 6
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1381-wengine-14124-r1-Drive5",
+            "slot": "Drive5",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Element_DMG",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 24,
+                "rolls": 5
+              },
+              {
+                "type": "ATK%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1381-wengine-14124-r1-Drive6",
+            "slot": "Drive6",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "wengine-14124-r2",
+      "note": "Riot Suppressor Mark VI R2",
+      "build": {
+        "id": "syn-1381-wengine-14124-r2",
+        "agentId": "1381",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "14124",
+        "wEngineRefinement": 2,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1381-wengine-14124-r2-Drive1",
+            "slot": "Drive1",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 14.4,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1381-wengine-14124-r2-Drive2",
+            "slot": "Drive2",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 9.6,
+                "rolls": 4
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1381-wengine-14124-r2-Drive3",
+            "slot": "Drive3",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 18,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1381-wengine-14124-r2-Drive4",
+            "slot": "Drive4",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 28.8,
+                "rolls": 6
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1381-wengine-14124-r2-Drive5",
+            "slot": "Drive5",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Element_DMG",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 24,
+                "rolls": 5
+              },
+              {
+                "type": "ATK%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1381-wengine-14124-r2-Drive6",
+            "slot": "Drive6",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "wengine-14124-r3",
+      "note": "Riot Suppressor Mark VI R3",
+      "build": {
+        "id": "syn-1381-wengine-14124-r3",
+        "agentId": "1381",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "14124",
+        "wEngineRefinement": 3,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1381-wengine-14124-r3-Drive1",
+            "slot": "Drive1",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 14.4,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1381-wengine-14124-r3-Drive2",
+            "slot": "Drive2",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 9.6,
+                "rolls": 4
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1381-wengine-14124-r3-Drive3",
+            "slot": "Drive3",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 18,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1381-wengine-14124-r3-Drive4",
+            "slot": "Drive4",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 28.8,
+                "rolls": 6
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1381-wengine-14124-r3-Drive5",
+            "slot": "Drive5",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Element_DMG",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 24,
+                "rolls": 5
+              },
+              {
+                "type": "ATK%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1381-wengine-14124-r3-Drive6",
+            "slot": "Drive6",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "wengine-14124-r4",
+      "note": "Riot Suppressor Mark VI R4",
+      "build": {
+        "id": "syn-1381-wengine-14124-r4",
+        "agentId": "1381",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "14124",
+        "wEngineRefinement": 4,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1381-wengine-14124-r4-Drive1",
+            "slot": "Drive1",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 14.4,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1381-wengine-14124-r4-Drive2",
+            "slot": "Drive2",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 9.6,
+                "rolls": 4
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1381-wengine-14124-r4-Drive3",
+            "slot": "Drive3",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 18,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1381-wengine-14124-r4-Drive4",
+            "slot": "Drive4",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 28.8,
+                "rolls": 6
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1381-wengine-14124-r4-Drive5",
+            "slot": "Drive5",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Element_DMG",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 24,
+                "rolls": 5
+              },
+              {
+                "type": "ATK%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1381-wengine-14124-r4-Drive6",
+            "slot": "Drive6",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "wengine-14124-r5",
+      "note": "Riot Suppressor Mark VI R5",
+      "build": {
+        "id": "syn-1381-wengine-14124-r5",
+        "agentId": "1381",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "14124",
+        "wEngineRefinement": 5,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1381-wengine-14124-r5-Drive1",
+            "slot": "Drive1",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 14.4,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 60,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1381-wengine-14124-r5-Drive2",
+            "slot": "Drive2",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 9.6,
+                "rolls": 4
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1381-wengine-14124-r5-Drive3",
+            "slot": "Drive3",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 18,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1381-wengine-14124-r5-Drive4",
+            "slot": "Drive4",
+            "set": "Puffer Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 28.8,
+                "rolls": 6
+              },
+              {
+                "type": "ATK%",
+                "value": 3,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 19,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1381-wengine-14124-r5-Drive5",
+            "slot": "Drive5",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Element_DMG",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 24,
+                "rolls": 5
+              },
+              {
+                "type": "ATK%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "PEN",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "DEF%",
+                "value": 4.8,
+                "rolls": 1
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1381-wengine-14124-r5-Drive6",
+            "slot": "Drive6",
+            "set": "Soul Rock",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 2.4,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 18,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 336,
+                "rolls": 3
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1381",
+            "lock": false
+          }
+        }
+      }
+    }
+  ]
+}

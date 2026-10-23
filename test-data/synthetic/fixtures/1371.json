@@ -1,0 +1,7299 @@
+{
+  "agentId": "1371",
+  "agentName": "Yixuan",
+  "cases": [
+    {
+      "id": "mindscape-0",
+      "note": "Mindscape 0, defaults otherwise",
+      "build": {
+        "id": "syn-1371-mindscape-0",
+        "agentId": "1371",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "13014",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1371-mindscape-0-Drive1",
+            "slot": "Drive1",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1371-mindscape-0-Drive2",
+            "slot": "Drive2",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1371-mindscape-0-Drive3",
+            "slot": "Drive3",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1371-mindscape-0-Drive4",
+            "slot": "Drive4",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 19.2,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1371-mindscape-0-Drive5",
+            "slot": "Drive5",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 38,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 7.2,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 45,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1371-mindscape-0-Drive6",
+            "slot": "Drive6",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "mindscape-1",
+      "note": "Mindscape 1, defaults otherwise",
+      "build": {
+        "id": "syn-1371-mindscape-1",
+        "agentId": "1371",
+        "level": 60,
+        "mindscapeLevel": 1,
+        "equippedWEngineId": "13014",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1371-mindscape-1-Drive1",
+            "slot": "Drive1",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1371-mindscape-1-Drive2",
+            "slot": "Drive2",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1371-mindscape-1-Drive3",
+            "slot": "Drive3",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1371-mindscape-1-Drive4",
+            "slot": "Drive4",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 19.2,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1371-mindscape-1-Drive5",
+            "slot": "Drive5",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 38,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 7.2,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 45,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1371-mindscape-1-Drive6",
+            "slot": "Drive6",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "mindscape-2",
+      "note": "Mindscape 2, defaults otherwise",
+      "build": {
+        "id": "syn-1371-mindscape-2",
+        "agentId": "1371",
+        "level": 60,
+        "mindscapeLevel": 2,
+        "equippedWEngineId": "13014",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1371-mindscape-2-Drive1",
+            "slot": "Drive1",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1371-mindscape-2-Drive2",
+            "slot": "Drive2",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1371-mindscape-2-Drive3",
+            "slot": "Drive3",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1371-mindscape-2-Drive4",
+            "slot": "Drive4",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 19.2,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1371-mindscape-2-Drive5",
+            "slot": "Drive5",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 38,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 7.2,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 45,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1371-mindscape-2-Drive6",
+            "slot": "Drive6",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "mindscape-3",
+      "note": "Mindscape 3, defaults otherwise",
+      "build": {
+        "id": "syn-1371-mindscape-3",
+        "agentId": "1371",
+        "level": 60,
+        "mindscapeLevel": 3,
+        "equippedWEngineId": "13014",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1371-mindscape-3-Drive1",
+            "slot": "Drive1",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1371-mindscape-3-Drive2",
+            "slot": "Drive2",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1371-mindscape-3-Drive3",
+            "slot": "Drive3",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1371-mindscape-3-Drive4",
+            "slot": "Drive4",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 19.2,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1371-mindscape-3-Drive5",
+            "slot": "Drive5",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 38,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 7.2,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 45,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1371-mindscape-3-Drive6",
+            "slot": "Drive6",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "mindscape-4",
+      "note": "Mindscape 4, defaults otherwise",
+      "build": {
+        "id": "syn-1371-mindscape-4",
+        "agentId": "1371",
+        "level": 60,
+        "mindscapeLevel": 4,
+        "equippedWEngineId": "13014",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1371-mindscape-4-Drive1",
+            "slot": "Drive1",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1371-mindscape-4-Drive2",
+            "slot": "Drive2",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1371-mindscape-4-Drive3",
+            "slot": "Drive3",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1371-mindscape-4-Drive4",
+            "slot": "Drive4",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 19.2,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1371-mindscape-4-Drive5",
+            "slot": "Drive5",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 38,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 7.2,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 45,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1371-mindscape-4-Drive6",
+            "slot": "Drive6",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "mindscape-5",
+      "note": "Mindscape 5, defaults otherwise",
+      "build": {
+        "id": "syn-1371-mindscape-5",
+        "agentId": "1371",
+        "level": 60,
+        "mindscapeLevel": 5,
+        "equippedWEngineId": "13014",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1371-mindscape-5-Drive1",
+            "slot": "Drive1",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1371-mindscape-5-Drive2",
+            "slot": "Drive2",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1371-mindscape-5-Drive3",
+            "slot": "Drive3",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1371-mindscape-5-Drive4",
+            "slot": "Drive4",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 19.2,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1371-mindscape-5-Drive5",
+            "slot": "Drive5",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 38,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 7.2,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 45,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1371-mindscape-5-Drive6",
+            "slot": "Drive6",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "mindscape-6",
+      "note": "Mindscape 6, defaults otherwise",
+      "build": {
+        "id": "syn-1371-mindscape-6",
+        "agentId": "1371",
+        "level": 60,
+        "mindscapeLevel": 6,
+        "equippedWEngineId": "13014",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1371-mindscape-6-Drive1",
+            "slot": "Drive1",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1371-mindscape-6-Drive2",
+            "slot": "Drive2",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1371-mindscape-6-Drive3",
+            "slot": "Drive3",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1371-mindscape-6-Drive4",
+            "slot": "Drive4",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 19.2,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1371-mindscape-6-Drive5",
+            "slot": "Drive5",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 38,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 7.2,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 45,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1371-mindscape-6-Drive6",
+            "slot": "Drive6",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "pin-CRIT",
+      "note": "preferredBuildType CRIT",
+      "build": {
+        "id": "syn-1371-pin-CRIT",
+        "agentId": "1371",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "13014",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1371-pin-CRIT-Drive1",
+            "slot": "Drive1",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1371-pin-CRIT-Drive2",
+            "slot": "Drive2",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1371-pin-CRIT-Drive3",
+            "slot": "Drive3",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1371-pin-CRIT-Drive4",
+            "slot": "Drive4",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 19.2,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1371-pin-CRIT-Drive5",
+            "slot": "Drive5",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 38,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 7.2,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 45,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1371-pin-CRIT-Drive6",
+            "slot": "Drive6",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          }
+        },
+        "preferredBuildType": "CRIT"
+      }
+    },
+    {
+      "id": "pin-stale",
+      "note": "preferredBuildType no longer defined for the agent",
+      "build": {
+        "id": "syn-1371-pin-stale",
+        "agentId": "1371",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "13014",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1371-pin-stale-Drive1",
+            "slot": "Drive1",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1371-pin-stale-Drive2",
+            "slot": "Drive2",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1371-pin-stale-Drive3",
+            "slot": "Drive3",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1371-pin-stale-Drive4",
+            "slot": "Drive4",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 19.2,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1371-pin-stale-Drive5",
+            "slot": "Drive5",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 38,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 7.2,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 45,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1371-pin-stale-Drive6",
+            "slot": "Drive6",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          }
+        },
+        "preferredBuildType": "RemovedBuildType"
+      }
+    },
+    {
+      "id": "all-on",
+      "note": "M6, R5, every toggle on",
+      "build": {
+        "id": "syn-1371-all-on",
+        "agentId": "1371",
+        "level": 60,
+        "mindscapeLevel": 6,
+        "equippedWEngineId": "13014",
+        "wEngineRefinement": 5,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1371-all-on-Drive1",
+            "slot": "Drive1",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1371-all-on-Drive2",
+            "slot": "Drive2",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1371-all-on-Drive3",
+            "slot": "Drive3",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1371-all-on-Drive4",
+            "slot": "Drive4",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 19.2,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1371-all-on-Drive5",
+            "slot": "Drive5",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 38,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 7.2,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 45,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1371-all-on-Drive6",
+            "slot": "Drive6",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "off-wengine-bonuses",
+      "note": "includeWEngineBonuses off",
+      "build": {
+        "id": "syn-1371-off-wengine-bonuses",
+        "agentId": "1371",
+        "level": 60,
+        "mindscapeLevel": 6,
+        "equippedWEngineId": "13014",
+        "wEngineRefinement": 5,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1371-off-wengine-bonuses-Drive1",
+            "slot": "Drive1",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1371-off-wengine-bonuses-Drive2",
+            "slot": "Drive2",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1371-off-wengine-bonuses-Drive3",
+            "slot": "Drive3",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1371-off-wengine-bonuses-Drive4",
+            "slot": "Drive4",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 19.2,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1371-off-wengine-bonuses-Drive5",
+            "slot": "Drive5",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 38,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 7.2,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 45,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1371-off-wengine-bonuses-Drive6",
+            "slot": "Drive6",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          }
+        },
+        "includeWEngineBonuses": false
+      }
+    },
+    {
+      "id": "off-mindscape-bonuses",
+      "note": "includeMindscapeBonuses off",
+      "build": {
+        "id": "syn-1371-off-mindscape-bonuses",
+        "agentId": "1371",
+        "level": 60,
+        "mindscapeLevel": 6,
+        "equippedWEngineId": "13014",
+        "wEngineRefinement": 5,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1371-off-mindscape-bonuses-Drive1",
+            "slot": "Drive1",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1371-off-mindscape-bonuses-Drive2",
+            "slot": "Drive2",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1371-off-mindscape-bonuses-Drive3",
+            "slot": "Drive3",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1371-off-mindscape-bonuses-Drive4",
+            "slot": "Drive4",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 19.2,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1371-off-mindscape-bonuses-Drive5",
+            "slot": "Drive5",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 38,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 7.2,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 45,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1371-off-mindscape-bonuses-Drive6",
+            "slot": "Drive6",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          }
+        },
+        "includeMindscapeBonuses": false
+      }
+    },
+    {
+      "id": "off-passive-bonuses",
+      "note": "includePassiveBonuses off",
+      "build": {
+        "id": "syn-1371-off-passive-bonuses",
+        "agentId": "1371",
+        "level": 60,
+        "mindscapeLevel": 6,
+        "equippedWEngineId": "13014",
+        "wEngineRefinement": 5,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1371-off-passive-bonuses-Drive1",
+            "slot": "Drive1",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1371-off-passive-bonuses-Drive2",
+            "slot": "Drive2",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1371-off-passive-bonuses-Drive3",
+            "slot": "Drive3",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1371-off-passive-bonuses-Drive4",
+            "slot": "Drive4",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 19.2,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1371-off-passive-bonuses-Drive5",
+            "slot": "Drive5",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 38,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 7.2,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 45,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1371-off-passive-bonuses-Drive6",
+            "slot": "Drive6",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          }
+        },
+        "includePassiveBonuses": false
+      }
+    },
+    {
+      "id": "off-set-bonuses",
+      "note": "includeSetBonuses off",
+      "build": {
+        "id": "syn-1371-off-set-bonuses",
+        "agentId": "1371",
+        "level": 60,
+        "mindscapeLevel": 6,
+        "equippedWEngineId": "13014",
+        "wEngineRefinement": 5,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1371-off-set-bonuses-Drive1",
+            "slot": "Drive1",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1371-off-set-bonuses-Drive2",
+            "slot": "Drive2",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1371-off-set-bonuses-Drive3",
+            "slot": "Drive3",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1371-off-set-bonuses-Drive4",
+            "slot": "Drive4",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 19.2,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1371-off-set-bonuses-Drive5",
+            "slot": "Drive5",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 38,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 7.2,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 45,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1371-off-set-bonuses-Drive6",
+            "slot": "Drive6",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          }
+        },
+        "includeSetBonuses": false
+      }
+    },
+    {
+      "id": "off-4pc-bonuses",
+      "note": "include4pcBonuses off",
+      "build": {
+        "id": "syn-1371-off-4pc-bonuses",
+        "agentId": "1371",
+        "level": 60,
+        "mindscapeLevel": 6,
+        "equippedWEngineId": "13014",
+        "wEngineRefinement": 5,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1371-off-4pc-bonuses-Drive1",
+            "slot": "Drive1",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1371-off-4pc-bonuses-Drive2",
+            "slot": "Drive2",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1371-off-4pc-bonuses-Drive3",
+            "slot": "Drive3",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1371-off-4pc-bonuses-Drive4",
+            "slot": "Drive4",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 19.2,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1371-off-4pc-bonuses-Drive5",
+            "slot": "Drive5",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 38,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 7.2,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 45,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1371-off-4pc-bonuses-Drive6",
+            "slot": "Drive6",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          }
+        },
+        "include4pcBonuses": false
+      }
+    },
+    {
+      "id": "disabled-disc",
+      "note": "Drive4 disabled through enabledDiscs",
+      "build": {
+        "id": "syn-1371-disabled-disc",
+        "agentId": "1371",
+        "level": 60,
+        "mindscapeLevel": 6,
+        "equippedWEngineId": "13014",
+        "wEngineRefinement": 5,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1371-disabled-disc-Drive1",
+            "slot": "Drive1",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1371-disabled-disc-Drive2",
+            "slot": "Drive2",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1371-disabled-disc-Drive3",
+            "slot": "Drive3",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1371-disabled-disc-Drive4",
+            "slot": "Drive4",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 19.2,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1371-disabled-disc-Drive5",
+            "slot": "Drive5",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 38,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 7.2,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 45,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1371-disabled-disc-Drive6",
+            "slot": "Drive6",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          }
+        },
+        "enabledDiscs": {
+          "Drive1": true,
+          "Drive2": true,
+          "Drive3": true,
+          "Drive4": false,
+          "Drive5": true,
+          "Drive6": true
+        }
+      }
+    },
+    {
+      "id": "no-wengine",
+      "note": "No W-Engine",
+      "build": {
+        "id": "syn-1371-no-wengine",
+        "agentId": "1371",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": null,
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1371-no-wengine-Drive1",
+            "slot": "Drive1",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1371-no-wengine-Drive2",
+            "slot": "Drive2",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1371-no-wengine-Drive3",
+            "slot": "Drive3",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1371-no-wengine-Drive4",
+            "slot": "Drive4",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 19.2,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1371-no-wengine-Drive5",
+            "slot": "Drive5",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 38,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 7.2,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 45,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1371-no-wengine-Drive6",
+            "slot": "Drive6",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "mismatched-wengine",
+      "note": "W-Engine of another specialty, R5",
+      "build": {
+        "id": "syn-1371-mismatched-wengine",
+        "agentId": "1371",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "13002",
+        "wEngineRefinement": 5,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1371-mismatched-wengine-Drive1",
+            "slot": "Drive1",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1371-mismatched-wengine-Drive2",
+            "slot": "Drive2",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1371-mismatched-wengine-Drive3",
+            "slot": "Drive3",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1371-mismatched-wengine-Drive4",
+            "slot": "Drive4",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 19.2,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1371-mismatched-wengine-Drive5",
+            "slot": "Drive5",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 38,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 7.2,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 45,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1371-mismatched-wengine-Drive6",
+            "slot": "Drive6",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "main-stats-0",
+      "note": "Main stats Anomaly_Proficiency / HP% / Energy_Regen",
+      "build": {
+        "id": "syn-1371-main-stats-0",
+        "agentId": "1371",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "13014",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1371-main-stats-0-Drive1",
+            "slot": "Drive1",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1371-main-stats-0-Drive2",
+            "slot": "Drive2",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1371-main-stats-0-Drive3",
+            "slot": "Drive3",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1371-main-stats-0-Drive4",
+            "slot": "Drive4",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Anomaly_Proficiency",
+              "value": 92
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 19.2,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1371-main-stats-0-Drive5",
+            "slot": "Drive5",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 38,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 7.2,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 45,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1371-main-stats-0-Drive6",
+            "slot": "Drive6",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Energy_Regen",
+              "value": 60
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 112,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 36,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "main-stats-3",
+      "note": "Main stats DEF% / Element_DMG / DEF%",
+      "build": {
+        "id": "syn-1371-main-stats-3",
+        "agentId": "1371",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "13014",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1371-main-stats-3-Drive1",
+            "slot": "Drive1",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1371-main-stats-3-Drive2",
+            "slot": "Drive2",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1371-main-stats-3-Drive3",
+            "slot": "Drive3",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1371-main-stats-3-Drive4",
+            "slot": "Drive4",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF%",
+              "value": 48
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 19.2,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1371-main-stats-3-Drive5",
+            "slot": "Drive5",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "Element_DMG",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "HP%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "ATK",
+                "value": 57,
+                "rolls": 3
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 7.2,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1371-main-stats-3-Drive6",
+            "slot": "Drive6",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF%",
+              "value": 48
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 112,
+                "rolls": 1
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 36,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "five-discs",
+      "note": "Drive6 empty (INCOMPLETE)",
+      "build": {
+        "id": "syn-1371-five-discs",
+        "agentId": "1371",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "13014",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1371-five-discs-Drive1",
+            "slot": "Drive1",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1371-five-discs-Drive2",
+            "slot": "Drive2",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1371-five-discs-Drive3",
+            "slot": "Drive3",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1371-five-discs-Drive4",
+            "slot": "Drive4",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 19.2,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1371-five-discs-Drive5",
+            "slot": "Drive5",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 38,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 7.2,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 45,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "duplicate-substats",
+      "note": "Drive2 repeats a substat (validation INCOMPLETE)",
+      "build": {
+        "id": "syn-1371-duplicate-substats",
+        "agentId": "1371",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "13014",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1371-duplicate-substats-Drive1",
+            "slot": "Drive1",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1371-duplicate-substats-Drive2",
+            "slot": "Drive2",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1371-duplicate-substats-Drive3",
+            "slot": "Drive3",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1371-duplicate-substats-Drive4",
+            "slot": "Drive4",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 19.2,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1371-duplicate-substats-Drive5",
+            "slot": "Drive5",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 38,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 7.2,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 45,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1371-duplicate-substats-Drive6",
+            "slot": "Drive6",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "blank-substats",
+      "note": "Drive3 has three substats saved as type '' value 0 (BUG-25)",
+      "build": {
+        "id": "syn-1371-blank-substats",
+        "agentId": "1371",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "13014",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1371-blank-substats-Drive1",
+            "slot": "Drive1",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1371-blank-substats-Drive2",
+            "slot": "Drive2",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1371-blank-substats-Drive3",
+            "slot": "Drive3",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "",
+                "value": 0,
+                "rolls": 0
+              },
+              {
+                "type": "",
+                "value": 0,
+                "rolls": 0
+              },
+              {
+                "type": "",
+                "value": 0,
+                "rolls": 0
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1371-blank-substats-Drive4",
+            "slot": "Drive4",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 19.2,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1371-blank-substats-Drive5",
+            "slot": "Drive5",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 38,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 7.2,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 45,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1371-blank-substats-Drive6",
+            "slot": "Drive6",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "plan",
+      "note": "Upgrade plan with custom priorities, main-stat preferences, breakpoints",
+      "build": {
+        "id": "syn-1371-plan",
+        "agentId": "1371",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "13014",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1371-plan-Drive1",
+            "slot": "Drive1",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1371-plan-Drive2",
+            "slot": "Drive2",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1371-plan-Drive3",
+            "slot": "Drive3",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1371-plan-Drive4",
+            "slot": "Drive4",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 19.2,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1371-plan-Drive5",
+            "slot": "Drive5",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 38,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 7.2,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 45,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1371-plan-Drive6",
+            "slot": "Drive6",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          }
+        }
+      },
+      "plan": {
+        "id": "plan-1371-plan",
+        "name": "Synthetic plan",
+        "agentId": "1371",
+        "description": "",
+        "setPreferences": {
+          "type": "4pc+2pc",
+          "preferredSets": [
+            "Shining Aria",
+            "Hormone Punk"
+          ]
+        },
+        "mainStatPreferences": {
+          "Drive4": {
+            "HP%": "Not Acceptable",
+            "ATK%": "Not Acceptable",
+            "DEF%": "Not Acceptable",
+            "CRIT_Rate": "Acceptable",
+            "CRIT_DMG": "Acceptable",
+            "Anomaly_Proficiency": "Acceptable"
+          },
+          "Drive5": {
+            "HP%": "Acceptable",
+            "ATK%": "Not Acceptable",
+            "DEF%": "Not Acceptable",
+            "Element_DMG": "Not Acceptable",
+            "PEN_Ratio": "Acceptable"
+          },
+          "Drive6": {
+            "HP%": "Acceptable",
+            "ATK%": "Not Acceptable",
+            "DEF%": "Not Acceptable",
+            "Anomaly_Mastery": "Not Acceptable",
+            "Impact": "Not Acceptable",
+            "Energy_Regen": "Not Acceptable"
+          }
+        },
+        "substatPriorities": {
+          "Drive1": {
+            "HP%": "Nice",
+            "ATK%": "Ignore",
+            "HP": "Important",
+            "ATK": "Ignore",
+            "DEF": "Ignore",
+            "CRIT_Rate": "Important",
+            "CRIT_DMG": "Important",
+            "PEN": "Ignore"
+          },
+          "Drive2": {
+            "HP%": "Essential",
+            "ATK%": "Ignore",
+            "HP": "Nice",
+            "CRIT_Rate": "Important",
+            "CRIT_DMG": "Important"
+          },
+          "Drive3": {
+            "HP%": "Nice",
+            "ATK%": "Ignore",
+            "HP": "Essential",
+            "ATK": "Ignore",
+            "DEF": "Ignore",
+            "CRIT_Rate": "Nice",
+            "CRIT_DMG": "Essential",
+            "PEN": "Ignore"
+          },
+          "Drive4": {
+            "HP%": "Essential",
+            "ATK%": "Ignore",
+            "HP": "Nice",
+            "ATK": "Ignore",
+            "CRIT_Rate": "Essential",
+            "CRIT_DMG": "Nice",
+            "Anomaly_Proficiency": "Ignore",
+            "PEN": "Ignore"
+          },
+          "Drive5": {
+            "HP%": "Essential",
+            "ATK%": "Ignore",
+            "HP": "Nice",
+            "ATK": "Ignore",
+            "CRIT_Rate": "Essential",
+            "CRIT_DMG": "Nice",
+            "Anomaly_Proficiency": "Ignore",
+            "PEN": "Ignore"
+          },
+          "Drive6": {
+            "HP%": "Important",
+            "HP": "Essential",
+            "ATK": "Ignore",
+            "DEF": "Ignore",
+            "CRIT_Rate": "Nice",
+            "CRIT_DMG": "Important",
+            "Anomaly_Proficiency": "Ignore",
+            "PEN": "Ignore"
+          }
+        },
+        "customBreakpoints": {
+          "hp": {
+            "min": 8500,
+            "optimal": 10000
+          },
+          "atk": {
+            "min": 1700,
+            "optimal": 1847
+          },
+          "def": {
+            "min": 450,
+            "optimal": 486
+          },
+          "impact": {
+            "min": 0,
+            "optimal": 0
+          },
+          "anomalyMastery": {
+            "min": 0,
+            "optimal": 0
+          },
+          "critRate": {
+            "min": 52,
+            "optimal": 52
+          },
+          "critDmg": {
+            "min": 95,
+            "optimal": 110
+          },
+          "anomalyProficiency": {
+            "min": 0,
+            "optimal": 0
+          },
+          "pen": {
+            "min": 0,
+            "optimal": 0
+          },
+          "penRatio": {
+            "min": 0,
+            "optimal": 0
+          },
+          "energyRegen": {
+            "min": 0,
+            "optimal": 0
+          }
+        },
+        "createdAt": "2026-01-01T00:00:00.000Z",
+        "updatedAt": "2026-01-01T00:00:00.000Z"
+      }
+    },
+    {
+      "id": "wengine-14153-r1",
+      "note": "Starlight Rider Faceplate R1",
+      "build": {
+        "id": "syn-1371-wengine-14153-r1",
+        "agentId": "1371",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "14153",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1371-wengine-14153-r1-Drive1",
+            "slot": "Drive1",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1371-wengine-14153-r1-Drive2",
+            "slot": "Drive2",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1371-wengine-14153-r1-Drive3",
+            "slot": "Drive3",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1371-wengine-14153-r1-Drive4",
+            "slot": "Drive4",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 19.2,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1371-wengine-14153-r1-Drive5",
+            "slot": "Drive5",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 38,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 7.2,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 45,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1371-wengine-14153-r1-Drive6",
+            "slot": "Drive6",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "wengine-14153-r2",
+      "note": "Starlight Rider Faceplate R2",
+      "build": {
+        "id": "syn-1371-wengine-14153-r2",
+        "agentId": "1371",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "14153",
+        "wEngineRefinement": 2,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1371-wengine-14153-r2-Drive1",
+            "slot": "Drive1",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1371-wengine-14153-r2-Drive2",
+            "slot": "Drive2",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1371-wengine-14153-r2-Drive3",
+            "slot": "Drive3",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1371-wengine-14153-r2-Drive4",
+            "slot": "Drive4",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 19.2,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1371-wengine-14153-r2-Drive5",
+            "slot": "Drive5",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 38,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 7.2,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 45,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1371-wengine-14153-r2-Drive6",
+            "slot": "Drive6",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "wengine-14153-r3",
+      "note": "Starlight Rider Faceplate R3",
+      "build": {
+        "id": "syn-1371-wengine-14153-r3",
+        "agentId": "1371",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "14153",
+        "wEngineRefinement": 3,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1371-wengine-14153-r3-Drive1",
+            "slot": "Drive1",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1371-wengine-14153-r3-Drive2",
+            "slot": "Drive2",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1371-wengine-14153-r3-Drive3",
+            "slot": "Drive3",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1371-wengine-14153-r3-Drive4",
+            "slot": "Drive4",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 19.2,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1371-wengine-14153-r3-Drive5",
+            "slot": "Drive5",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 38,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 7.2,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 45,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1371-wengine-14153-r3-Drive6",
+            "slot": "Drive6",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "wengine-14153-r4",
+      "note": "Starlight Rider Faceplate R4",
+      "build": {
+        "id": "syn-1371-wengine-14153-r4",
+        "agentId": "1371",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "14153",
+        "wEngineRefinement": 4,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1371-wengine-14153-r4-Drive1",
+            "slot": "Drive1",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1371-wengine-14153-r4-Drive2",
+            "slot": "Drive2",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1371-wengine-14153-r4-Drive3",
+            "slot": "Drive3",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1371-wengine-14153-r4-Drive4",
+            "slot": "Drive4",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 19.2,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1371-wengine-14153-r4-Drive5",
+            "slot": "Drive5",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 38,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 7.2,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 45,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1371-wengine-14153-r4-Drive6",
+            "slot": "Drive6",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "wengine-14153-r5",
+      "note": "Starlight Rider Faceplate R5",
+      "build": {
+        "id": "syn-1371-wengine-14153-r5",
+        "agentId": "1371",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "14153",
+        "wEngineRefinement": 5,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1371-wengine-14153-r5-Drive1",
+            "slot": "Drive1",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1371-wengine-14153-r5-Drive2",
+            "slot": "Drive2",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1371-wengine-14153-r5-Drive3",
+            "slot": "Drive3",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1371-wengine-14153-r5-Drive4",
+            "slot": "Drive4",
+            "set": "Shining Aria",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 19.2,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1371-wengine-14153-r5-Drive5",
+            "slot": "Drive5",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 38,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 7.2,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 45,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1371-wengine-14153-r5-Drive6",
+            "slot": "Drive6",
+            "set": "Hormone Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "set-2pc-dawn-s-bloom",
+      "note": "Dawn's Bloom as 2pc, Proto Punk as the other set",
+      "build": {
+        "id": "syn-1371-set-2pc-dawn-s-bloom",
+        "agentId": "1371",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "13014",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1371-set-2pc-dawn-s-bloom-Drive1",
+            "slot": "Drive1",
+            "set": "Proto Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1371-set-2pc-dawn-s-bloom-Drive2",
+            "slot": "Drive2",
+            "set": "Proto Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1371-set-2pc-dawn-s-bloom-Drive3",
+            "slot": "Drive3",
+            "set": "Proto Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1371-set-2pc-dawn-s-bloom-Drive4",
+            "slot": "Drive4",
+            "set": "Proto Punk",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 19.2,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1371-set-2pc-dawn-s-bloom-Drive5",
+            "slot": "Drive5",
+            "set": "Dawn's Bloom",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 38,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 7.2,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 45,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1371-set-2pc-dawn-s-bloom-Drive6",
+            "slot": "Drive6",
+            "set": "Dawn's Bloom",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "set-2pc-moonlight-lullaby",
+      "note": "Moonlight Lullaby as 2pc, Fanged Metal as the other set",
+      "build": {
+        "id": "syn-1371-set-2pc-moonlight-lullaby",
+        "agentId": "1371",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "13014",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1371-set-2pc-moonlight-lullaby-Drive1",
+            "slot": "Drive1",
+            "set": "Fanged Metal",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1371-set-2pc-moonlight-lullaby-Drive2",
+            "slot": "Drive2",
+            "set": "Fanged Metal",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1371-set-2pc-moonlight-lullaby-Drive3",
+            "slot": "Drive3",
+            "set": "Fanged Metal",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1371-set-2pc-moonlight-lullaby-Drive4",
+            "slot": "Drive4",
+            "set": "Fanged Metal",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 19.2,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1371-set-2pc-moonlight-lullaby-Drive5",
+            "slot": "Drive5",
+            "set": "Moonlight Lullaby",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 38,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 7.2,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 45,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1371-set-2pc-moonlight-lullaby-Drive6",
+            "slot": "Drive6",
+            "set": "Moonlight Lullaby",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          }
+        }
+      }
+    },
+    {
+      "id": "set-4pc-woodpecker-electro",
+      "note": "Woodpecker Electro as 4pc, White Water Ballad as the other set",
+      "build": {
+        "id": "syn-1371-set-4pc-woodpecker-electro",
+        "agentId": "1371",
+        "level": 60,
+        "mindscapeLevel": 0,
+        "equippedWEngineId": "13014",
+        "wEngineRefinement": 1,
+        "equippedDiscs": {
+          "Drive1": {
+            "uid": "syn-1371-set-4pc-woodpecker-electro-Drive1",
+            "slot": "Drive1",
+            "set": "Woodpecker Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP",
+              "value": 2200
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "PEN",
+                "value": 27,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive2": {
+            "uid": "syn-1371-set-4pc-woodpecker-electro-Drive2",
+            "slot": "Drive2",
+            "set": "Woodpecker Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "ATK",
+              "value": 316
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive3": {
+            "uid": "syn-1371-set-4pc-woodpecker-electro-Drive3",
+            "slot": "Drive3",
+            "set": "Woodpecker Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "DEF",
+              "value": 184
+            },
+            "subStats": [
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "DEF%",
+                "value": 9.6,
+                "rolls": 2
+              },
+              {
+                "type": "HP%",
+                "value": 9,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive4": {
+            "uid": "syn-1371-set-4pc-woodpecker-electro-Drive4",
+            "slot": "Drive4",
+            "set": "Woodpecker Electro",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "CRIT_Rate",
+              "value": 24
+            },
+            "subStats": [
+              {
+                "type": "HP%",
+                "value": 6,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_DMG",
+                "value": 19.2,
+                "rolls": 4
+              },
+              {
+                "type": "DEF",
+                "value": 15,
+                "rolls": 1
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive5": {
+            "uid": "syn-1371-set-4pc-woodpecker-electro-Drive5",
+            "slot": "Drive5",
+            "set": "White Water Ballad",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_DMG",
+                "value": 4.8,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 38,
+                "rolls": 2
+              },
+              {
+                "type": "CRIT_Rate",
+                "value": 7.2,
+                "rolls": 3
+              },
+              {
+                "type": "DEF",
+                "value": 45,
+                "rolls": 3
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          },
+          "Drive6": {
+            "uid": "syn-1371-set-4pc-woodpecker-electro-Drive6",
+            "slot": "Drive6",
+            "set": "White Water Ballad",
+            "rarity": "S",
+            "level": 15,
+            "mainStat": {
+              "type": "HP%",
+              "value": 30
+            },
+            "subStats": [
+              {
+                "type": "CRIT_Rate",
+                "value": 4.8,
+                "rolls": 2
+              },
+              {
+                "type": "HP",
+                "value": 224,
+                "rolls": 2
+              },
+              {
+                "type": "Anomaly_Proficiency",
+                "value": 9,
+                "rolls": 1
+              },
+              {
+                "type": "ATK",
+                "value": 76,
+                "rolls": 4
+              }
+            ],
+            "equippedBy": "1371",
+            "lock": false
+          }
+        }
+      }
+    }
+  ]
+}

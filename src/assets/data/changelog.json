@@ -7,7 +7,9 @@
       "fixes": [
         "Your saved disc loadouts are no longer deleted when the app updates"
       ],
-      "improvements": []
+      "improvements": [
+        "Added automated checks so agent stats, disc scores, and build ratings don't change unexpectedly in future updates"
+      ]
     },
     {
       "version": "7.0.15",
