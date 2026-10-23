@@ -1,6 +1,26 @@
 {
   "versions": [
     {
+      "version": "7.1.0",
+      "date": "2026-10-23",
+      "features": [],
+      "fixes": [
+        "Your saved disc loadouts are no longer deleted when the app updates"
+      ],
+      "improvements": []
+    },
+    {
+      "version": "7.0.15",
+      "date": "2026-10-22",
+      "features": [
+        "Added the A-rank W-Engine Candlelight Conspiracy"
+      ],
+      "fixes": [
+        "Fixed [Reverb] Mark I Impact%. It now adds 8% to 12% Impact, as its description says. Existing builds keep showing their saved stats until you edit them"
+      ],
+      "improvements": []
+    },
+    {
       "version": "7.0.14",
       "date": "2026-10-21",
       "features": [],

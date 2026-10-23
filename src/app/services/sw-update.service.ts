@@ -211,8 +211,8 @@ export class SwUpdateService implements OnDestroy {
   }
 
   /**
-   * Check if app version has changed and clear all caches if needed
-   * This ensures users never have stale data after updates
+   * Check if app version has changed and clear reference data if needed
+   * This ensures users never have stale game data after updates
    */
   private async checkVersionAndClearCaches(): Promise<void> {
     try {
@@ -220,34 +220,14 @@ export class SwUpdateService implements OnDestroy {
       const storedVersion = localStorage.getItem(this.VERSION_KEY);
 
       if (storedVersion && storedVersion !== currentVersion) {
-        console.log(`[SW Update] Version changed from ${storedVersion} to ${currentVersion} - clearing non-SW caches`);
+        console.log(`[SW Update] Version changed from ${storedVersion} to ${currentVersion} - clearing reference data`);
 
         // Clear the expecting update flag since we're now on the new version
         localStorage.removeItem(this.EXPECTING_UPDATE_KEY);
         console.log('[SW Update] Cleared expecting update flag (version updated)');
 
-        // Clear localStorage except for USER DATA and SW-related keys
-        // USER DATA TO PRESERVE:
-        // - zzz-optimizer-builds: All user's character builds (agents + equipped gear)
-        // - zzz-optimizer-upgrade-plans: User's custom upgrade plans
-        // - zzz_uid_history: Recent UID search history
-        const keysToPreserve = [
-          'zzz-optimizer-builds',
-          'zzz-optimizer-upgrade-plans',
-          'zzz_uid_history',
-          this.VERSION_KEY,
-          this.INSTALLED_TIMESTAMP_KEY
-        ];
-        const allKeys = Object.keys(localStorage);
-        allKeys.forEach(key => {
-          // Only remove if NOT in the preserve list
-          // Also preserve anniversary confetti flags (anniversary_confetti_shown_*)
-          const isAnniversaryFlag = key.startsWith('anniversary_confetti_shown_');
-          if (!keysToPreserve.includes(key) && !isAnniversaryFlag) {
-            console.log(`[SW Update] Removing localStorage key: ${key}`);
-            localStorage.removeItem(key);
-          }
-        });
+        // localStorage is deliberately left alone: it holds user data (builds, plans,
+        // disc loadouts, UID history) and settings, and none of it goes stale on an update.
 
         // Clear IndexedDB reference data (agents, wEngines, discSets) on version change
         // This ensures users always get fresh game data after updates
