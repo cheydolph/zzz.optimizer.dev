@@ -4,15 +4,19 @@
     <p class="subtitle">Import and manage your ZZZ Optimizer data</p>
 
     <!-- Message Display -->
-    <div *ngIf="message" class="message" [class]="messageType">
-      {{ message }}
-    </div>
+    @if (message) {
+      <div class="message" [class]="messageType">
+        {{ message }}
+      </div>
+    }
 
     <!-- Loading Indicator -->
-    <div *ngIf="isLoading" class="loading">
-      <div class="spinner"></div>
-      <p>Processing...</p>
-    </div>
+    @if (isLoading) {
+      <div class="loading">
+        <div class="spinner"></div>
+        <p>Processing...</p>
+      </div>
+    }
 
     <!-- Reference Data Status -->
     <div class="section info-section">
@@ -55,23 +59,25 @@
         (change)="onFileSelected($event)"
         style="display: none;">
 
-      <div *ngIf="selectedFile" class="file-info">
-        <p><strong>Selected file:</strong> {{selectedFile.name}}</p>
-        <div class="import-options">
-          <label>
-            <input type="checkbox" [(ngModel)]="replaceExisting">
-            Replace existing builds, discs, and loadouts (will clear current data)
-          </label>
+      @if (selectedFile) {
+        <div class="file-info">
+          <p><strong>Selected file:</strong> {{selectedFile.name}}</p>
+          <div class="import-options">
+            <label>
+              <input type="checkbox" [(ngModel)]="replaceExisting">
+              Replace existing builds, discs, and loadouts (will clear current data)
+            </label>
+          </div>
+          <div class="button-grid">
+            <button class="btn-primary" (click)="importBuildsFromFile()" [disabled]="isLoading">
+              Confirm Import
+            </button>
+            <button class="btn-secondary" (click)="cancelFileSelection()">
+              Cancel
+            </button>
+          </div>
         </div>
-        <div class="button-grid">
-          <button class="btn-primary" (click)="importBuildsFromFile()" [disabled]="isLoading">
-            Confirm Import
-          </button>
-          <button class="btn-secondary" (click)="cancelFileSelection()">
-            Cancel
-          </button>
-        </div>
-      </div>
+      }
     </div>
 
     <!-- Export Section -->

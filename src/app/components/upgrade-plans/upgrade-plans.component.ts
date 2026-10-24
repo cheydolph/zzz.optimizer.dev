@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 import { UpgradePlanService } from '../../services/upgrade-plan.service';
@@ -13,7 +13,7 @@ import { MAIN_STAT_BY_SLOT } from '../../constants/main-stat-possibilities';
 
 @Component({
   selector: 'app-upgrade-plans',
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   templateUrl: './upgrade-plans.component.html',
   styleUrls: ['./upgrade-plans.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush

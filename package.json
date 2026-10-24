@@ -15,15 +15,15 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^20.3.34",
-    "@angular/cdk": "^20.2.14",
-    "@angular/common": "^20.3.34",
-    "@angular/compiler": "^20.3.34",
-    "@angular/core": "^20.3.34",
-    "@angular/forms": "^20.3.34",
-    "@angular/platform-browser": "^20.3.34",
-    "@angular/router": "^20.3.34",
-    "@angular/service-worker": "^20.3.34",
+    "@angular/animations": "^21.2.25",
+    "@angular/cdk": "^21.2.14",
+    "@angular/common": "^21.2.25",
+    "@angular/compiler": "^21.2.25",
+    "@angular/core": "^21.2.25",
+    "@angular/forms": "^21.2.25",
+    "@angular/platform-browser": "^21.2.25",
+    "@angular/router": "^21.2.25",
+    "@angular/service-worker": "^21.2.25",
     "canvas-confetti": "^1.9.4",
     "dexie": "^4.2.1",
     "rxjs": "~7.8.0",
@@ -31,13 +31,13 @@
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^20.3.41",
-    "@angular/cli": "^20.3.41",
-    "@angular/compiler-cli": "^20.3.34",
+    "@angular-devkit/build-angular": "^21.2.28",
+    "@angular/cli": "^21.2.28",
+    "@angular/compiler-cli": "^21.2.25",
     "@tailwindcss/postcss": "^4.3.0",
     "@types/canvas-confetti": "^1.9.0",
     "@types/jasmine": "~5.1.0",
-    "@types/node": "^18.18.0",
+    "@types/node": "^24.19.2",
     "angular-cli-ghpages": "^3.0.2",
     "esbuild": "0.25.4",
     "jasmine-core": "~5.6.0",
@@ -51,5 +51,17 @@
     "tailwindcss": "^4.3.0",
     "typescript": "~5.9.3",
     "webpack-bundle-analyzer": "^5.2.0"
+  },
+  "overrides": {
+    "@angular-devkit/core@21": {
+      "chokidar": "^5.0.0"
+    }
+  },
+  "allowScripts": {
+    "esbuild@0.28.1": true,
+    "esbuild@0.25.4": true,
+    "lmdb": false,
+    "msgpackr-extract": false,
+    "@parcel/watcher": false
   }
 }

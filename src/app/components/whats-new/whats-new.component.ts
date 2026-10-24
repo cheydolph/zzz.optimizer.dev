@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { versionedUrl } from '../../utils/versioned-url';
@@ -19,7 +19,7 @@ interface Changelog {
 
 @Component({
   selector: 'app-whats-new',
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './whats-new.component.html',
   styleUrl: './whats-new.component.css'
 })

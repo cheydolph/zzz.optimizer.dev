@@ -8,7 +8,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgClass, DatePipe, DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { DragDropModule, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
@@ -72,13 +72,15 @@ interface MindscapeData {
 @Component({
   selector: 'app-character-tab',
   imports: [
-    CommonModule,
     FormsModule,
     ScrollingModule,
     DragDropModule,
     OptimizerComponent,
     UpgradePlansComponent,
-  ],
+    DatePipe,
+    DecimalPipe,
+    NgClass
+],
   templateUrl: './character-tab.component.html',
   styleUrls: ['./character-tab.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,

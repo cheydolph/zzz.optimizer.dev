@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil, filter } from 'rxjs/operators';
@@ -9,7 +9,7 @@ import { fadeIn } from '../../animations/route-animations';
 
 @Component({
   selector: 'app-navigation',
-  imports: [CommonModule, RouterModule],
+  imports: [RouterModule],
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,

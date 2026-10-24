@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { SwUpdateService } from '../../services/sw-update.service';
@@ -7,7 +7,7 @@ import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-update-notification',
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './update-notification.component.html',
   styleUrl: './update-notification.component.css'
 })

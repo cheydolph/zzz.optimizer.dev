@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RouterOutlet, ChildrenOutletContexts } from '@angular/router';
-import { CommonModule } from '@angular/common';
+
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { NavigationComponent } from './components/navigation/navigation.component';
@@ -17,7 +17,7 @@ import { AnniversaryService } from './services/anniversary.service';
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, RouterOutlet, NavigationComponent, FooterComponent, LoadingOverlayComponent, NotificationComponent, UpdateNotificationComponent],
+  imports: [RouterOutlet, NavigationComponent, FooterComponent, LoadingOverlayComponent, NotificationComponent, UpdateNotificationComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   animations: [routeAnimations]

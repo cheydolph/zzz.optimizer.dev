@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { DataImportService } from '../../services/data-import.service';
 import { AppInitService } from '../../services/app-init.service';
@@ -7,7 +7,7 @@ import { BuildImportExportService } from '../../services/build-import-export.ser
 
 @Component({
   selector: 'app-data-manager',
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   templateUrl: './data-manager.component.html',
   styleUrls: ['./data-manager.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush

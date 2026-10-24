@@ -1,10 +1,10 @@
 import { Component, Input, ChangeDetectionStrategy, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { trigger, transition, style, animate, state } from '@angular/animations';
 
 @Component({
   selector: 'app-loading-overlay',
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './loading-overlay.component.html',
   styleUrl: './loading-overlay.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

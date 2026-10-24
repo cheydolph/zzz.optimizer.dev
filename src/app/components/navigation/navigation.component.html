@@ -17,7 +17,9 @@
       <a routerLink="/whats-new" routerLinkActive="active" class="nav-link">
         <img src="assets/data/images/page-icons/eous.png" alt="What's New" class="nav-icon" width="24" height="24" loading="lazy">
         <span>What's New</span>
-        <span *ngIf="showWhatsNewBadge" class="badge"></span>
+        @if (showWhatsNewBadge) {
+          <span class="badge"></span>
+        }
       </a>
       <a routerLink="/credits" routerLinkActive="active" class="nav-link">
         <img src="assets/data/images/page-icons/Achievement_Gold.webp" alt="Credits" class="nav-icon" width="24" height="24" loading="lazy">

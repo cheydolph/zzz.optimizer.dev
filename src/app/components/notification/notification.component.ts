@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { NotificationService, Notification } from '../../services/notification.service';
@@ -7,7 +7,7 @@ import { slideInRight } from '../../animations/route-animations';
 
 @Component({
   selector: 'app-notification',
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './notification.component.html',
   styleUrl: './notification.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

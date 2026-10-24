@@ -1,9 +1,9 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-optimizer',
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './optimizer.component.html',
   styleUrls: ['./optimizer.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
