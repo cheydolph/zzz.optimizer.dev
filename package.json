@@ -31,7 +31,7 @@
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^21.2.28",
+    "@angular/build": "^21.2.28",
     "@angular/cli": "^21.2.28",
     "@angular/compiler-cli": "^21.2.25",
     "@tailwindcss/postcss": "^4.3.0",
@@ -62,6 +62,7 @@
     "esbuild@0.25.4": true,
     "lmdb": false,
     "msgpackr-extract": false,
-    "@parcel/watcher": false
+    "@parcel/watcher": false,
+    "esbuild@0.28.2": true
   }
 }
