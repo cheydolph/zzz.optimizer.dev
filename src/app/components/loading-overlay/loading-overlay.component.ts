@@ -1,4 +1,12 @@
-import { Component, Input, ChangeDetectionStrategy, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  Input,
+  ChangeDetectionStrategy,
+  ViewChild,
+  ElementRef,
+  AfterViewInit,
+  OnDestroy,
+} from '@angular/core';
 
 import { trigger, transition, style, animate, state } from '@angular/animations';
 
@@ -11,12 +19,15 @@ import { trigger, transition, style, animate, state } from '@angular/animations'
   animations: [
     trigger('slideOut', [
       transition(':leave', [
-        animate('600ms cubic-bezier(0.4, 0, 0.2, 1)', style({
-          transform: 'translateX(100%)'
-        }))
-      ])
-    ])
-  ]
+        animate(
+          '600ms cubic-bezier(0.4, 0, 0.2, 1)',
+          style({
+            transform: 'translateX(100%)',
+          }),
+        ),
+      ]),
+    ]),
+  ],
 })
 export class LoadingOverlayComponent implements AfterViewInit, OnDestroy {
   @ViewChild('bangbooVideo') bangbooVideo?: ElementRef<HTMLVideoElement>;
@@ -61,7 +72,7 @@ export class LoadingOverlayComponent implements AfterViewInit, OnDestroy {
         video.muted = true;
         video.setAttribute('muted', 'true');
 
-        video.play().catch(err => {
+        video.play().catch((err) => {
           // Autoplay failed - this is expected in some browsers/contexts
           console.warn('[Loading Overlay] Video autoplay blocked:', err);
         });

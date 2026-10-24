@@ -30,15 +30,8 @@ import { ScoringService } from '../../services/scoring.service';
 import { ImagePreloaderService } from '../../services/image-preloader.service';
 import { DataMappingService } from '../../services/data-mapping.service';
 import { versionedUrl } from '../../utils/versioned-url';
-import {
-  DiscRating,
-  BuildRating,
-  FeedbackItem,
-} from '../../constants/disc-scoring';
-import {
-  DISC_MAIN_STAT_MAX,
-  MAIN_STAT_BY_SLOT,
-} from '../../constants/main-stat-possibilities';
+import { DiscRating, BuildRating, FeedbackItem } from '../../constants/disc-scoring';
+import { DISC_MAIN_STAT_MAX, MAIN_STAT_BY_SLOT } from '../../constants/main-stat-possibilities';
 import { OptimizerComponent } from '../optimizer/optimizer.component';
 import { EnkaApiService, EnkaImportResult } from '../../services/enka-api.service';
 import { EnkaImportService, ImportComparison } from '../../services/enka-import.service';
@@ -48,10 +41,7 @@ import { NotificationService } from '../../services/notification.service';
 import { UpgradePlan } from '../../models/upgrade-plan.model';
 import { calculateRollCount } from '../../constants/substat-rolls';
 import { UpgradePlansComponent } from '../upgrade-plans/upgrade-plans.component';
-import {
-  CanvasShareImageService,
-  ShareImageData,
-} from '../../services/canvas-share-image.service';
+import { CanvasShareImageService, ShareImageData } from '../../services/canvas-share-image.service';
 import { getDiscValidationErrors, hasValidationErrors } from '../../utils/disc-validation';
 import { fadeIn, scaleIn, fadeInUp, expandCollapse, fadeInFast, slideInRight } from '../../animations/route-animations';
 
@@ -79,8 +69,8 @@ interface MindscapeData {
     UpgradePlansComponent,
     DatePipe,
     DecimalPipe,
-    NgClass
-],
+    NgClass,
+  ],
   templateUrl: './character-tab.component.html',
   styleUrls: ['./character-tab.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -163,14 +153,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
   };
 
   // Disc slots
-  discSlots: DiscSlot[] = [
-    'Drive1',
-    'Drive2',
-    'Drive3',
-    'Drive4',
-    'Drive5',
-    'Drive6',
-  ];
+  discSlots: DiscSlot[] = ['Drive1', 'Drive2', 'Drive3', 'Drive4', 'Drive5', 'Drive6'];
 
   // Available substat types (for dropdown options)
   availableSubStatTypes: Array<{ value: SubStatType; label: string }> = [
@@ -323,114 +306,100 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     this.checkIfMobile();
 
     // Subscribe to user builds
-    this.buildService.builds$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((builds) => {
-        this.builds = builds;
-        // Auto-select first build if none selected
-        if (builds.length > 0 && !this.selectedBuild) {
-          this.selectBuild(builds[0]);
-        }
-        this.cdr.markForCheck();
-      });
+    this.buildService.builds$.pipe(takeUntil(this.destroy$)).subscribe((builds) => {
+      this.builds = builds;
+      // Auto-select first build if none selected
+      if (builds.length > 0 && !this.selectedBuild) {
+        this.selectBuild(builds[0]);
+      }
+      this.cdr.markForCheck();
+    });
 
     // Subscribe to selected build
-    this.buildService.selectedBuild$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(async (build) => {
-        // Check if this build needs to be fixed BEFORE assigning it
-        if (build) {
-          // On page refresh, inGameStatsMode is always false (not persisted)
-          // If build has In-Game Stats settings but toggle is off, restore full stats
-          const has4pcDisabled = build.include4pcBonuses === false;
-          if (has4pcDisabled && !this.inGameStatsMode) {
-            // Build has In-Game Stats mode settings but toggle is off - restore full stats
-            // Update the build first, which will recalculate stats and re-emit through observable
-            await this.buildService.updateBuild(build.id, {
-              includeWEngineBonuses: true,
-              includeMindscapeBonuses: true,
-              includePassiveBonuses: true,
-              includeSetBonuses: true,
-              include4pcBonuses: true
-            });
-            // Don't process this build further - wait for the updated build to come through
-            return;
-          }
-
-          // Load toggle flags normally
-          this.includeWEngineBonuses = build.includeWEngineBonuses ?? true;
-          this.includeMindscapeBonuses = build.includeMindscapeBonuses ?? true;
-          this.includePassiveBonuses = build.includePassiveBonuses ?? true;
-          this.includeSetBonuses = build.includeSetBonuses ?? true;
+    this.buildService.selectedBuild$.pipe(takeUntil(this.destroy$)).subscribe(async (build) => {
+      // Check if this build needs to be fixed BEFORE assigning it
+      if (build) {
+        // On page refresh, inGameStatsMode is always false (not persisted)
+        // If build has In-Game Stats settings but toggle is off, restore full stats
+        const has4pcDisabled = build.include4pcBonuses === false;
+        if (has4pcDisabled && !this.inGameStatsMode) {
+          // Build has In-Game Stats mode settings but toggle is off - restore full stats
+          // Update the build first, which will recalculate stats and re-emit through observable
+          await this.buildService.updateBuild(build.id, {
+            includeWEngineBonuses: true,
+            includeMindscapeBonuses: true,
+            includePassiveBonuses: true,
+            includeSetBonuses: true,
+            include4pcBonuses: true,
+          });
+          // Don't process this build further - wait for the updated build to come through
+          return;
         }
 
-        // Now assign the build and invalidate caches
-        this.selectedBuild = build;
-        this.invalidateBuildCaches();
-        this.cdr.markForCheck();
-      });
+        // Load toggle flags normally
+        this.includeWEngineBonuses = build.includeWEngineBonuses ?? true;
+        this.includeMindscapeBonuses = build.includeMindscapeBonuses ?? true;
+        this.includePassiveBonuses = build.includePassiveBonuses ?? true;
+        this.includeSetBonuses = build.includeSetBonuses ?? true;
+      }
+
+      // Now assign the build and invalidate caches
+      this.selectedBuild = build;
+      this.invalidateBuildCaches();
+      this.cdr.markForCheck();
+    });
 
     // Subscribe to upgrade plans to keep dropdown updated
-    this.upgradePlanService.plans$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((plans) => {
-        // Store plans locally so Angular knows to update the dropdown
-        // Create new array reference to ensure change detection
-        this.availablePlans = [...plans];
-        this.cdr.markForCheck();
-      });
+    this.upgradePlanService.plans$.pipe(takeUntil(this.destroy$)).subscribe((plans) => {
+      // Store plans locally so Angular knows to update the dropdown
+      // Create new array reference to ensure change detection
+      this.availablePlans = [...plans];
+      this.cdr.markForCheck();
+    });
 
     // Subscribe to artist credit changes with debounce
     this.artistCreditChange$
       .pipe(
         debounceTime(800), // Wait 800ms after user stops typing
-        takeUntil(this.destroy$)
+        takeUntil(this.destroy$),
       )
       .subscribe(() => {
         this.onShareOptionChange();
       });
 
     // Load reference agents for the "Add Agent" modal
-    this.agentService.agents$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((agents) => {
-        this.referenceAgents = agents;
-        // Preload agent images
-        this.preloadAgentImages(agents);
-        this.cdr.markForCheck();
-      });
+    this.agentService.agents$.pipe(takeUntil(this.destroy$)).subscribe((agents) => {
+      this.referenceAgents = agents;
+      // Preload agent images
+      this.preloadAgentImages(agents);
+      this.cdr.markForCheck();
+    });
 
     // Load reference W-Engines
-    this.wEngineService.wEngines$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((wEngines) => {
-        this.referenceWEngines = wEngines;
-        // Preload W-Engine images
-        this.preloadWEngineImages(wEngines);
-        this.cdr.markForCheck();
-      });
+    this.wEngineService.wEngines$.pipe(takeUntil(this.destroy$)).subscribe((wEngines) => {
+      this.referenceWEngines = wEngines;
+      // Preload W-Engine images
+      this.preloadWEngineImages(wEngines);
+      this.cdr.markForCheck();
+    });
 
     // Load reference disc sets
-    this.discSetService.discSets$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((discSets) => {
-        this.referenceDiscSets = discSets;
-        // Initialize cached filtered disc sets
-        this.updateFilteredDiscSets();
-        // Preload disc set images
-        this.preloadDiscSetImages(discSets);
-        this.cdr.markForCheck();
-      });
+    this.discSetService.discSets$.pipe(takeUntil(this.destroy$)).subscribe((discSets) => {
+      this.referenceDiscSets = discSets;
+      // Initialize cached filtered disc sets
+      this.updateFilteredDiscSets();
+      // Preload disc set images
+      this.preloadDiscSetImages(discSets);
+      this.cdr.markForCheck();
+    });
 
     // Load user disc inventory
-    this.discService.discs$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((discs) => {
-        this.allDiscs = discs;
-        // Update cached filtered discs whenever inventory changes
-        this.updateFilteredDiscs();
-        this.cdr.markForCheck();
-      });
+    this.discService.discs$.pipe(takeUntil(this.destroy$)).subscribe((discs) => {
+      this.allDiscs = discs;
+      // Update cached filtered discs whenever inventory changes
+      this.updateFilteredDiscs();
+      this.cdr.markForCheck();
+    });
 
     // Set up debounced search for disc set name
     this.discSearchSubject$
@@ -499,7 +468,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
         includeMindscapeBonuses: true,
         includePassiveBonuses: true,
         includeSetBonuses: true,
-        include4pcBonuses: true
+        include4pcBonuses: true,
       });
 
       this.cdr.markForCheck();
@@ -511,7 +480,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
         this.buildHeader?.nativeElement.scrollIntoView({
           behavior: 'smooth',
           block: 'start',
-          inline: 'nearest'
+          inline: 'nearest',
         });
       }, 100);
     }
@@ -598,23 +567,16 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     }
 
     // Check if this agent already has a build
-    const existingBuild = this.builds.find(
-      (b) => b.agentId === this.selectedAgentForAdd!.id,
-    );
+    const existingBuild = this.builds.find((b) => b.agentId === this.selectedAgentForAdd!.id);
     if (existingBuild) {
-      alert(
-        `You already have a build for ${this.selectedAgentForAdd.name}. Each agent can only have one build.`,
-      );
+      alert(`You already have a build for ${this.selectedAgentForAdd.name}. Each agent can only have one build.`);
       return;
     }
 
     this.isProcessingAgentAction = true;
 
     try {
-      const newBuild = await this.buildService.createBuild(
-        this.selectedAgentForAdd,
-        0,
-      );
+      const newBuild = await this.buildService.createBuild(this.selectedAgentForAdd, 0);
       this.closeAddAgentModal();
       this.selectBuild(newBuild);
     } catch (error) {
@@ -761,7 +723,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
           includeMindscapeBonuses: false,
           includePassiveBonuses: false,
           includeSetBonuses: true,
-          include4pcBonuses: false // Disable 4pc
+          include4pcBonuses: false, // Disable 4pc
         });
       }
     } else {
@@ -777,7 +739,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
           includeMindscapeBonuses: true,
           includePassiveBonuses: true,
           includeSetBonuses: true,
-          include4pcBonuses: true
+          include4pcBonuses: true,
         });
       }
     }
@@ -863,9 +825,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       });
 
       // Refresh the selected build
-      const updatedBuild = this.buildService.getBuildById(
-        this.selectedBuild.id,
-      );
+      const updatedBuild = this.buildService.getBuildById(this.selectedBuild.id);
       if (updatedBuild) {
         this.selectedBuild = updatedBuild;
       }
@@ -893,9 +853,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
    */
   getActiveBuildType(): string {
     if (!this.selectedBuild) return 'CRIT';
-    const equippedDiscs = Object.values(
-      this.selectedBuild.equippedDiscs || {},
-    ).filter((d) => d) as Disc[];
+    const equippedDiscs = Object.values(this.selectedBuild.equippedDiscs || {}).filter((d) => d) as Disc[];
     return this.scoringService.resolveBuildType(
       equippedDiscs,
       this.selectedBuild.agentId,
@@ -946,9 +904,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       Rupture: 'assets/data/images/roles/IconRupture.webp',
       Armorer: 'assets/data/images/roles/IconArmorer.webp',
     };
-    return (
-      specialtyMap[specialty] || 'assets/data/images/roles/IconAttackType.webp'
-    );
+    return specialtyMap[specialty] || 'assets/data/images/roles/IconAttackType.webp';
   }
 
   getFilteredAgents(): Agent[] {
@@ -1059,9 +1015,11 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       if (this.wengineRarityFilter && w.rarity !== this.wengineRarityFilter) {
         return false;
       }
-      if (searchLower &&
-          !w.name.toLowerCase().includes(searchLower) &&
-          !w.specialty.toLowerCase().includes(searchLower)) {
+      if (
+        searchLower &&
+        !w.name.toLowerCase().includes(searchLower) &&
+        !w.specialty.toLowerCase().includes(searchLower)
+      ) {
         return false;
       }
       return true;
@@ -1098,9 +1056,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       return false;
     }
 
-    const agent = this.referenceAgents.find(
-      (a) => a.id === this.selectedBuild!.agentId,
-    );
+    const agent = this.referenceAgents.find((a) => a.id === this.selectedBuild!.agentId);
     if (!agent) {
       return false;
     }
@@ -1146,12 +1102,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       return [];
     }
 
-    const refinementKey = `W${this.selectedBuild.wEngineRefinement}` as
-      | 'W1'
-      | 'W2'
-      | 'W3'
-      | 'W4'
-      | 'W5';
+    const refinementKey = `W${this.selectedBuild.wEngineRefinement}` as 'W1' | 'W2' | 'W3' | 'W4' | 'W5';
 
     return this.selectedBuild.equippedWEngine.effect.properties.map((prop) => {
       const value = prop.values[refinementKey];
@@ -1172,7 +1123,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
   private async loadMindscapeData(): Promise<void> {
     try {
       this.mindscapeData = await firstValueFrom(
-        this.http.get<MindscapeData>(versionedUrl('assets/data/mindscape-stats.json'))
+        this.http.get<MindscapeData>(versionedUrl('assets/data/mindscape-stats.json')),
       );
     } catch (error) {
       console.error('Failed to load mindscape data:', error);
@@ -1202,9 +1153,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       return [];
     }
 
-    const agent = this.referenceAgents.find(
-      (a) => a.id === this.selectedBuild!.agentId,
-    );
+    const agent = this.referenceAgents.find((a) => a.id === this.selectedBuild!.agentId);
     if (!agent) {
       return [];
     }
@@ -1315,9 +1264,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       return [];
     }
 
-    const agent = this.referenceAgents.find(
-      (a) => a.id === this.selectedBuild!.agentId,
-    );
+    const agent = this.referenceAgents.find((a) => a.id === this.selectedBuild!.agentId);
     if (!agent || !agent.scoring?.buffs) {
       return [];
     }
@@ -1339,7 +1286,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       false, // includePassiveBonuses = false
       this.selectedBuild.enabledDiscs || {},
       this.selectedBuild.includeSetBonuses ?? true,
-      this.selectedBuild.include4pcBonuses ?? true
+      this.selectedBuild.include4pcBonuses ?? true,
     );
 
     // First pass: calculate all buff values
@@ -1409,10 +1356,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
           isPercent: isPercent,
         };
       })
-      .filter(
-        (b): b is { name: string; value: number; isPercent: boolean } =>
-          b !== undefined,
-      );
+      .filter((b): b is { name: string; value: number; isPercent: boolean } => b !== undefined);
 
     // Second pass: combine buffs with same name and format
     const combined = new Map<string, { name: string; value: number; isPercent: boolean }>();
@@ -1429,7 +1373,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     }
 
     // Convert back to array and format values as strings
-    return Array.from(combined.values()).map(buff => ({
+    return Array.from(combined.values()).map((buff) => ({
       name: buff.name,
       value: String(Math.round(buff.value * 10) / 10),
       isPercent: buff.isPercent,
@@ -1438,17 +1382,17 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
 
   private getStatValueFromStats(stats: any, statKey: string): number {
     const statMap: { [key: string]: string } = {
-      'hp': 'hp',
-      'atk': 'atk',
-      'def': 'def',
-      'impact': 'impact',
-      'anomalyMastery': 'anomalyMastery',
-      'critRate': 'critRate',
-      'critDmg': 'critDmg',
-      'anomalyProficiency': 'anomalyProficiency',
-      'pen': 'pen',
-      'penRatio': 'penRatio',
-      'energyRegen': 'energyRegen'
+      hp: 'hp',
+      atk: 'atk',
+      def: 'def',
+      impact: 'impact',
+      anomalyMastery: 'anomalyMastery',
+      critRate: 'critRate',
+      critDmg: 'critDmg',
+      anomalyProficiency: 'anomalyProficiency',
+      pen: 'pen',
+      penRatio: 'penRatio',
+      energyRegen: 'energyRegen',
     };
 
     const mappedKey = statMap[statKey];
@@ -1502,9 +1446,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     // Resolve priority stats against the build type the user pinned (or that was
     // auto-detected), so effective substats match the stats we highlight. Dual-build
     // agents value different stats per profile - a flat per-agent list cannot.
-    const equippedDiscsList = Object.values(
-      this.selectedBuild.equippedDiscs || {},
-    ).filter((d) => d) as Disc[];
+    const equippedDiscsList = Object.values(this.selectedBuild.equippedDiscs || {}).filter((d) => d) as Disc[];
     const buildWeights = this.scoringService.getBuildStatWeights(
       this.selectedBuild.agentId,
       this.scoringService.resolveBuildType(
@@ -1514,9 +1456,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       ),
     );
 
-    const agentBreakpoints = this.scoringService.getAgentBreakpoints(
-      this.selectedBuild.agentId,
-    );
+    const agentBreakpoints = this.scoringService.getAgentBreakpoints(this.selectedBuild.agentId);
     // Any stat the build values at all counts as effective, matching how the game
     // and HoYoLAB report effective substats - low-weight stats like flat ATK still
     // contribute. Agents with no weights fall back to the breakpoints list, as
@@ -1536,17 +1476,14 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
             rollCounts[subStat.type] = 0;
           }
           substatTotals[subStat.type] += subStat.value;
-          const rollCount =
-            subStat.rolls || calculateRollCount(subStat.type, subStat.value);
+          const rollCount = subStat.rolls || calculateRollCount(subStat.type, subStat.value);
           rollCounts[subStat.type] += rollCount;
         });
       }
     });
 
     const result = Object.entries(substatTotals).map(([type, value]) => {
-      const isPercent =
-        type.includes('%') ||
-        ['CRIT_Rate', 'CRIT_DMG', 'HP%', 'ATK%', 'DEF%'].includes(type);
+      const isPercent = type.includes('%') || ['CRIT_Rate', 'CRIT_DMG', 'HP%', 'ATK%', 'DEF%'].includes(type);
 
       let displayName: string;
       switch (type) {
@@ -1597,13 +1534,8 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       // flat stats included - the list already reflects what the build values.
       const isPriority = priorityStats.some((priorityStat: string) => {
         const normalizedType = type.replace(/_/g, ' ').toLowerCase();
-        const normalizedPriority = priorityStat
-          .replace(/_/g, ' ')
-          .toLowerCase();
-        return (
-          normalizedType === normalizedPriority ||
-          displayName.toLowerCase() === normalizedPriority
-        );
+        const normalizedPriority = priorityStat.replace(/_/g, ' ').toLowerCase();
+        return normalizedType === normalizedPriority || displayName.toLowerCase() === normalizedPriority;
       });
 
       return {
@@ -1639,7 +1571,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
 
     // Calculate total effective substats (sum of roll counts for priority stats only)
     const totalEffectiveSubstats = sortedBreakdown
-      .filter(stat => stat.isPriority)
+      .filter((stat) => stat.isPriority)
       .reduce((sum, stat) => sum + stat.rollCount, 0);
 
     return {
@@ -1675,9 +1607,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
 
     // Use special element icon if available, otherwise use standard element icon
     if (agent.specialElementIcon) {
-      return this.dataMappingService.getElementIconPath(
-        agent.specialElementIcon,
-      );
+      return this.dataMappingService.getElementIconPath(agent.specialElementIcon);
     }
     return agent.elementIcon;
   }
@@ -1719,7 +1649,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     // Scale down for longer names
     // For every character over comfortableLength, reduce font size by 4%
     const overageChars = name.length - comfortableLength;
-    const reductionFactor = 1 - (overageChars * 0.04);
+    const reductionFactor = 1 - overageChars * 0.04;
     const scaledSize = Math.max(minSize, baseSize * reductionFactor);
 
     return `${scaledSize}em`;
@@ -1747,9 +1677,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     if (!equippedDisc) return;
 
     // Find the disc set
-    const discSet = this.referenceDiscSets.find(
-      (ds) => ds.name === equippedDisc.set,
-    );
+    const discSet = this.referenceDiscSets.find((ds) => ds.name === equippedDisc.set);
     if (!discSet) return;
 
     // Set edit mode state
@@ -1824,9 +1752,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
 
   get4pcEffectBonuses(): string[] {
     if (!this.selectedBuild) return [];
-    const agent = this.referenceAgents.find(
-      (a) => a.id === this.selectedBuild!.agentId,
-    );
+    const agent = this.referenceAgents.find((a) => a.id === this.selectedBuild!.agentId);
     if (!agent) return [];
 
     return this.statCalculator.get4pcEffectBonuses(
@@ -1940,12 +1866,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
    * This is fast because it just returns the pre-computed array
    */
   async equipDiscToBuild(disc: Disc) {
-    if (
-      !this.selectedBuild ||
-      !this.selectedDiscSlot ||
-      this.isProcessingDiscAction
-    )
-      return;
+    if (!this.selectedBuild || !this.selectedDiscSlot || this.isProcessingDiscAction) return;
 
     this.isProcessingDiscAction = true;
 
@@ -1980,9 +1901,10 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
 
     // Only reset form if we're creating a brand new disc AND form is currently empty
     // Preserve data if user is switching sets or editing
-    const isFormEmpty = !this.discFormData.mainStatType &&
-                        !this.discFormData.mainStatValue &&
-                        this.discFormData.subStats.every(s => !s.value || s.value === '');
+    const isFormEmpty =
+      !this.discFormData.mainStatType &&
+      !this.discFormData.mainStatValue &&
+      this.discFormData.subStats.every((s) => !s.value || s.value === '');
 
     if (!this.isEditMode && isFormEmpty) {
       this.discFormData = {
@@ -2039,7 +1961,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       level: 15,
       mainStat: {
         type: this.getDefaultMainStatForSlot(slot),
-        value: 0
+        value: 0,
       },
       subStats: [],
       lock: false,
@@ -2092,11 +2014,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
 
       // Determine main stat based on slot
       let mainStat: { type: MainStatType; value: number };
-      if (
-        this.compareDiscSlot === 'Drive1' ||
-        this.compareDiscSlot === 'Drive2' ||
-        this.compareDiscSlot === 'Drive3'
-      ) {
+      if (this.compareDiscSlot === 'Drive1' || this.compareDiscSlot === 'Drive2' || this.compareDiscSlot === 'Drive3') {
         // Fixed main stats for slots 1-3
         mainStat = {
           type: this.getDefaultMainStatForSlot(this.compareDiscSlot),
@@ -2115,12 +2033,12 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
         rarity: this.compareCustomDisc.rarity || 'S',
         level: this.compareCustomDisc.level || 15,
         mainStat: mainStat,
-        subStats: this.compareCustomDisc.subStats!.filter(s => s.value > 0), // Filter out empty substats
+        subStats: this.compareCustomDisc.subStats!.filter((s) => s.value > 0), // Filter out empty substats
         lock: false,
       };
 
       // Calculate rolls for substats
-      newDisc.subStats = newDisc.subStats.map(subStat => ({
+      newDisc.subStats = newDisc.subStats.map((subStat) => ({
         ...subStat,
         rolls: calculateRollCount(subStat.type, subStat.value),
       }));
@@ -2164,11 +2082,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     }
 
     // Only auto-fill for slots 4-6
-    if (
-      this.compareDiscSlot === 'Drive4' ||
-      this.compareDiscSlot === 'Drive5' ||
-      this.compareDiscSlot === 'Drive6'
-    ) {
+    if (this.compareDiscSlot === 'Drive4' || this.compareDiscSlot === 'Drive5' || this.compareDiscSlot === 'Drive6') {
       const maxValues = DISC_MAIN_STAT_MAX[this.compareDiscSlot];
       if (maxValues && maxValues[mainStatType] !== undefined) {
         this.compareCustomDisc.mainStat!.value = maxValues[mainStatType];
@@ -2228,13 +2142,12 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
 
     // Get already selected substats from OTHER positions (not current index)
     const selectedSubstats = (this.compareCustomDisc.subStats || [])
-      .map((s, i) => i !== index ? s.type : null)
+      .map((s, i) => (i !== index ? s.type : null))
       .filter((t): t is SubStatType => t !== null);
 
     // Filter out main stat conflicts and already-selected substats
-    return this.availableSubStatTypes.filter(stat =>
-      !this.isMainStatConflict(stat.value, mainStatBase) &&
-      !selectedSubstats.includes(stat.value)
+    return this.availableSubStatTypes.filter(
+      (stat) => !this.isMainStatConflict(stat.value, mainStatBase) && !selectedSubstats.includes(stat.value),
     );
   }
 
@@ -2258,7 +2171,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     }
 
     // Filter out empty substats (those with no value or value === 0)
-    const validSubStats = (this.compareCustomDisc.subStats || []).filter(s => s && s.value && s.value > 0);
+    const validSubStats = (this.compareCustomDisc.subStats || []).filter((s) => s && s.value && s.value > 0);
 
     // Need ALL 4 substats filled in before showing a rating
     if (validSubStats.length < 4) {
@@ -2328,13 +2241,9 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     }
 
     // Validate substats: Impact and Energy_Regen cannot be disc substats
-    const invalidSubstats = this.discFormData.subStats.filter(
-      (s) => s.type === 'Impact' || s.type === 'Energy_Regen',
-    );
+    const invalidSubstats = this.discFormData.subStats.filter((s) => s.type === 'Impact' || s.type === 'Energy_Regen');
     if (invalidSubstats.length > 0) {
-      alert(
-        'Error: Impact and Energy_Regen can only be main stats (Drive 6), not substats.',
-      );
+      alert('Error: Impact and Energy_Regen can only be main stats (Drive 6), not substats.');
       this.isProcessingDiscAction = false;
       return;
     }
@@ -2349,8 +2258,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
             value: mainStatValue,
           },
           subStats: this.discFormData.subStats.map((s) => {
-            const value =
-              typeof s.value === 'string' ? parseFloat(s.value) || 0 : s.value;
+            const value = typeof s.value === 'string' ? parseFloat(s.value) || 0 : s.value;
             return {
               type: s.type as SubStatType,
               value: value,
@@ -2396,8 +2304,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
             value: mainStatValue,
           },
           subStats: this.discFormData.subStats.map((s) => {
-            const value =
-              typeof s.value === 'string' ? parseFloat(s.value) || 0 : s.value;
+            const value = typeof s.value === 'string' ? parseFloat(s.value) || 0 : s.value;
             return {
               type: s.type as SubStatType,
               value: value,
@@ -2467,15 +2374,11 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
 
     // Get active upgrade plan if one is set
     const activePlan = this.selectedBuild.activeUpgradePlanId
-      ? this.upgradePlanService.getPlanById(
-          this.selectedBuild.activeUpgradePlanId,
-        )
+      ? this.upgradePlanService.getPlanById(this.selectedBuild.activeUpgradePlanId)
       : undefined;
 
     // Detect build type based on ALL equipped discs (not just this one)
-    const allDiscs = Object.values(
-      this.selectedBuild.equippedDiscs || {},
-    ).filter((d) => d);
+    const allDiscs = Object.values(this.selectedBuild.equippedDiscs || {}).filter((d) => d);
     const detectedBuildType =
       allDiscs.length > 0
         ? this.scoringService.resolveBuildType(
@@ -2525,24 +2428,21 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     }
 
     // Get equipped discs as array
-    const equippedDiscsArray = Object.values(
-      this.selectedBuild.equippedDiscs,
-    ).filter((d) => d !== undefined);
+    const equippedDiscsArray = Object.values(this.selectedBuild.equippedDiscs).filter((d) => d !== undefined);
 
     // Get agent info for damage estimation
-    const agent = this.referenceAgents.find(
-      (a) => a.id === this.selectedBuild!.agentId,
-    );
+    const agent = this.referenceAgents.find((a) => a.id === this.selectedBuild!.agentId);
 
     // Get active upgrade plan if one is set
     const activePlan = this.selectedBuild.activeUpgradePlanId
-      ? this.upgradePlanService.getPlanById(
-          this.selectedBuild.activeUpgradePlanId,
-        )
+      ? this.upgradePlanService.getPlanById(this.selectedBuild.activeUpgradePlanId)
       : undefined;
 
     // OPTIMIZATION: Cache key based on build state
-    const discUids = equippedDiscsArray.map(d => d.uid).sort().join('|');
+    const discUids = equippedDiscsArray
+      .map((d) => d.uid)
+      .sort()
+      .join('|');
     const cacheKey = `${this.selectedBuild.id}-${discUids}-${this.selectedBuild.equippedWEngine || 'none'}-${this.selectedBuild.wEngineRefinement || 1}-${this.selectedBuild.mindscapeLevel || 0}-${activePlan?.id || 'none'}`;
 
     // Check cache first
@@ -2590,9 +2490,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
   // Generate a simple hash of build state to detect changes
   private getBuildHash(): string {
     if (!this.selectedBuild) return '';
-    const discCount = Object.values(this.selectedBuild.equippedDiscs).filter(
-      (d) => d,
-    ).length;
+    const discCount = Object.values(this.selectedBuild.equippedDiscs).filter((d) => d).length;
     const wEngineId = this.selectedBuild.equippedWEngine?.id || 'none';
     const stats = this.selectedBuild.calculatedStats;
 
@@ -2607,9 +2505,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     const planId = this.selectedBuild.activeUpgradePlanId || 'none';
 
     // Include detected build type (CRIT vs Anomaly) since feedback differs by build type
-    const allDiscs = Object.values(
-      this.selectedBuild.equippedDiscs || {},
-    ).filter((d) => d);
+    const allDiscs = Object.values(this.selectedBuild.equippedDiscs || {}).filter((d) => d);
     const detectedBuildType =
       allDiscs.length > 0
         ? this.scoringService.resolveBuildType(
@@ -2638,9 +2534,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
 
     // Get active upgrade plan if one is set
     const activePlan = this.selectedBuild.activeUpgradePlanId
-      ? this.upgradePlanService.getPlanById(
-          this.selectedBuild.activeUpgradePlanId,
-        )
+      ? this.upgradePlanService.getPlanById(this.selectedBuild.activeUpgradePlanId)
       : undefined;
 
     this.cachedFeedback = this.scoringService.generateBuildFeedback(
@@ -2651,8 +2545,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       this.isWEngineSpecialtyMatch(),
       activePlan,
       this.selectedBuild.preferredBuildType,
-      this.referenceAgents.find((a) => a.id === this.selectedBuild!.agentId)
-        ?.specialty,
+      this.referenceAgents.find((a) => a.id === this.selectedBuild!.agentId)?.specialty,
     );
     this.lastFeedbackBuildHash = currentHash;
 
@@ -2725,13 +2618,12 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
 
     // Get already selected substats from OTHER positions (not current index)
     const selectedSubstats = this.discFormData.subStats
-      .map((s, i) => i !== index ? s.type : null)
+      .map((s, i) => (i !== index ? s.type : null))
       .filter((t): t is SubStatType => t !== null);
 
     // Filter out main stat conflicts and already-selected substats
-    return this.availableSubStatTypes.filter(stat =>
-      !this.isMainStatConflict(stat.value, mainStatBase) &&
-      !selectedSubstats.includes(stat.value)
+    return this.availableSubStatTypes.filter(
+      (stat) => !this.isMainStatConflict(stat.value, mainStatBase) && !selectedSubstats.includes(stat.value),
     );
   }
 
@@ -2757,7 +2649,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     if (errors.length === 0) {
       return '';
     }
-    return `Validation errors:\n${errors.map(e => `• ${e}`).join('\n')}`;
+    return `Validation errors:\n${errors.map((e) => `• ${e}`).join('\n')}`;
   }
 
   // Check if a substat type is a priority stat for the selected build's agent
@@ -2791,10 +2683,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
         : 'CRIT';
 
     // Get build-aware stat weights
-    const buildWeights = this.scoringService.getBuildStatWeights(
-      this.selectedBuild.agentId,
-      detectedBuildType,
-    );
+    const buildWeights = this.scoringService.getBuildStatWeights(this.selectedBuild.agentId, detectedBuildType);
 
     // Check if this substat is valued in the detected build (weight >= 1.0)
     if (Object.keys(buildWeights).length > 0) {
@@ -2802,13 +2691,8 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     }
 
     // Fallback to priorityStats array if no stat weights available (legacy agents)
-    const breakpoints = this.scoringService.getAgentBreakpoints(
-      this.selectedBuild.agentId,
-    );
-    if (
-      breakpoints?.priorityStats &&
-      Array.isArray(breakpoints.priorityStats)
-    ) {
+    const breakpoints = this.scoringService.getAgentBreakpoints(this.selectedBuild.agentId);
+    if (breakpoints?.priorityStats && Array.isArray(breakpoints.priorityStats)) {
       return breakpoints.priorityStats.includes(substatType);
     }
 
@@ -2832,12 +2716,8 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       this.selectedDiscSlot === 'Drive6'
     ) {
       const maxValues = DISC_MAIN_STAT_MAX[this.selectedDiscSlot];
-      if (
-        maxValues &&
-        maxValues[this.discFormData.mainStatType] !== undefined
-      ) {
-        this.discFormData.mainStatValue =
-          maxValues[this.discFormData.mainStatType];
+      if (maxValues && maxValues[this.discFormData.mainStatType] !== undefined) {
+        this.discFormData.mainStatValue = maxValues[this.discFormData.mainStatType];
       }
     }
   }
@@ -2873,9 +2753,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       return; // Don't preload if no agents yet
     }
 
-    const imageUrls = agents
-      .map((agent) => agent.icon)
-      .filter((icon) => icon) as string[];
+    const imageUrls = agents.map((agent) => agent.icon).filter((icon) => icon) as string[];
 
     this.imagePreloader.preloadImages(imageUrls);
   }
@@ -2890,9 +2768,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     // 1. Image preloader doesn't support video formats (causes console warnings)
     // 2. Videos use lazy loading which is more efficient
     // 3. Videos load on-demand when displayed
-    const staticImageUrls = wEngines
-      .map((engine) => engine.icon)
-      .filter((icon) => icon) as string[];
+    const staticImageUrls = wEngines.map((engine) => engine.icon).filter((icon) => icon) as string[];
 
     this.imagePreloader.preloadImages(staticImageUrls);
   }
@@ -2902,9 +2778,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       return; // Don't preload if no disc sets yet
     }
 
-    const imageUrls = discSets
-      .map((discSet) => discSet.icon)
-      .filter((icon) => icon) as string[];
+    const imageUrls = discSets.map((discSet) => discSet.icon).filter((icon) => icon) as string[];
 
     this.imagePreloader.preloadImages(imageUrls);
   }
@@ -2914,7 +2788,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     if (!statType) return '';
 
     // Replace underscores with spaces
-    let formatted = statType.replace(/_/g, ' ');
+    const formatted = statType.replace(/_/g, ' ');
 
     return formatted;
   }
@@ -3105,7 +2979,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     // Add a small delay to allow the change detection cycle to complete
     setTimeout(() => {
       this.generateShareImage();
-      setTimeout(() => this.isShareOptionUpdating = false, 100);
+      setTimeout(() => (this.isShareOptionUpdating = false), 100);
     }, 50);
   }
 
@@ -3133,126 +3007,120 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     { name: 'White', color: '#ffffff' },
   ];
 
-async generateShareImage() {
-  if (!this.selectedBuild || !this.shareCanvasRef)
-    return;
+  async generateShareImage() {
+    if (!this.selectedBuild || !this.shareCanvasRef) return;
 
-  this.isGeneratingShareImage = true;
-  this.cdr.markForCheck(); // Force change detection
+    this.isGeneratingShareImage = true;
+    this.cdr.markForCheck(); // Force change detection
 
-  try {
-    // Get agent data
-    const agent = this.referenceAgents.find(
-      (a) => a.id === this.selectedBuild!.agentId,
-    );
-    if (!agent) {
-      console.error('Agent not found');
-      alert('Error: Agent data not found');
-      return;
-    }
+    try {
+      // Get agent data
+      const agent = this.referenceAgents.find((a) => a.id === this.selectedBuild!.agentId);
+      if (!agent) {
+        console.error('Agent not found');
+        alert('Error: Agent data not found');
+        return;
+      }
 
-    // Collect disc scores
-    const discScores = new Map<string, { score: number; rating: any }>();
-    Object.values(this.selectedBuild.equippedDiscs).forEach((disc) => {
-      if (disc) {
-        const score = this.getDiscScore(disc);
-        if (score) {
-          discScores.set(disc.uid, score);
+      // Collect disc scores
+      const discScores = new Map<string, { score: number; rating: any }>();
+      Object.values(this.selectedBuild.equippedDiscs).forEach((disc) => {
+        if (disc) {
+          const score = this.getDiscScore(disc);
+          if (score) {
+            discScores.set(disc.uid, score);
+          }
         }
+      });
+
+      // Get priority stats for highlighting (stats with weight >= 1.0)
+      // Use the same logic as isPrioritySubstat() to ensure consistency
+
+      // Detect build type from equipped discs
+      const equippedDiscsList: Disc[] = [];
+      Object.values(this.selectedBuild.equippedDiscs).forEach((disc) => {
+        if (disc) equippedDiscsList.push(disc);
+      });
+
+      const detectedBuildType =
+        equippedDiscsList.length > 0
+          ? this.scoringService.resolveBuildType(
+              equippedDiscsList,
+              this.selectedBuild.agentId,
+              this.selectedBuild.preferredBuildType,
+            )
+          : 'CRIT';
+
+      const buildWeights = this.scoringService.getBuildStatWeights(this.selectedBuild.agentId, detectedBuildType);
+
+      // Build list of priority stats (weight >= 1.0)
+      const priorityStats = Object.keys(buildWeights).filter((stat) => buildWeights[stat] >= 1.0);
+
+      // Special case: Miyabi (1091) - always include Anomaly_Proficiency as priority
+      if (this.selectedBuild.agentId === '1091' && !priorityStats.includes('Anomaly_Proficiency')) {
+        priorityStats.push('Anomaly_Proficiency');
       }
-    });
 
-    // Get priority stats for highlighting (stats with weight >= 1.0)
-    // Use the same logic as isPrioritySubstat() to ensure consistency
+      // Prepare data for Canvas renderer
+      const shareData: ShareImageData = {
+        build: this.selectedBuild,
+        agent: agent,
+        buildScore: this.getBuildScore(),
+        discScores: discScores,
+        mainStats: this.getMainStats(),
+        wEngineStats: this.getWEngineStats(),
+        discSets: this.referenceDiscSets,
+        substatBreakdown: this.getSubstatBreakdown(),
+        priorityStats: priorityStats,
+        totalEffectiveSubstats: this.getTotalEffectiveSubstats(),
+        showBuildRating: this.showBuildRating && !this.inGameStatsMode,
+        showDiscRatings: this.showDiscRatings,
+        customAgentImageUrl: this.customAgentImageUrl || undefined,
+        customBackgroundImageUrl: this.customBackgroundImageUrl || undefined,
+        customBarImageUrl: this.customBarImageUrl || undefined,
+        agentImageArtist: this.agentImageArtist || undefined,
+        backgroundImageArtist: this.backgroundImageArtist || undefined,
+        barImageArtist: this.barImageArtist || undefined,
+        accentColor: this.accentColor,
+      };
 
-    // Detect build type from equipped discs
-    const equippedDiscsList: Disc[] = [];
-    Object.values(this.selectedBuild.equippedDiscs).forEach((disc) => {
-      if (disc) equippedDiscsList.push(disc);
-    });
+      // Generate image using Canvas service
+      const blob = await this.canvasShareImageService.generateShareImage(shareData);
 
-    const detectedBuildType = equippedDiscsList.length > 0
-      ? this.scoringService.resolveBuildType(equippedDiscsList, this.selectedBuild.agentId, this.selectedBuild.preferredBuildType)
-      : 'CRIT';
-
-    const buildWeights = this.scoringService.getBuildStatWeights(
-      this.selectedBuild.agentId,
-      detectedBuildType,
-    );
-
-    // Build list of priority stats (weight >= 1.0)
-    const priorityStats = Object.keys(buildWeights)
-      .filter(stat => buildWeights[stat] >= 1.0);
-
-    // Special case: Miyabi (1091) - always include Anomaly_Proficiency as priority
-    if (this.selectedBuild.agentId === '1091' && !priorityStats.includes('Anomaly_Proficiency')) {
-      priorityStats.push('Anomaly_Proficiency');
+      // Display the image on canvas
+      const displayCanvas = this.shareCanvasRef.nativeElement;
+      const img = new Image();
+      img.onload = () => {
+        displayCanvas.width = img.width;
+        displayCanvas.height = img.height;
+        const ctx = displayCanvas.getContext('2d');
+        if (ctx) {
+          ctx.drawImage(img, 0, 0);
+        }
+        URL.revokeObjectURL(img.src);
+        this.isGeneratingShareImage = false;
+        this.cdr.markForCheck();
+      };
+      img.onerror = (err) => {
+        console.error('Failed to load generated image:', err);
+        alert('Error loading generated image');
+        this.isGeneratingShareImage = false;
+        this.cdr.markForCheck();
+      };
+      img.src = URL.createObjectURL(blob);
+    } catch (error) {
+      console.error('Error generating share image:', error);
+      alert('Error generating share image. Check console for details.');
+      this.isGeneratingShareImage = false;
+      this.cdr.markForCheck();
     }
-
-    // Prepare data for Canvas renderer
-    const shareData: ShareImageData = {
-      build: this.selectedBuild,
-      agent: agent,
-      buildScore: this.getBuildScore(),
-      discScores: discScores,
-      mainStats: this.getMainStats(),
-      wEngineStats: this.getWEngineStats(),
-      discSets: this.referenceDiscSets,
-      substatBreakdown: this.getSubstatBreakdown(),
-      priorityStats: priorityStats,
-      totalEffectiveSubstats: this.getTotalEffectiveSubstats(),
-      showBuildRating: this.showBuildRating && !this.inGameStatsMode,
-      showDiscRatings: this.showDiscRatings,
-      customAgentImageUrl: this.customAgentImageUrl || undefined,
-      customBackgroundImageUrl: this.customBackgroundImageUrl || undefined,
-      customBarImageUrl: this.customBarImageUrl || undefined,
-      agentImageArtist: this.agentImageArtist || undefined,
-      backgroundImageArtist: this.backgroundImageArtist || undefined,
-      barImageArtist: this.barImageArtist || undefined,
-      accentColor: this.accentColor,
-    };
-
-    // Generate image using Canvas service
-    const blob = await this.canvasShareImageService.generateShareImage(shareData);
-
-    // Display the image on canvas
-    const displayCanvas = this.shareCanvasRef.nativeElement;
-    const img = new Image();
-    img.onload = () => {
-      displayCanvas.width = img.width;
-      displayCanvas.height = img.height;
-      const ctx = displayCanvas.getContext('2d');
-      if (ctx) {
-        ctx.drawImage(img, 0, 0);
-      }
-      URL.revokeObjectURL(img.src);
-      this.isGeneratingShareImage = false;
-      this.cdr.markForCheck();
-    };
-    img.onerror = (err) => {
-      console.error('Failed to load generated image:', err);
-      alert('Error loading generated image');
-      this.isGeneratingShareImage = false;
-      this.cdr.markForCheck();
-    };
-    img.src = URL.createObjectURL(blob);
-
-  } catch (error) {
-    console.error('Error generating share image:', error);
-    alert('Error generating share image. Check console for details.');
-    this.isGeneratingShareImage = false;
-    this.cdr.markForCheck();
   }
-}
-
 
   downloadShareImage() {
     if (!this.selectedBuild || !this.shareCanvasRef) return;
 
     const canvas = this.shareCanvasRef.nativeElement;
-    const agent = this.referenceAgents.find(
-      (a) => a.id === this.selectedBuild!.agentId,
-    );
+    const agent = this.referenceAgents.find((a) => a.id === this.selectedBuild!.agentId);
 
     const timestamp = new Date()
       .toISOString()
@@ -3414,7 +3282,7 @@ async generateShareImage() {
     this.saveCustomizations();
     this.onShareOptionChange(); // Regenerate preview
 
-    setTimeout(() => this.isColorUpdating = false, 100);
+    setTimeout(() => (this.isColorUpdating = false), 100);
   }
 
   onCustomColorSelected() {
@@ -3425,11 +3293,11 @@ async generateShareImage() {
     this.saveCustomizations();
     this.onShareOptionChange(); // Regenerate preview
 
-    setTimeout(() => this.isColorUpdating = false, 100);
+    setTimeout(() => (this.isColorUpdating = false), 100);
   }
 
   isCustomColor(): boolean {
-    return !this.presetColors.some(p => p.color === this.accentColor);
+    return !this.presetColors.some((p) => p.color === this.accentColor);
   }
 
   onHexInputChange(value: string) {
@@ -3458,7 +3326,7 @@ async generateShareImage() {
         this.isColorUpdating = true;
         this.saveCustomizations();
         this.onShareOptionChange();
-        setTimeout(() => this.isColorUpdating = false, 100);
+        setTimeout(() => (this.isColorUpdating = false), 100);
       }
     }
   }
@@ -3484,10 +3352,12 @@ async generateShareImage() {
   }
 
   hasAnyCustomizations(): boolean {
-    return this.customAgentImageUrl !== null ||
-           this.customBackgroundImageUrl !== null ||
-           this.customBarImageUrl !== null ||
-           this.accentColor !== '#f4b942';
+    return (
+      this.customAgentImageUrl !== null ||
+      this.customBackgroundImageUrl !== null ||
+      this.customBarImageUrl !== null ||
+      this.accentColor !== '#f4b942'
+    );
   }
 
   async resetAllCustomizations() {
@@ -3537,8 +3407,8 @@ async generateShareImage() {
           if (percentUsed > 80) {
             alert(
               `Warning: You're approaching the browser storage limit!\n\n` +
-              `Used: ${usageInMB.toFixed(1)}MB / ${quotaInMB.toFixed(1)}MB (${percentUsed.toFixed(1)}%)\n\n` +
-              `Consider clearing some customizations for agents you don't use to free up space.`
+                `Used: ${usageInMB.toFixed(1)}MB / ${quotaInMB.toFixed(1)}MB (${percentUsed.toFixed(1)}%)\n\n` +
+                `Consider clearing some customizations for agents you don't use to free up space.`,
             );
           }
         }
@@ -3571,7 +3441,7 @@ async generateShareImage() {
         agentImageArtist: this.agentImageArtist || undefined,
         backgroundImageArtist: this.backgroundImageArtist || undefined,
         barImageArtist: this.barImageArtist || undefined,
-        accentColor: this.accentColor
+        accentColor: this.accentColor,
       });
 
       console.log(`Saved customizations for agent ${agentId}`);
@@ -3585,12 +3455,10 @@ async generateShareImage() {
       if (error instanceof DOMException && error.name === 'QuotaExceededError') {
         alert(
           'Storage limit exceeded! Your customizations could not be saved.\n\n' +
-          'Please clear some existing customizations for other agents to free up space.'
+            'Please clear some existing customizations for other agents to free up space.',
         );
       } else {
-        alert(
-          'Failed to save customizations. Please try again or contact support if the issue persists.'
-        );
+        alert('Failed to save customizations. Please try again or contact support if the issue persists.');
       }
     }
   }
@@ -3651,10 +3519,7 @@ async generateShareImage() {
 
   saveUidHistory() {
     try {
-      localStorage.setItem(
-        this.UID_HISTORY_KEY,
-        JSON.stringify(this.uidHistory),
-      );
+      localStorage.setItem(this.UID_HISTORY_KEY, JSON.stringify(this.uidHistory));
     } catch (error) {
       console.error('Failed to save UID history:', error);
     }
@@ -3686,26 +3551,19 @@ async generateShareImage() {
 
     try {
       // Fetch data from Enka API
-      const enkaResult = await firstValueFrom(
-        this.enkaApiService.fetchPlayerData(historyItem.uid)
-      );
+      const enkaResult = await firstValueFrom(this.enkaApiService.fetchPlayerData(historyItem.uid));
 
       if (!enkaResult) {
         throw new Error('No data received from provided UID');
       }
 
       // Compare with existing builds
-      const comparison = await this.enkaImportService.compareBuilds(
-        enkaResult.builds,
-      );
+      const comparison = await this.enkaImportService.compareBuilds(enkaResult.builds);
 
       this.loadingService.hide();
 
       // Show confirmation dialog if there are changes
-      if (
-        comparison.newBuilds.length > 0 ||
-        comparison.updatedBuilds.length > 0
-      ) {
+      if (comparison.newBuilds.length > 0 || comparison.updatedBuilds.length > 0) {
         const summary = this.buildImportSummaryMessage(comparison, enkaResult);
 
         await this.handleUnknownAgents(enkaResult);
@@ -3720,10 +3578,7 @@ async generateShareImage() {
           async () => {
             try {
               this.loadingService.show('Importing builds...');
-              const result = await this.enkaImportService.importBuilds(
-                comparison,
-                true,
-              );
+              const result = await this.enkaImportService.importBuilds(comparison, true);
 
               // Reload builds to show the imported data
               await this.buildService.loadBuilds();
@@ -3731,11 +3586,7 @@ async generateShareImage() {
             } catch (error) {
               this.loadingService.hide();
               console.error('Import error:', error);
-              alert(
-                error instanceof Error
-                  ? error.message
-                  : 'Failed to import builds'
-              );
+              alert(error instanceof Error ? error.message : 'Failed to import builds');
             }
           },
           'Import',
@@ -3748,11 +3599,7 @@ async generateShareImage() {
     } catch (error) {
       this.loadingService.hide();
       console.error('Enka API error:', error);
-      alert(
-        error instanceof Error
-          ? error.message
-          : 'Failed to fetch data from provided UID'
-      );
+      alert(error instanceof Error ? error.message : 'Failed to fetch data from provided UID');
     }
   }
 
@@ -3805,10 +3652,7 @@ async generateShareImage() {
    * Import summary plus a warning about any agents that were skipped, so a
    * partial import doesn't look like a complete one.
    */
-  private buildImportSummaryMessage(
-    comparison: ImportComparison,
-    enkaResult: EnkaImportResult,
-  ): string {
+  private buildImportSummaryMessage(comparison: ImportComparison, enkaResult: EnkaImportResult): string {
     const summary = this.enkaImportService.generateImportSummary(comparison);
     const skipped = enkaResult.unknownAgentIds.length;
 
@@ -3884,9 +3728,7 @@ async generateShareImage() {
 
     try {
       // Fetch data from Enka API
-      const enkaResult = await firstValueFrom(
-        this.enkaApiService.fetchPlayerData(this.enkaUid)
-      );
+      const enkaResult = await firstValueFrom(this.enkaApiService.fetchPlayerData(this.enkaUid));
 
       if (!enkaResult) {
         throw new Error('No data received from provided UID');
@@ -3896,15 +3738,10 @@ async generateShareImage() {
       this.addToUidHistory(this.enkaUid, enkaResult.playerName);
 
       // Compare with existing builds
-      const comparison = await this.enkaImportService.compareBuilds(
-        enkaResult.builds,
-      );
+      const comparison = await this.enkaImportService.compareBuilds(enkaResult.builds);
 
       // Show confirmation dialog if there are changes
-      if (
-        comparison.newBuilds.length > 0 ||
-        comparison.updatedBuilds.length > 0
-      ) {
+      if (comparison.newBuilds.length > 0 || comparison.updatedBuilds.length > 0) {
         const summary = this.buildImportSummaryMessage(comparison, enkaResult);
 
         await this.handleUnknownAgents(enkaResult);
@@ -3921,21 +3758,14 @@ async generateShareImage() {
           Do you want to import these builds?`,
           async () => {
             try {
-              const result = await this.enkaImportService.importBuilds(
-                comparison,
-                true,
-              );
+              const result = await this.enkaImportService.importBuilds(comparison, true);
 
               // Reload builds to show the imported data
               await this.buildService.loadBuilds();
-
             } catch (error) {
               console.error('Import error:', error);
               // Re-open the Enka modal to show error
-              this.enkaImportError =
-                error instanceof Error
-                  ? error.message
-                  : 'Failed to import builds';
+              this.enkaImportError = error instanceof Error ? error.message : 'Failed to import builds';
               this.openEnkaImportModal();
             }
           },
@@ -3948,10 +3778,7 @@ async generateShareImage() {
         // An empty showcase or stale game data are both problems the user needs
         // to act on, so surface them as errors and leave the modal open rather
         // than auto-dismissing. Only a genuine "nothing changed" is a success.
-        if (
-          enkaResult.showcaseCount === 0 ||
-          enkaResult.unknownAgentIds.length > 0
-        ) {
+        if (enkaResult.showcaseCount === 0 || enkaResult.unknownAgentIds.length > 0) {
           this.enkaImportError = this.buildNoChangesMessage(enkaResult);
           this.cdr.markForCheck();
         } else {
@@ -3966,10 +3793,7 @@ async generateShareImage() {
       }
     } catch (error) {
       console.error('Enka API error:', error);
-      this.enkaImportError =
-        error instanceof Error
-          ? error.message
-          : 'Failed to fetch data from provided UID';
+      this.enkaImportError = error instanceof Error ? error.message : 'Failed to fetch data from provided UID';
       this.cdr.markForCheck();
     } finally {
       this.isImportingFromEnka = false;
@@ -3990,9 +3814,7 @@ async generateShareImage() {
     }
 
     // Filter from locally stored plans for proper change detection
-    return this.availablePlans.filter(
-      (plan) => plan.agentId === this.selectedBuild!.agentId,
-    );
+    return this.availablePlans.filter((plan) => plan.agentId === this.selectedBuild!.agentId);
   }
 
   /**
@@ -4023,9 +3845,7 @@ async generateShareImage() {
 
   isRuptureAgent(): boolean {
     if (!this.selectedBuild) return false;
-    const agent = this.referenceAgents.find(
-      (a) => a.id === this.selectedBuild!.agentId,
-    );
+    const agent = this.referenceAgents.find((a) => a.id === this.selectedBuild!.agentId);
     return agent?.specialty === 'Rupture';
   }
 
@@ -4034,9 +3854,7 @@ async generateShareImage() {
    */
   isArmorerAgent(): boolean {
     if (!this.selectedBuild) return false;
-    const agent = this.referenceAgents.find(
-      (a) => a.id === this.selectedBuild!.agentId,
-    );
+    const agent = this.referenceAgents.find((a) => a.id === this.selectedBuild!.agentId);
     return agent?.specialty === 'Armorer';
   }
 
@@ -4069,8 +3887,14 @@ async generateShareImage() {
       ...(this.isRuptureAgent()
         ? [{ iconName: 'Sheer_Force', label: 'SF', value: String(stats.sheerForce || 0) }]
         : this.isArmorerAgent()
-        ? [{ iconName: 'Automatic_Sharpness_Accumulation', label: 'ASA', value: String(stats.sharpnessAutoAccumulation ?? 0) }]
-        : [{ iconName: 'Energy_Regen', label: 'ER', value: `${stats.energyRegen}%` }])
+          ? [
+              {
+                iconName: 'Automatic_Sharpness_Accumulation',
+                label: 'ASA',
+                value: String(stats.sharpnessAutoAccumulation ?? 0),
+              },
+            ]
+          : [{ iconName: 'Energy_Regen', label: 'ER', value: `${stats.energyRegen}%` }]),
     ];
   }
 
@@ -4102,8 +3926,7 @@ async generateShareImage() {
         Anomaly_Proficiency: 'Anomaly_Proficiency',
       };
 
-      const iconName =
-        statTypeMap[wEngine.subStat.type] || wEngine.subStat.type;
+      const iconName = statTypeMap[wEngine.subStat.type] || wEngine.subStat.type;
       const isPercent =
         wEngine.subStat.type.includes('%') ||
         wEngine.subStat.type === 'CRIT_Rate' ||
@@ -4115,9 +3938,7 @@ async generateShareImage() {
       stats.push({
         iconName: iconName,
         label: this.formatWEngineStatType(wEngine.subStat.type),
-        value: isPercent
-          ? `${wEngine.subStat.value}%`
-          : String(wEngine.subStat.value),
+        value: isPercent ? `${wEngine.subStat.value}%` : String(wEngine.subStat.value),
       });
     }
 
@@ -4152,7 +3973,11 @@ async generateShareImage() {
       // Extract base filename from icon path
       // e.g., "assets/data/images/wengines/Weapon_S_1051.webp" -> "Weapon_S_1051"
       const iconPath = wengine.icon;
-      const fileName = iconPath.split('/').pop()?.replace(/\.(webp|png)$/, '') || '';
+      const fileName =
+        iconPath
+          .split('/')
+          .pop()
+          ?.replace(/\.(webp|png)$/, '') || '';
 
       if (fileName) {
         // Add ngsw-bypass query parameter to prevent service worker from caching MP4s
@@ -4200,8 +4025,7 @@ async generateShareImage() {
     // Device is desktop if:
     // 1. No touch support AND fine pointer (mouse), OR
     // 2. Not identified as mobile in user agent AND width >= 769px
-    const isDesktop = (!hasTouch && !hasCoarsePointer) ||
-                      (!isMobileUA && window.innerWidth >= 769);
+    const isDesktop = (!hasTouch && !hasCoarsePointer) || (!isMobileUA && window.innerWidth >= 769);
 
     return isDesktop;
   }
@@ -4298,7 +4122,9 @@ async generateShareImage() {
 
     // Check if agent has reached max loadouts
     if (!this.discLoadoutService.canAddLoadout(this.selectedBuild.agentId)) {
-      this.notificationService.warning('Maximum of 5 loadouts per agent reached. Please delete an existing loadout first.');
+      this.notificationService.warning(
+        'Maximum of 5 loadouts per agent reached. Please delete an existing loadout first.',
+      );
       return;
     }
 
@@ -4310,11 +4136,7 @@ async generateShareImage() {
     }
 
     // Save the loadout
-    const loadout = this.discLoadoutService.saveLoadout(
-      this.newLoadoutName,
-      this.selectedBuild.agentId,
-      equippedDiscs
-    );
+    const loadout = this.discLoadoutService.saveLoadout(this.newLoadoutName, this.selectedBuild.agentId, equippedDiscs);
 
     if (loadout) {
       // Refresh the loadout list
@@ -4373,9 +4195,7 @@ async generateShareImage() {
     if (!existingDisc) return;
 
     // Find the disc set
-    const discSet = this.referenceDiscSets.find(
-      (ds) => ds.name === existingDisc.set,
-    );
+    const discSet = this.referenceDiscSets.find((ds) => ds.name === existingDisc.set);
     if (!discSet) return;
 
     // Set edit mode state
@@ -4436,7 +4256,9 @@ async generateShareImage() {
 
     // Check if agent has reached max loadouts
     if (!this.discLoadoutService.canAddLoadout(this.selectedBuild.agentId)) {
-      this.notificationService.warning('Maximum of 5 loadouts per agent reached. Please delete an existing loadout first.');
+      this.notificationService.warning(
+        'Maximum of 5 loadouts per agent reached. Please delete an existing loadout first.',
+      );
       return;
     }
 
@@ -4450,7 +4272,7 @@ async generateShareImage() {
     const loadout = this.discLoadoutService.saveLoadout(
       this.newLoadoutName,
       this.selectedBuild.agentId,
-      this.newLoadoutDiscs
+      this.newLoadoutDiscs,
     );
 
     if (loadout) {
@@ -4481,7 +4303,7 @@ async generateShareImage() {
     this.loadoutValidation = this.discLoadoutService.validateLoadout(loadout, this.allDiscs);
 
     // Get the agent object for stat calculation
-    const agent = this.referenceAgents.find(a => a.id === this.selectedBuild!.agentId);
+    const agent = this.referenceAgents.find((a) => a.id === this.selectedBuild!.agentId);
     if (!agent) {
       console.error('[DiscLoadout] Could not find agent:', this.selectedBuild.agentId);
       this.loadoutPreviewStats = null;
@@ -4491,7 +4313,7 @@ async generateShareImage() {
 
     // Set all discs from loadout as enabled
     const enabledDiscs: { [slot: string]: boolean } = {};
-    Object.keys(loadout.equippedDiscs).forEach(slot => {
+    Object.keys(loadout.equippedDiscs).forEach((slot) => {
       enabledDiscs[slot] = true;
     });
 
@@ -4508,7 +4330,7 @@ async generateShareImage() {
       this.selectedBuild.includePassiveBonuses !== false,
       enabledDiscs,
       this.selectedBuild.includeSetBonuses !== false,
-      this.selectedBuild.include4pcBonuses !== false
+      this.selectedBuild.include4pcBonuses !== false,
     );
 
     this.cdr.markForCheck();
@@ -4540,8 +4362,8 @@ async generateShareImage() {
     if (!validation.isValid) {
       const confirmed = confirm(
         `Warning: ${validation.missingSlots.length} disc(s) from this loadout are missing from your inventory.\n\n` +
-        `Missing slots: ${validation.missingSlots.join(', ')}\n\n` +
-        `Available discs will be equipped. Continue?`
+          `Missing slots: ${validation.missingSlots.join(', ')}\n\n` +
+          `Available discs will be equipped. Continue?`,
       );
 
       if (!confirmed) {
@@ -4551,7 +4373,7 @@ async generateShareImage() {
 
     // Apply available discs only
     const discsToEquip: { [slot: string]: Disc } = {};
-    validation.availableSlots.forEach(slot => {
+    validation.availableSlots.forEach((slot) => {
       if (loadout.equippedDiscs[slot]) {
         discsToEquip[slot] = loadout.equippedDiscs[slot];
       }
@@ -4576,7 +4398,7 @@ async generateShareImage() {
       if (!validation.isValid) {
         this.notificationService.warning(
           `Loadout applied with warnings: ${validation.availableSlots.length} disc(s) equipped, ${validation.missingSlots.length} skipped (missing)`,
-          6000
+          6000,
         );
       } else {
         this.notificationService.success(`Loadout "${loadout.name}" applied successfully!`);
@@ -4628,7 +4450,7 @@ async generateShareImage() {
     const setCounts: { [setName: string]: number } = {};
 
     // Count each disc set
-    Object.values(loadout.equippedDiscs).forEach(disc => {
+    Object.values(loadout.equippedDiscs).forEach((disc) => {
       if (disc && disc.set) {
         setCounts[disc.set] = (setCounts[disc.set] || 0) + 1;
       }

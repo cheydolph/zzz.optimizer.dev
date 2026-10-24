@@ -6,7 +6,7 @@ import { Agent } from '../models/agent.model';
 import { DbService } from './db.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AgentService {
   private agentsSubject = new BehaviorSubject<Agent[]>([]);
@@ -20,7 +20,7 @@ export class AgentService {
 
   constructor(
     private db: DbService,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
   ) {
     this.loadAgents();
   }
@@ -38,7 +38,7 @@ export class AgentService {
 
       // Build the Map for O(1) lookups
       this.agentMapById.clear();
-      agents.forEach(agent => {
+      agents.forEach((agent) => {
         this.agentMapById.set(agent.id, agent);
       });
 

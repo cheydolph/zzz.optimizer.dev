@@ -10,31 +10,33 @@ export interface DiscSetEquipmentData {
   Name: string;
   Desc2: string;
   Desc4: string;
-  '4pcEffect': {
-    Properties: Array<{
-      Name: string;
-      Name2: string;
-      Format: string;
-      Value: number;
-    }>;
-  } | Array<{
-    Condition?: {
-      Type: string;
-      Stat: string;
-      Operator: string;
-      Value: number;
-    };
-    Properties: Array<{
-      Name: string;
-      Name2: string;
-      Format: string;
-      Value: number;
-    }>;
-  }>;
+  '4pcEffect':
+    | {
+        Properties: Array<{
+          Name: string;
+          Name2: string;
+          Format: string;
+          Value: number;
+        }>;
+      }
+    | Array<{
+        Condition?: {
+          Type: string;
+          Stat: string;
+          Operator: string;
+          Value: number;
+        };
+        Properties: Array<{
+          Name: string;
+          Name2: string;
+          Format: string;
+          Value: number;
+        }>;
+      }>;
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DiscSetDataService {
   private discSetEquipmentData: { [setName: string]: DiscSetEquipmentData } = {};
@@ -65,14 +67,14 @@ export class DiscSetDataService {
 
   private async loadDataInternal(): Promise<void> {
     try {
-      const promises = DISC_SET_EQUIPMENT_IDS.map(id =>
-        firstValueFrom(
-          this.http.get<DiscSetEquipmentData>(versionedUrl(`assets/data/equipment/${id}.json`))
-        ).catch(() => null)
+      const promises = DISC_SET_EQUIPMENT_IDS.map((id) =>
+        firstValueFrom(this.http.get<DiscSetEquipmentData>(versionedUrl(`assets/data/equipment/${id}.json`))).catch(
+          () => null,
+        ),
       );
 
       const results = await Promise.all(promises);
-      results.forEach(data => {
+      results.forEach((data) => {
         if (data) {
           this.discSetEquipmentData[data.Name] = data;
         }

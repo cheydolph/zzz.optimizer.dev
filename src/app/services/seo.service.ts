@@ -1,12 +1,11 @@
 // services/seo.service.ts
 import { Injectable, Inject, DOCUMENT } from '@angular/core';
 
-
 /**
  * SEO Service for managing structured data and meta tags
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SeoService {
   constructor(@Inject(DOCUMENT) private document: Document) {}
@@ -27,22 +26,23 @@ export class SeoService {
     const structuredData = {
       '@context': 'https://schema.org',
       '@type': 'WebApplication',
-      'name': "Southpaw's ZZZ Optimizer",
-      'alternateName': 'Zenless Zone Zero Optimizer',
-      'description': "Southpaw's free build optimizer and disc drive calculator for Zenless Zone Zero. Optimize character builds, calculate stats, and find the perfect disc combinations for your agents.",
-      'url': 'https://southxpaw.github.io/zzz.optimizer/',
-      'applicationCategory': 'GameApplication',
-      'operatingSystem': 'Web Browser',
-      'offers': {
+      name: "Southpaw's ZZZ Optimizer",
+      alternateName: 'Zenless Zone Zero Optimizer',
+      description:
+        "Southpaw's free build optimizer and disc drive calculator for Zenless Zone Zero. Optimize character builds, calculate stats, and find the perfect disc combinations for your agents.",
+      url: 'https://southxpaw.github.io/zzz.optimizer/',
+      applicationCategory: 'GameApplication',
+      operatingSystem: 'Web Browser',
+      offers: {
         '@type': 'Offer',
-        'price': '0',
-        'priceCurrency': 'USD'
+        price: '0',
+        priceCurrency: 'USD',
       },
-      'creator': {
+      creator: {
         '@type': 'Person',
-        'name': 'Southpaw'
+        name: 'Southpaw',
       },
-      'keywords': [
+      keywords: [
         'zenless zone zero',
         'zzz',
         'optimizer',
@@ -51,21 +51,21 @@ export class SeoService {
         'character builds',
         'substats',
         'w-engine',
-        'stat calculator'
+        'stat calculator',
       ],
-      'featureList': [
+      featureList: [
         'Character build optimization',
         'Disc drive calculator',
         'Substat optimization',
         'W-Engine comparison',
         'Import builds from UID',
         'Stat calculator',
-        'Offline support'
+        'Offline support',
       ],
-      'screenshot': 'https://southxpaw.github.io/zzz.optimizer/assets/data/images/page-icons/zzzicon.webp',
-      'inLanguage': 'en-US',
-      'isAccessibleForFree': true,
-      'isFamilyFriendly': true
+      screenshot: 'https://southxpaw.github.io/zzz.optimizer/assets/data/images/page-icons/zzzicon.webp',
+      inLanguage: 'en-US',
+      isAccessibleForFree: true,
+      isFamilyFriendly: true,
     };
 
     script.textContent = JSON.stringify(structuredData, null, 2);
@@ -88,12 +88,12 @@ export class SeoService {
     const breadcrumbData = {
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
-      'itemListElement': items.map((item, index) => ({
+      itemListElement: items.map((item, index) => ({
         '@type': 'ListItem',
-        'position': index + 1,
-        'name': item.name,
-        'item': item.url
-      }))
+        position: index + 1,
+        name: item.name,
+        item: item.url,
+      })),
     };
 
     script.textContent = JSON.stringify(breadcrumbData, null, 2);

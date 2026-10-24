@@ -26,7 +26,7 @@ interface MindscapeData {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class StatCalculatorService {
   // OPTIMIZATION 4: Increased cache size for better performance
@@ -40,7 +40,7 @@ export class StatCalculatorService {
   // OPTIMIZATION: Use shared disc set data service
   constructor(
     private discSetDataService: DiscSetDataService,
-    private http: HttpClient
+    private http: HttpClient,
   ) {
     // Data loading is handled by shared service
     this.discSetDataService.loadDiscSetData();
@@ -55,7 +55,7 @@ export class StatCalculatorService {
   private async loadMindscapeData(): Promise<void> {
     try {
       this.mindscapeData = await firstValueFrom(
-        this.http.get<MindscapeData>(versionedUrl('assets/data/mindscape-stats.json'))
+        this.http.get<MindscapeData>(versionedUrl('assets/data/mindscape-stats.json')),
       );
     } catch (error) {
       console.error('Failed to load mindscape data:', error);
@@ -84,12 +84,15 @@ export class StatCalculatorService {
     includePassiveBonuses: boolean = true,
     enabledDiscs: { [slot: string]: boolean } = {},
     includeSetBonuses: boolean = true,
-    include4pcBonuses: boolean = true
+    include4pcBonuses: boolean = true,
   ): BaseStats {
-
     // Generate cache key (include all bonus flags and enabled discs in cache)
-    const enabledDiscsKey = Object.keys(discs).map(slot => `${slot}:${enabledDiscs[slot] ?? true}`).join(',');
-    const cacheKey = this.generateCacheKey(agent.id, level, wEngine?.id, discs, mindscapeLevel, wEngineRefinement) + `:${includeWEngineBonuses}:${includeMindscapeBonuses}:${includePassiveBonuses}:${includeSetBonuses}:${include4pcBonuses}:${enabledDiscsKey}`;
+    const enabledDiscsKey = Object.keys(discs)
+      .map((slot) => `${slot}:${enabledDiscs[slot] ?? true}`)
+      .join(',');
+    const cacheKey =
+      this.generateCacheKey(agent.id, level, wEngine?.id, discs, mindscapeLevel, wEngineRefinement) +
+      `:${includeWEngineBonuses}:${includeMindscapeBonuses}:${includePassiveBonuses}:${includeSetBonuses}:${include4pcBonuses}:${enabledDiscsKey}`;
 
     // Check cache
     const cached = this.statCache.get(cacheKey);
@@ -97,18 +100,16 @@ export class StatCalculatorService {
       return cached;
     }
 
-
     // Start with base stats at level 60
     // Initialize percent bonuses and sheerForce to 0 since they may not exist in older data
     const stats: BaseStats = {
       ...agent.lvl60Stats,
       impactpercent: 0,
-      flatImpact: 0,  // Flat Impact bonuses from passives
+      flatImpact: 0, // Flat Impact bonuses from passives
       anomalyMasteryPercent: 0,
       energyRegenPercent: 0,
-      sheerForce: 0  // Always reset to 0, will be calculated later
+      sheerForce: 0, // Always reset to 0, will be calculated later
     };
-
 
     // Apply W-Engine base stats and substat (always applied if W-Engine equipped)
     // These are part of the in-game character screen stats
@@ -131,7 +132,7 @@ export class StatCalculatorService {
 
     // Filter out disabled discs
     const enabledDiscsOnly = Object.fromEntries(
-      Object.entries(discs).filter(([slot, disc]) => disc && (enabledDiscs[slot] ?? true))
+      Object.entries(discs).filter(([slot, disc]) => disc && (enabledDiscs[slot] ?? true)),
     ) as { [key in DiscSlot]?: Disc };
 
     // Apply disc main stats (only from enabled discs)
@@ -166,7 +167,7 @@ export class StatCalculatorService {
         flatImpact: 0,
         anomalyMasteryPercent: 0,
         energyRegenPercent: 0,
-        sheerForce: 0
+        sheerForce: 0,
       };
 
       // Apply W-Engine (always applied for in-game screen stats)
@@ -207,7 +208,7 @@ export class StatCalculatorService {
       def: stats.def,
       impact: stats.impact,
       anomalyMastery: stats.anomalyMastery,
-      energyRegen: finalEnergyRegenBeforePassives  // Use final calculated Energy Regen for passive conditions
+      energyRegen: finalEnergyRegenBeforePassives, // Use final calculated Energy Regen for passive conditions
     };
 
     // Apply passive scoring bonuses BEFORE refinement bonuses (using pre-refinement stats)
@@ -224,7 +225,10 @@ export class StatCalculatorService {
 
     // Re-apply percentage formula after passive bonuses and refinement bonuses
     // This ensures passive flatImpact bonuses are included in the final Impact calculation
-    if ((includePassiveBonuses && agent.scoring?.buffs) || (wEngine && includeWEngineBonuses && wEngine.specialty === agent.specialty && wEngine.effect.properties)) {
+    if (
+      (includePassiveBonuses && agent.scoring?.buffs) ||
+      (wEngine && includeWEngineBonuses && wEngine.specialty === agent.specialty && wEngine.effect.properties)
+    ) {
       this.applyPercentageFormula(stats, agent, wEngine, enabledDiscsOnly);
     }
 
@@ -269,7 +273,7 @@ export class StatCalculatorService {
       sheerForce: finalSheerForce,
       // Armorer display stats - static, so they pass through untouched by the build
       lacerationDamage: stats.lacerationDamage,
-      sharpnessAutoAccumulation: stats.sharpnessAutoAccumulation
+      sharpnessAutoAccumulation: stats.sharpnessAutoAccumulation,
     };
 
     // Store in cache
@@ -284,14 +288,14 @@ export class StatCalculatorService {
     wEngineId: string | undefined,
     discs: { [key in DiscSlot]?: Disc },
     mindscapeLevel: number,
-    wEngineRefinement: number
+    wEngineRefinement: number,
   ): string {
     // Create a deterministic key from disc UIDs, main stats, and substats
     // All stat fields must be included so cache invalidates when any disc stat is edited
     const discInfo = Object.entries(discs)
       .filter(([_, disc]) => disc !== undefined)
       .map(([slot, disc]) => {
-        const subKey = disc!.subStats.map(s => `${s.type}:${s.value}`).join(',');
+        const subKey = disc!.subStats.map((s) => `${s.type}:${s.value}`).join(',');
         return `${slot}:${disc!.uid}:${disc!.mainStat.type}:${disc!.mainStat.value}:${subKey}`;
       })
       .sort()
@@ -305,7 +309,7 @@ export class StatCalculatorService {
     if (this.statCache.size >= this.CACHE_SIZE_LIMIT) {
       const deleteCount = Math.floor(this.CACHE_SIZE_LIMIT * 0.1);
       const keysToDelete = Array.from(this.statCache.keys()).slice(0, deleteCount);
-      keysToDelete.forEach(k => this.statCache.delete(k));
+      keysToDelete.forEach((k) => this.statCache.delete(k));
     }
     this.statCache.set(key, stats);
   }
@@ -332,7 +336,7 @@ export class StatCalculatorService {
     const subStatType = wEngine.subStat.type;
     const subStatValue = wEngine.subStat.value;
 
-    switch(subStatType) {
+    switch (subStatType) {
       case 'ATK%':
         stats.atkpercent += subStatValue;
         break;
@@ -378,11 +382,11 @@ export class StatCalculatorService {
   private applyRefinementBonuses(stats: BaseStats, properties: RefinementProperty[], refinement: number): void {
     const refinementKey = `W${Math.min(Math.max(refinement, 1), 5)}` as 'W1' | 'W2' | 'W3' | 'W4' | 'W5';
 
-    properties.forEach(prop => {
+    properties.forEach((prop) => {
       const value = prop.values[refinementKey];
       const type = prop.type;
 
-      switch(type) {
+      switch (type) {
         case 'ATK%':
           stats.atkpercent += value;
           break;
@@ -435,13 +439,20 @@ export class StatCalculatorService {
   private applyPassiveScoringBonuses(
     stats: BaseStats,
     agent: Agent,
-    statsBeforeRefinement?: { hp: number; atk: number; def: number; impact: number; anomalyMastery: number; energyRegen: number }
+    statsBeforeRefinement?: {
+      hp: number;
+      atk: number;
+      def: number;
+      impact: number;
+      anomalyMastery: number;
+      energyRegen: number;
+    },
   ): void {
     if (!agent.scoring?.buffs) {
       return;
     }
 
-    agent.scoring.buffs.forEach(buff => {
+    agent.scoring.buffs.forEach((buff) => {
       let value = parseFloat(buff.value);
       const isPercentage = buff.format === '%';
 
@@ -471,7 +482,7 @@ export class StatCalculatorService {
       }
 
       // Map buff types to stat fields
-      switch(buff.type) {
+      switch (buff.type) {
         case 'ATKBonus':
           if (isPercentage) {
             stats.atkpercent += value;
@@ -537,23 +548,23 @@ export class StatCalculatorService {
    */
   private getStatValue(stats: BaseStats, statKey: string): number {
     const statMap: { [key: string]: keyof BaseStats } = {
-      'hp': 'hp',
-      'atk': 'atk',
-      'def': 'def',
-      'impact': 'impact',
-      'anomalyMastery': 'anomalyMastery',
-      'critRate': 'critRate',
-      'critDmg': 'critDmg',
-      'anomalyProficiency': 'anomalyProficiency',
-      'pen': 'pen',
-      'penRatio': 'penRatio',
-      'energyRegen': 'energyRegen'
+      hp: 'hp',
+      atk: 'atk',
+      def: 'def',
+      impact: 'impact',
+      anomalyMastery: 'anomalyMastery',
+      critRate: 'critRate',
+      critDmg: 'critDmg',
+      anomalyProficiency: 'anomalyProficiency',
+      pen: 'pen',
+      penRatio: 'penRatio',
+      energyRegen: 'energyRegen',
     };
 
     // Every key in statMap points at a required numeric field; the ?? 0 is only
     // to satisfy the optional Armorer display fields now present on BaseStats.
     const mappedKey = statMap[statKey];
-    return mappedKey ? stats[mappedKey] ?? 0 : 0;
+    return mappedKey ? (stats[mappedKey] ?? 0) : 0;
   }
 
   /**
@@ -579,12 +590,12 @@ export class StatCalculatorService {
         const bonuses = agentMindscapes[level];
         if (!bonuses) continue;
 
-        bonuses.forEach(bonus => {
+        bonuses.forEach((bonus) => {
           const value = bonus.value;
           const type = bonus.type;
           const isFlat = bonus.format === 'flat';
 
-          switch(type) {
+          switch (type) {
             case 'ATK%':
               stats.atkpercent += value;
               break;
@@ -632,14 +643,14 @@ export class StatCalculatorService {
       return;
     }
 
-    agent.mindscapeEffects.forEach(mindscape => {
+    agent.mindscapeEffects.forEach((mindscape) => {
       if (mindscape.level <= mindscapeLevel && mindscape.statBonuses) {
-        mindscape.statBonuses.forEach(bonus => {
+        mindscape.statBonuses.forEach((bonus) => {
           if (!bonus.conditional) {
             const value = bonus.value;
             const type = bonus.type;
 
-            switch(type) {
+            switch (type) {
               case 'ATK%':
                 stats.atkpercent += value;
                 break;
@@ -677,16 +688,13 @@ export class StatCalculatorService {
     });
   }
 
-  private applyDiscMainStats(
-    stats: BaseStats,
-    discs: { [key in DiscSlot]?: Disc }
-  ): void {
-    Object.values(discs).forEach(disc => {
+  private applyDiscMainStats(stats: BaseStats, discs: { [key in DiscSlot]?: Disc }): void {
+    Object.values(discs).forEach((disc) => {
       if (!disc) return;
 
       const mainStat = disc.mainStat;
 
-      switch(mainStat.type) {
+      switch (mainStat.type) {
         case 'HP':
           stats.hp += mainStat.value;
           break;
@@ -737,15 +745,12 @@ export class StatCalculatorService {
     });
   }
 
-  private applyDiscSubStats(
-    stats: BaseStats,
-    discs: { [key in DiscSlot]?: Disc }
-  ): void {
-    Object.values(discs).forEach(disc => {
+  private applyDiscSubStats(stats: BaseStats, discs: { [key in DiscSlot]?: Disc }): void {
+    Object.values(discs).forEach((disc) => {
       if (!disc) return;
 
-      disc.subStats.forEach(subStat => {
-        switch(subStat.type) {
+      disc.subStats.forEach((subStat) => {
+        switch (subStat.type) {
           case 'HP':
             stats.hp += subStat.value;
             break;
@@ -787,11 +792,11 @@ export class StatCalculatorService {
     discs: { [key in DiscSlot]?: Disc },
     agent: Agent,
     wEngine: WEngine | null,
-    include4pcBonuses: boolean = true
+    include4pcBonuses: boolean = true,
   ): void {
     // Count disc sets
     const setCounts = new Map<string, number>();
-    Object.values(discs).forEach(disc => {
+    Object.values(discs).forEach((disc) => {
       if (!disc) return;
       const count = setCounts.get(disc.set) || 0;
       setCounts.set(disc.set, count + 1);
@@ -832,7 +837,7 @@ export class StatCalculatorService {
     stats: BaseStats,
     agent: Agent,
     wEngine: WEngine | null,
-    discs: { [key in DiscSlot]?: Disc }
+    discs: { [key in DiscSlot]?: Disc },
   ): void {
     const baseHP = agent.lvl60Stats.hp;
     const baseATK = agent.lvl60Stats.atk;
@@ -904,7 +909,12 @@ export class StatCalculatorService {
    * @param agent - Agent info for specialty checks
    * @param includeConditional - If false, only apply unconditional bonuses
    */
-  private apply4pcEffectBonuses(setName: string, stats: BaseStats, agent: Agent, includeConditional: boolean = true): void {
+  private apply4pcEffectBonuses(
+    setName: string,
+    stats: BaseStats,
+    agent: Agent,
+    includeConditional: boolean = true,
+  ): void {
     const equipmentData = this.discSetDataService.getDiscSet(setName);
     if (!equipmentData) {
       return;
@@ -939,14 +949,10 @@ export class StatCalculatorService {
    * Apply conditional 4pc bonuses AFTER final stats are calculated
    * This ensures conditionals check final stat values (with percentage bonuses applied)
    */
-  private applyConditional4pcBonuses(
-    stats: BaseStats,
-    discs: { [key in DiscSlot]?: Disc },
-    agent: Agent
-  ): void {
+  private applyConditional4pcBonuses(stats: BaseStats, discs: { [key in DiscSlot]?: Disc }, agent: Agent): void {
     // Count disc sets
     const setCounts = new Map<string, number>();
-    Object.values(discs).forEach(disc => {
+    Object.values(discs).forEach((disc) => {
       if (!disc) return;
       const count = setCounts.get(disc.set) || 0;
       setCounts.set(disc.set, count + 1);
@@ -981,7 +987,7 @@ export class StatCalculatorService {
   private evaluateCondition(
     condition: { Type: string; Stat?: string; Operator?: string; Value: number | string },
     stats: BaseStats,
-    agent: Agent
+    agent: Agent,
   ): boolean {
     // Handle Specialty condition (e.g., White Water Ballad - Attack specialty)
     if (condition.Type === 'Specialty') {
@@ -997,21 +1003,21 @@ export class StatCalculatorService {
     if (condition.Type === 'StatThreshold' && condition.Stat && condition.Operator) {
       // Map condition stat names to BaseStats properties
       const statMapping: { [key: string]: keyof BaseStats } = {
-        'Anomaly_Mastery': 'anomalyMastery',
-        'Anomaly_Proficiency': 'anomalyProficiency',
-        'CRIT_Rate': 'critRate',
-        'CRIT_RATE': 'critRate',
-        'CRIT_DMG': 'critDmg',
-        'ATK': 'atk',
+        Anomaly_Mastery: 'anomalyMastery',
+        Anomaly_Proficiency: 'anomalyProficiency',
+        CRIT_Rate: 'critRate',
+        CRIT_RATE: 'critRate',
+        CRIT_DMG: 'critDmg',
+        ATK: 'atk',
         'ATK%': 'atkpercent',
-        'HP': 'hp',
+        HP: 'hp',
         'HP%': 'hppercent',
-        'DEF': 'def',
+        DEF: 'def',
         'DEF%': 'defpercent',
-        'Impact': 'impact',
-        'PEN': 'pen',
-        'PEN_Ratio': 'penRatio',
-        'Energy_Regen': 'energyRegen'
+        Impact: 'impact',
+        PEN: 'pen',
+        PEN_Ratio: 'penRatio',
+        Energy_Regen: 'energyRegen',
       };
 
       const statKey = statMapping[condition.Stat];
@@ -1049,9 +1055,9 @@ export class StatCalculatorService {
    */
   private applyPropertiesArray(
     properties: Array<{ Name: string; Name2: string; Format: string; Value: number }>,
-    stats: BaseStats
+    stats: BaseStats,
   ): void {
-    properties.forEach(prop => {
+    properties.forEach((prop) => {
       const statType = prop.Name;
       // Value is stored as integer (e.g., 2800 = 28%, 36 = 36 flat)
       const value = prop.Format.includes('%') ? prop.Value / 100 : prop.Value;
@@ -1112,7 +1118,9 @@ export class StatCalculatorService {
    */
   private parseAndApplyBonus(description: string, stats: BaseStats): void {
     // Match patterns like "ATK +10%" or "CRIT Rate +8%" or "Anomaly Mastery +8%"
-    const percentMatch = description.match(/(ATK|HP|DEF|CRIT Rate|CRIT DMG|PEN Ratio|Energy Regen|Impact|Anomaly Mastery)\s*\+\s*(\d+(?:\.\d+)?)%/i);
+    const percentMatch = description.match(
+      /(ATK|HP|DEF|CRIT Rate|CRIT DMG|PEN Ratio|Energy Regen|Impact|Anomaly Mastery)\s*\+\s*(\d+(?:\.\d+)?)%/i,
+    );
     // Match flat stat patterns like "Anomaly Proficiency +30"
     const flatMatch = description.match(/(Anomaly Proficiency)\s*\+\s*(\d+)/i);
 
@@ -1164,7 +1172,7 @@ export class StatCalculatorService {
 
   getSetBonuses(discs: { [key in DiscSlot]?: Disc }): string[] {
     const setCounts = new Map<string, number>();
-    Object.values(discs).forEach(disc => {
+    Object.values(discs).forEach((disc) => {
       if (!disc) return;
       const count = setCounts.get(disc.set) || 0;
       setCounts.set(disc.set, count + 1);
@@ -1194,10 +1202,10 @@ export class StatCalculatorService {
     agent: Agent,
     wEngine: WEngine | null,
     mindscapeLevel: number = 0,
-    wEngineRefinement: number = 1
+    wEngineRefinement: number = 1,
   ): string[] {
     const setCounts = new Map<string, number>();
-    Object.values(discs).forEach(disc => {
+    Object.values(discs).forEach((disc) => {
       if (!disc) return;
       const count = setCounts.get(disc.set) || 0;
       setCounts.set(disc.set, count + 1);
@@ -1218,7 +1226,7 @@ export class StatCalculatorService {
 
           // Handle simple format (unconditional)
           if (!Array.isArray(effect)) {
-            effect.Properties.forEach(prop => {
+            effect.Properties.forEach((prop) => {
               // Use the Format field to determine if this is a percentage stat
               // Format contains '%' for percentage stats (e.g., "2800" with Format "%" → 28%)
               const isPercentage = prop.Format && prop.Format.includes('%');
@@ -1232,10 +1240,10 @@ export class StatCalculatorService {
           }
           // Handle conditional format
           else {
-            effect.forEach(effectPart => {
+            effect.forEach((effectPart) => {
               // Only include stats if there's no condition OR condition is met
               if (!effectPart.Condition || this.evaluateCondition(effectPart.Condition, currentStats, agent)) {
-                effectPart.Properties.forEach(prop => {
+                effectPart.Properties.forEach((prop) => {
                   // Use the Format field to determine if this is a percentage stat
                   // Format contains '%' for percentage stats (e.g., "2800" with Format "%" → 28%)
                   const isPercentage = prop.Format && prop.Format.includes('%');
@@ -1254,7 +1262,8 @@ export class StatCalculatorService {
           const statParts: string[] = [];
           statMap.forEach((value, statName) => {
             // Assume percentage if the stat name contains these keywords or value is small
-            const isPercentStat = statName.includes('RATE') || statName.includes('DMG') || statName.includes('%') || value < 100;
+            const isPercentStat =
+              statName.includes('RATE') || statName.includes('DMG') || statName.includes('%') || value < 100;
             const formattedValue = isPercentStat ? `${value}%` : `${value}`;
             statParts.push(`${statName}: +${formattedValue}`);
           });
@@ -1268,5 +1277,4 @@ export class StatCalculatorService {
 
     return active4pcBonuses;
   }
-
 }

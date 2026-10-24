@@ -31,7 +31,7 @@ import { versionedUrl } from '../utils/versioned-url';
  *    - Stored separately from reference data
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DataImportService {
   constructor(
@@ -41,7 +41,7 @@ export class DataImportService {
     private wEngineService: WEngineService,
     private discSetService: DiscSetService,
     private transformer: DataTransformerService,
-    private buildService: BuildService
+    private buildService: BuildService,
   ) {}
 
   /**
@@ -52,7 +52,10 @@ export class DataImportService {
    * @param filePath Path to JSON file (e.g., 'assets/data/agents.json')
    * @param transformRawData If true, transforms raw game data format to app format
    */
-  async importAgentsFromFile(filePath: string = 'assets/data/agents.json', transformRawData: boolean = true): Promise<number> {
+  async importAgentsFromFile(
+    filePath: string = 'assets/data/agents.json',
+    transformRawData: boolean = true,
+  ): Promise<number> {
     try {
       // Use relative path (without leading /) to work with baseHref
       const relativePath = filePath.startsWith('/') ? filePath.substring(1) : filePath;
@@ -89,7 +92,10 @@ export class DataImportService {
    * @param filePath Path to JSON file (e.g., 'assets/data/wengines.json')
    * @param transformRawData If true, transforms raw game data format to app format
    */
-  async importWEnginesFromFile(filePath: string = 'assets/data/wengines.json', transformRawData: boolean = true): Promise<number> {
+  async importWEnginesFromFile(
+    filePath: string = 'assets/data/wengines.json',
+    transformRawData: boolean = true,
+  ): Promise<number> {
     try {
       // Use relative path (without leading /) to work with baseHref
       const relativePath = filePath.startsWith('/') ? filePath.substring(1) : filePath;
@@ -152,10 +158,10 @@ export class DataImportService {
    * This loads the game database (agents, W-Engines) on first run.
    * Should only be called once or when updating the game database.
    */
-  async importAllReferenceData(): Promise<{agents: number, wEngines: number}> {
+  async importAllReferenceData(): Promise<{ agents: number; wEngines: number }> {
     const results = {
       agents: 0,
-      wEngines: 0
+      wEngines: 0,
     };
 
     try {
@@ -177,11 +183,11 @@ export class DataImportService {
    * Import all data (both reference and user data) from the assets folder
    * Use this for initial setup or full restore.
    */
-  async importAllData(): Promise<{agents: number, wEngines: number, discs: number}> {
+  async importAllData(): Promise<{ agents: number; wEngines: number; discs: number }> {
     const results = {
       agents: 0,
       wEngines: 0,
-      discs: 0
+      discs: 0,
     };
 
     try {
@@ -240,7 +246,7 @@ export class DataImportService {
    * Import REFERENCE DATA from individual JSON files in assets/data/character/, weapon/, and equipment/
    * This is the preferred method as it loads complete data with accurate stats
    */
-  async importReferenceDataFromIndividualFiles(): Promise<{ agents: number, wEngines: number, discSets: number }> {
+  async importReferenceDataFromIndividualFiles(): Promise<{ agents: number; wEngines: number; discSets: number }> {
     try {
       // Load the index files to get IDs
       const agentsData = await firstValueFrom(this.http.get<any>(versionedUrl('assets/data/agents.json')));
@@ -252,10 +258,10 @@ export class DataImportService {
 
       if (Array.isArray(agentsData)) {
         // Array format: extract IDs from the 'id' field
-        agentIds = agentsData.map(agent => String(agent.id));
+        agentIds = agentsData.map((agent) => String(agent.id));
         // Create an index object for backward compatibility
         agentsIndex = {};
-        agentsData.forEach(agent => {
+        agentsData.forEach((agent) => {
           agentsIndex[String(agent.id)] = agent;
         });
       } else {
@@ -282,7 +288,7 @@ export class DataImportService {
       const discSetPromises = DISC_SET_EQUIPMENT_IDS.map(async (id) => {
         try {
           const discSetData = await firstValueFrom(
-            this.http.get<any>(versionedUrl(`assets/data/equipment/${id}.json`))
+            this.http.get<any>(versionedUrl(`assets/data/equipment/${id}.json`)),
           );
           // Transform disc set data
           const transformed = this.transformer.transformDiscSets({ [id]: discSetData });
@@ -294,9 +300,9 @@ export class DataImportService {
       });
 
       // Wait for all loads to complete
-      const agents = (await Promise.all(agentPromises)).filter(a => a !== null) as Agent[];
-      const wEngines = (await Promise.all(wEnginePromises)).filter(w => w !== null) as WEngine[];
-      const discSets = (await Promise.all(discSetPromises)).filter(d => d !== null);
+      const agents = (await Promise.all(agentPromises)).filter((a) => a !== null) as Agent[];
+      const wEngines = (await Promise.all(wEnginePromises)).filter((w) => w !== null) as WEngine[];
+      const discSets = (await Promise.all(discSetPromises)).filter((d) => d !== null);
 
       // Import into database
       await this.agentService.bulkImportAgents(agents);
@@ -313,7 +319,7 @@ export class DataImportService {
       return {
         agents: agents.length,
         wEngines: wEngines.length,
-        discSets: discSets.length
+        discSets: discSets.length,
       };
     } catch (error) {
       console.error('Error importing from individual files:', error);
@@ -352,14 +358,18 @@ export class DataImportService {
     const [agents, wEngines, discs] = await Promise.all([
       this.db.getAllAgents(),
       this.db.getAllWEngines(),
-      this.db.getAllDiscs()
+      this.db.getAllDiscs(),
     ]);
 
-    return JSON.stringify({
-      agents,
-      wEngines,
-      discs
-    }, null, 2);
+    return JSON.stringify(
+      {
+        agents,
+        wEngines,
+        discs,
+      },
+      null,
+      2,
+    );
   }
 
   /**

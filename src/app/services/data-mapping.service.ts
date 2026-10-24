@@ -5,10 +5,9 @@ import { Element, Specialty } from '../models/agent.model';
  * Service for mapping game data IDs and codes to application format
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DataMappingService {
-
   /**
    * Map raw game element codes to Element types
    */
@@ -19,7 +18,7 @@ export class DataMappingService {
     203: 'Electric',
     204: 'Wind',
     205: 'Ether',
-    206: 'Lumen'
+    206: 'Lumen',
   };
 
   /**
@@ -36,7 +35,7 @@ export class DataMappingService {
     4: 'Support',
     5: 'Defense',
     6: 'Rupture',
-    7: 'Armorer'
+    7: 'Armorer',
   };
 
   /**
@@ -47,7 +46,7 @@ export class DataMappingService {
     2: 'B',
     3: 'A',
     4: 'S',
-    5: 'S'
+    5: 'S',
   };
 
   /**
@@ -69,13 +68,13 @@ export class DataMappingService {
    */
   getSpecialtyFromName(name: string): Specialty {
     const nameMap: { [key: string]: Specialty } = {
-      'Attack': 'Attack',
-      'Stun': 'Stun',
-      'Anomaly': 'Anomaly',
-      'Support': 'Support',
-      'Defense': 'Defense',
-      'Rupture': 'Rupture',
-      'Armorer': 'Armorer'
+      Attack: 'Attack',
+      Stun: 'Stun',
+      Anomaly: 'Anomaly',
+      Support: 'Support',
+      Defense: 'Defense',
+      Rupture: 'Rupture',
+      Armorer: 'Armorer',
     };
     return nameMap[name] || 'Attack';
   }
@@ -115,9 +114,9 @@ export class DataMappingService {
   getElementIconPath(element: Element | string): string {
     // Special element icons
     const specialIconMap: { [key: string]: string } = {
-      'Frost': 'IconFrost.webp',
-      'AuricInk': 'IconAuricInk.webp',
-      'HonedEdge': 'IconHonedEdge.webp'
+      Frost: 'IconFrost.webp',
+      AuricInk: 'IconAuricInk.webp',
+      HonedEdge: 'IconHonedEdge.webp',
     };
 
     // Check if it's a special element
@@ -127,13 +126,13 @@ export class DataMappingService {
 
     // Standard element icons
     const iconMap: { [key in Element]: string } = {
-      'Physical': 'IconPhysical.webp',
-      'Fire': 'IconFire.webp',
-      'Ice': 'IconIce.webp',
-      'Electric': 'IconElectric.webp',
-      'Wind': 'IconWind.webp',
-      'Ether': 'IconEther.webp',
-      'Lumen': 'IconLumen.webp'
+      Physical: 'IconPhysical.webp',
+      Fire: 'IconFire.webp',
+      Ice: 'IconIce.webp',
+      Electric: 'IconElectric.webp',
+      Wind: 'IconWind.webp',
+      Ether: 'IconEther.webp',
+      Lumen: 'IconLumen.webp',
     };
     return `assets/data/images/elements/${iconMap[element as Element]}`;
   }
@@ -143,13 +142,13 @@ export class DataMappingService {
    */
   getSpecialtyIconPath(specialty: Specialty): string {
     const iconMap: { [key in Specialty]: string } = {
-      'Attack': 'IconAttackType.webp',
-      'Stun': 'IconStun.webp',
-      'Anomaly': 'IconAnomaly.webp',
-      'Support': 'IconSupport.webp',
-      'Defense': 'IconDefense.webp',
-      'Rupture': 'IconRupture.webp',
-      'Armorer': 'IconArmorer.webp'
+      Attack: 'IconAttackType.webp',
+      Stun: 'IconStun.webp',
+      Anomaly: 'IconAnomaly.webp',
+      Support: 'IconSupport.webp',
+      Defense: 'IconDefense.webp',
+      Rupture: 'IconRupture.webp',
+      Armorer: 'IconArmorer.webp',
     };
     return `assets/data/images/roles/${iconMap[specialty]}`;
   }

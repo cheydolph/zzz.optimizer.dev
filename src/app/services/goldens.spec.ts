@@ -73,7 +73,8 @@ describe('golden outputs', () => {
       for (const file of files) {
         const { outputs } = computeLocalOutputs(ctx, LOCAL_EXPORTS_DIR, file, plansById);
         for (const hit of findUnrepresentable(outputs)) diffs.push(`${file} ${hit}: not representable in a golden`);
-        for (const d of compareTrees(readJson(join(LOCAL_GOLDENS_DIR, file)), toGoldenForm(outputs))) diffs.push(`${file} ${d}`);
+        for (const d of compareTrees(readJson(join(LOCAL_GOLDENS_DIR, file)), toGoldenForm(outputs)))
+          diffs.push(`${file} ${d}`);
       }
       expect(diffs.slice(0, MAX_REPORTED_DIFFS), `${diffs.length} differences`).toEqual([]);
     },

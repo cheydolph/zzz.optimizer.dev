@@ -16,7 +16,7 @@ export interface DiscSet {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DiscSetService {
   private discSetsSubject = new BehaviorSubject<DiscSet[]>([]);
@@ -28,7 +28,7 @@ export class DiscSetService {
 
   constructor(
     private db: DbService,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
   ) {
     this.loadDiscSetsFromDb();
   }
@@ -46,7 +46,6 @@ export class DiscSetService {
 
       // Build Maps for O(1) lookups
       this.buildLookupMaps(discSets);
-
     } catch (error) {
       console.error('Error loading disc sets from IndexedDB:', error);
       this.discSetsSubject.next([]);
@@ -57,7 +56,7 @@ export class DiscSetService {
   private buildLookupMaps(discSets: DiscSet[]): void {
     this.clearLookupMaps();
 
-    discSets.forEach(discSet => {
+    discSets.forEach((discSet) => {
       this.discSetMapById.set(discSet.id, discSet);
       this.discSetMapByName.set(discSet.name, discSet);
     });

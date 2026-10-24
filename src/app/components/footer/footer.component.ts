@@ -8,7 +8,7 @@ import { version } from '../../../../package.json';
   imports: [RouterLink],
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FooterComponent {
   version = version;

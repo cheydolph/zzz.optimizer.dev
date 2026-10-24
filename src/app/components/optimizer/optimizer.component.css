@@ -12,7 +12,7 @@
 }
 
 .header h1 {
-  color: #F4B942;
+  color: #f4b942;
   font-size: 2.5em;
   margin: 0;
 }
@@ -25,7 +25,7 @@
 /* Scoring Notice */
 .scoring-notice {
   background: rgba(244, 185, 66, 0.1);
-  border: 2px solid #F4B942;
+  border: 2px solid #f4b942;
   border-radius: 12px;
   padding: 25px;
   margin: 0 auto 30px;
@@ -47,7 +47,7 @@
 }
 
 .scoring-notice h3 {
-  color: #F4B942;
+  color: #f4b942;
   margin: 0 0 15px 0;
   font-size: 1.3em;
 }
@@ -70,7 +70,7 @@
 }
 
 .scoring-notice strong {
-  color: #F4B942;
+  color: #f4b942;
   font-weight: 600;
 }
 
@@ -93,7 +93,7 @@
 
 .scoring-notice .notice-tip {
   background: rgba(244, 185, 66, 0.15);
-  border-left: 3px solid #F4B942;
+  border-left: 3px solid #f4b942;
   padding: 12px 15px;
   margin: 15px 0 0 0;
   border-radius: 4px;
@@ -107,7 +107,7 @@
   right: 15px;
   background: transparent;
   border: none;
-  color: #F4B942;
+  color: #f4b942;
   font-size: 2em;
   cursor: pointer;
   padding: 0;
@@ -141,26 +141,26 @@
   border-radius: 12px;
   padding: 20px;
   box-shadow:
-    0 4px 6px rgba(0,0,0,0.3),
-    0 0 20px rgba(244,185,66,.1),
-    inset 0 1px 0 rgba(244,185,66,.1);
+    0 4px 6px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(244, 185, 66, 0.1),
+    inset 0 1px 0 rgba(244, 185, 66, 0.1);
   max-height: calc(100vh - 150px);
   overflow-y: auto;
   border: 1px solid #2a2a2a;
   position: relative;
-  transition: box-shadow .3s ease;
+  transition: box-shadow 0.3s ease;
 }
 
 .section::before,
 .section::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 20px;
   height: 20px;
-  border: 2px solid #F4B942;
+  border: 2px solid #f4b942;
   opacity: 0.5;
   pointer-events: none;
-  transition: opacity .3s ease;
+  transition: opacity 0.3s ease;
 }
 
 .section::before {
@@ -181,9 +181,9 @@
 
 .section:hover {
   box-shadow:
-    0 4px 6px rgba(0,0,0,0.3),
-    0 0 25px rgba(244,185,66,.2),
-    inset 0 1px 0 rgba(244,185,66,.15);
+    0 4px 6px rgba(0, 0, 0, 0.3),
+    0 0 25px rgba(244, 185, 66, 0.2),
+    inset 0 1px 0 rgba(244, 185, 66, 0.15);
 }
 
 .section:hover::before,
@@ -202,7 +202,7 @@
 }
 
 .section h2 {
-  color: #F4B942;
+  color: #f4b942;
   margin-top: 0;
   margin-bottom: 20px;
   border-bottom: 2px solid #2a2a2a;
@@ -240,20 +240,20 @@
   font-size: 1em;
   transition: all 0.2s ease;
   box-shadow:
-    0 2px 4px rgba(0,0,0,.2),
-    inset 0 1px 0 rgba(244,185,66,.05);
+    0 2px 4px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(244, 185, 66, 0.05);
 }
 
 .select-input:focus,
 .number-input:focus,
 .number-input-sm:focus {
   outline: none;
-  border-color: #F4B942;
+  border-color: #f4b942;
   box-shadow:
-    0 0 0 3px rgba(244,185,66,.2),
-    0 0 15px rgba(244,185,66,.4),
-    inset 0 1px 0 rgba(244,185,66,.1);
-  border-color: #F4B942;
+    0 0 0 3px rgba(244, 185, 66, 0.2),
+    0 0 15px rgba(244, 185, 66, 0.4),
+    inset 0 1px 0 rgba(244, 185, 66, 0.1);
+  border-color: #f4b942;
 }
 
 .number-input-sm {
@@ -281,13 +281,13 @@
 }
 
 .mindscape-btn:hover {
-  border-color: #F4B942;
+  border-color: #f4b942;
 }
 
 .mindscape-btn.active {
-  background: #F4B942;
+  background: #f4b942;
   color: transparent;
-  border-color: #F4B942;
+  border-color: #f4b942;
 }
 
 /* Substat Filters */
@@ -334,7 +334,7 @@
   margin-top: 8px;
   padding: 8px;
   background: rgba(244, 185, 66, 0.1);
-  border-left: 3px solid #F4B942;
+  border-left: 3px solid #f4b942;
   border-radius: 4px;
 }
 
@@ -355,7 +355,7 @@
 
 .btn-primary {
   width: 100%;
-  background: #F4B942;
+  background: #f4b942;
   color: transparent;
 }
 
@@ -372,13 +372,13 @@
 }
 
 .btn-secondary:hover {
-  border-color: #F4B942;
+  border-color: #f4b942;
 }
 
 .btn-optimize {
   width: 100%;
   padding: 15px;
-  background: linear-gradient(135deg, #F4B942, #0066cc);
+  background: linear-gradient(135deg, #f4b942, #0066cc);
   color: white;
   border: none;
   border-radius: 8px;
@@ -418,7 +418,7 @@
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #F4B942, #0066cc);
+  background: linear-gradient(90deg, #f4b942, #0066cc);
   transition: width 0.3s ease;
 }
 
@@ -436,7 +436,7 @@
 }
 
 .result-count {
-  color: #F4B942;
+  color: #f4b942;
   font-weight: bold;
   font-size: 0.9em;
 }
@@ -464,7 +464,7 @@
 }
 
 .result-card:hover {
-  border-color: #F4B942;
+  border-color: #f4b942;
   transform: translateX(4px);
 }
 
@@ -485,7 +485,7 @@
   padding: 4px 10px;
   border-radius: 4px;
   font-weight: bold;
-  color: #F4B942;
+  color: #f4b942;
 }
 
 .score {
@@ -530,7 +530,7 @@
 
 .set-badge {
   background: rgba(244, 185, 66, 0.2);
-  color: #F4B942;
+  color: #f4b942;
   padding: 4px 8px;
   border-radius: 4px;
   font-size: 0.8em;
@@ -600,7 +600,7 @@
 .bonus-item {
   padding: 8px;
   background: rgba(244, 185, 66, 0.1);
-  border-left: 3px solid #F4B942;
+  border-left: 3px solid #f4b942;
   border-radius: 4px;
   margin-bottom: 8px;
   font-size: 0.9em;
@@ -684,7 +684,7 @@
 }
 
 .section::-webkit-scrollbar-thumb {
-  background: #F4B942;
+  background: #f4b942;
   border-radius: 4px;
 }
 

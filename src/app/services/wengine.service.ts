@@ -6,7 +6,7 @@ import { WEngine } from '../models/wengine.model';
 import { DbService } from './db.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class WEngineService {
   private wEnginesSubject = new BehaviorSubject<WEngine[]>([]);
@@ -20,7 +20,7 @@ export class WEngineService {
 
   constructor(
     private db: DbService,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
   ) {
     this.loadWEngines();
   }
@@ -38,7 +38,6 @@ export class WEngineService {
 
       // Build Maps for O(1) lookups
       this.buildLookupMaps(wEngines);
-
     } catch (error) {
       console.error('Error loading W-Engines from IndexedDB:', error);
       this.wEnginesSubject.next([]);
@@ -51,7 +50,7 @@ export class WEngineService {
     this.clearLookupMaps();
 
     // Build all lookup maps
-    wEngines.forEach(wEngine => {
+    wEngines.forEach((wEngine) => {
       // By ID
       this.wEngineMapById.set(wEngine.id, wEngine);
 

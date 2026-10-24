@@ -20,7 +20,7 @@ export interface SkillMultiplier {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SkillParserService {
   private skillMultipliers: { [agentId: string]: SkillMultiplier } = {};
@@ -51,7 +51,7 @@ export class SkillParserService {
   private async parseAgentSkills(agentId: string): Promise<void> {
     try {
       const characterData: any = await firstValueFrom(
-        this.http.get(versionedUrl(`assets/data/character/${agentId}.json`))
+        this.http.get(versionedUrl(`assets/data/character/${agentId}.json`)),
       );
 
       // Extract skill multipliers
@@ -71,12 +71,12 @@ export class SkillParserService {
 
       // Calculate weighted average for typical rotation
       // Typical rotation: 70% basic/special, 30% ultimate/EX
-      const averageMultiplier = (
-        basicAttack * 0.40 +       // 40% basic attacks
-        specialAttack * 0.20 +     // 20% special attacks
-        exSpecialAttack * 0.20 +   // 20% EX special attacks
-        ultimate * 0.20            // 20% ultimates
-      ) / 100; // Convert from basis points to decimal
+      const averageMultiplier =
+        (basicAttack * 0.4 + // 40% basic attacks
+          specialAttack * 0.2 + // 20% special attacks
+          exSpecialAttack * 0.2 + // 20% EX special attacks
+          ultimate * 0.2) / // 20% ultimates
+        100; // Convert from basis points to decimal
 
       this.skillMultipliers[agentId] = {
         agentId,
@@ -87,7 +87,6 @@ export class SkillParserService {
         exSpecialAttack: exSpecialAttack / 100,
         ultimate: ultimate / 100,
       };
-
     } catch (error) {
       // Silently ignore - character skill files are optional and not currently used
       // Only log in development mode for debugging
@@ -107,8 +106,8 @@ export class SkillParserService {
     let hitCount = 0;
 
     // Find the "Basic Attack" section with parameters
-    const basicAttackSection = basicSkill.Description.find((desc: any) =>
-      desc.Name?.includes('Basic Attack') && desc.Param
+    const basicAttackSection = basicSkill.Description.find(
+      (desc: any) => desc.Name?.includes('Basic Attack') && desc.Param,
     );
 
     if (basicAttackSection?.Param) {
@@ -146,9 +145,7 @@ export class SkillParserService {
 
     if (specialSection?.Param) {
       // Find DMG Multiplier parameter
-      const dmgParam = specialSection.Param.find((p: any) =>
-        p.Name?.includes('DMG Multiplier') && p.Param
-      );
+      const dmgParam = specialSection.Param.find((p: any) => p.Name?.includes('DMG Multiplier') && p.Param);
 
       if (dmgParam?.Param) {
         const skillId = Object.keys(dmgParam.Param)[0];
@@ -170,15 +167,11 @@ export class SkillParserService {
     if (!chainSkill?.Description) return 800; // Default 800% if not found
 
     // Find the "Ultimate" section
-    const ultimateSection = chainSkill.Description.find((desc: any) =>
-      desc.Name?.includes('Ultimate')
-    );
+    const ultimateSection = chainSkill.Description.find((desc: any) => desc.Name?.includes('Ultimate'));
 
     if (ultimateSection?.Param) {
       // Find DMG Multiplier parameter
-      const dmgParam = ultimateSection.Param.find((p: any) =>
-        p.Name?.includes('DMG Multiplier') && p.Param
-      );
+      const dmgParam = ultimateSection.Param.find((p: any) => p.Name?.includes('DMG Multiplier') && p.Param);
 
       if (dmgParam?.Param) {
         const skillId = Object.keys(dmgParam.Param)[0];

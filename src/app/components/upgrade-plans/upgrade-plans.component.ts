@@ -16,7 +16,7 @@ import { MAIN_STAT_BY_SLOT } from '../../constants/main-stat-possibilities';
   imports: [FormsModule],
   templateUrl: './upgrade-plans.component.html',
   styleUrls: ['./upgrade-plans.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UpgradePlansComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
@@ -57,10 +57,7 @@ export class UpgradePlansComponent implements OnInit, OnDestroy {
   drive6MainStats = MAIN_STAT_BY_SLOT.Drive6;
 
   // All possible substats
-  allSubstats = [
-    'HP%', 'ATK%', 'DEF%', 'HP', 'ATK', 'DEF',
-    'CRIT_Rate', 'CRIT_DMG', 'Anomaly_Proficiency', 'PEN'
-  ];
+  allSubstats = ['HP%', 'ATK%', 'DEF%', 'HP', 'ATK', 'DEF', 'CRIT_Rate', 'CRIT_DMG', 'Anomaly_Proficiency', 'PEN'];
 
   // Breakpoint stat keys
   breakpointStats = [
@@ -74,7 +71,7 @@ export class UpgradePlansComponent implements OnInit, OnDestroy {
     { key: 'anomalyProficiency', label: 'Anomaly Proficiency', isPercentage: false },
     { key: 'pen', label: 'PEN (Flat)', isPercentage: false },
     { key: 'penRatio', label: 'PEN Ratio', isPercentage: true },
-    { key: 'energyRegen', label: 'Energy Regen', isPercentage: true }
+    { key: 'energyRegen', label: 'Energy Regen', isPercentage: true },
   ];
 
   constructor(
@@ -82,34 +79,28 @@ export class UpgradePlansComponent implements OnInit, OnDestroy {
     private agentService: AgentService,
     private discSetService: DiscSetService,
     private notificationService: NotificationService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
     // Load plans
-    this.upgradePlanService.plans$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(plans => {
-        this.plans = plans;
-        this.cachedPlansByAgent = null;
-        this.cdr.markForCheck();
-      });
+    this.upgradePlanService.plans$.pipe(takeUntil(this.destroy$)).subscribe((plans) => {
+      this.plans = plans;
+      this.cachedPlansByAgent = null;
+      this.cdr.markForCheck();
+    });
 
     // Load reference data
-    this.agentService.agents$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(agents => {
-        // Sort agents alphabetically by name
-        this.referenceAgents = agents.sort((a, b) => a.name.localeCompare(b.name));
-        this.cdr.markForCheck();
-      });
+    this.agentService.agents$.pipe(takeUntil(this.destroy$)).subscribe((agents) => {
+      // Sort agents alphabetically by name
+      this.referenceAgents = agents.sort((a, b) => a.name.localeCompare(b.name));
+      this.cdr.markForCheck();
+    });
 
-    this.discSetService.discSets$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(sets => {
-        this.referenceDiscSets = sets;
-        this.cdr.markForCheck();
-      });
+    this.discSetService.discSets$.pipe(takeUntil(this.destroy$)).subscribe((sets) => {
+      this.referenceDiscSets = sets;
+      this.cdr.markForCheck();
+    });
   }
 
   ngOnDestroy() {
@@ -139,7 +130,7 @@ export class UpgradePlansComponent implements OnInit, OnDestroy {
     const plan = this.upgradePlanService.createPlan(
       this.newPlanAgentId,
       this.newPlanName.trim(),
-      this.newPlanDescription.trim()
+      this.newPlanDescription.trim(),
     );
 
     // Select the newly created plan
@@ -237,8 +228,7 @@ export class UpgradePlansComponent implements OnInit, OnDestroy {
     }
 
     const current = this.selectedPlan.mainStatPreferences[validSlot][stat] || 'Acceptable';
-    this.selectedPlan.mainStatPreferences[validSlot][stat] =
-      current === 'Acceptable' ? 'Not Acceptable' : 'Acceptable';
+    this.selectedPlan.mainStatPreferences[validSlot][stat] = current === 'Acceptable' ? 'Not Acceptable' : 'Acceptable';
   }
 
   // ============================================================================
@@ -360,7 +350,7 @@ export class UpgradePlansComponent implements OnInit, OnDestroy {
   // ============================================================================
 
   getAgentName(agentId: string): string {
-    const agent = this.referenceAgents.find(a => a.id === agentId);
+    const agent = this.referenceAgents.find((a) => a.id === agentId);
     return agent?.name || 'Unknown';
   }
 
@@ -368,7 +358,7 @@ export class UpgradePlansComponent implements OnInit, OnDestroy {
     if (this.cachedPlansByAgent) return this.cachedPlansByAgent;
 
     const grouped: { [agentId: string]: UpgradePlan[] } = {};
-    this.plans.forEach(plan => {
+    this.plans.forEach((plan) => {
       if (!grouped[plan.agentId]) {
         grouped[plan.agentId] = [];
       }
@@ -381,10 +371,14 @@ export class UpgradePlansComponent implements OnInit, OnDestroy {
 
   getMainStatsForSlot(slot: string): string[] {
     switch (slot) {
-      case 'Drive4': return this.drive4MainStats;
-      case 'Drive5': return this.drive5MainStats;
-      case 'Drive6': return this.drive6MainStats;
-      default: return [];
+      case 'Drive4':
+        return this.drive4MainStats;
+      case 'Drive5':
+        return this.drive5MainStats;
+      case 'Drive6':
+        return this.drive6MainStats;
+      default:
+        return [];
     }
   }
 

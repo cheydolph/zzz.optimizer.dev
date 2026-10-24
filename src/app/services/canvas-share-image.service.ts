@@ -100,7 +100,7 @@ export class CanvasShareImageService {
 
     // Ensure all rendering is complete before converting to blob
     // This fixes Firefox-specific timing issues where canvas may not be fully rendered
-    await new Promise(resolve => requestAnimationFrame(resolve));
+    await new Promise((resolve) => requestAnimationFrame(resolve));
 
     // TEST: Check if canvas has actual content by sampling a pixel
     try {
@@ -211,9 +211,7 @@ export class CanvasShareImageService {
       }
     }
 
-    await Promise.allSettled(
-      [...urls].map((src) => this.loadImage(src).catch(() => {})),
-    );
+    await Promise.allSettled([...urls].map((src) => this.loadImage(src).catch(() => {})));
   }
 
   /**
@@ -391,10 +389,7 @@ export class CanvasShareImageService {
   /**
    * Draw agent section (left side)
    */
-  private async drawAgentSection(
-    ctx: CanvasRenderingContext2D,
-    data: ShareImageData,
-  ): Promise<void> {
+  private async drawAgentSection(ctx: CanvasRenderingContext2D, data: ShareImageData): Promise<void> {
     const accentColor = data.accentColor || '#f4b942';
 
     // Draw agent image (use custom image if provided, otherwise use default)
@@ -455,14 +450,7 @@ export class CanvasShareImageService {
         ctx.save();
 
         // Draw badge background with color or gradient
-        const badgeColor = this.createBuildRatingGradient(
-          ctx,
-          grade,
-          ratingX,
-          badgeY,
-          badgeWidth,
-          48,
-        );
+        const badgeColor = this.createBuildRatingGradient(ctx, grade, ratingX, badgeY, badgeWidth, 48);
         ctx.fillStyle = badgeColor;
         this.roundRect(ctx, ratingX, badgeY, badgeWidth, 48, 8);
         ctx.fill();
@@ -599,10 +587,7 @@ export class CanvasShareImageService {
   /**
    * Draw equipment section (right side)
    */
-  private async drawEquipmentSection(
-    ctx: CanvasRenderingContext2D,
-    data: ShareImageData,
-  ): Promise<void> {
+  private async drawEquipmentSection(ctx: CanvasRenderingContext2D, data: ShareImageData): Promise<void> {
     const sectionX = 350;
     const sectionY = 0;
 
@@ -611,19 +596,12 @@ export class CanvasShareImageService {
 
     // Draw W-Engine header if equipped
     if (data.build.equippedWEngine) {
-      await this.drawWEngineHeader(
-        ctx,
-        sectionX + 20,
-        sectionY + 90,
-        data,
-      );
+      await this.drawWEngineHeader(ctx, sectionX + 20, sectionY + 90, data);
     }
 
     // Draw equipment menu background image (below W-Engine header)
     try {
-      const menuImg = await this.loadImage(
-        'assets/data/images/share-image/Equipment_Menu_Screen.webp',
-      );
+      const menuImg = await this.loadImage('assets/data/images/share-image/Equipment_Menu_Screen.webp');
 
       // Position: top: 150px, left: 55%, transform: translateX(-50%)
       const menuCenterX = sectionX + (this.WIDTH - sectionX) * 0.55;
@@ -660,12 +638,7 @@ export class CanvasShareImageService {
   /**
    * Draw stats bar (10 stats in 5x2 grid)
    */
-  private async drawStatsBar(
-    ctx: CanvasRenderingContext2D,
-    x: number,
-    y: number,
-    data: ShareImageData,
-  ): Promise<void> {
+  private async drawStatsBar(ctx: CanvasRenderingContext2D, x: number, y: number, data: ShareImageData): Promise<void> {
     const accentColor = data.accentColor || '#f4b942';
 
     ctx.save();
@@ -689,9 +662,7 @@ export class CanvasShareImageService {
 
       // Draw stat icon
       try {
-        const iconImg = await this.loadImage(
-          `assets/data/images/share-image/Icon_Stat_${stat.iconName}.webp`,
-        );
+        const iconImg = await this.loadImage(`assets/data/images/share-image/Icon_Stat_${stat.iconName}.webp`);
         ctx.drawImage(iconImg, statX, statY, 18, 18);
       } catch (error) {
         console.warn(`Stat icon failed to load: ${stat.iconName}`);
@@ -706,11 +677,7 @@ export class CanvasShareImageService {
       // Draw stat value
       ctx.fillStyle = '#fff';
       ctx.font = 'bold 11px Arial';
-      const labelWidth = this.measureTextWidth(
-        ctx,
-        stat.label + ':',
-        '600 10px Arial',
-      );
+      const labelWidth = this.measureTextWidth(ctx, stat.label + ':', '600 10px Arial');
       ctx.fillText(stat.value, statX + 21 + labelWidth + 3, statY + 3);
     }
 
@@ -786,18 +753,12 @@ export class CanvasShareImageService {
 
       // Draw stat label
       ctx.fillText(stat.label + ':', statsX, y + 20);
-      const labelWidth = this.measureTextWidth(
-        ctx,
-        stat.label + ':',
-        '500 13px Arial',
-      );
+      const labelWidth = this.measureTextWidth(ctx, stat.label + ':', '500 13px Arial');
       statsX -= labelWidth + 5;
 
       // Draw stat icon
       try {
-        const iconImg = await this.loadImage(
-          `assets/data/images/share-image/Icon_Stat_${stat.iconName}.webp`,
-        );
+        const iconImg = await this.loadImage(`assets/data/images/share-image/Icon_Stat_${stat.iconName}.webp`);
         ctx.drawImage(iconImg, statsX - 16, y + 12, 16, 16);
         statsX -= 16 + 12;
       } catch (error) {
@@ -811,10 +772,7 @@ export class CanvasShareImageService {
   /**
    * Draw disc equipment grid (6 discs positioned around center W-Engine)
    */
-  private async drawDiscGrid(
-    ctx: CanvasRenderingContext2D,
-    data: ShareImageData,
-  ): Promise<void> {
+  private async drawDiscGrid(ctx: CanvasRenderingContext2D, data: ShareImageData): Promise<void> {
     const gridX = this.WIDTH * 0.58 - 390; // left: 58%, transform: translateX(-50%) = -390px
     const gridY = 170;
 
@@ -874,14 +832,7 @@ export class CanvasShareImageService {
     };
 
     // Draw each disc
-    const slots: DiscSlot[] = [
-      'Drive1',
-      'Drive2',
-      'Drive3',
-      'Drive4',
-      'Drive5',
-      'Drive6',
-    ];
+    const slots: DiscSlot[] = ['Drive1', 'Drive2', 'Drive3', 'Drive4', 'Drive5', 'Drive6'];
 
     for (const slot of slots) {
       const disc = data.build.equippedDiscs[slot];
@@ -890,14 +841,17 @@ export class CanvasShareImageService {
       const pos = discPositions[slot];
       const discScore = data.discScores.get(disc.uid);
 
-      await this.drawDisc(ctx, disc, discScore, pos.statsX, pos.statsY, data.showDiscRatings, data.accentColor, data.priorityStats);
-      await this.drawDiscImage(
+      await this.drawDisc(
         ctx,
         disc,
-        data.discSets,
-        pos.imageX,
-        pos.imageY,
+        discScore,
+        pos.statsX,
+        pos.statsY,
+        data.showDiscRatings,
+        data.accentColor,
+        data.priorityStats,
       );
+      await this.drawDiscImage(ctx, disc, data.discSets, pos.imageX, pos.imageY);
     }
   }
 
@@ -919,7 +873,7 @@ export class CanvasShareImageService {
     // Create a set of priority substats for quick lookup (normalized for matching)
     const priorityStats = new Set<string>();
     if (priorityStatsList) {
-      priorityStatsList.forEach(stat => {
+      priorityStatsList.forEach((stat) => {
         // Add multiple normalized formats to ensure matching
         priorityStats.add(stat.toLowerCase().replace(/ /g, '_'));
         priorityStats.add(stat.toLowerCase().replace(/_/g, ' '));
@@ -948,14 +902,7 @@ export class CanvasShareImageService {
       const badgeY = y + 3;
 
       // Use gradient for VH/PHT, solid color for others
-      const badgeColor = this.createDiscRatingGradient(
-        ctx,
-        grade,
-        badgeX,
-        badgeY,
-        badgeWidth,
-        18,
-      );
+      const badgeColor = this.createDiscRatingGradient(ctx, grade, badgeX, badgeY, badgeWidth, 18);
       ctx.fillStyle = badgeColor;
       this.roundRect(ctx, badgeX, badgeY, badgeWidth, 18, 4);
       ctx.fill();
@@ -1012,7 +959,7 @@ export class CanvasShareImageService {
       ctx.font = '300 8px Arial';
       ctx.textAlign = 'left';
 
-      let subText = this.formatStatType(subStat.type);
+      const subText = this.formatStatType(subStat.type);
       if (subStat.rolls && subStat.rolls > 1) {
         // Add roll count
         ctx.fillText(subText, x + 5, textY);
@@ -1022,11 +969,7 @@ export class CanvasShareImageService {
         ctx.font = 'bold 8px Arial';
         ctx.fillText(` +${subStat.rolls - 1}`, x + 5 + subTypeWidth, textY);
 
-        const rollWidth = this.measureTextWidth(
-          ctx,
-          ` +${subStat.rolls - 1}`,
-          'bold 8px Arial',
-        );
+        const rollWidth = this.measureTextWidth(ctx, ` +${subStat.rolls - 1}`, 'bold 8px Arial');
 
         // Use accent color for priority stat values, white for others
         ctx.fillStyle = isPriority ? color : '#fff';
@@ -1092,10 +1035,7 @@ export class CanvasShareImageService {
   /**
    * Draw center W-Engine image
    */
-  private async drawWEngineCenter(
-    ctx: CanvasRenderingContext2D,
-    data: ShareImageData,
-  ): Promise<void> {
+  private async drawWEngineCenter(ctx: CanvasRenderingContext2D, data: ShareImageData): Promise<void> {
     if (!data.build.equippedWEngine?.icon) return;
 
     try {
@@ -1112,13 +1052,7 @@ export class CanvasShareImageService {
       ctx.shadowBlur = 12;
       ctx.shadowOffsetY = 4;
 
-      ctx.drawImage(
-        wEngineImg,
-        centerX - 90,
-        centerY - 90,
-        180,
-        180,
-      );
+      ctx.drawImage(wEngineImg, centerX - 90, centerY - 90, 180, 180);
 
       ctx.restore();
     } catch (error) {
@@ -1162,11 +1096,7 @@ export class CanvasShareImageService {
   /**
    * Measure text width
    */
-  private measureTextWidth(
-    ctx: CanvasRenderingContext2D,
-    text: string,
-    font: string,
-  ): number {
+  private measureTextWidth(ctx: CanvasRenderingContext2D, text: string, font: string): number {
     ctx.save();
     ctx.font = font;
     const width = ctx.measureText(text).width;
@@ -1204,9 +1134,7 @@ export class CanvasShareImageService {
    */
   private getRatingTextColor(grade: string): string {
     const gradeUpper = grade.toUpperCase();
-    return gradeUpper === 'C' || gradeUpper === 'D' || gradeUpper === 'F'
-      ? '#ffffff'
-      : '#0a0a0a';
+    return gradeUpper === 'C' || gradeUpper === 'D' || gradeUpper === 'F' ? '#ffffff' : '#0a0a0a';
   }
 
   /**
@@ -1348,10 +1276,7 @@ export class CanvasShareImageService {
 
     // SSS and below get the shine ramp; anything without one (INCOMPLETE,
     // unknown grades) still falls back to its solid colour.
-    return (
-      this.createRatingShineGradient(ctx, grade, x, y, width, height) ??
-      this.getBuildRatingColor(grade)
-    );
+    return this.createRatingShineGradient(ctx, grade, x, y, width, height) ?? this.getBuildRatingColor(grade);
   }
 
   /**
@@ -1420,10 +1345,7 @@ export class CanvasShareImageService {
 
     // SSS and below get the shine ramp; anything without one (INCOMPLETE,
     // unknown grades) still falls back to its solid colour.
-    return (
-      this.createRatingShineGradient(ctx, grade, x, y, width, height) ??
-      this.getDiscRatingColor(grade)
-    );
+    return this.createRatingShineGradient(ctx, grade, x, y, width, height) ?? this.getDiscRatingColor(grade);
   }
 
   /**
@@ -1446,9 +1368,7 @@ export class CanvasShareImageService {
       Rupture: 'assets/data/images/roles/IconRupture.webp',
       Armorer: 'assets/data/images/roles/IconArmorer.webp',
     };
-    return (
-      specialtyMap[specialty] || 'assets/data/images/roles/IconAttackType.webp'
-    );
+    return specialtyMap[specialty] || 'assets/data/images/roles/IconAttackType.webp';
   }
 
   /**
@@ -1457,9 +1377,9 @@ export class CanvasShareImageService {
   private getElementIconPath(elementIcon: string): string {
     // Special element icons mapping (matches DataMappingService)
     const specialIconMap: { [key: string]: string } = {
-      'Frost': 'IconFrost.webp',
-      'AuricInk': 'IconAuricInk.webp',
-      'HonedEdge': 'IconHonedEdge.webp'
+      Frost: 'IconFrost.webp',
+      AuricInk: 'IconAuricInk.webp',
+      HonedEdge: 'IconHonedEdge.webp',
     };
 
     // Check if it's a special element
@@ -1469,13 +1389,13 @@ export class CanvasShareImageService {
 
     // Standard element icons
     const iconMap: { [key: string]: string } = {
-      'Physical': 'IconPhysical.webp',
-      'Fire': 'IconFire.webp',
-      'Ice': 'IconIce.webp',
-      'Electric': 'IconElectric.webp',
-      'Wind': 'IconWind.webp',
-      'Ether': 'IconEther.webp',
-      'Lumen': 'IconLumen.webp'
+      Physical: 'IconPhysical.webp',
+      Fire: 'IconFire.webp',
+      Ice: 'IconIce.webp',
+      Electric: 'IconElectric.webp',
+      Wind: 'IconWind.webp',
+      Ether: 'IconEther.webp',
+      Lumen: 'IconLumen.webp',
     };
 
     return `assets/data/images/elements/${iconMap[elementIcon] || elementIcon + '.webp'}`;
@@ -1489,19 +1409,14 @@ export class CanvasShareImageService {
       return path;
     }
 
-    const baseUrl =
-      window.location.origin +
-      window.location.pathname.replace(/\/[^/]*$/, '/');
+    const baseUrl = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, '/');
     return path.startsWith('/') ? window.location.origin + path : baseUrl + path;
   }
 
   /**
    * Draw footer with substats breakdown and credits
    */
-  private async drawFooter(
-    ctx: CanvasRenderingContext2D,
-    data: ShareImageData,
-  ): Promise<void> {
+  private async drawFooter(ctx: CanvasRenderingContext2D, data: ShareImageData): Promise<void> {
     const accentColor = data.accentColor || '#f4b942';
     const footerHeight = 50;
     const footerY = this.HEIGHT - footerHeight;
@@ -1609,10 +1524,7 @@ export class CanvasShareImageService {
   /**
    * Draw artist credits on top of the diagonal bar
    */
-  private async drawArtistCredits(
-    ctx: CanvasRenderingContext2D,
-    data: ShareImageData,
-  ): Promise<void> {
+  private async drawArtistCredits(ctx: CanvasRenderingContext2D, data: ShareImageData): Promise<void> {
     // Collect unique artist names
     const artists: string[] = [];
     if (data.agentImageArtist?.trim()) artists.push(data.agentImageArtist.trim());
@@ -1676,29 +1588,28 @@ export class CanvasShareImageService {
 
     // Common stat icons that appear in most builds
     const commonStatIcons = [
-      'HP', 'ATK', 'DEF',
-      'CRIT_Rate', 'CRIT_DMG', 'PEN_Ratio',
-      'Energy_Regen', 'Anomaly_Proficiency',
-      'Impact', 'Anomaly_Mastery'
+      'HP',
+      'ATK',
+      'DEF',
+      'CRIT_Rate',
+      'CRIT_DMG',
+      'PEN_Ratio',
+      'Energy_Regen',
+      'Anomaly_Proficiency',
+      'Impact',
+      'Anomaly_Mastery',
     ];
 
     // Preload stat icons in background
-    const iconPromises = commonStatIcons.map(icon =>
-      this.loadImage(`assets/data/images/share-image/Icon_Stat_${icon}.webp`)
-        .catch(() => {}) // Silently fail for missing icons
+    const iconPromises = commonStatIcons.map(
+      (icon) => this.loadImage(`assets/data/images/share-image/Icon_Stat_${icon}.webp`).catch(() => {}), // Silently fail for missing icons
     );
 
     // Preload equipment menu background
-    iconPromises.push(
-      this.loadImage('assets/data/images/share-image/Equipment_Menu_Screen.webp')
-        .catch(() => {})
-    );
+    iconPromises.push(this.loadImage('assets/data/images/share-image/Equipment_Menu_Screen.webp').catch(() => {}));
 
     // Preload default background
-    iconPromises.push(
-      this.loadImage('assets/data/images/share-image/ZZZTV.jpg')
-        .catch(() => {})
-    );
+    iconPromises.push(this.loadImage('assets/data/images/share-image/ZZZTV.jpg').catch(() => {}));
 
     // Don't wait for preloading to complete - let it happen in background
     Promise.all(iconPromises).finally(() => {

@@ -9,7 +9,7 @@ import { environment } from '../../../environments/environment';
   selector: 'app-update-notification',
   imports: [],
   templateUrl: './update-notification.component.html',
-  styleUrl: './update-notification.component.css'
+  styleUrl: './update-notification.component.css',
 })
 export class UpdateNotificationComponent implements OnInit, OnDestroy {
   updateAvailable = false;
@@ -20,11 +20,9 @@ export class UpdateNotificationComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // Subscribe to update availability
-    this.swUpdateService.updateAvailable
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(available => {
-        this.updateAvailable = available;
-      });
+    this.swUpdateService.updateAvailable.pipe(takeUntil(this.destroy$)).subscribe((available) => {
+      this.updateAvailable = available;
+    });
   }
 
   ngOnDestroy(): void {

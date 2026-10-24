@@ -11,18 +11,18 @@ export interface BaseStats {
   def: number;
   defpercent: number;
   impact: number;
-  impactpercent: number;  // Percentage bonuses (disc 6 main stat, set bonuses)
-  flatImpact: number;  // Flat Impact bonuses from passives (Nangong Yu, Dialyn, Zhu Yuan)
+  impactpercent: number; // Percentage bonuses (disc 6 main stat, set bonuses)
+  flatImpact: number; // Flat Impact bonuses from passives (Nangong Yu, Dialyn, Zhu Yuan)
   anomalyMastery: number;
-  anomalyMasteryPercent: number;  // Percentage bonuses (disc 6 main stat, set bonuses)
+  anomalyMasteryPercent: number; // Percentage bonuses (disc 6 main stat, set bonuses)
   critRate: number;
   critDmg: number;
   anomalyProficiency: number;
-  pen: number;  // Flat PEN (converted to penRatio for display)
+  pen: number; // Flat PEN (converted to penRatio for display)
   penRatio: number;
-  energyRegen: number;  // Base energy regen (SpBarPoint) - stored as energy/sec
-  energyRegenPercent: number;  // Percentage bonuses to energy regen
-  sheerForce: number;  // Sheer Force for Rupture agents: floor(ATK × 0.3) + floor(HP × 0.1)
+  energyRegen: number; // Base energy regen (SpBarPoint) - stored as energy/sec
+  energyRegenPercent: number; // Percentage bonuses to energy regen
+  sheerForce: number; // Sheer Force for Rupture agents: floor(ATK × 0.3) + floor(HP × 0.1)
   // Armorer-only display stats. In game these occupy the ATK and Energy Regen slots
   // on the stat screen, but they do not replace those stats - ATK and Energy Regen
   // still exist on Armorers, they are simply not useful to them.
@@ -30,8 +30,8 @@ export interface BaseStats {
   // Both are static per agent: nothing (discs, W-Engine, substats, levels) changes
   // them. They are stored per agent rather than as shared constants because other
   // Armorers are expected to have different values than Claret's 150% / 1.5.
-  lacerationDamage?: number;              // Laceration DMG % (replaces CRIT DMG on a CRIT)
-  sharpnessAutoAccumulation?: number;     // Sharpness gained per second
+  lacerationDamage?: number; // Laceration DMG % (replaces CRIT DMG on a CRIT)
+  sharpnessAutoAccumulation?: number; // Sharpness gained per second
 }
 
 export interface Agent {
@@ -42,16 +42,16 @@ export interface Agent {
   specialty: Specialty;
   lvl60Stats: BaseStats;
   icon?: string;
-  iconThumb?: string;           // 400px-wide thumbnail for list/grid views (see build-scripts/generate-agent-thumbnails.js)
+  iconThumb?: string; // 400px-wide thumbnail for list/grid views (see build-scripts/generate-agent-thumbnails.js)
   elementIcon?: string;
-  specialElementIcon?: string;  // For special element variants (Frost, AuricInk, HonedEdge)
+  specialElementIcon?: string; // For special element variants (Frost, AuricInk, HonedEdge)
   specialtyIcon?: string;
   mindscapeEffects?: MindscapeEffect[];
   coreSkill?: string;
   scoring?: AgentScoring;
-  hasHPAscension?: boolean;      // true for agents with HP% ascension bonus (Zhao, Manato)
-  hpAscensionPercent?: number;   // HP ascension percentage (e.g., 18 for 18%)
-  extra_ascension?: any[];       // Core passive bonuses unlocked at levels 15, 25, 35, 45, 55
+  hasHPAscension?: boolean; // true for agents with HP% ascension bonus (Zhao, Manato)
+  hpAscensionPercent?: number; // HP ascension percentage (e.g., 18 for 18%)
+  extra_ascension?: any[]; // Core passive bonuses unlocked at levels 15, 25, 35, 45, 55
 }
 
 export interface AgentScoring {
@@ -61,14 +61,14 @@ export interface AgentScoring {
 }
 
 export interface AgentBuff {
-  type: string;  // e.g., 'ATKBonus', 'CRITRateBonus', 'CRITDMGBonus', etc.
-  value: string;  // String number like '1000' or '40'
+  type: string; // e.g., 'ATKBonus', 'CRITRateBonus', 'CRITDMGBonus', etc.
+  value: string; // String number like '1000' or '40'
   format: '%' | 'flat';
   condition?: {
-    sourceStat: string;      // Source stat to read (e.g., 'anomalyMastery')
-    threshold: number;       // Minimum value before conversion starts
-    ratio: number;           // Conversion ratio (e.g., 1.0 for 1:1) - W5 / default
-    cap?: number;            // Maximum value the bonus can provide - W5 / default
+    sourceStat: string; // Source stat to read (e.g., 'anomalyMastery')
+    threshold: number; // Minimum value before conversion starts
+    ratio: number; // Conversion ratio (e.g., 1.0 for 1:1) - W5 / default
+    cap?: number; // Maximum value the bonus can provide - W5 / default
     // Optional per-refinement values for W-Engine conditionals whose ratio and/or
     // cap scale with Overclock (e.g. Bloodmarrow Coffer). When present and the
     // equipped refinement is known, these override the flat ratio/cap above.
@@ -88,7 +88,17 @@ export interface MindscapeEffect {
 }
 
 export interface MindscapeStatBonus {
-  type: 'ATK%' | 'HP%' | 'DEF%' | 'CRIT_Rate' | 'CRIT_DMG' | 'PEN_Ratio' | 'Energy_Regen' | 'Anomaly_Proficiency' | 'Anomaly_Mastery' | 'Impact';
+  type:
+    | 'ATK%'
+    | 'HP%'
+    | 'DEF%'
+    | 'CRIT_Rate'
+    | 'CRIT_DMG'
+    | 'PEN_Ratio'
+    | 'Energy_Regen'
+    | 'Anomaly_Proficiency'
+    | 'Anomaly_Mastery'
+    | 'Impact';
   value: number;
   conditional: boolean; // true if bonus requires conditions, false if always active
   format?: '%' | 'flat'; // New field to distinguish percentage vs flat stats
@@ -97,7 +107,19 @@ export interface MindscapeStatBonus {
 // models/wengine.model.ts
 export interface WEngineRefinementProperty {
   name: string;
-  type: 'ATK%' | 'HP%' | 'DEF%' | 'CRIT_Rate' | 'CRIT_DMG' | 'PEN_Ratio' | 'Energy_Regen' | 'Impact' | 'Anomaly_Proficiency' | 'Anomaly_Mastery' | 'Sheer_Force' | 'Sheer Force';
+  type:
+    | 'ATK%'
+    | 'HP%'
+    | 'DEF%'
+    | 'CRIT_Rate'
+    | 'CRIT_DMG'
+    | 'PEN_Ratio'
+    | 'Energy_Regen'
+    | 'Impact'
+    | 'Anomaly_Proficiency'
+    | 'Anomaly_Mastery'
+    | 'Sheer_Force'
+    | 'Sheer Force';
   values: {
     W1: number;
     W2: number;
@@ -124,7 +146,19 @@ export interface WEngine {
    */
   baseStatType?: 'ATK' | 'DEF';
   subStat: {
-    type: 'ATK%' | 'HP%' | 'DEF%' | 'CRIT_Rate' | 'CRIT_DMG' | 'PEN_Ratio' | 'Energy_Regen' | 'Impact' | 'Anomaly_Proficiency' | 'Anomaly_Mastery' | 'Sheer_Force' | 'Sheer Force';
+    type:
+      | 'ATK%'
+      | 'HP%'
+      | 'DEF%'
+      | 'CRIT_Rate'
+      | 'CRIT_DMG'
+      | 'PEN_Ratio'
+      | 'Energy_Regen'
+      | 'Impact'
+      | 'Anomaly_Proficiency'
+      | 'Anomaly_Mastery'
+      | 'Sheer_Force'
+      | 'Sheer Force';
     value: number;
   };
   effect: {

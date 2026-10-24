@@ -1,8 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./src/**/*.{html,ts}",
-  ],
+  content: ['./src/**/*.{html,ts}'],
   theme: {
     extend: {
       colors: {
@@ -46,29 +44,34 @@ module.exports = {
         custom: ['InpinHongMeti', 'sans-serif'],
       },
       boxShadow: {
-        'neon-gold': '0 0 10px rgba(244, 185, 66, 0.5), 0 0 20px rgba(244, 185, 66, 0.3), 0 0 30px rgba(244, 185, 66, 0.2)',
-        'neon-gold-lg': '0 0 15px rgba(244, 185, 66, 0.6), 0 0 30px rgba(244, 185, 66, 0.4), 0 0 45px rgba(244, 185, 66, 0.3)',
-        'neon-cyan': '0 0 10px rgba(0, 217, 255, 0.5), 0 0 20px rgba(0, 217, 255, 0.3), 0 0 30px rgba(0, 217, 255, 0.2)',
-        'neon-cyan-lg': '0 0 15px rgba(0, 217, 255, 0.6), 0 0 30px rgba(0, 217, 255, 0.4), 0 0 45px rgba(0, 217, 255, 0.3)',
-        'card': '0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2)',
+        'neon-gold':
+          '0 0 10px rgba(244, 185, 66, 0.5), 0 0 20px rgba(244, 185, 66, 0.3), 0 0 30px rgba(244, 185, 66, 0.2)',
+        'neon-gold-lg':
+          '0 0 15px rgba(244, 185, 66, 0.6), 0 0 30px rgba(244, 185, 66, 0.4), 0 0 45px rgba(244, 185, 66, 0.3)',
+        'neon-cyan':
+          '0 0 10px rgba(0, 217, 255, 0.5), 0 0 20px rgba(0, 217, 255, 0.3), 0 0 30px rgba(0, 217, 255, 0.2)',
+        'neon-cyan-lg':
+          '0 0 15px rgba(0, 217, 255, 0.6), 0 0 30px rgba(0, 217, 255, 0.4), 0 0 45px rgba(0, 217, 255, 0.3)',
+        card: '0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2)',
         'card-hover': '0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3)',
-        'glow': '0 0 20px rgba(244, 185, 66, 0.4)',
+        glow: '0 0 20px rgba(244, 185, 66, 0.4)',
       },
       backgroundImage: {
         'gradient-gold': 'linear-gradient(135deg, #F4B942 0%, #FFD666 100%)',
         'gradient-cyber': 'linear-gradient(135deg, #00D9FF 0%, #0099CC 100%)',
         'gradient-purple': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
         'gradient-danger': 'linear-gradient(135deg, #ff4757 0%, #dc3545 100%)',
-        'grid-pattern': 'repeating-linear-gradient(0deg, transparent, transparent 49px, rgba(244, 185, 66, 0.1) 49px, rgba(244, 185, 66, 0.1) 50px), repeating-linear-gradient(90deg, transparent, transparent 49px, rgba(244, 185, 66, 0.1) 49px, rgba(244, 185, 66, 0.1) 50px)',
+        'grid-pattern':
+          'repeating-linear-gradient(0deg, transparent, transparent 49px, rgba(244, 185, 66, 0.1) 49px, rgba(244, 185, 66, 0.1) 50px), repeating-linear-gradient(90deg, transparent, transparent 49px, rgba(244, 185, 66, 0.1) 49px, rgba(244, 185, 66, 0.1) 50px)',
       },
       animation: {
         'neon-pulse': 'neon-pulse 2s ease-in-out infinite',
         'neon-pulse-cyan': 'neon-pulse-cyan 2s ease-in-out infinite',
-        'shimmer': 'shimmer 2s linear infinite',
-        'scanline': 'scanline 6s linear infinite',
+        shimmer: 'shimmer 2s linear infinite',
+        scanline: 'scanline 6s linear infinite',
         'glow-intensify': 'glow-intensify 2s ease-in-out infinite',
         'spin-slow': 'spin 3s linear infinite',
-        'float': 'float 3s ease-in-out infinite',
+        float: 'float 3s ease-in-out infinite',
         'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
         'slide-in': 'slideIn 0.3s ease-out',
         'fade-in': 'fadeIn 0.3s ease-out',
@@ -78,18 +81,22 @@ module.exports = {
       keyframes: {
         'neon-pulse': {
           '0%, 100%': {
-            boxShadow: '0 0 5px rgba(244, 185, 66, 0.5), 0 0 10px rgba(244, 185, 66, 0.3), 0 0 15px rgba(244, 185, 66, 0.2)',
+            boxShadow:
+              '0 0 5px rgba(244, 185, 66, 0.5), 0 0 10px rgba(244, 185, 66, 0.3), 0 0 15px rgba(244, 185, 66, 0.2)',
           },
           '50%': {
-            boxShadow: '0 0 10px rgba(244, 185, 66, 0.8), 0 0 20px rgba(244, 185, 66, 0.5), 0 0 30px rgba(244, 185, 66, 0.3)',
+            boxShadow:
+              '0 0 10px rgba(244, 185, 66, 0.8), 0 0 20px rgba(244, 185, 66, 0.5), 0 0 30px rgba(244, 185, 66, 0.3)',
           },
         },
         'neon-pulse-cyan': {
           '0%, 100%': {
-            boxShadow: '0 0 5px rgba(0, 217, 255, 0.5), 0 0 10px rgba(0, 217, 255, 0.3), 0 0 15px rgba(0, 217, 255, 0.2)',
+            boxShadow:
+              '0 0 5px rgba(0, 217, 255, 0.5), 0 0 10px rgba(0, 217, 255, 0.3), 0 0 15px rgba(0, 217, 255, 0.2)',
           },
           '50%': {
-            boxShadow: '0 0 10px rgba(0, 217, 255, 0.8), 0 0 20px rgba(0, 217, 255, 0.5), 0 0 30px rgba(0, 217, 255, 0.3)',
+            boxShadow:
+              '0 0 10px rgba(0, 217, 255, 0.8), 0 0 20px rgba(0, 217, 255, 0.5), 0 0 30px rgba(0, 217, 255, 0.3)',
           },
         },
         shimmer: {
@@ -130,18 +137,15 @@ module.exports = {
         },
       },
       transitionDuration: {
-        '400': '400ms',
+        400: '400ms',
       },
       transitionTimingFunction: {
-        'smooth': 'cubic-bezier(0.4, 0, 0.2, 1)',
+        smooth: 'cubic-bezier(0.4, 0, 0.2, 1)',
       },
       backdropBlur: {
         xs: '2px',
       },
     },
   },
-  plugins: [
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/aspect-ratio'),
-  ],
-}
+  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/aspect-ratio')],
+};

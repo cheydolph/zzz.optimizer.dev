@@ -1,9 +1,21 @@
-import { Specialty } from "./agent.model";
+import { Specialty } from './agent.model';
 
 // Refinement-based stat bonuses from Effect.Properties
 export interface RefinementProperty {
   name: string; // e.g., "Energy Regen", "ATK", "HP"
-  type: 'ATK%' | 'HP%' | 'DEF%' | 'CRIT_Rate' | 'CRIT_DMG' | 'PEN_Ratio' | 'Energy_Regen' | 'Impact' | 'Anomaly_Proficiency' | 'Anomaly_Mastery' | 'Sheer_Force' | 'Sheer Force';
+  type:
+    | 'ATK%'
+    | 'HP%'
+    | 'DEF%'
+    | 'CRIT_Rate'
+    | 'CRIT_DMG'
+    | 'PEN_Ratio'
+    | 'Energy_Regen'
+    | 'Impact'
+    | 'Anomaly_Proficiency'
+    | 'Anomaly_Mastery'
+    | 'Sheer_Force'
+    | 'Sheer Force';
   values: {
     W1: number;
     W2: number;
@@ -31,7 +43,19 @@ export interface WEngine {
    */
   baseStatType?: 'ATK' | 'DEF';
   subStat: {
-    type: 'ATK%' | 'HP%' | 'DEF%' | 'CRIT_Rate' | 'CRIT_DMG' | 'PEN_Ratio' | 'Energy_Regen' | 'Impact' | 'Anomaly_Proficiency' | 'Anomaly_Mastery' | 'Sheer_Force' | 'Sheer Force';
+    type:
+      | 'ATK%'
+      | 'HP%'
+      | 'DEF%'
+      | 'CRIT_Rate'
+      | 'CRIT_DMG'
+      | 'PEN_Ratio'
+      | 'Energy_Regen'
+      | 'Impact'
+      | 'Anomaly_Proficiency'
+      | 'Anomaly_Mastery'
+      | 'Sheer_Force'
+      | 'Sheer Force';
     value: number;
   };
   effect: {

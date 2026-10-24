@@ -20,13 +20,13 @@ export interface ImportResult {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EnkaImportService {
   constructor(
     private buildService: BuildService,
     private discService: DiscService,
-    private dbService: DbService
+    private dbService: DbService,
   ) {}
 
   /**
@@ -41,17 +41,17 @@ export class EnkaImportService {
 
     for (const enkaBuild of enkaBuilds) {
       // Find existing build for this agent
-      const existingBuild = existingBuilds.find(b => b.agentId === enkaBuild.agentId);
+      const existingBuild = existingBuilds.find((b) => b.agentId === enkaBuild.agentId);
 
       if (!existingBuild) {
         // New agent build
         newBuilds.push(enkaBuild);
-        newDiscs.push(...Object.values(enkaBuild.discs).filter(d => d !== undefined) as Disc[]);
+        newDiscs.push(...(Object.values(enkaBuild.discs).filter((d) => d !== undefined) as Disc[]));
       } else {
         // Check if build changed
         if (this.hasChanges(existingBuild, enkaBuild)) {
           updatedBuilds.push({ old: existingBuild, new: enkaBuild });
-          newDiscs.push(...Object.values(enkaBuild.discs).filter(d => d !== undefined) as Disc[]);
+          newDiscs.push(...(Object.values(enkaBuild.discs).filter((d) => d !== undefined) as Disc[]));
         } else {
           unchangedBuilds.push(existingBuild);
         }
@@ -93,7 +93,7 @@ export class EnkaImportService {
 
       // Initialize enabledDiscs with all discs enabled
       const enabledDiscs: { [slot: string]: boolean } = {};
-      Object.keys(discsBySlot).forEach(slot => {
+      Object.keys(discsBySlot).forEach((slot) => {
         enabledDiscs[slot] = true;
       });
 
@@ -106,7 +106,7 @@ export class EnkaImportService {
         enabledDiscs: enabledDiscs,
         includeWEngineBonuses: true,
         includeMindscapeBonuses: true,
-        includePassiveBonuses: true
+        includePassiveBonuses: true,
       });
 
       added++;
@@ -116,7 +116,7 @@ export class EnkaImportService {
     if (replaceExisting) {
       for (const { old, new: enkaBuild } of comparison.updatedBuilds) {
         // Remove old discs from disc inventory
-        const oldDiscs = Object.values(old.equippedDiscs).filter(d => d !== undefined) as Disc[];
+        const oldDiscs = Object.values(old.equippedDiscs).filter((d) => d !== undefined) as Disc[];
         for (const disc of oldDiscs) {
           await this.discService.deleteDisc(disc.uid);
         }
@@ -133,7 +133,7 @@ export class EnkaImportService {
 
         // Initialize enabledDiscs with all new discs enabled
         const enabledDiscs: { [slot: string]: boolean } = {};
-        Object.keys(discsBySlot).forEach(slot => {
+        Object.keys(discsBySlot).forEach((slot) => {
           enabledDiscs[slot] = true;
         });
 
@@ -147,7 +147,7 @@ export class EnkaImportService {
           enabledDiscs: enabledDiscs,
           includeWEngineBonuses: old.includeWEngineBonuses ?? true,
           includeMindscapeBonuses: old.includeMindscapeBonuses ?? true,
-          includePassiveBonuses: old.includePassiveBonuses ?? true
+          includePassiveBonuses: old.includePassiveBonuses ?? true,
         });
 
         updated++;
@@ -278,7 +278,7 @@ export class EnkaImportService {
     // Compare substats. Matching is by type rather than position because the
     // order Enka returns substats in is not guaranteed to be stable.
     for (const existingSub of existing.subStats) {
-      const incomingSub = incoming.subStats.find(s => s.type === existingSub.type);
+      const incomingSub = incoming.subStats.find((s) => s.type === existingSub.type);
 
       if (!incomingSub) {
         return true; // Substat type missing
@@ -304,7 +304,7 @@ export class EnkaImportService {
     // A newly rolled substat type is exactly the "they upgraded this" case we
     // want to detect, so look for incoming types absent from existing.
     for (const incomingSub of incoming.subStats) {
-      if (!existing.subStats.some(s => s.type === incomingSub.type)) {
+      if (!existing.subStats.some((s) => s.type === incomingSub.type)) {
         return true;
       }
     }

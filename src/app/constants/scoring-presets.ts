@@ -1,5 +1,5 @@
-import { Specialty } from "../models/agent.model";
-import { ScoringAlgorithm } from "../models/scoring.model";
+import { Specialty } from '../models/agent.model';
+import { ScoringAlgorithm } from '../models/scoring.model';
 
 // constants/scoring-presets.ts
 export const SCORING_PRESETS: Record<Specialty, ScoringAlgorithm> = {
@@ -53,7 +53,7 @@ export const SCORING_PRESETS: Record<Specialty, ScoringAlgorithm> = {
     name: 'Support Build',
     weights: {
       // Note: Energy_Regen removed - it is a main stat only, not a substat
-      'PEN': 1.0,
+      PEN: 1.0,
       'HP%': 0.5,
       'DEF%': 0.5,
       'ATK%': 2.0,
@@ -83,14 +83,14 @@ export const SCORING_PRESETS: Record<Specialty, ScoringAlgorithm> = {
     name: 'Rupture Build',
     weights: {
       'HP%': 2.0,
-      'CRIT_Rate': 1.0,
-      'CRIT_DMG': 1.0,
-      'HP': 0.5
+      CRIT_Rate: 1.0,
+      CRIT_DMG: 1.0,
+      HP: 0.5,
     },
     mainStatPreferences: {
       Drive4: ['CRIT_Rate', 'CRIT_DMG'],
       Drive5: ['Element_DMG', 'HP%'],
-      Drive6: ['HP%']
+      Drive6: ['HP%'],
     },
   },
   // PROVISIONAL: Armorer is a new specialty introduced with Claret.
@@ -119,5 +119,5 @@ export const SCORING_PRESETS: Record<Specialty, ScoringAlgorithm> = {
       Drive5: ['PEN_Ratio', 'Element_DMG', 'DEF%'],
       Drive6: ['DEF%'],
     },
-  }
+  },
 };

@@ -10,7 +10,7 @@ import { BuildImportExportService } from '../../services/build-import-export.ser
   imports: [FormsModule],
   templateUrl: './data-manager.component.html',
   styleUrls: ['./data-manager.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DataManagerComponent {
   isLoading = false;
@@ -23,7 +23,7 @@ export class DataManagerComponent {
     private dataImportService: DataImportService,
     private appInitService: AppInitService,
     private buildImportExportService: BuildImportExportService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
   ) {}
 
   async reloadReferenceData() {
@@ -59,7 +59,7 @@ export class DataManagerComponent {
       } else {
         this.setMessage(
           `Successfully imported: ${results.agents} agents, ${results.wEngines} W-Engines, ${results.discs} discs`,
-          'success'
+          'success',
         );
       }
     } catch (error) {
@@ -193,7 +193,9 @@ export class DataManagerComponent {
   }
 
   async clearReferenceData() {
-    if (confirm('Are you sure you want to delete reference data (agents, W-Engines)? You can re-import it from assets.')) {
+    if (
+      confirm('Are you sure you want to delete reference data (agents, W-Engines)? You can re-import it from assets.')
+    ) {
       this.isLoading = true;
       this.cdr.markForCheck();
       this.setMessage('Clearing reference data...', 'info');

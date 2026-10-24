@@ -2,24 +2,14 @@
   "$schema": "./node_modules/@angular/service-worker/config/schema.json",
   "index": "/index.html",
   "navigationRequestStrategy": "freshness",
-  "navigationUrls": [
-    "/**",
-    "!/**/*.mp4"
-  ],
+  "navigationUrls": ["/**", "!/**/*.mp4"],
   "assetGroups": [
     {
       "name": "app",
       "installMode": "prefetch",
       "updateMode": "prefetch",
       "resources": {
-        "files": [
-          "/favicon.ico",
-          "/index.html",
-          "/robots.txt",
-          "/sitemap.xml",
-          "/*.css",
-          "/*.js"
-        ]
+        "files": ["/favicon.ico", "/index.html", "/robots.txt", "/sitemap.xml", "/*.css", "/*.js"]
       }
     },
     {
@@ -39,18 +29,14 @@
       "installMode": "lazy",
       "updateMode": "prefetch",
       "resources": {
-        "files": [
-          "/assets/data/*.json"
-        ]
+        "files": ["/assets/data/*.json"]
       }
     }
   ],
   "dataGroups": [
     {
       "name": "api-performance",
-      "urls": [
-        "https://api.hakush.in/**"
-      ],
+      "urls": ["https://api.hakush.in/**"],
       "cacheConfig": {
         "maxSize": 50,
         "maxAge": "1h",
@@ -60,9 +46,7 @@
     },
     {
       "name": "api-freshness",
-      "urls": [
-        "https://*.enka.network/**"
-      ],
+      "urls": ["https://*.enka.network/**"],
       "cacheConfig": {
         "maxSize": 20,
         "maxAge": "10m",

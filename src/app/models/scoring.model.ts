@@ -1,5 +1,5 @@
-import { DiscSlot } from "./agent.model";
-import { SubStatType, MainStatType } from "./disc.model";
+import { DiscSlot } from './agent.model';
+import { SubStatType, MainStatType } from './disc.model';
 
 // models/scoring.model.ts
 export interface ScoringAlgorithm {

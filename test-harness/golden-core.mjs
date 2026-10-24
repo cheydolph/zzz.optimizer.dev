@@ -97,7 +97,13 @@ export function runCase(ctx, agent, build, plan) {
   out.setBonuses = capture(() => statCalc.getSetBonuses(discs));
   out.fourPcBonuses = capture(() => {
     statCalc.clearCache();
-    return statCalc.get4pcEffectBonuses(discs, agent, wEngine || null, build.mindscapeLevel || 0, build.wEngineRefinement || 1);
+    return statCalc.get4pcEffectBonuses(
+      discs,
+      agent,
+      wEngine || null,
+      build.mindscapeLevel || 0,
+      build.wEngineRefinement || 1,
+    );
   });
 
   out.detectedBuildType = capture(() => scoring.detectBuildType(discList, agent.id));
@@ -181,7 +187,8 @@ export function computeSyntheticOutputs(ctx, fixturesDir) {
     for (const c of fixture.cases) {
       // Fresh copies per case: the app reads the agent from IndexedDB and the build from localStorage JSON.
       const wEngine = c.build.equippedWEngineId ? ctx.wEnginesById.get(c.build.equippedWEngineId) : undefined;
-      if (c.build.equippedWEngineId && !wEngine) throw new Error(`${file} ${c.id}: unknown W-Engine ${c.build.equippedWEngineId}`);
+      if (c.build.equippedWEngineId && !wEngine)
+        throw new Error(`${file} ${c.id}: unknown W-Engine ${c.build.equippedWEngineId}`);
       const { equippedWEngineId, ...build } = c.build;
       build.equippedWEngine = wEngine ? toGoldenForm(wEngine) : undefined;
       const { result, counts } = withQuietConsole(() => runCase(ctx, structuredClone(agent), build, c.plan));
@@ -265,7 +272,8 @@ export function toGoldenForm(value) {
  */
 export function compareTrees(expected, actual, path = '$', diffs = []) {
   if (typeof expected === 'number' && typeof actual === 'number') {
-    if (!Object.is(expected, actual)) diffs.push(`${path}: expected ${numberText(expected)}, got ${numberText(actual)}`);
+    if (!Object.is(expected, actual))
+      diffs.push(`${path}: expected ${numberText(expected)}, got ${numberText(actual)}`);
     return diffs;
   }
   if (Array.isArray(expected) || Array.isArray(actual)) {
@@ -273,7 +281,8 @@ export function compareTrees(expected, actual, path = '$', diffs = []) {
       diffs.push(`${path}: expected ${describe(expected)}, got ${describe(actual)}`);
       return diffs;
     }
-    if (expected.length !== actual.length) diffs.push(`${path}: expected length ${expected.length}, got ${actual.length}`);
+    if (expected.length !== actual.length)
+      diffs.push(`${path}: expected length ${expected.length}, got ${actual.length}`);
     const n = Math.min(expected.length, actual.length);
     for (let i = 0; i < n; i++) compareTrees(expected[i], actual[i], `${path}[${i}]`, diffs);
     return diffs;

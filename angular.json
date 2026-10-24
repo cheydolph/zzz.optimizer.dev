@@ -25,9 +25,7 @@
               },
               "src/assets"
             ],
-            "styles": [
-              "src/styles.css"
-            ],
+            "styles": ["src/styles.css"],
             "scripts": []
           },
           "configurations": {
@@ -140,9 +138,6 @@
             "buildTarget": "zzz.optimizer:build:development,test",
             "tsConfig": "tsconfig.spec.json"
           }
-        },
-        "deploy": {
-          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }

@@ -38,8 +38,8 @@ function validate() {
     return errors;
   }
 
-  const agentIds = agents.map(a => String(a.id));
-  const agentNames = new Map(agents.map(a => [String(a.id), a.name]));
+  const agentIds = agents.map((a) => String(a.id));
+  const agentNames = new Map(agents.map((a) => [String(a.id), a.name]));
 
   for (const { file, container, requireFullCoverage } of AGENT_KEYED_FILES) {
     let data;
@@ -57,26 +57,26 @@ function validate() {
     }
 
     // 1. Entries sitting outside the container object.
-    const strays = Object.keys(data).filter(key => /^\d+$/.test(key));
+    const strays = Object.keys(data).filter((key) => /^\d+$/.test(key));
     for (const stray of strays) {
       const name = agentNames.get(stray) || 'unknown agent';
       errors.push(
         `${file}: entry "${stray}" (${name}) is at the top level of the file ` +
           `instead of inside "${container}", so it will be ignored at runtime. ` +
-          `Move it inside the "${container}" object.`
+          `Move it inside the "${container}" object.`,
       );
     }
 
     // 2. Agents with no entry at all.
     if (requireFullCoverage) {
-      const missing = agentIds.filter(id => !entries[id] && !strays.includes(id));
+      const missing = agentIds.filter((id) => !entries[id] && !strays.includes(id));
       for (const id of missing) {
         errors.push(`${file}: no entry for agent ${id} (${agentNames.get(id)}).`);
       }
     }
 
     // 3. Entries for agents that no longer exist.
-    const orphans = Object.keys(entries).filter(id => !agentIds.includes(id));
+    const orphans = Object.keys(entries).filter((id) => !agentIds.includes(id));
     for (const orphan of orphans) {
       errors.push(`${file}: entry "${orphan}" does not match any agent in agents.json.`);
     }

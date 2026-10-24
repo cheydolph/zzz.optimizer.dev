@@ -1,5 +1,5 @@
-import { DiscSlot } from "./agent.model";
-import { MainStatType, SubStatType } from "./disc.model";
+import { DiscSlot } from './agent.model';
+import { MainStatType, SubStatType } from './disc.model';
 
 // models/optimizer-config.model.ts
 export interface OptimizerConfig {

@@ -41,7 +41,7 @@ export interface AgentBuild {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BuildService {
   private buildsSubject = new BehaviorSubject<AgentBuild[]>([]);
@@ -54,7 +54,7 @@ export class BuildService {
     private db: DbService,
     private statCalculator: StatCalculatorService,
     private scoringService: ScoringService,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
   ) {
     this.loadBuilds();
   }
@@ -93,7 +93,7 @@ export class BuildService {
           if (build.enabledDiscs === undefined) {
             build.enabledDiscs = {};
             if (build.equippedDiscs) {
-              Object.keys(build.equippedDiscs).forEach(slot => {
+              Object.keys(build.equippedDiscs).forEach((slot) => {
                 build.enabledDiscs![slot] = true;
               });
             }
@@ -161,14 +161,14 @@ export class BuildService {
    * Get build by ID
    */
   getBuildById(id: string): AgentBuild | undefined {
-    return this.buildsSubject.value.find(b => b.id === id);
+    return this.buildsSubject.value.find((b) => b.id === id);
   }
 
   /**
    * Get all builds for a specific agent
    */
   getBuildsByAgentId(agentId: string): AgentBuild[] {
-    return this.buildsSubject.value.filter(b => b.agentId === agentId);
+    return this.buildsSubject.value.filter((b) => b.agentId === agentId);
   }
 
   /**
@@ -194,7 +194,7 @@ export class BuildService {
       updatedAt: new Date(),
       includeWEngineBonuses: true,
       includeMindscapeBonuses: true,
-      includePassiveBonuses: true
+      includePassiveBonuses: true,
     };
 
     builds.push(newBuild);
@@ -212,19 +212,17 @@ export class BuildService {
    */
   async updateBuild(id: string, updates: Partial<AgentBuild>): Promise<void> {
     const builds = this.buildsSubject.value;
-    const index = builds.findIndex(b => b.id === id);
+    const index = builds.findIndex((b) => b.id === id);
 
     if (index === -1) {
       throw new Error(`Build ${id} not found`);
     }
 
-
     builds[index] = {
       ...builds[index],
       ...updates,
-      updatedAt: new Date()
+      updatedAt: new Date(),
     };
-
 
     // Handle explicit undefined for equippedWEngine (to properly remove it)
     if ('equippedWEngine' in updates && updates.equippedWEngine === undefined) {
@@ -232,25 +230,26 @@ export class BuildService {
     }
 
     // Recalculate stats if equipment, refinement, mindscape, or toggle flags changed
-    if (updates.equippedWEngine !== undefined ||
-        updates.equippedDiscs !== undefined ||
-        'equippedWEngine' in updates ||
-        updates.wEngineRefinement !== undefined ||
-        updates.mindscapeLevel !== undefined ||
-        updates.includeWEngineBonuses !== undefined ||
-        updates.includeMindscapeBonuses !== undefined ||
-        updates.includePassiveBonuses !== undefined ||
-        updates.includeSetBonuses !== undefined ||
-        updates.include4pcBonuses !== undefined ||
-        updates.preferredBuildType !== undefined ||
-        'preferredBuildType' in updates ||
-        updates.enabledDiscs !== undefined) {
+    if (
+      updates.equippedWEngine !== undefined ||
+      updates.equippedDiscs !== undefined ||
+      'equippedWEngine' in updates ||
+      updates.wEngineRefinement !== undefined ||
+      updates.mindscapeLevel !== undefined ||
+      updates.includeWEngineBonuses !== undefined ||
+      updates.includeMindscapeBonuses !== undefined ||
+      updates.includePassiveBonuses !== undefined ||
+      updates.includeSetBonuses !== undefined ||
+      updates.include4pcBonuses !== undefined ||
+      updates.preferredBuildType !== undefined ||
+      'preferredBuildType' in updates ||
+      updates.enabledDiscs !== undefined
+    ) {
       this.statCalculator.clearCache();
       await this.recalculateStats(builds[index]);
     }
 
     await this.saveBuilds(builds);
-
 
     // Update selected build if it's the one being updated
     if (this.selectedBuildSubject.value?.id === id) {
@@ -286,12 +285,11 @@ export class BuildService {
       build.includePassiveBonuses ?? true,
       build.enabledDiscs ?? {},
       build.includeSetBonuses ?? true,
-      build.include4pcBonuses ?? true
+      build.include4pcBonuses ?? true,
     );
 
-
     // Calculate and save build score
-    const equippedDiscsArray = Object.values(build.equippedDiscs).filter(d => d !== undefined);
+    const equippedDiscsArray = Object.values(build.equippedDiscs).filter((d) => d !== undefined);
     const scoreResult = this.scoringService.calculateCompositeBuildScore(
       build.agentId,
       build.calculatedStats,
@@ -306,7 +304,7 @@ export class BuildService {
       undefined, // agentScoring
       undefined, // wengineScoring
       undefined, // upgradePlan
-      build.preferredBuildType
+      build.preferredBuildType,
     );
     build.score = scoreResult.score;
   }
@@ -315,7 +313,7 @@ export class BuildService {
    * Delete a build
    */
   async deleteBuild(id: string): Promise<void> {
-    const builds = this.buildsSubject.value.filter(b => b.id !== id);
+    const builds = this.buildsSubject.value.filter((b) => b.id !== id);
     await this.saveBuilds(builds);
 
     // Clear selection if deleted build was selected
@@ -343,7 +341,7 @@ export class BuildService {
    */
   async equipWEngine(buildId: string, wEngine: WEngine): Promise<void> {
     await this.updateBuild(buildId, {
-      equippedWEngine: wEngine
+      equippedWEngine: wEngine,
     });
   }
 
@@ -352,7 +350,7 @@ export class BuildService {
    */
   async unequipWEngine(buildId: string): Promise<void> {
     await this.updateBuild(buildId, {
-      equippedWEngine: undefined
+      equippedWEngine: undefined,
     });
   }
 
@@ -374,7 +372,7 @@ export class BuildService {
 
     await this.updateBuild(buildId, {
       equippedDiscs: equippedDiscs,
-      enabledDiscs: enabledDiscs
+      enabledDiscs: enabledDiscs,
     });
   }
 
@@ -396,7 +394,7 @@ export class BuildService {
 
     await this.updateBuild(buildId, {
       equippedDiscs: equippedDiscs,
-      enabledDiscs: enabledDiscs
+      enabledDiscs: enabledDiscs,
     });
   }
 
@@ -456,12 +454,11 @@ export class BuildService {
     // Update selected build if needed
     const selectedId = this.selectedBuildSubject.value?.id;
     if (selectedId) {
-      const updatedBuild = builds.find(b => b.id === selectedId);
+      const updatedBuild = builds.find((b) => b.id === selectedId);
       if (updatedBuild) {
         this.selectedBuildSubject.next(updatedBuild);
       }
     }
-
   }
 
   /**
@@ -471,7 +468,7 @@ export class BuildService {
     const builds = [...this.buildsSubject.value];
 
     // Check if build with this ID already exists
-    const existingIndex = builds.findIndex(b => b.id === build.id);
+    const existingIndex = builds.findIndex((b) => b.id === build.id);
     if (existingIndex >= 0) {
       // Replace existing build
       builds[existingIndex] = build;

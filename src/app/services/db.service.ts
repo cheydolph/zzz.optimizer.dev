@@ -33,7 +33,7 @@ interface ShareCustomization {
  * User data is created/modified by users and stored separately.
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DbService extends Dexie {
   // REFERENCE DATA - Loaded from assets, not user-modifiable
@@ -59,7 +59,7 @@ export class DbService extends Dexie {
       wEngines: 'id, name, rarity, specialty',
 
       // User data tables
-      discs: 'uid, slot, set, rarity, equippedBy'
+      discs: 'uid, slot, set, rarity, equippedBy',
     });
 
     // Version 2: Add disc sets table
@@ -70,7 +70,7 @@ export class DbService extends Dexie {
       discSets: 'id, name',
 
       // User data tables
-      discs: 'uid, slot, set, rarity, equippedBy'
+      discs: 'uid, slot, set, rarity, equippedBy',
     });
 
     // Version 3: Add metadata table for version tracking
@@ -84,7 +84,7 @@ export class DbService extends Dexie {
       discs: 'uid, slot, set, rarity, equippedBy',
 
       // App metadata
-      metadata: 'key'
+      metadata: 'key',
     });
 
     // Version 4: Add shareCustomizations table for per-agent share image settings
@@ -101,7 +101,7 @@ export class DbService extends Dexie {
       metadata: 'key',
 
       // Share customizations
-      shareCustomizations: 'agentId'
+      shareCustomizations: 'agentId',
     });
   }
 
@@ -128,7 +128,7 @@ export class DbService extends Dexie {
 
   async bulkAddAgents(agents: Agent[]): Promise<string> {
     // Use bulkPut for reference data to allow updates on reload
-    return await this.agents.bulkPut(agents, { allKeys: true }) as any;
+    return (await this.agents.bulkPut(agents, { allKeys: true })) as any;
   }
 
   // W-Engine operations
@@ -154,7 +154,7 @@ export class DbService extends Dexie {
 
   async bulkAddWEngines(wEngines: WEngine[]): Promise<string> {
     // Use bulkPut for reference data to allow updates on reload
-    return await this.wEngines.bulkPut(wEngines, { allKeys: true }) as any;
+    return (await this.wEngines.bulkPut(wEngines, { allKeys: true })) as any;
   }
 
   // Disc operations
@@ -179,7 +179,7 @@ export class DbService extends Dexie {
   }
 
   async bulkAddDiscs(discs: Disc[]): Promise<string> {
-    return await this.discs.bulkAdd(discs, { allKeys: true }) as any;
+    return (await this.discs.bulkAdd(discs, { allKeys: true })) as any;
   }
 
   // Disc Set operations
@@ -189,7 +189,7 @@ export class DbService extends Dexie {
 
   async bulkAddDiscSets(discSets: any[]): Promise<string> {
     // Use bulkPut for reference data to allow updates on reload
-    return await this.discSets.bulkPut(discSets, { allKeys: true }) as any;
+    return (await this.discSets.bulkPut(discSets, { allKeys: true })) as any;
   }
 
   // Clear user data only (keeps reference data intact)

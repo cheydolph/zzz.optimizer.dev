@@ -10,7 +10,7 @@ import { BuildService } from './build.service';
  * Automatically loads reference data (agents, wengines, disc sets) on first run
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AppInitService {
   private initialized = false;
@@ -20,7 +20,7 @@ export class AppInitService {
     private loadingService: LoadingService,
     private notificationService: NotificationService,
     private buildService: BuildService,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
   ) {}
 
   /**

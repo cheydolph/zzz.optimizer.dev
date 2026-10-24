@@ -14,7 +14,7 @@ export interface Notification {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NotificationService {
   private notificationSubject = new BehaviorSubject<Notification | null>(null);
@@ -25,7 +25,12 @@ export class NotificationService {
 
   private hideTimeout: any = null;
 
-  show(message: string, type: 'success' | 'error' | 'warning' | 'info' = 'info', duration: number = 5000, action?: NotificationAction) {
+  show(
+    message: string,
+    type: 'success' | 'error' | 'warning' | 'info' = 'info',
+    duration: number = 5000,
+    action?: NotificationAction,
+  ) {
     // Clear any existing timeout to prevent memory leaks
     if (this.hideTimeout) {
       clearTimeout(this.hideTimeout);

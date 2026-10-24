@@ -3,14 +3,14 @@
 
 export interface UpgradePlan {
   id: string;
-  name: string;  // Fully custom user-defined name
-  agentId: string;  // Which agent this plan is for
+  name: string; // Fully custom user-defined name
+  agentId: string; // Which agent this plan is for
   description?: string;
 
   // Disc set preferences
   setPreferences: {
     type: '4pc+2pc' | '2pc+2pc+2pc';
-    preferredSets: string[];  // Array of set names
+    preferredSets: string[]; // Array of set names
   };
 
   // Main stat preferences per slot (only Drive4/5/6)
@@ -24,7 +24,8 @@ export interface UpgradePlan {
   // Substat priorities per slot (all 6 drives)
   // User sets priority level for each substat: Essential/Important/Nice/Ignore
   substatPriorities: {
-    [slot: string]: {  // Drive1-6
+    [slot: string]: {
+      // Drive1-6
       [stat: string]: 'Essential' | 'Important' | 'Nice' | 'Ignore';
     };
   };

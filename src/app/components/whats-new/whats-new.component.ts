@@ -21,7 +21,7 @@ interface Changelog {
   selector: 'app-whats-new',
   imports: [],
   templateUrl: './whats-new.component.html',
-  styleUrl: './whats-new.component.css'
+  styleUrl: './whats-new.component.css',
 })
 export class WhatsNewComponent implements OnInit {
   changelog: ChangelogVersion[] = [];
@@ -32,9 +32,7 @@ export class WhatsNewComponent implements OnInit {
 
   async ngOnInit() {
     try {
-      const data = await firstValueFrom(
-        this.http.get<Changelog>(versionedUrl('assets/data/changelog.json'))
-      );
+      const data = await firstValueFrom(this.http.get<Changelog>(versionedUrl('assets/data/changelog.json')));
       this.changelog = data.versions;
       this.loading = false;
 
@@ -52,11 +50,7 @@ export class WhatsNewComponent implements OnInit {
    * Check if a version has any content to display
    */
   hasContent(version: ChangelogVersion): boolean {
-    return (
-      version.features.length > 0 ||
-      version.fixes.length > 0 ||
-      version.improvements.length > 0
-    );
+    return version.features.length > 0 || version.fixes.length > 0 || version.improvements.length > 0;
   }
 
   /**
@@ -70,7 +64,7 @@ export class WhatsNewComponent implements OnInit {
     return date.toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
-      day: 'numeric'
+      day: 'numeric',
     });
   }
 }

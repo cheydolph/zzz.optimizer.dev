@@ -35,30 +35,24 @@ export default {
 
     // Validate UID parameter
     if (!uid) {
-      return new Response(
-        JSON.stringify({ error: 'Missing required parameter: uid' }),
-        {
-          status: 400,
-          headers: {
-            'Content-Type': 'application/json',
-            ...corsHeaders()
-          }
-        }
-      );
+      return new Response(JSON.stringify({ error: 'Missing required parameter: uid' }), {
+        status: 400,
+        headers: {
+          'Content-Type': 'application/json',
+          ...corsHeaders(),
+        },
+      });
     }
 
     // Validate UID format (should be numeric)
     if (!/^\d+$/.test(uid)) {
-      return new Response(
-        JSON.stringify({ error: 'Invalid UID format. UID must be numeric.' }),
-        {
-          status: 400,
-          headers: {
-            'Content-Type': 'application/json',
-            ...corsHeaders()
-          }
-        }
-      );
+      return new Response(JSON.stringify({ error: 'Invalid UID format. UID must be numeric.' }), {
+        status: 400,
+        headers: {
+          'Content-Type': 'application/json',
+          ...corsHeaders(),
+        },
+      });
     }
 
     try {
@@ -71,9 +65,9 @@ export default {
       // edge cache, otherwise the worker can still be served a stored copy.
       const enkaResponse = await fetch(enkaUrl, {
         headers: {
-          'User-Agent': 'ZZZ-Optimizer-Cloudflare-Worker/1.0'
+          'User-Agent': 'ZZZ-Optimizer-Cloudflare-Worker/1.0',
         },
-        ...(wantsFresh ? { cf: { cacheTtl: 0, cacheEverything: false } } : {})
+        ...(wantsFresh ? { cf: { cacheTtl: 0, cacheEverything: false } } : {}),
       });
 
       // Get the response data
@@ -93,16 +87,16 @@ export default {
         return new Response(
           JSON.stringify({
             error: 'upstream_not_json',
-            details: 'Enka Network returned a non-JSON response.'
+            details: 'Enka Network returned a non-JSON response.',
           }),
           {
             status: 503,
             headers: {
               'Content-Type': 'application/json',
               'Cache-Control': 'no-store, max-age=0',
-              ...corsHeaders()
-            }
-          }
+              ...corsHeaders(),
+            },
+          },
         );
       }
 
@@ -115,12 +109,9 @@ export default {
           // Cache for 5 minutes (300 seconds) to reduce API calls.
           // ?fresh=1 skips the cache so a manual import always sees current
           // data. Enka applies its own TTL on top of this either way.
-          'Cache-Control': wantsFresh
-            ? 'no-store, max-age=0'
-            : 'public, max-age=300, s-maxage=300'
-        }
+          'Cache-Control': wantsFresh ? 'no-store, max-age=0' : 'public, max-age=300, s-maxage=300',
+        },
       });
-
     } catch (error) {
       console.error('Error fetching from Enka API:', error);
 
@@ -131,18 +122,18 @@ export default {
       return new Response(
         JSON.stringify({
           error: 'upstream_unreachable',
-          details: error.message
+          details: error.message,
         }),
         {
           status: 502,
           headers: {
             'Content-Type': 'application/json',
-            ...corsHeaders()
-          }
-        }
+            ...corsHeaders(),
+          },
+        },
       );
     }
-  }
+  },
 };
 
 /**
@@ -180,14 +171,14 @@ function handleOptions(request) {
         ...corsHeaders(),
         'Access-Control-Allow-Methods': 'GET, OPTIONS',
         'Access-Control-Max-Age': '86400', // 24 hours
-      }
+      },
     });
   } else {
     // Handle standard OPTIONS request
     return new Response(null, {
       headers: {
         Allow: 'GET, OPTIONS',
-      }
+      },
     });
   }
 }

@@ -7,7 +7,7 @@ import { firstValueFrom } from 'rxjs';
 import { versionedUrl } from '../utils/versioned-url';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UpgradePlanService {
   private plansSubject = new BehaviorSubject<UpgradePlan[]>([]);
@@ -20,7 +20,7 @@ export class UpgradePlanService {
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
-    private http: HttpClient
+    private http: HttpClient,
   ) {
     this.loadPlans();
     this.loadAgentBreakpoints();
@@ -31,9 +31,7 @@ export class UpgradePlanService {
    */
   private async loadAgentBreakpoints() {
     try {
-      const data = await firstValueFrom(
-        this.http.get<any>(versionedUrl('assets/data/agent-breakpoints.json'))
-      );
+      const data = await firstValueFrom(this.http.get<any>(versionedUrl('assets/data/agent-breakpoints.json')));
       this.agentBreakpoints = data.agents || {};
     } catch (error) {
       console.error('Failed to load agent breakpoints:', error);
@@ -93,14 +91,14 @@ export class UpgradePlanService {
    * Get plan by ID
    */
   getPlanById(id: string): UpgradePlan | undefined {
-    return this.plansSubject.value.find(p => p.id === id);
+    return this.plansSubject.value.find((p) => p.id === id);
   }
 
   /**
    * Get all plans for a specific agent
    */
   getPlansByAgentId(agentId: string): UpgradePlan[] {
-    return this.plansSubject.value.filter(p => p.agentId === agentId);
+    return this.plansSubject.value.filter((p) => p.agentId === agentId);
   }
 
   /**
@@ -117,16 +115,28 @@ export class UpgradePlanService {
 
     if (agentBreakpoints && agentBreakpoints.breakpoints) {
       // Copy all breakpoints from agent-breakpoints.json
-      Object.keys(agentBreakpoints.breakpoints).forEach(statKey => {
+      Object.keys(agentBreakpoints.breakpoints).forEach((statKey) => {
         customBreakpoints[statKey] = {
           min: agentBreakpoints.breakpoints[statKey].min,
-          optimal: agentBreakpoints.breakpoints[statKey].optimal
+          optimal: agentBreakpoints.breakpoints[statKey].optimal,
         };
       });
     } else {
       // No agent breakpoints available, initialize with zeros
-      const defaultStats = ['hp', 'atk', 'def', 'impact', 'anomalyMastery', 'critRate', 'critDmg', 'anomalyProficiency', 'pen', 'penRatio', 'energyRegen'];
-      defaultStats.forEach(stat => {
+      const defaultStats = [
+        'hp',
+        'atk',
+        'def',
+        'impact',
+        'anomalyMastery',
+        'critRate',
+        'critDmg',
+        'anomalyProficiency',
+        'pen',
+        'penRatio',
+        'energyRegen',
+      ];
+      defaultStats.forEach((stat) => {
         customBreakpoints[stat] = { min: 0, optimal: 0 };
       });
     }
@@ -138,12 +148,12 @@ export class UpgradePlanService {
       description: description || '',
       setPreferences: {
         type: '4pc+2pc',
-        preferredSets: []
+        preferredSets: [],
       },
       mainStatPreferences: {
         Drive4: {},
         Drive5: {},
-        Drive6: {}
+        Drive6: {},
       },
       substatPriorities: {
         Drive1: {},
@@ -151,11 +161,11 @@ export class UpgradePlanService {
         Drive3: {},
         Drive4: {},
         Drive5: {},
-        Drive6: {}
+        Drive6: {},
       },
       customBreakpoints,
       createdAt: new Date(),
-      updatedAt: new Date()
+      updatedAt: new Date(),
     };
 
     plans.push(newPlan);
@@ -169,7 +179,7 @@ export class UpgradePlanService {
    */
   updatePlan(id: string, updates: Partial<UpgradePlan>): void {
     const plans = this.plansSubject.value;
-    const index = plans.findIndex(p => p.id === id);
+    const index = plans.findIndex((p) => p.id === id);
 
     if (index === -1) {
       throw new Error(`Upgrade plan ${id} not found`);
@@ -178,7 +188,7 @@ export class UpgradePlanService {
     plans[index] = {
       ...plans[index],
       ...updates,
-      updatedAt: new Date()
+      updatedAt: new Date(),
     };
 
     this.savePlans(plans);
@@ -193,7 +203,7 @@ export class UpgradePlanService {
    * Delete an upgrade plan
    */
   deletePlan(id: string): void {
-    const plans = this.plansSubject.value.filter(p => p.id !== id);
+    const plans = this.plansSubject.value.filter((p) => p.id !== id);
     this.savePlans(plans);
 
     // Clear selection if deleted plan was selected
@@ -219,7 +229,7 @@ export class UpgradePlanService {
       id: this.generateId(),
       name: `${originalPlan.name} (Copy)`,
       createdAt: new Date(),
-      updatedAt: new Date()
+      updatedAt: new Date(),
     };
 
     plans.push(duplicatedPlan);
@@ -242,7 +252,7 @@ export class UpgradePlanService {
     const exportData = {
       version: '1.0',
       exportDate: new Date().toISOString(),
-      upgradePlans: this.plansSubject.value
+      upgradePlans: this.plansSubject.value,
     };
 
     return JSON.stringify(exportData, null, 2);
@@ -266,7 +276,7 @@ export class UpgradePlanService {
         ...plan,
         id: this.generateId(), // Generate new ID to avoid conflicts
         createdAt: new Date(plan.createdAt),
-        updatedAt: new Date(plan.updatedAt)
+        updatedAt: new Date(plan.updatedAt),
       }));
 
       const mergedPlans = [...existingPlans, ...importedPlans];

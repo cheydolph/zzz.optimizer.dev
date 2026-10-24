@@ -1,5 +1,5 @@
-import { DiscSlot } from "../models/agent.model";
-import { MainStatType } from "../models/disc.model";
+import { DiscSlot } from '../models/agent.model';
+import { MainStatType } from '../models/disc.model';
 
 // constants/main-stat-possibilities.ts
 export const MAIN_STAT_BY_SLOT: Record<DiscSlot, MainStatType[]> = {
@@ -17,23 +17,23 @@ export const DISC_MAIN_STAT_MAX: Record<'Drive4' | 'Drive5' | 'Drive6', Record<s
     'HP%': 30,
     'ATK%': 30,
     'DEF%': 48,
-    'CRIT_Rate': 24,
-    'CRIT_DMG': 48,
-    'Anomaly_Proficiency': 92
+    CRIT_Rate: 24,
+    CRIT_DMG: 48,
+    Anomaly_Proficiency: 92,
   },
   Drive5: {
     'HP%': 30,
     'ATK%': 30,
     'DEF%': 48,
-    'PEN_Ratio': 24,
-    'Element_DMG': 30
+    PEN_Ratio: 24,
+    Element_DMG: 30,
   },
   Drive6: {
     'HP%': 30,
     'ATK%': 30,
     'DEF%': 48,
-    'Anomaly_Mastery': 30,
-    'Energy_Regen': 60,
-    'Impact': 18
-  }
+    Anomaly_Mastery: 30,
+    Energy_Regen: 60,
+    Impact: 18,
+  },
 };

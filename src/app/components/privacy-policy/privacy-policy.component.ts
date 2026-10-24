@@ -6,8 +6,6 @@ import { RouterLink } from '@angular/router';
   imports: [RouterLink],
   templateUrl: './privacy-policy.component.html',
   styleUrl: './privacy-policy.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PrivacyPolicyComponent {
-
-}
+export class PrivacyPolicyComponent {}

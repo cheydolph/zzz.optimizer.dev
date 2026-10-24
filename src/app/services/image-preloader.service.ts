@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ImagePreloaderService implements OnDestroy {
   private preloadedImages: Set<string> = new Set();
@@ -22,7 +22,7 @@ export class ImagePreloaderService implements OnDestroy {
 
     this.intersectionObserver = new IntersectionObserver(
       (entries) => {
-        entries.forEach(entry => {
+        entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const img = entry.target as HTMLImageElement;
             const src = img.dataset['src'];
@@ -36,8 +36,8 @@ export class ImagePreloaderService implements OnDestroy {
       },
       {
         rootMargin: '50px', // Start loading 50px before entering viewport
-        threshold: 0.01
-      }
+        threshold: 0.01,
+      },
     );
   }
 
@@ -82,22 +82,22 @@ export class ImagePreloaderService implements OnDestroy {
    * Preload multiple images with priority support
    */
   async preloadImages(srcs: string[], priority: 'high' | 'low' = 'low'): Promise<void> {
-    const uniqueSrcs = [...new Set(srcs.filter(src => src && src.trim() !== ''))];
+    const uniqueSrcs = [...new Set(srcs.filter((src) => src && src.trim() !== ''))];
 
     if (priority === 'high') {
       // Preload high-priority images immediately (first 10)
       const highPriority = uniqueSrcs.slice(0, 10);
-      await Promise.allSettled(highPriority.map(src => this.preloadImage(src)));
+      await Promise.allSettled(highPriority.map((src) => this.preloadImage(src)));
 
       // Preload remaining in background
       if (uniqueSrcs.length > 10) {
         setTimeout(() => {
-          Promise.allSettled(uniqueSrcs.slice(10).map(src => this.preloadImage(src)));
+          Promise.allSettled(uniqueSrcs.slice(10).map((src) => this.preloadImage(src)));
         }, 100);
       }
     } else {
       // Low priority: preload all concurrently
-      await Promise.allSettled(uniqueSrcs.map(src => this.preloadImage(src)));
+      await Promise.allSettled(uniqueSrcs.map((src) => this.preloadImage(src)));
     }
   }
 

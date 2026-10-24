@@ -61,4 +61,6 @@ if (notRecorded.length === buildFiles.length) {
   process.exit(0);
 }
 const skipped = notRecorded.length > 0 ? `; skipped, no golden recorded: ${notRecorded.join(', ')}` : '';
-console.log(`${write ? 'WROTE' : 'PASS'}: ${buildCount} local builds in ${buildFiles.length - notRecorded.length} export files${skipped}`);
+console.log(
+  `${write ? 'WROTE' : 'PASS'}: ${buildCount} local builds in ${buildFiles.length - notRecorded.length} export files${skipped}`,
+);

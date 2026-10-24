@@ -15,20 +15,20 @@
 export const STANDARD_ENEMY = {
   level: 90,
   baseDEF: 1000,
-  defModifier: 1.0,        // No DEF buffs/debuffs
-  attributeRES: 0.10,      // 10% resistance (typical)
-  allTypeRES: 0.0,         // No universal resistance
+  defModifier: 1.0, // No DEF buffs/debuffs
+  attributeRES: 0.1, // 10% resistance (typical)
+  allTypeRES: 0.0, // No universal resistance
 };
 
 /**
  * Status effect base damage multipliers (as % of ATK)
  */
 export const STATUS_EFFECT_MULTIPLIERS = {
-  BURN: 0.50,              // 50% ATK per tick
-  SHOCK: 1.25,             // 125% ATK per proc
-  SHATTER: 5.00,           // 500% ATK (Ice/Frost)
-  ASSAULT: 7.13,           // 713% ATK (Physical)
-  CORRUPTION: 0.625,       // 62.5% ATK per tick (Ether)
+  BURN: 0.5, // 50% ATK per tick
+  SHOCK: 1.25, // 125% ATK per proc
+  SHATTER: 5.0, // 500% ATK (Ice/Frost)
+  ASSAULT: 7.13, // 713% ATK (Physical)
+  CORRUPTION: 0.625, // 62.5% ATK per tick (Ether)
 };
 
 /**
@@ -39,12 +39,8 @@ export const STATUS_EFFECT_MULTIPLIERS = {
  * @param flatBonus - Flat damage bonuses
  * @returns Base damage value
  */
-export function calculateBaseDamage(
-  skillMultiplier: number,
-  scalingStat: number,
-  flatBonus: number = 0
-): number {
-  return (skillMultiplier * scalingStat) + flatBonus;
+export function calculateBaseDamage(skillMultiplier: number, scalingStat: number, flatBonus: number = 0): number {
+  return skillMultiplier * scalingStat + flatBonus;
 }
 
 /**
@@ -57,7 +53,7 @@ export function calculateBaseDamage(
  * @returns Average CRIT multiplier
  */
 export function calculateCRITModifier(critRate: number, critDMG: number): number {
-  return 1 + (critRate * critDMG);
+  return 1 + critRate * critDMG;
 }
 
 /**
@@ -95,9 +91,9 @@ export function calculateEffectiveDEF(
   baseDEF: number,
   defShred: number,
   penRatio: number,
-  flatPEN: number = 0
+  flatPEN: number = 0,
 ): number {
-  const effectiveDEF = (baseDEF * (1 - defShred) * (1 - penRatio)) - flatPEN;
+  const effectiveDEF = baseDEF * (1 - defShred) * (1 - penRatio) - flatPEN;
   return Math.max(0, effectiveDEF);
 }
 
@@ -116,7 +112,7 @@ export function calculateRESModifier(
   attributeRES: number,
   allTypeRES: number,
   resReduction: number,
-  resPEN: number
+  resPEN: number,
 ): number {
   return 1 - (attributeRES + allTypeRES - resReduction - resPEN);
 }
@@ -165,7 +161,7 @@ export function calculateFinalDamage(
   resMod: number,
   dmgMod: number,
   stunMod: number = 1.0,
-  dmgTaken: number = 1.0
+  dmgTaken: number = 1.0,
 ): number {
   return baseDMG * dmgMod * critMod * resMod * defMod * stunMod * dmgTaken;
 }
@@ -196,7 +192,7 @@ export function estimateDamage(
   defShred: number = 0,
   resShred: number = 0,
   enemyDEF: number = STANDARD_ENEMY.baseDEF,
-  enemyRES: number = STANDARD_ENEMY.attributeRES
+  enemyRES: number = STANDARD_ENEMY.attributeRES,
 ): number {
   // Base damage
   const baseDMG = calculateBaseDamage(skillMultiplier, stats.ATK);
@@ -205,12 +201,7 @@ export function estimateDamage(
   const critMod = calculateCRITModifier(stats.critRate, stats.critDMG);
 
   // DEF modifier - using ATK / (ATK + EffectiveDEF) formula
-  const effectiveDEF = calculateEffectiveDEF(
-    enemyDEF,
-    defShred,
-    stats.penRatio || 0,
-    stats.flatPEN || 0
-  );
+  const effectiveDEF = calculateEffectiveDEF(enemyDEF, defShred, stats.penRatio || 0, stats.flatPEN || 0);
   const defMod = calculateDEFModifier(stats.ATK, effectiveDEF);
 
   // RES modifier with RES shred applied
@@ -218,7 +209,7 @@ export function estimateDamage(
     enemyRES,
     0, // No all-type RES
     resShred, // RES reduction from debuffs
-    0  // No RES PEN
+    0, // No RES PEN
   );
 
   // DMG% modifier
@@ -243,7 +234,7 @@ export function calculateStatusDamage(
   ATK: number,
   dmgBonuses: number[] = [],
   resShred: number = 0,
-  enemyRES: number = STANDARD_ENEMY.attributeRES
+  enemyRES: number = STANDARD_ENEMY.attributeRES,
 ): number {
   const baseDMG = ATK * STATUS_EFFECT_MULTIPLIERS[statusType];
   const dmgMod = calculateDMGModifier(dmgBonuses);
@@ -253,7 +244,7 @@ export function calculateStatusDamage(
     enemyRES,
     0, // No all-type RES
     resShred,
-    0
+    0,
   );
 
   return baseDMG * dmgMod * resMod;
@@ -272,25 +263,15 @@ export function calculateStatusDamage(
  * @param resShred - RES Shred as decimal (0.20 = 20%)
  * @returns Sheer Force damage
  */
-export function calculateSheerForce(
-  ATK: number,
-  HP: number,
-  dmgBonuses: number[] = [],
-  resShred: number = 0
-): number {
+export function calculateSheerForce(ATK: number, HP: number, dmgBonuses: number[] = [], resShred: number = 0): number {
   // Base Sheer Force damage
-  const baseDMG = (ATK * 0.30) + (HP * 0.10);
+  const baseDMG = ATK * 0.3 + HP * 0.1;
 
   // DMG% modifier
   const dmgMod = calculateDMGModifier(dmgBonuses);
 
   // RES modifier - Sheer Force IS affected by RES
-  const resMod = calculateRESModifier(
-    STANDARD_ENEMY.attributeRES,
-    STANDARD_ENEMY.allTypeRES,
-    resShred,
-    0
-  );
+  const resMod = calculateRESModifier(STANDARD_ENEMY.attributeRES, STANDARD_ENEMY.allTypeRES, resShred, 0);
 
   // NO DEF modifier - Sheer Force bypasses DEF entirely
   return baseDMG * dmgMod * resMod;
@@ -307,7 +288,7 @@ export function calculateSheerForce(
  * Claret's value is 150%, confirmed post-release. Other Armorers may differ,
  * which is why the real value lives in the agent data rather than here.
  */
-export const LACERATION_MULTIPLIER = 1.50;
+export const LACERATION_MULTIPLIER = 1.5;
 
 /**
  * Calculate the average Laceration modifier for Armorer agents.
@@ -332,7 +313,7 @@ export const LACERATION_MULTIPLIER = 1.50;
 export function calculateLacerationModifier(
   critRate: number,
   lacerationBonus: number = 0,
-  lacerationBase: number = LACERATION_MULTIPLIER
+  lacerationBase: number = LACERATION_MULTIPLIER,
 ): number {
   const multiplier = lacerationBase + lacerationBonus;
 
@@ -342,7 +323,7 @@ export function calculateLacerationModifier(
   // Excess CRIT Rate rolls a second Laceration check, also capped at 100%
   const secondCheck = Math.min(Math.max(critRate - 1.0, 0), 1.0);
 
-  return 1 + (firstCheck * multiplier) + (secondCheck * multiplier);
+  return 1 + firstCheck * multiplier + secondCheck * multiplier;
 }
 
 /**
@@ -381,7 +362,7 @@ export function calculateSharpDamage(
   enemyDEF: number = STANDARD_ENEMY.baseDEF,
   enemyRES: number = STANDARD_ENEMY.attributeRES,
   resShred: number = 0,
-  lacerationBase: number = LACERATION_MULTIPLIER
+  lacerationBase: number = LACERATION_MULTIPLIER,
 ): number {
   // Base damage scales off DEF rather than ATK
   const baseDMG = calculateBaseDamage(skillMultiplier, DEF);
@@ -409,10 +390,7 @@ export function calculateSharpDamage(
  * @param anomalyProficiency - Anomaly Proficiency as decimal (1.50 = 150%)
  * @returns Effective anomaly buildup
  */
-export function calculateAnomalyBuildup(
-  baseAnomaly: number,
-  anomalyProficiency: number
-): number {
+export function calculateAnomalyBuildup(baseAnomaly: number, anomalyProficiency: number): number {
   return baseAnomaly * (1 + anomalyProficiency);
 }
 
@@ -427,11 +405,7 @@ export function calculateAnomalyBuildup(
  * @param enemyDazeGauge - Enemy's daze gauge multiplier (1.0 = baseline boss)
  * @returns Stun progress percentage (0.0 - 1.0+)
  */
-export function calculateDazeContribution(
-  baseDaze: number,
-  impact: number,
-  enemyDazeGauge: number = 1.0
-): number {
+export function calculateDazeContribution(baseDaze: number, impact: number, enemyDazeGauge: number = 1.0): number {
   // Impact scales the daze applied
   const dazeApplied = baseDaze * (1 + impact / 1000);
   return dazeApplied / enemyDazeGauge;

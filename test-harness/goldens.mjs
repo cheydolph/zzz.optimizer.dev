@@ -48,7 +48,9 @@ if (write) {
   rmSync(goldensDir, { recursive: true, force: true });
   mkdirSync(goldensDir, { recursive: true });
   for (const [file, value] of computed) writeFileSync(join(goldensDir, file), `${JSON.stringify(value, null, 2)}\n`);
-  console.log(`wrote ${computed.size} golden files to ${goldensDir} (${timing}; service console messages suppressed: ${quiet || 'none'})`);
+  console.log(
+    `wrote ${computed.size} golden files to ${goldensDir} (${timing}; service console messages suppressed: ${quiet || 'none'})`,
+  );
   process.exit(0);
 }
 
@@ -63,4 +65,6 @@ if (diffs.length > 0) {
   console.error(`FAIL: ${diffs.length} differences (${timing})`);
   process.exit(1);
 }
-console.log(`PASS: ${computed.size} golden files, ${caseCount} cases bit-exact (${timing}; service console messages suppressed: ${quiet || 'none'})`);
+console.log(
+  `PASS: ${computed.size} golden files, ${caseCount} cases bit-exact (${timing}; service console messages suppressed: ${quiet || 'none'})`,
+);

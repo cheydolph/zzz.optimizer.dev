@@ -3,7 +3,7 @@ import { NotificationService } from './notification.service';
 import confetti from 'canvas-confetti';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AnniversaryService {
   private readonly ANNIVERSARY_MONTH = 0; // January (0-indexed)
@@ -21,8 +21,7 @@ export class AnniversaryService {
   checkAndCelebrate(): void {
     const today = new Date();
     const currentYear = today.getFullYear();
-    const isAnniversary = today.getMonth() === this.ANNIVERSARY_MONTH &&
-                          today.getDate() === this.ANNIVERSARY_DAY;
+    const isAnniversary = today.getMonth() === this.ANNIVERSARY_MONTH && today.getDate() === this.ANNIVERSARY_DAY;
 
     if (!isAnniversary) {
       return; // Not the anniversary, do nothing
@@ -89,7 +88,7 @@ export class AnniversaryService {
               ticks: 250,
               startVelocity: 60,
               decay: 0.92,
-              flat: false
+              flat: false,
             });
           }
         }
@@ -107,9 +106,9 @@ export class AnniversaryService {
     // Show thank you message after 500ms so user sees confetti first
     this.messageTimeoutId = setTimeout(() => {
       this.notificationService.show(
-        '🎉 Happy 1 Year Anniversary! 🎉 Thank you so much for using ZZZ Optimizer! Your support means the world to me. Here\'s to another year of optimizing builds together!',
+        "🎉 Happy 1 Year Anniversary! 🎉 Thank you so much for using ZZZ Optimizer! Your support means the world to me. Here's to another year of optimizing builds together!",
         'success',
-        12000 // Show for 12 seconds
+        12000, // Show for 12 seconds
       );
       this.messageTimeoutId = null;
     }, 500);

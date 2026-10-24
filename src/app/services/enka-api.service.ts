@@ -58,31 +58,31 @@ interface EnkaEquipment {
 
 // Property ID mappings from Enka to app stat types (from official docs)
 const MAIN_STAT_PROPERTY_MAP: { [key: number]: MainStatType } = {
-  11101: 'HP',          // HP [Base]
-  11102: 'HP%',         // HP%
-  11103: 'HP',          // HP [Flat]
-  12101: 'ATK',         // ATK [Base]
-  12102: 'ATK%',        // ATK%
-  12103: 'ATK',         // ATK [Flat]
-  13101: 'DEF',         // Def [Base]
-  13102: 'DEF%',        // Def%
-  13103: 'DEF',         // Def [Flat]
-  20101: 'CRIT_Rate',   // Crit Rate [Base]
-  20103: 'CRIT_Rate',   // Crit Rate [Flat]
-  21101: 'CRIT_DMG',    // Crit DMG [Base]
-  21103: 'CRIT_DMG',    // Crit DMG [Flat]
-  23101: 'PEN_Ratio',   // Pen Ratio [Base]
-  23103: 'PEN_Ratio',   // Pen Ratio [Flat]
-  30501: 'Energy_Regen',// Energy Regen [Base]
-  30502: 'Energy_Regen',// Energy Regen%
-  30503: 'Energy_Regen',// Energy Regen [Flat]
+  11101: 'HP', // HP [Base]
+  11102: 'HP%', // HP%
+  11103: 'HP', // HP [Flat]
+  12101: 'ATK', // ATK [Base]
+  12102: 'ATK%', // ATK%
+  12103: 'ATK', // ATK [Flat]
+  13101: 'DEF', // Def [Base]
+  13102: 'DEF%', // Def%
+  13103: 'DEF', // Def [Flat]
+  20101: 'CRIT_Rate', // Crit Rate [Base]
+  20103: 'CRIT_Rate', // Crit Rate [Flat]
+  21101: 'CRIT_DMG', // Crit DMG [Base]
+  21103: 'CRIT_DMG', // Crit DMG [Flat]
+  23101: 'PEN_Ratio', // Pen Ratio [Base]
+  23103: 'PEN_Ratio', // Pen Ratio [Flat]
+  30501: 'Energy_Regen', // Energy Regen [Base]
+  30502: 'Energy_Regen', // Energy Regen%
+  30503: 'Energy_Regen', // Energy Regen [Flat]
   31201: 'Anomaly_Proficiency', // Anomaly Proficiency [Base]
   31203: 'Anomaly_Proficiency', // Anomaly Proficiency [Flat]
-  31401: 'Anomaly_Mastery',     // Anomaly Mastery [Base]
-  31402: 'Anomaly_Mastery',     // Anomaly Mastery%
-  31403: 'Anomaly_Mastery',     // Anomaly Mastery [Flat]
-  12201: 'Impact',      // Impact [Base]
-  12202: 'Impact',      // Impact%
+  31401: 'Anomaly_Mastery', // Anomaly Mastery [Base]
+  31402: 'Anomaly_Mastery', // Anomaly Mastery%
+  31403: 'Anomaly_Mastery', // Anomaly Mastery [Flat]
+  12201: 'Impact', // Impact [Base]
+  12202: 'Impact', // Impact%
   // Element DMG stats
   31501: 'Element_DMG', // Physical DMG Bonus [Base]
   31503: 'Element_DMG', // Physical DMG Bonus [Flat]
@@ -104,20 +104,20 @@ const MAIN_STAT_PROPERTY_MAP: { [key: number]: MainStatType } = {
 type EnkaSubStatType = SubStatType | 'Impact' | 'Energy_Regen' | 'Anomaly_Mastery';
 
 const SUBSTAT_PROPERTY_MAP: { [key: number]: EnkaSubStatType } = {
-  11103: 'HP',          // HP [Flat]
-  11102: 'HP%',         // HP%
-  12103: 'ATK',         // ATK [Flat]
-  12102: 'ATK%',        // ATK%
-  13103: 'DEF',         // Def [Flat]
-  13102: 'DEF%',        // Def%
-  20103: 'CRIT_Rate',   // Crit Rate [Flat]
-  21103: 'CRIT_DMG',    // Crit DMG [Flat]
-  23203: 'PEN',         // PEN [Flat]
-  23103: 'PEN',         // Pen Ratio [Flat] - maps to PEN
+  11103: 'HP', // HP [Flat]
+  11102: 'HP%', // HP%
+  12103: 'ATK', // ATK [Flat]
+  12102: 'ATK%', // ATK%
+  13103: 'DEF', // Def [Flat]
+  13102: 'DEF%', // Def%
+  20103: 'CRIT_Rate', // Crit Rate [Flat]
+  21103: 'CRIT_DMG', // Crit DMG [Flat]
+  23203: 'PEN', // PEN [Flat]
+  23103: 'PEN', // Pen Ratio [Flat] - maps to PEN
   31203: 'Anomaly_Proficiency', // Anomaly Proficiency [Flat]
-  31403: 'Anomaly_Mastery',     // Anomaly Mastery [Flat]
-  30503: 'Energy_Regen',        // Energy Regen [Flat] - Invalid but Enka may send it
-  12202: 'Impact',      // Impact% - Invalid but Enka may send it
+  31403: 'Anomaly_Mastery', // Anomaly Mastery [Flat]
+  30503: 'Energy_Regen', // Energy Regen [Flat] - Invalid but Enka may send it
+  12202: 'Impact', // Impact% - Invalid but Enka may send it
 };
 
 // Disc set ID mapping (Enka disc set ID to app disc set name)
@@ -153,11 +153,11 @@ const DISC_SET_MAP: { [key: number]: string } = {
   33900: 'Wuthering Salon',
   34000: 'The Sky Ablaze',
   34100: 'Feathered Fate',
-  34200: 'Thorned Rose'
+  34200: 'Thorned Rose',
 };
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EnkaApiService {
   // Cloudflare Worker proxy URL from environment (kept private, not committed to git)
@@ -165,17 +165,14 @@ export class EnkaApiService {
   private readonly CLOUDFLARE_WORKER = environment.enkaProxyUrl;
 
   // Fallback CORS proxies in case Cloudflare Worker is not configured
-  private readonly FALLBACK_PROXIES = [
-    'https://api.allorigins.win/raw?url=',
-    'https://corsproxy.io/?'
-  ];
+  private readonly FALLBACK_PROXIES = ['https://api.allorigins.win/raw?url=', 'https://corsproxy.io/?'];
 
   private readonly ENKA_API_URL = 'https://enka.network/api/zzz/uid';
   private currentProxyIndex = 0;
 
   constructor(
     private http: HttpClient,
-    private dbService: DbService
+    private dbService: DbService,
   ) {}
 
   /**
@@ -207,7 +204,7 @@ export class EnkaApiService {
 
     return this.http.get<EnkaResponse>(requestUrl).pipe(
       // OPTIMIZATION: Retry on rate limit (429) with exponential backoff
-      retryWhen(errors =>
+      retryWhen((errors) =>
         errors.pipe(
           mergeMap((error, index) => {
             // Only retry on rate limit errors
@@ -217,14 +214,14 @@ export class EnkaApiService {
             }
             // Don't retry other errors
             return throwError(() => error);
-          })
-        )
+          }),
+        ),
       ),
       // A public CORS proxy can answer 200 while carrying an error, so the
       // body has to be inspected before it is treated as a profile.
-      map(response => this.assertUsableResponse(response)),
-      switchMap(response => from(this.transformEnkaData(uid, response))),
-      catchError(error => {
+      map((response) => this.assertUsableResponse(response)),
+      switchMap((response) => from(this.transformEnkaData(uid, response))),
+      catchError((error) => {
         console.error('Enka API error:', error);
 
         // Move to the next fallback proxy so a proxy that is down or has
@@ -235,7 +232,7 @@ export class EnkaApiService {
         }
 
         return throwError(() => new Error(this.describeError(error)));
-      })
+      }),
     );
   }
 
@@ -291,34 +288,41 @@ export class EnkaApiService {
       case 0:
         // No HTTP response reached us — offline, DNS failure, blocked by an
         // extension, or the proxy rejected the preflight.
-        return 'Could not reach the import service. Check your internet connection, ' +
-          'disable any ad blockers for this site, and try again.';
+        return (
+          'Could not reach the import service. Check your internet connection, ' +
+          'disable any ad blockers for this site, and try again.'
+        );
 
       case 400:
-        return 'That UID is not formatted correctly. A ZZZ UID is numbers only, ' +
-          'usually 8-10 digits, shown in the bottom right of the in-game menu.';
+        return (
+          'That UID is not formatted correctly. A ZZZ UID is numbers only, ' +
+          'usually 8-10 digits, shown in the bottom right of the in-game menu.'
+        );
 
       case 403:
-        return 'Enka Network refused the request. If this keeps happening, ' +
-          'please report it so the import service can be updated.';
+        return (
+          'Enka Network refused the request. If this keeps happening, ' +
+          'please report it so the import service can be updated.'
+        );
 
       case 404:
-        return 'UID not found. Make sure your profile is public in game settings ' +
-          'or double check your UID.';
+        return 'UID not found. Make sure your profile is public in game settings ' + 'or double check your UID.';
 
       case 424:
         // Enka's documented "cannot get data from the game" code. Nearly always
         // ZZZ version maintenance, which lasts hours - retrying now is pointless.
-        return 'Zenless Zone Zero is currently in maintenance, so the API ' +
-          'cannot read your profile. Please try importing again once the API is back online.';
+        return (
+          'Zenless Zone Zero is currently in maintenance, so the API ' +
+          'cannot read your profile. Please try importing again once the API is back online.'
+        );
 
       case 429:
-        return 'the API is rate limiting us. We already retried 3 times - ' +
-          'please wait a minute or two and try again.';
+        return (
+          'the API is rate limiting us. We already retried 3 times - ' + 'please wait a minute or two and try again.'
+        );
 
       case 500:
-        return 'API hit an internal error. This is usually temporary, ' +
-          'so please try again in a few minutes.';
+        return 'API hit an internal error. This is usually temporary, ' + 'so please try again in a few minutes.';
 
       case 502:
       case 503:
@@ -327,8 +331,9 @@ export class EnkaApiService {
         // got a non-JSON 200 from Enka (503), or a fallback proxy returned
         // something unusable (502). In all of them the API is effectively
         // unreachable rather than reporting a problem with the request.
-        return 'The API is not responding right now. It may be down or ' +
-          'restarting - please try again in a few minutes.';
+        return (
+          'The API is not responding right now. It may be down or ' + 'restarting - please try again in a few minutes.'
+        );
     }
 
     if (typeof error.status === 'number' && error.status >= 500) {
@@ -351,13 +356,13 @@ export class EnkaApiService {
     // Get reference data for validation
     const [referenceAgents, referenceWEngines] = await Promise.all([
       this.dbService.getAllAgents(),
-      this.dbService.getAllWEngines()
+      this.dbService.getAllWEngines(),
     ]);
 
     for (const character of avatarList) {
       // Validate agent exists in reference data
       const agentId = character.Id.toString();
-      const agent = referenceAgents.find(a => a.id === agentId);
+      const agent = referenceAgents.find((a) => a.id === agentId);
 
       if (!agent) {
         // Agent is missing from local reference data - usually means the app's
@@ -375,7 +380,7 @@ export class EnkaApiService {
 
       if (character.Weapon) {
         const wEngineId = character.Weapon.Id.toString();
-        wEngine = referenceWEngines.find(w => w.id === wEngineId);
+        wEngine = referenceWEngines.find((w) => w.id === wEngineId);
 
         if (!wEngine) {
           console.warn(`Unknown W-Engine ID from Enka: ${wEngineId}`);
@@ -405,7 +410,7 @@ export class EnkaApiService {
       }
 
       // Mindscape level from TalentLevel field
-      const mindscapeLevel = (character.TalentLevel || 0) as (0 | 1 | 2 | 3 | 4 | 5 | 6);
+      const mindscapeLevel = (character.TalentLevel || 0) as 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
       builds.push({
         agentId,
@@ -414,7 +419,7 @@ export class EnkaApiService {
         wEngine,
         wEngineLevel,
         wEngineRefinement,
-        discs: characterDiscs
+        discs: characterDiscs,
       });
     }
 
@@ -428,7 +433,7 @@ export class EnkaApiService {
       totalDiscs: discs.length,
       unknownAgentIds,
       showcaseCount: avatarList.length,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     };
   }
 
@@ -474,9 +479,9 @@ export class EnkaApiService {
     if (slotNum >= 1 && slotNum <= 3) {
       // Drive 1-3 have fixed main stats
       const fixedValues: Record<string, number> = {
-        'Drive1': 2200,  // HP
-        'Drive2': 316,   // ATK
-        'Drive3': 184    // DEF
+        Drive1: 2200, // HP
+        Drive2: 316, // ATK
+        Drive3: 184, // DEF
       };
       mainStatValue = fixedValues[slot] || 0;
     } else if (slotNum >= 4 && slotNum <= 6) {
@@ -508,13 +513,13 @@ export class EnkaApiService {
         const subStatValue = this.convertSubstatValue(
           subStatData.PropertyId,
           subStatData.PropertyValue,
-          subStatData.PropertyLevel || 1
+          subStatData.PropertyLevel || 1,
         );
 
         subStats.push({
           type: subStatType as SubStatType, // Safe cast after filtering
           value: subStatValue,
-          rolls: subStatData.PropertyLevel || 1
+          rolls: subStatData.PropertyLevel || 1,
         });
       }
     }
@@ -527,11 +532,11 @@ export class EnkaApiService {
       level: disc.Level,
       mainStat: {
         type: mainStatType,
-        value: mainStatValue
+        value: mainStatValue,
       },
       subStats,
       equippedBy: agentId,
-      lock: false
+      lock: false,
     };
   }
 
@@ -545,7 +550,7 @@ export class EnkaApiService {
       3: 'Drive3',
       4: 'Drive4',
       5: 'Drive5',
-      6: 'Drive6'
+      6: 'Drive6',
     };
     return slotMap[slot] || null;
   }
@@ -557,13 +562,17 @@ export class EnkaApiService {
   private convertSubstatValue(propertyId: number, value: number, propertyLevel: number): number {
     // Percentage stats: divide by 100, then multiply by rolls
     const percentagePropertyIds = [
-      11102, 12102, 13102, // HP%, ATK%, DEF%
+      11102,
+      12102,
+      13102, // HP%, ATK%, DEF%
       20103, // CRIT_Rate
       21103, // CRIT_DMG
       23103, // PEN_Ratio
-      30502, 30503, // Energy_Regen
-      31402, 31403, // Anomaly_Mastery
-      12202 // Impact%
+      30502,
+      30503, // Energy_Regen
+      31402,
+      31403, // Anomaly_Mastery
+      12202, // Impact%
     ];
 
     if (percentagePropertyIds.includes(propertyId)) {

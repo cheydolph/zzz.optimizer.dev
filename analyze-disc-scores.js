@@ -6,7 +6,7 @@ const fs = require('fs');
 const statWeights = JSON.parse(fs.readFileSync('c:/zzz.optimizer/src/assets/data/agent-stat-weights.json', 'utf8'));
 
 // Find Hugo's ID and stat weights
-const hugoId = Object.keys(statWeights.agents).find(id => {
+const hugoId = Object.keys(statWeights.agents).find((id) => {
   return statWeights.agents[id].name === 'Hugo';
 });
 
@@ -39,11 +39,11 @@ if (hugoId) {
 function calculateRollCount(statType, value) {
   const rollValues = {
     'ATK%': 3.0,
-    'DEF': 19,
-    'CRIT_DMG': 4.8,
-    'CRIT_Rate': 2.4,
-    'Anomaly_Proficiency': 3.0,
-    'ATK': 13,
+    DEF: 19,
+    CRIT_DMG: 4.8,
+    CRIT_Rate: 2.4,
+    Anomaly_Proficiency: 3.0,
+    ATK: 13,
   };
 
   const baseRoll = rollValues[statType] || 1;
@@ -58,10 +58,10 @@ const d1Substats = [
   { type: 'ATK%', value: 6 },
   { type: 'DEF', value: 15 },
   { type: 'CRIT_DMG', value: 9.6 },
-  { type: 'CRIT_Rate', value: 7.2 }
+  { type: 'CRIT_Rate', value: 7.2 },
 ];
 
-d1Substats.forEach(sub => {
+d1Substats.forEach((sub) => {
   const rolls = calculateRollCount(sub.type, sub.value);
   console.log(`  ${sub.type}: ${sub.value} (${rolls} rolls)`);
 });
@@ -74,7 +74,7 @@ if (hugoId) {
   const multiplier = 3.0; // Standard multiplier for weight range
   let totalPoints = 3; // Main stat points
 
-  d1Substats.forEach(sub => {
+  d1Substats.forEach((sub) => {
     const rolls = calculateRollCount(sub.type, sub.value);
     const weight = d1Weights[sub.type] || 0;
     const points = rolls * weight * multiplier;
@@ -94,10 +94,10 @@ const d2Substats = [
   { type: 'DEF', value: 30 },
   { type: 'CRIT_Rate', value: 12 },
   { type: 'CRIT_DMG', value: 4.8 },
-  { type: 'Anomaly_Proficiency', value: 9 }
+  { type: 'Anomaly_Proficiency', value: 9 },
 ];
 
-d2Substats.forEach(sub => {
+d2Substats.forEach((sub) => {
   const rolls = calculateRollCount(sub.type, sub.value);
   console.log(`  ${sub.type}: ${sub.value} (${rolls} rolls)`);
 });
@@ -110,7 +110,7 @@ if (hugoId) {
   const multiplier = 3.0;
   let totalPoints = 3; // Main stat points
 
-  d2Substats.forEach(sub => {
+  d2Substats.forEach((sub) => {
     const rolls = calculateRollCount(sub.type, sub.value);
     const weight = d2Weights[sub.type] || 0;
     const points = rolls * weight * multiplier;
@@ -120,7 +120,7 @@ if (hugoId) {
 
   // Check for god roll bonus
   let godRollBonus = 0;
-  d2Substats.forEach(sub => {
+  d2Substats.forEach((sub) => {
     const rolls = calculateRollCount(sub.type, sub.value);
     const upgradeRolls = rolls - 1;
     const weight = d2Weights[sub.type] || 0;
@@ -138,7 +138,7 @@ if (hugoId) {
 }
 
 // Look up Orphie
-const orphieId = Object.keys(statWeights.agents).find(id => {
+const orphieId = Object.keys(statWeights.agents).find((id) => {
   return statWeights.agents[id].name === 'Orphie';
 });
 
@@ -164,10 +164,10 @@ if (orphieId) {
       { type: 'CRIT_DMG', value: 24 },
       { type: 'ATK', value: 19 },
       { type: 'ATK%', value: 3 },
-      { type: 'CRIT_Rate', value: 2.4 }
+      { type: 'CRIT_Rate', value: 2.4 },
     ];
 
-    orphieSubstats.forEach(sub => {
+    orphieSubstats.forEach((sub) => {
       const rolls = calculateRollCount(sub.type, sub.value);
       console.log(`  ${sub.type}: ${sub.value} (${rolls} rolls)`);
     });
@@ -176,7 +176,7 @@ if (orphieId) {
     const multiplier = 3.0;
     let totalPoints = d6Weights.mainStatPoints;
 
-    orphieSubstats.forEach(sub => {
+    orphieSubstats.forEach((sub) => {
       const rolls = calculateRollCount(sub.type, sub.value);
       const weight = d6Weights.substatWeights[sub.type] || 0;
       const points = rolls * weight * multiplier;
@@ -186,7 +186,7 @@ if (orphieId) {
 
     // Check for god roll bonus
     let godRollBonus = 0;
-    orphieSubstats.forEach(sub => {
+    orphieSubstats.forEach((sub) => {
       const rolls = calculateRollCount(sub.type, sub.value);
       const upgradeRolls = rolls - 1;
       const weight = d6Weights.substatWeights[sub.type] || 0;

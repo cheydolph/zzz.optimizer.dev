@@ -12,41 +12,41 @@
  */
 export const AGENT_SKILL_MULTIPLIERS: { [agentName: string]: number } = {
   // S-Rank Attack Agents (High burst damage)
-  'Ellen': 3.8,           // High burst with charged attacks and ult
-  'Zhu Yuan': 3.2,        // Follow-up attacks with CRIT focus
-  'Soldier 11': 2.9,      // Combo finishers and EX special
-  'Billy': 2.6,           // Rapid shots with CRIT multipliers
-  'Corin': 3.0,           // EX Special burst rotation
-  'Nekomata': 2.7,        // Split attacks with CRIT
+  Ellen: 3.8, // High burst with charged attacks and ult
+  'Zhu Yuan': 3.2, // Follow-up attacks with CRIT focus
+  'Soldier 11': 2.9, // Combo finishers and EX special
+  Billy: 2.6, // Rapid shots with CRIT multipliers
+  Corin: 3.0, // EX Special burst rotation
+  Nekomata: 2.7, // Split attacks with CRIT
 
   // S-Rank Anomaly Agents (Status damage focused)
-  'Grace': 2.0,           // Shock application (status > direct)
-  'Jane': 2.5,            // Assault + direct damage hybrid
-  'Burnice': 2.2,         // Burn application
+  Grace: 2.0, // Shock application (status > direct)
+  Jane: 2.5, // Assault + direct damage hybrid
+  Burnice: 2.2, // Burn application
 
   // A-Rank Anomaly Agents
-  'Piper': 2.3,           // Physical Assault
+  Piper: 2.3, // Physical Assault
 
   // S-Rank Stun Agents (Impact + moderate damage)
-  'Koleda': 2.4,          // Fire Impact with decent multipliers
-  'Lycaon': 2.6,          // Ice Impact with CRIT potential
-  'Qingyi': 2.5,          // Electric Impact with fast attacks
+  Koleda: 2.4, // Fire Impact with decent multipliers
+  Lycaon: 2.6, // Ice Impact with CRIT potential
+  Qingyi: 2.5, // Electric Impact with fast attacks
 
   // A-Rank Stun Agents
-  'Anby': 2.1,            // Basic Electric Impact
+  Anby: 2.1, // Basic Electric Impact
 
   // S-Rank Support/Defense (Low damage, utility focused)
-  'Rina': 1.8,            // Electric support
-  'Caesar': 2.0,          // Defense with some damage
+  Rina: 1.8, // Electric support
+  Caesar: 2.0, // Defense with some damage
 
   // A-Rank Support/Defense
-  'Nicole': 1.5,          // Pure support (DEF shred)
-  'Soukaku': 1.6,         // Ice support (ATK buff)
-  'Ben': 1.9,             // Fire defense
-  'Lucy': 1.7,            // Fire support
+  Nicole: 1.5, // Pure support (DEF shred)
+  Soukaku: 1.6, // Ice support (ATK buff)
+  Ben: 1.9, // Fire defense
+  Lucy: 1.7, // Fire support
 
   // Default fallback (balanced agent)
-  'default': 2.5,
+  default: 2.5,
 };
 
 /**
@@ -56,7 +56,7 @@ export const AGENT_SKILL_MULTIPLIERS: { [agentName: string]: number } = {
 export const AGENT_ELEMENTAL_BONUS: { [agentName: string]: number } = {
   // Most agents don't have built-in elemental DMG (comes from discs)
   // These are just examples if needed in the future
-  'default': 0.0,
+  default: 0.0,
 };
 
 /**

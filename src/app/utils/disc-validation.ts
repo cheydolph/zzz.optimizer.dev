@@ -13,7 +13,7 @@ export function getDiscValidationErrors(disc: Disc): string[] {
   const errors: string[] = [];
 
   // Check for duplicate substats
-  const substatTypes = disc.subStats.map(s => s.type);
+  const substatTypes = disc.subStats.map((s) => s.type);
   const seenTypes = new Set<SubStatType>();
   const duplicates = new Set<SubStatType>();
 
@@ -31,7 +31,7 @@ export function getDiscValidationErrors(disc: Disc): string[] {
 
   // Check for main stat = substat conflict
   const mainStatType = disc.mainStat.type;
-  const conflictingSubstats = disc.subStats.filter(sub => sub.type === mainStatType);
+  const conflictingSubstats = disc.subStats.filter((sub) => sub.type === mainStatType);
 
   if (conflictingSubstats.length > 0) {
     errors.push(`${formatStatType(mainStatType)} cannot be both main stat and substat`);
@@ -52,21 +52,21 @@ export function hasValidationErrors(disc: Disc): boolean {
  */
 function formatStatType(statType: MainStatType | SubStatType): string {
   const typeMap: { [key: string]: string } = {
-    'HP': 'HP',
+    HP: 'HP',
     'HP%': 'HP%',
-    'ATK': 'ATK',
+    ATK: 'ATK',
     'ATK%': 'ATK%',
-    'DEF': 'DEF',
+    DEF: 'DEF',
     'DEF%': 'DEF%',
-    'CRIT_Rate': 'CRIT Rate',
-    'CRIT_DMG': 'CRIT DMG',
-    'Anomaly_Proficiency': 'Anomaly Proficiency',
-    'Anomaly_Mastery': 'Anomaly Mastery',
-    'PEN': 'PEN',
-    'PEN_Ratio': 'PEN Ratio',
-    'Element_DMG': 'Element DMG',
-    'Impact': 'Impact',
-    'Energy_Regen': 'Energy Regen'
+    CRIT_Rate: 'CRIT Rate',
+    CRIT_DMG: 'CRIT DMG',
+    Anomaly_Proficiency: 'Anomaly Proficiency',
+    Anomaly_Mastery: 'Anomaly Mastery',
+    PEN: 'PEN',
+    PEN_Ratio: 'PEN Ratio',
+    Element_DMG: 'Element DMG',
+    Impact: 'Impact',
+    Energy_Regen: 'Energy Regen',
   };
 
   return typeMap[statType] || statType;

@@ -1,0 +1,60 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "root": true,
+  "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
+  "files": {
+    "includes": ["**", "!**/*.html", "!**/*.md", "!public", "!src/assets", "!test-data", "!package-lock.json"]
+  },
+  "formatter": { "useEditorconfig": true, "lineWidth": 120 },
+  "javascript": {
+    "parser": { "unsafeParameterDecoratorsEnabled": true },
+    "formatter": { "quoteStyle": "single", "semicolons": "always" }
+  },
+  "css": { "parser": { "tailwindDirectives": true } },
+  "assist": { "enabled": false },
+  "linter": {
+    "rules": {
+      "complexity": {
+        "noExcessiveCognitiveComplexity": { "level": "error", "options": { "maxAllowedComplexity": 15 } },
+        "noUselessContinue": { "level": "on", "fix": "none" }
+      },
+      "style": {
+        "useImportType": "off",
+        "useExponentiationOperator": "off"
+      },
+      "suspicious": {
+        "noDuplicateProperties": "warn"
+      }
+    }
+  },
+  "overrides": [
+    {
+      "includes": [
+        "build-scripts/validate-agent-data.js",
+        "src/app/components/character-tab/character-tab.component.ts",
+        "src/app/services/build-import-export.service.ts",
+        "src/app/services/build.service.ts",
+        "src/app/services/canvas-share-image.service.ts",
+        "src/app/services/data-transformer.service.ts",
+        "src/app/services/enka-api.service.ts",
+        "src/app/services/enka-import.service.ts",
+        "src/app/services/scoring.service.ts",
+        "src/app/services/stat-calculator.service.ts",
+        "src/app/services/sw-update.service.ts",
+        "test-harness/generate-fixtures.mjs",
+        "test-harness/golden-core.mjs"
+      ],
+      "linter": {
+        "rules": {
+          "complexity": {
+            "noExcessiveCognitiveComplexity": { "level": "warn", "options": { "maxAllowedComplexity": 15 } }
+          },
+          "suspicious": {
+            "useIterableCallbackReturn": "warn",
+            "noImplicitAnyLet": "warn"
+          }
+        }
+      }
+    }
+  ]
+}

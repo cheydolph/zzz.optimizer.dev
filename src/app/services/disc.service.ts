@@ -7,7 +7,7 @@ import { DiscSlot } from '../models/agent.model';
 import { DbService } from './db.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DiscService {
   private discsSubject = new BehaviorSubject<Disc[]>([]);
@@ -20,7 +20,7 @@ export class DiscService {
 
   constructor(
     private db: DbService,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
   ) {
     this.loadDiscsFromDb();
   }
@@ -75,7 +75,7 @@ export class DiscService {
   }
 
   getDiscById(uid: string): Disc | undefined {
-    return this.discsSubject.value.find(d => d.uid === uid);
+    return this.discsSubject.value.find((d) => d.uid === uid);
   }
 
   async addDisc(disc: Disc): Promise<void> {
@@ -88,7 +88,7 @@ export class DiscService {
 
   async updateDisc(uid: string, updates: Partial<Disc>): Promise<void> {
     const current = this.discsSubject.value;
-    const index = current.findIndex(d => d.uid === uid);
+    const index = current.findIndex((d) => d.uid === uid);
     if (index !== -1) {
       await this.db.updateDisc(uid, updates);
       current[index] = { ...current[index], ...updates };
@@ -99,7 +99,7 @@ export class DiscService {
 
   async deleteDisc(uid: string): Promise<void> {
     await this.db.deleteDisc(uid);
-    const current = this.discsSubject.value.filter(d => d.uid !== uid);
+    const current = this.discsSubject.value.filter((d) => d.uid !== uid);
     this.rebuildIndexes(current); // OPTIMIZATION: Rebuild indexes
     this.discsSubject.next(current);
   }
@@ -127,19 +127,18 @@ export class DiscService {
     if (minLevel <= 0) {
       return this.getUnequippedDiscs();
     }
-    return this.discsSubject.value.filter(d => !d.equippedBy && d.level >= minLevel);
+    return this.discsSubject.value.filter((d) => !d.equippedBy && d.level >= minLevel);
   }
 
   getDiscsEquippedBy(agentId: string): Disc[] {
-    return this.discsSubject.value.filter(d => d.equippedBy === agentId);
+    return this.discsSubject.value.filter((d) => d.equippedBy === agentId);
   }
 
   equipDisc(uid: string, agentId: string): void {
     const disc = this.getDiscById(uid);
     if (disc) {
       // Unequip any disc in the same slot from this agent
-      const sameSlotDisc = this.getDiscsEquippedBy(agentId)
-        .find(d => d.slot === disc.slot);
+      const sameSlotDisc = this.getDiscsEquippedBy(agentId).find((d) => d.slot === disc.slot);
       if (sameSlotDisc) {
         this.updateDisc(sameSlotDisc.uid, { equippedBy: undefined });
       }

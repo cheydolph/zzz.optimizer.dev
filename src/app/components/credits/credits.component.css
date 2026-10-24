@@ -11,7 +11,7 @@
 }
 
 h1 {
-  color: #F4B942;
+  color: #f4b942;
   font-size: 2.5em;
   margin: 0 0 40px 0;
   text-align: center;
@@ -22,12 +22,12 @@ h1 {
   border-radius: 12px;
   padding: 30px;
   margin-bottom: 30px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   border: 1px solid #222;
 }
 
 .credits-section h2 {
-  color: #F4B942;
+  color: #f4b942;
   margin: 0 0 20px 0;
   font-size: 1.8em;
 }
@@ -41,7 +41,7 @@ h1 {
 
 .credit-card {
   background: #1a1a1a;
-  border: 2px solid #F4B942;
+  border: 2px solid #f4b942;
   border-radius: 8px;
   padding: 20px;
   margin-bottom: 20px;
@@ -59,7 +59,7 @@ h1 {
 }
 
 .credit-card h3 {
-  color: #F4B942;
+  color: #f4b942;
   margin: 0 0 10px 0;
   font-size: 1.5em;
 }
@@ -72,7 +72,7 @@ h1 {
 
 .credit-link {
   display: inline-block;
-  color: #F4B942;
+  color: #f4b942;
   text-decoration: none;
   font-weight: 600;
   padding: 8px 16px;
@@ -110,7 +110,7 @@ h1 {
 }
 
 .assumptions-list strong {
-  color: #F4B942;
+  color: #f4b942;
 }
 
 .disclaimer {

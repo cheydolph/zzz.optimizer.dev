@@ -7,10 +7,9 @@ import { DataMappingService } from './data-mapping.service';
  * Service to transform raw game data JSON into app-compatible format
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DataTransformerService {
-
   constructor(private mappingService: DataMappingService) {}
 
   /**
@@ -115,9 +114,7 @@ export class DataTransformerService {
     // Thumbnail path for list/grid views, derived from the full-size path.
     // Thumbnails are always .webp even when the source is not (one portrait is a
     // PNG with a .webp extension), so normalise the extension here too.
-    const iconThumb = icon
-      .replace('/images/agents/', '/images/agents/thumbs/')
-      .replace(/\.(png|jpg|jpeg)$/i, '.webp');
+    const iconThumb = icon.replace('/images/agents/', '/images/agents/thumbs/').replace(/\.(png|jpg|jpeg)$/i, '.webp');
 
     // Map element icon
     const elementIcon = `assets/data/images/elements/Icon${mappedElement}.webp`;
@@ -153,14 +150,18 @@ export class DataTransformerService {
       specialtyIcon: specialtyIcon,
       scoring: rawAgent.scoring, // Include scoring data (buffs, debuffs, dazeBonus)
       hasHPAscension: hasHPAscension ? true : undefined,
-      hpAscensionPercent: hasHPAscension ? hpAscensionPercent : undefined
+      hpAscensionPercent: hasHPAscension ? hpAscensionPercent : undefined,
     };
   }
 
   /**
    * Extract level 60 base stats from raw agent data
    */
-  private extractLevel60Stats(rawAgent: any, hasHPAscension: boolean = false, hpAscensionPercent: number = 0): BaseStats | null {
+  private extractLevel60Stats(
+    rawAgent: any,
+    hasHPAscension: boolean = false,
+    hpAscensionPercent: number = 0,
+  ): BaseStats | null {
     // PREFERRED: Use pre-calculated lvl60_stats from agents.json if available
     if (rawAgent.lvl60_stats) {
       const lvl60 = rawAgent.lvl60_stats;
@@ -193,16 +194,18 @@ export class DataTransformerService {
         anomalyProficiency: Math.round(lvl60.ElementMystery || stats?.ElementMystery || 0),
         pen: Math.round(lvl60.PenDelta || 0),
         penRatio: (lvl60.PenRate || 0) / 100,
-        energyRegen: (lvl60.SpBarPoint || 12) / 10,  // 12 / 10 = 1.2
+        energyRegen: (lvl60.SpBarPoint || 12) / 10, // 12 / 10 = 1.2
         energyRegenPercent: 0,
         sheerForce: 0,
         // Armorer display stats - static per agent, absent for non-Armorers
-        lacerationDamage: lvl60.LacerationDamage !== undefined
-          ? lvl60.LacerationDamage / 100   // 15000 -> 150%
-          : undefined,
-        sharpnessAutoAccumulation: lvl60.SharpnessAutoAccumulation !== undefined
-          ? lvl60.SharpnessAutoAccumulation / 10  // 15 -> 1.5
-          : undefined
+        lacerationDamage:
+          lvl60.LacerationDamage !== undefined
+            ? lvl60.LacerationDamage / 100 // 15000 -> 150%
+            : undefined,
+        sharpnessAutoAccumulation:
+          lvl60.SharpnessAutoAccumulation !== undefined
+            ? lvl60.SharpnessAutoAccumulation / 10 // 15 -> 1.5
+            : undefined,
       };
     }
 
@@ -278,7 +281,7 @@ export class DataTransformerService {
         penRatio: penRatio,
         energyRegen: energyRegen,
         energyRegenPercent: 0,
-        sheerForce: 0
+        sheerForce: 0,
       };
     }
 
@@ -310,7 +313,7 @@ export class DataTransformerService {
       penRatio: 0,
       energyRegen: 1.2,
       energyRegenPercent: 0,
-      sheerForce: 0
+      sheerForce: 0,
     };
   }
 
@@ -332,14 +335,14 @@ export class DataTransformerService {
   private normalizeAgentNameForIcon(name: string): string {
     // Handle special cases first
     const specialCases: { [key: string]: string } = {
-      'Qingyi': 'QingYi',
-      'Yixuan': 'YiXuan',
-      'Seed': 'SEED',
-      'Orphie & Magus': 'Orphie'
+      Qingyi: 'QingYi',
+      Yixuan: 'YiXuan',
+      Seed: 'SEED',
+      'Orphie & Magus': 'Orphie',
     };
 
     // Check if this is a special case (case-insensitive check)
-    const specialKey = Object.keys(specialCases).find(key => key.toLowerCase() === name.toLowerCase());
+    const specialKey = Object.keys(specialCases).find((key) => key.toLowerCase() === name.toLowerCase());
     if (specialKey) {
       return specialCases[specialKey];
     }
@@ -347,8 +350,8 @@ export class DataTransformerService {
     // Default normalization: remove spaces, hyphens, and ampersands
     return name
       .replace(/\s*&\s*.*$/, '') // Remove " & Magus" or similar patterns
-      .replace(/\s+/g, '')        // Remove all spaces
-      .replace(/-/g, '');          // Remove hyphens
+      .replace(/\s+/g, '') // Remove all spaces
+      .replace(/-/g, ''); // Remove hyphens
   }
 
   /**
@@ -428,8 +431,7 @@ export class DataTransformerService {
     // Extract base stat from BaseProperty (already at level 60)
     // Armorer W-Engines carry Base DEF here instead of Base ATK
     const baseAtk = rawWEngine.BaseProperty?.Value || (rarity === 'S' ? 713 : rarity === 'A' ? 594 : 475);
-    const baseStatType: 'ATK' | 'DEF' =
-      (rawWEngine.BaseProperty?.Name || '').includes('DEF') ? 'DEF' : 'ATK';
+    const baseStatType: 'ATK' | 'DEF' = (rawWEngine.BaseProperty?.Name || '').includes('DEF') ? 'DEF' : 'ATK';
 
     // Extract substat from RandProperty (already at level 60)
     const randProp = rawWEngine.RandProperty || {};
@@ -438,7 +440,7 @@ export class DataTransformerService {
     // Check Format field: if it contains '%', it's a percentage stat that needs division
     const format = randProp.Format || '';
     const isPercentageStat = format.includes('%');
-    const subStatValue = isPercentageStat ? (randProp.Value || 0) / 100 : (randProp.Value || 0);
+    const subStatValue = isPercentageStat ? (randProp.Value || 0) / 100 : randProp.Value || 0;
 
     // Map substat name to our StatType
     let subStatType: any = 'ATK%';
@@ -499,14 +501,14 @@ export class DataTransformerService {
       baseStatType: baseStatType,
       subStat: {
         type: subStatType,
-        value: subStatValue
+        value: subStatValue,
       },
       effect: {
         name: 'Effect',
         description: effectDesc,
-        properties: refinementProperties.length > 0 ? refinementProperties : undefined
+        properties: refinementProperties.length > 0 ? refinementProperties : undefined,
       },
-      icon: icon
+      icon: icon,
     };
   }
 
@@ -529,11 +531,10 @@ export class DataTransformerService {
     // BaseProperty.Value is base value, need to add Level["60"].Rate
     const baseValue = raw.BaseProperty?.Value || 0;
     const level60 = raw.Level?.['60'];
-    const rateMultiplier = level60 ? (level60.Rate / 10000) : 0;
+    const rateMultiplier = level60 ? level60.Rate / 10000 : 0;
     const baseAtk = Math.round(baseValue * (1 + rateMultiplier));
     // Armorer W-Engines carry Base DEF here instead of Base ATK
-    const baseStatType: 'ATK' | 'DEF' =
-      (raw.BaseProperty?.Name || '').includes('DEF') ? 'DEF' : 'ATK';
+    const baseStatType: 'ATK' | 'DEF' = (raw.BaseProperty?.Name || '').includes('DEF') ? 'DEF' : 'ATK';
 
     // Extract substat from RandProperty
     // RandProperty.Name is like "ATK" or "CRIT Rate"
@@ -544,7 +545,7 @@ export class DataTransformerService {
     // Check Format field: if it contains '%', it's a percentage stat that needs division
     const format = randProp.Format || '';
     const isPercentageStat = format.includes('%');
-    const subStatValue = isPercentageStat ? (randProp.Value || 0) / 100 : (randProp.Value || 0);
+    const subStatValue = isPercentageStat ? (randProp.Value || 0) / 100 : randProp.Value || 0;
 
     // Map substat name to our StatType
     let subStatType: any = 'ATK%';
@@ -581,7 +582,9 @@ export class DataTransformerService {
       // Icon format: "Assets/.../UnPacker/Weapon_B_Common_01.png"
       // Extract filename and convert to webp
       const fileName = raw.Icon.split('/').pop()?.replace('.png', '.webp');
-      icon = fileName ? `assets/data/images/wengines/${fileName}` : `assets/data/images/wengines/Weapon_${rarity}_${id}.webp`;
+      icon = fileName
+        ? `assets/data/images/wengines/${fileName}`
+        : `assets/data/images/wengines/Weapon_${rarity}_${id}.webp`;
     } else {
       // Fallback to rarity/id format
       const rarityLetter = rarity === 'S' ? 'S' : rarity === 'A' ? 'A' : 'B';
@@ -605,15 +608,15 @@ export class DataTransformerService {
       baseStatType: baseStatType,
       subStat: {
         type: subStatType,
-        value: subStatValue
+        value: subStatValue,
       },
       effect: {
         name: firstTalent.Name || 'Effect',
         description: effectDesc,
-        properties: refinementProperties.length > 0 ? refinementProperties : undefined
+        properties: refinementProperties.length > 0 ? refinementProperties : undefined,
       },
       signature: raw.CharacterId ? String(raw.CharacterId) : undefined,
-      icon: icon
+      icon: icon,
     };
   }
 
@@ -635,8 +638,7 @@ export class DataTransformerService {
           hpAscensionPercent = hpProp.value / 100; // 1800 -> 18
         }
       }
-    }
-    else if (basicAgent.ExtraLevel) {
+    } else if (basicAgent.ExtraLevel) {
       const finalPhase = basicAgent.ExtraLevel['6'];
       if (finalPhase && finalPhase.Extra && finalPhase.Extra['11102']) {
         hasHPAscension = true;
@@ -671,9 +673,7 @@ export class DataTransformerService {
     }
 
     // Thumbnail path for list/grid views - see the note in transformAgent above.
-    const iconThumb = icon
-      .replace('/images/agents/', '/images/agents/thumbs/')
-      .replace(/\.(png|jpg|jpeg)$/i, '.webp');
+    const iconThumb = icon.replace('/images/agents/', '/images/agents/thumbs/').replace(/\.(png|jpg|jpeg)$/i, '.webp');
 
     // Map element icon
     const elementIcon = `assets/data/images/elements/Icon${element}.webp`;
@@ -713,7 +713,7 @@ export class DataTransformerService {
       mindscapeEffects: mindscapeEffects.length > 0 ? mindscapeEffects : undefined,
       scoring: basicAgent.scoring, // Include scoring data (buffs, debuffs, dazeBonus)
       hasHPAscension: hasHPAscension ? true : undefined,
-      hpAscensionPercent: hasHPAscension ? hpAscensionPercent : undefined
+      hpAscensionPercent: hasHPAscension ? hpAscensionPercent : undefined,
     };
 
     return agent;
@@ -730,7 +730,7 @@ export class DataTransformerService {
 
     const effects: any[] = [];
 
-    mindscapeCinemas.forEach(cinema => {
+    mindscapeCinemas.forEach((cinema) => {
       const statBonuses = this.parseMindscapeStatBonuses(cinema.description);
 
       // Only include mindscapes that have stat bonuses
@@ -739,7 +739,7 @@ export class DataTransformerService {
           level: cinema.level,
           name: cinema.name,
           description: cinema.description,
-          statBonuses: statBonuses
+          statBonuses: statBonuses,
         });
       }
     });
@@ -763,20 +763,24 @@ export class DataTransformerService {
       { regex: /CRIT Rate increases by (\d+(?:\.\d+)?)%/i, type: 'CRIT_Rate', conditional: false },
       { regex: /CRIT DMG increases by (\d+(?:\.\d+)?)%/i, type: 'CRIT_DMG', conditional: false },
       { regex: /PEN Ratio increases by (\d+(?:\.\d+)?)%/i, type: 'PEN_Ratio', conditional: false },
-      { regex: /Energy (?:Generation Rate|Regen) increases by (\d+(?:\.\d+)?)%/i, type: 'Energy_Regen', conditional: false },
+      {
+        regex: /Energy (?:Generation Rate|Regen) increases by (\d+(?:\.\d+)?)%/i,
+        type: 'Energy_Regen',
+        conditional: false,
+      },
       { regex: /Anomaly Proficiency increases by (\d+)/i, type: 'Anomaly_Proficiency', conditional: false },
       { regex: /Anomaly Mastery increases by (\d+)/i, type: 'Anomaly_Mastery', conditional: false },
       { regex: /Impact increases by (\d+)/i, type: 'Impact', conditional: false },
     ];
 
-    patterns.forEach(pattern => {
+    patterns.forEach((pattern) => {
       const match = description.match(pattern.regex);
       if (match) {
         const value = parseFloat(match[1]);
         bonuses.push({
           type: pattern.type,
           value: value,
-          conditional: pattern.conditional
+          conditional: pattern.conditional,
         });
       }
     });
@@ -818,7 +822,7 @@ export class DataTransformerService {
     if (raw.Desc2) {
       bonuses.push({
         pieces: 2,
-        description: raw.Desc2
+        description: raw.Desc2,
       });
     }
 
@@ -826,7 +830,7 @@ export class DataTransformerService {
     if (raw.Desc4) {
       bonuses.push({
         pieces: 4,
-        description: raw.Desc4
+        description: raw.Desc4,
       });
     }
 
@@ -844,7 +848,7 @@ export class DataTransformerService {
       id: id,
       name: raw.Name,
       bonuses: bonuses,
-      icon: icon
+      icon: icon,
     };
   }
 
@@ -858,7 +862,7 @@ export class DataTransformerService {
       return [];
     }
 
-    return properties.map(prop => {
+    return properties.map((prop) => {
       const name = prop.Name || '';
       const overclock = prop.Overclock || {};
       const format = prop.Format || '';
@@ -902,8 +906,8 @@ export class DataTransformerService {
           W2: (overclock.W2 || 0) / divisor,
           W3: (overclock.W3 || 0) / divisor,
           W4: (overclock.W4 || 0) / divisor,
-          W5: (overclock.W5 || 0) / divisor
-        }
+          W5: (overclock.W5 || 0) / divisor,
+        },
       };
     });
   }

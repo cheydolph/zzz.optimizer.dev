@@ -28,7 +28,10 @@ const STALE_BUILD_TYPE = 'RemovedBuildType';
 // Drive 4/5/6 main stats and preferred substats per profile.
 const TEMPLATES = {
   crit: { mains: ['CRIT_Rate', 'Element_DMG', 'ATK%'], subs: ['CRIT_Rate', 'CRIT_DMG', 'ATK%', 'PEN'] },
-  anomaly: { mains: ['Anomaly_Proficiency', 'Element_DMG', 'Anomaly_Mastery'], subs: ['Anomaly_Proficiency', 'ATK%', 'PEN', 'CRIT_Rate'] },
+  anomaly: {
+    mains: ['Anomaly_Proficiency', 'Element_DMG', 'Anomaly_Mastery'],
+    subs: ['Anomaly_Proficiency', 'ATK%', 'PEN', 'CRIT_Rate'],
+  },
   stun: { mains: ['CRIT_Rate', 'Element_DMG', 'Impact'], subs: ['CRIT_Rate', 'CRIT_DMG', 'ATK%', 'ATK'] },
   support: { mains: ['ATK%', 'ATK%', 'Energy_Regen'], subs: ['ATK%', 'CRIT_Rate', 'HP%', 'ATK'] },
   defense: { mains: ['DEF%', 'DEF%', 'DEF%'], subs: ['DEF%', 'DEF', 'CRIT_Rate', 'HP%'] },
@@ -264,7 +267,13 @@ for (const [index, agent] of agents.entries()) {
     addCase(agent, id, "Drive3 has three substats saved as type '' value 0 (BUG-25)", makeBuild(agent, id, discs, w));
   }
 
-  add('plan', 'Upgrade plan with custom priorities, main-stat preferences, breakpoints', {}, {}, makePlan(agent, profile, 'plan', false));
+  add(
+    'plan',
+    'Upgrade plan with custom priorities, main-stat preferences, breakpoints',
+    {},
+    {},
+    makePlan(agent, profile, 'plan', false),
+  );
   if (index % 3 === 0) {
     add(
       'plan-impossible-cells',
@@ -293,7 +302,11 @@ for (const wEngine of wEngines) {
 }
 
 // Every set as the 4pc and as the 2pc
-const slug = (name) => name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const slug = (name) =>
+  name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
 for (const set of setNames) {
   for (const role of ['4pc', '2pc']) {
     const agent = pick(agents);
@@ -316,29 +329,47 @@ function conditional(group, set, agentFilter, label, discOpts = {}) {
   const agent = pick(agents.filter(agentFilter));
   const profile = profiles.get(agent.id);
   const id = `cond-${slug(set)}-${label}`;
-  const build = makeBuild(agent, id, makeDiscs(agent, profile, id, { sets: [set, profile.set2 === set ? profile.set4 : profile.set2], ...discOpts }), {
-    equippedWEngineId: profile.wEngineId,
-  });
+  const build = makeBuild(
+    agent,
+    id,
+    makeDiscs(agent, profile, id, { sets: [set, profile.set2 === set ? profile.set4 : profile.set2], ...discOpts }),
+    {
+      equippedWEngineId: profile.wEngineId,
+    },
+  );
   addCase(agent, id, `${set} 4pc: ${label}`, build);
   conditionGroups.push({ group, agentId: agent.id, caseId: id });
 }
 const allSlots = (value) => Object.fromEntries(SLOTS.map((s) => [s, value]));
 const isSpecialty = (s) => (a) => a.specialty === s;
 
-conditional('bbs', 'Branch & Blade Song', isSpecialty('Anomaly'), 'anomaly-am-main', { mains: { Drive6: 'Anomaly_Mastery' } });
+conditional('bbs', 'Branch & Blade Song', isSpecialty('Anomaly'), 'anomaly-am-main', {
+  mains: { Drive6: 'Anomaly_Mastery' },
+});
 conditional('bbs', 'Branch & Blade Song', isSpecialty('Anomaly'), 'anomaly-atk-main', { mains: { Drive6: 'ATK%' } });
 conditional('bbs', 'Branch & Blade Song', isSpecialty('Attack'), 'attack', { mains: { Drive6: 'ATK%' } });
 const critSubs = allSlots(['CRIT_Rate', 'CRIT_DMG', 'ATK%', 'PEN', 'HP%', 'DEF']);
 const noCritSubs = allSlots(['HP%', 'DEF%', 'HP', 'DEF', 'PEN', 'ATK']);
-conditional('kots', 'King of the Summit', isSpecialty('Attack'), 'high-crit-rate', { mains: { Drive4: 'CRIT_Rate' }, subs: critSubs, rolls: allSlots([6, 1, 1, 1]) });
-conditional('kots', 'King of the Summit', isSpecialty('Attack'), 'low-crit-rate', { mains: { Drive4: 'ATK%' }, subs: noCritSubs });
+conditional('kots', 'King of the Summit', isSpecialty('Attack'), 'high-crit-rate', {
+  mains: { Drive4: 'CRIT_Rate' },
+  subs: critSubs,
+  rolls: allSlots([6, 1, 1, 1]),
+});
+conditional('kots', 'King of the Summit', isSpecialty('Attack'), 'low-crit-rate', {
+  mains: { Drive4: 'ATK%' },
+  subs: noCritSubs,
+});
 conditional('wwb', 'White Water Ballad', isSpecialty('Attack'), 'attack');
 conditional('wwb', 'White Water Ballad', isSpecialty('Stun'), 'stun');
 conditional('sky', 'The Sky Ablaze', (a) => a.element === 'Ether', 'ether');
 conditional('sky', 'The Sky Ablaze', (a) => a.element === 'Fire', 'fire');
 const defSubs = allSlots(['DEF%', 'DEF', 'HP%', 'CRIT_Rate', 'ATK%', 'HP']);
 const defMains = { Drive4: 'DEF%', Drive5: 'DEF%', Drive6: 'DEF%' };
-conditional('thorned', 'Thorned Rose', isSpecialty('Defense'), 'defense-max-def', { mains: defMains, subs: defSubs, rolls: allSlots([6, 1, 1, 1]) });
+conditional('thorned', 'Thorned Rose', isSpecialty('Defense'), 'defense-max-def', {
+  mains: defMains,
+  subs: defSubs,
+  rolls: allSlots([6, 1, 1, 1]),
+});
 conditional('thorned', 'Thorned Rose', isSpecialty('Defense'), 'defense-two-def-mains', {
   mains: { Drive4: 'DEF%', Drive5: 'DEF%', Drive6: 'HP%' },
   subs: allSlots(['CRIT_Rate', 'CRIT_DMG', 'HP%', 'ATK%', 'HP', 'PEN']),
@@ -360,7 +391,9 @@ for (const [group, members] of Object.entries(groups)) {
   console.log(`condition ${group}:`);
   for (const o of outputs) {
     const s = o.stats.stats;
-    console.log(`  ${o.caseId}: AM ${s.anomalyMastery}, CR ${s.critRate}, DEF ${s.def} -> ${JSON.stringify(o.stats.fourPcBonuses)}`);
+    console.log(
+      `  ${o.caseId}: AM ${s.anomalyMastery}, CR ${s.critRate}, DEF ${s.def} -> ${JSON.stringify(o.stats.fourPcBonuses)}`,
+    );
   }
   if (distinct.size < 2) failures.push(`condition group ${group}: every case produced the same 4pc output`);
 }
@@ -381,4 +414,6 @@ for (const fixture of fixtures.values()) {
   total += fixture.cases.length;
   writeFileSync(join(outDir, `${fixture.agentId}.json`), `${JSON.stringify(fixture, null, 2)}\n`);
 }
-console.log(`fixtures: ${fixtures.size} agents, ${total} cases, ${wEngines.length} W-Engines, ${setNames.length} sets -> ${outDir}`);
+console.log(
+  `fixtures: ${fixtures.size} agents, ${total} cases, ${wEngines.length} W-Engines, ${setNames.length} sets -> ${outDir}`,
+);

@@ -17,10 +17,17 @@ import { AnniversaryService } from './services/anniversary.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NavigationComponent, FooterComponent, LoadingOverlayComponent, NotificationComponent, UpdateNotificationComponent],
+  imports: [
+    RouterOutlet,
+    NavigationComponent,
+    FooterComponent,
+    LoadingOverlayComponent,
+    NotificationComponent,
+    UpdateNotificationComponent,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  animations: [routeAnimations]
+  animations: [routeAnimations],
 })
 export class AppComponent implements OnInit, OnDestroy {
   title = 'zzz.optimizer';
@@ -34,7 +41,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private swUpdate: SwUpdateService,
     private seo: SeoService,
     private contexts: ChildrenOutletContexts,
-    private anniversary: AnniversaryService
+    private anniversary: AnniversaryService,
   ) {}
 
   getRouteAnimationData() {
@@ -49,17 +56,13 @@ export class AppComponent implements OnInit, OnDestroy {
     await this.swUpdate.init();
 
     // Subscribe to loading state
-    this.loadingService.loading$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(loading => {
-        this.isLoading = loading;
-      });
+    this.loadingService.loading$.pipe(takeUntil(this.destroy$)).subscribe((loading) => {
+      this.isLoading = loading;
+    });
 
-    this.loadingService.message$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(message => {
-        this.loadingMessage = message;
-      });
+    this.loadingService.message$.pipe(takeUntil(this.destroy$)).subscribe((message) => {
+      this.loadingMessage = message;
+    });
 
     // Auto-load reference data on app startup
     await this.appInit.initialize();

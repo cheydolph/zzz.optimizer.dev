@@ -8,7 +8,7 @@ import { WEngine } from '../models/wengine.model';
  * Reduces initial bundle size by loading data on demand
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LazyDataLoaderService {
   private loadedAgentSpecialties = new Set<string>();
@@ -72,8 +72,8 @@ export class LazyDataLoaderService {
    * Preload data for multiple specialties
    */
   async preloadSpecialties(specialties: string[]): Promise<void> {
-    const agentPromises = specialties.map(s => this.loadAgentsBySpecialty(s));
-    const wEnginePromises = specialties.map(s => this.loadWEnginesBySpecialty(s));
+    const agentPromises = specialties.map((s) => this.loadAgentsBySpecialty(s));
+    const wEnginePromises = specialties.map((s) => this.loadWEnginesBySpecialty(s));
 
     await Promise.all([...agentPromises, ...wEnginePromises]);
   }
@@ -96,7 +96,7 @@ export class LazyDataLoaderService {
       agentSpecialtiesLoaded: this.loadedAgentSpecialties.size,
       wEngineSpecialtiesLoaded: this.loadedWEngineSpecialties.size,
       totalAgentsCached: Array.from(this.agentCache.values()).reduce((sum, arr) => sum + arr.length, 0),
-      totalWEnginesCached: Array.from(this.wEngineCache.values()).reduce((sum, arr) => sum + arr.length, 0)
+      totalWEnginesCached: Array.from(this.wEngineCache.values()).reduce((sum, arr) => sum + arr.length, 0),
     };
   }
 }

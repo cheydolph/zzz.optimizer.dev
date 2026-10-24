@@ -11,7 +11,7 @@ import { slideInRight } from '../../animations/route-animations';
   templateUrl: './notification.component.html',
   styleUrl: './notification.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [slideInRight]
+  animations: [slideInRight],
 })
 export class NotificationComponent implements OnInit, OnDestroy {
   notification: Notification | null = null;
@@ -20,26 +20,22 @@ export class NotificationComponent implements OnInit, OnDestroy {
 
   constructor(
     private notificationService: NotificationService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
-    this.notificationService.notification$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(notification => {
-        this.notification = notification;
-        this.isClosing = false; // Reset closing state when new notification appears
-        this.cdr.markForCheck();
-      });
+    this.notificationService.notification$.pipe(takeUntil(this.destroy$)).subscribe((notification) => {
+      this.notification = notification;
+      this.isClosing = false; // Reset closing state when new notification appears
+      this.cdr.markForCheck();
+    });
 
     // Listen for hide trigger
-    this.notificationService.hide$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(shouldHide => {
-        if (shouldHide) {
-          this.close();
-        }
-      });
+    this.notificationService.hide$.pipe(takeUntil(this.destroy$)).subscribe((shouldHide) => {
+      if (shouldHide) {
+        this.close();
+      }
+    });
   }
 
   ngOnDestroy() {

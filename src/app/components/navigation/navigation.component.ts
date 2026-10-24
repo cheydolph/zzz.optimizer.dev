@@ -13,7 +13,7 @@ import { fadeIn } from '../../animations/route-animations';
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [fadeIn]
+  animations: [fadeIn],
 })
 export class NavigationComponent implements OnInit, OnDestroy {
   showWhatsNewBadge = false;
@@ -22,20 +22,18 @@ export class NavigationComponent implements OnInit, OnDestroy {
   constructor(
     private swUpdateService: SwUpdateService,
     private cdr: ChangeDetectorRef,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
     // Subscribe to update availability
-    this.swUpdateService.updateAvailable
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(available => {
-        if (available) {
-          // Show badge when update is available
-          this.showWhatsNewBadge = true;
-          this.cdr.markForCheck();
-        }
-      });
+    this.swUpdateService.updateAvailable.pipe(takeUntil(this.destroy$)).subscribe((available) => {
+      if (available) {
+        // Show badge when update is available
+        this.showWhatsNewBadge = true;
+        this.cdr.markForCheck();
+      }
+    });
 
     // Check if there's a new version the user hasn't seen yet
     this.checkForUnseenVersion();
@@ -43,8 +41,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
     // Re-check badge status after every navigation (e.g., after visiting What's New page)
     this.router.events
       .pipe(
-        filter(event => event instanceof NavigationEnd),
-        takeUntil(this.destroy$)
+        filter((event) => event instanceof NavigationEnd),
+        takeUntil(this.destroy$),
       )
       .subscribe(() => {
         this.checkForUnseenVersion();

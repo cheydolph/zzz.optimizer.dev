@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-skeleton-loader',
   imports: [CommonModule],
   templateUrl: './skeleton-loader.component.html',
-  styleUrl: './skeleton-loader.component.css'
+  styleUrl: './skeleton-loader.component.css',
 })
 export class SkeletonLoaderComponent {
   @Input() type: 'text' | 'card' | 'circle' | 'rect' = 'text';
@@ -24,7 +24,7 @@ export class SkeletonLoaderComponent {
       text: 'skeleton-text',
       card: 'skeleton-card',
       circle: 'rounded-full',
-      rect: ''
+      rect: '',
     };
 
     return `${baseClass} ${typeClasses[this.type]} ${this.className}`;

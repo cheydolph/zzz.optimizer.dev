@@ -14,10 +14,10 @@ export interface ExportData {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BuildImportExportService {
-  private readonly EXPORT_VERSION = '3.0';  // Updated for disc loadouts
+  private readonly EXPORT_VERSION = '3.0'; // Updated for disc loadouts
 
   // Version history:
   // 1.0 - Initial version (basic builds and discs)
@@ -27,8 +27,8 @@ export class BuildImportExportService {
   constructor(
     private buildService: BuildService,
     private discService: DiscService,
-    private discLoadoutService: DiscLoadoutService
-  ) { }
+    private discLoadoutService: DiscLoadoutService,
+  ) {}
 
   /**
    * Export all builds, discs, and loadouts to JSON
@@ -43,7 +43,7 @@ export class BuildImportExportService {
       exportDate: new Date().toISOString(),
       builds: builds,
       discs: discs,
-      loadouts: loadouts
+      loadouts: loadouts,
     };
 
     return JSON.stringify(exportData, null, 2);
@@ -69,7 +69,16 @@ export class BuildImportExportService {
   /**
    * Import builds from JSON data
    */
-  async importBuilds(jsonData: string, replaceExisting: boolean = false): Promise<{ success: boolean; message: string; buildsImported: number; discsImported: number; loadoutsImported: number }> {
+  async importBuilds(
+    jsonData: string,
+    replaceExisting: boolean = false,
+  ): Promise<{
+    success: boolean;
+    message: string;
+    buildsImported: number;
+    discsImported: number;
+    loadoutsImported: number;
+  }> {
     try {
       const data: ExportData = JSON.parse(jsonData);
 
@@ -81,12 +90,12 @@ export class BuildImportExportService {
           message: `Invalid import file: ${validation.message}`,
           buildsImported: 0,
           discsImported: 0,
-          loadoutsImported: 0
+          loadoutsImported: 0,
         };
       }
 
       // Check version compatibility
-      const fileVersion = data.version || '1.0';  // Default to 1.0 for old files
+      const fileVersion = data.version || '1.0'; // Default to 1.0 for old files
       const compatibilityCheck = this.checkVersionCompatibility(fileVersion);
 
       if (!compatibilityCheck.compatible) {
@@ -95,7 +104,7 @@ export class BuildImportExportService {
           message: compatibilityCheck.message,
           buildsImported: 0,
           discsImported: 0,
-          loadoutsImported: 0
+          loadoutsImported: 0,
         };
       }
 
@@ -158,9 +167,7 @@ export class BuildImportExportService {
         }
       }
 
-      const versionWarning = fileVersion !== this.EXPORT_VERSION
-        ? ` (migrated from version ${fileVersion})`
-        : '';
+      const versionWarning = fileVersion !== this.EXPORT_VERSION ? ` (migrated from version ${fileVersion})` : '';
 
       const loadoutMessage = loadoutsImported > 0 ? `, ${loadoutsImported} loadouts` : '';
 
@@ -169,7 +176,7 @@ export class BuildImportExportService {
         message: `Successfully imported ${buildsImported} builds, ${discsImported} discs${loadoutMessage}${versionWarning}`,
         buildsImported,
         discsImported,
-        loadoutsImported
+        loadoutsImported,
       };
     } catch (error) {
       return {
@@ -177,7 +184,7 @@ export class BuildImportExportService {
         message: `Import failed: ${error instanceof Error ? error.message : 'Unknown error'}`,
         buildsImported: 0,
         discsImported: 0,
-        loadoutsImported: 0
+        loadoutsImported: 0,
       };
     }
   }
@@ -186,7 +193,7 @@ export class BuildImportExportService {
    * Check if the import file version is compatible with the current app version
    */
   private checkVersionCompatibility(fileVersion: string): { compatible: boolean; message: string } {
-    const supportedVersions = ['1.0', '2.0', '3.0'];  // List of versions we can import
+    const supportedVersions = ['1.0', '2.0', '3.0']; // List of versions we can import
 
     // Parse version numbers for comparison
     const parseVersion = (version: string): number => {
@@ -203,14 +210,14 @@ export class BuildImportExportService {
       if (fileVersionNum > currentVersionNum) {
         return {
           compatible: false,
-          message: `Import file is from a newer version (${fileVersion}). Please update ZZZ Optimizer to import this file.`
+          message: `Import file is from a newer version (${fileVersion}). Please update ZZZ Optimizer to import this file.`,
         };
       }
 
       // Unknown/unsupported version
       return {
         compatible: false,
-        message: `Unsupported import file version (${fileVersion}). Supported versions: ${supportedVersions.join(', ')}`
+        message: `Unsupported import file version (${fileVersion}). Supported versions: ${supportedVersions.join(', ')}`,
       };
     }
 
@@ -219,14 +226,14 @@ export class BuildImportExportService {
       // Older version - will be migrated
       return {
         compatible: true,
-        message: `Import file will be migrated from version ${fileVersion} to ${this.EXPORT_VERSION}`
+        message: `Import file will be migrated from version ${fileVersion} to ${this.EXPORT_VERSION}`,
       };
     }
 
     // Same version
     return {
       compatible: true,
-      message: 'Import file version matches current version'
+      message: 'Import file version matches current version',
     };
   }
 
@@ -310,12 +317,12 @@ export class BuildImportExportService {
    * Migrate data from older versions to current format
    */
   private migrateData(data: ExportData, fromVersion: string): ExportData {
-    let migratedData = { ...data };
+    const migratedData = { ...data };
 
     // Migrate from version 1.0 to 2.0
     if (fromVersion === '1.0') {
       // Ensure all builds have wEngineRefinement field (default to 1)
-      migratedData.builds = migratedData.builds.map(build => {
+      migratedData.builds = migratedData.builds.map((build) => {
         if (build.wEngineRefinement === undefined) {
           build.wEngineRefinement = 1;
         }
@@ -323,7 +330,7 @@ export class BuildImportExportService {
       });
 
       // Ensure W-Engines have the new properties structure
-      migratedData.builds = migratedData.builds.map(build => {
+      migratedData.builds = migratedData.builds.map((build) => {
         if (build.equippedWEngine && !build.equippedWEngine.effect.properties) {
           // Old W-Engine format - properties will be added when reference data is loaded
         }
@@ -340,7 +347,7 @@ export class BuildImportExportService {
       }
 
       // Ensure all builds have the new optional fields with defaults
-      migratedData.builds = migratedData.builds.map(build => {
+      migratedData.builds = migratedData.builds.map((build) => {
         // enabledDiscs defaults to all enabled (true for all slots)
         if (build.enabledDiscs === undefined) {
           build.enabledDiscs = {};

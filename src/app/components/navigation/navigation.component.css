@@ -1,29 +1,22 @@
 .navbar {
   background: linear-gradient(180deg, #1a1a1a 0%, #151515 100%);
-  border-bottom: 2px solid #F4B942;
-  position: sticky;
-  top: 0;
+  border-bottom: 2px solid #f4b942;
+  position: relative;
   z-index: 100;
   box-shadow:
     0 2px 8px rgba(0, 0, 0, 0.3),
     0 4px 20px rgba(244, 185, 66, 0.15),
     inset 0 -1px 0 rgba(244, 185, 66, 0.3);
-  position: relative;
 }
 
 .navbar::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -2px;
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg,
-    transparent 0%,
-    #F4B942 20%,
-    #FFD666 50%,
-    #F4B942 80%,
-    transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, #f4b942 20%, #ffd666 50%, #f4b942 80%, transparent 100%);
   box-shadow: 0 0 10px rgba(244, 185, 66, 0.6);
 }
 
@@ -44,7 +37,7 @@
 }
 
 .site-title-link:hover .site-title {
-  color: #FFD666;
+  color: #ffd666;
   text-shadow:
     0 0 15px rgba(244, 185, 66, 0.7),
     0 0 25px rgba(244, 185, 66, 0.4),
@@ -53,7 +46,7 @@
 }
 
 .nav-brand .site-title {
-  color: #F4B942;
+  color: #f4b942;
   font-size: 1.5em;
   margin: 0;
   font-weight: 700;
@@ -73,11 +66,11 @@
 
 .nav-brand::before,
 .nav-brand::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 12px;
   height: 12px;
-  border: 2px solid #F4B942;
+  border: 2px solid #f4b942;
   opacity: 0.6;
 }
 
@@ -119,13 +112,13 @@
 }
 
 .nav-link::before {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 50%;
   width: 0;
   height: 2px;
-  background: linear-gradient(90deg, transparent, #F4B942, transparent);
+  background: linear-gradient(90deg, transparent, #f4b942, transparent);
   transform: translateX(-50%);
   transition: width 0.3s ease;
   box-shadow: 0 0 8px rgba(244, 185, 66, 0.8);
@@ -144,8 +137,8 @@
 
 .nav-link:hover {
   background: #2a2a2a;
-  color: #FFD666;
-  border-color: #F4B942;
+  color: #ffd666;
+  border-color: #f4b942;
   transform: translateY(-1px);
   box-shadow:
     0 4px 8px rgba(0, 0, 0, 0.3),
@@ -162,9 +155,9 @@
 }
 
 .nav-link.active {
-  background: linear-gradient(135deg, #F4B942 0%, #CA8A04 100%);
+  background: linear-gradient(135deg, #f4b942 0%, #ca8a04 100%);
   color: #0a0a0a;
-  border-color: #F4B942;
+  border-color: #f4b942;
   box-shadow:
     0 4px 8px rgba(0, 0, 0, 0.3),
     0 0 20px rgba(244, 185, 66, 0.6),
@@ -174,7 +167,7 @@
 
 .nav-link.active::before {
   width: 90%;
-  background: linear-gradient(90deg, transparent, #FFD666, transparent);
+  background: linear-gradient(90deg, transparent, #ffd666, transparent);
 }
 
 .nav-link.active .nav-icon {
@@ -182,8 +175,8 @@
 }
 
 .nav-link.active:hover {
-  background: #FFD666;
-  border-color: #FFD666;
+  background: #ffd666;
+  border-color: #ffd666;
 }
 
 /* Badge for What's New notification */
@@ -200,7 +193,8 @@
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
     transform: scale(1);
   }

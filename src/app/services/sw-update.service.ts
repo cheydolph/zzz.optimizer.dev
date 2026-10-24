@@ -12,7 +12,7 @@ import { DbService } from './db.service';
  * Shows update notification button instead of auto-reloading
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SwUpdateService implements OnDestroy {
   private destroy$ = new Subject<void>();
@@ -41,7 +41,7 @@ export class SwUpdateService implements OnDestroy {
   constructor(
     private swUpdate: SwUpdate,
     private appRef: ApplicationRef,
-    private db: DbService
+    private db: DbService,
   ) {}
 
   /**
@@ -65,43 +65,41 @@ export class SwUpdateService implements OnDestroy {
     }
 
     // Wait for app to become stable, then start 30-minute interval checks
-    const appIsStable$ = this.appRef.isStable.pipe(
-      first(isStable => isStable === true)
-    );
+    const appIsStable$ = this.appRef.isStable.pipe(first((isStable) => isStable === true));
 
     // Start 30-minute interval AFTER app is stable (no immediate check on page load)
-    appIsStable$.pipe(
-      takeUntil(this.destroy$),
-      switchMap(() => {
-        const timestamp = new Date().toLocaleTimeString();
-        console.log(`[SW Update] ${timestamp} - App is stable - starting 30-minute update check interval`);
-        // Only start the interval, don't check immediately on page load
-        return interval(30 * 60 * 1000);
-      }),
-      switchMap(() => {
-        // Check for new version by comparing server and installed timestamps
-        const timestamp = new Date().toLocaleTimeString();
-        console.log(`[SW Update] ${timestamp} - Update check triggered (30min interval)`);
-        return this.bustCacheAndCheckForUpdate();
-      })
-    ).subscribe({
-      next: (updateFound) => {
-        const timestamp = new Date().toLocaleTimeString();
-        if (updateFound) {
-          console.log(`[SW Update] ${timestamp} - ✅ New version available`);
-        } else {
-          console.log(`[SW Update] ${timestamp} - ℹ️ App is up to date`);
-        }
-      },
-      error: (err) => {
-        console.error('[SW Update] Failed to check for updates:', err);
-      }
-    });
+    appIsStable$
+      .pipe(
+        takeUntil(this.destroy$),
+        switchMap(() => {
+          const timestamp = new Date().toLocaleTimeString();
+          console.log(`[SW Update] ${timestamp} - App is stable - starting 30-minute update check interval`);
+          // Only start the interval, don't check immediately on page load
+          return interval(30 * 60 * 1000);
+        }),
+        switchMap(() => {
+          // Check for new version by comparing server and installed timestamps
+          const timestamp = new Date().toLocaleTimeString();
+          console.log(`[SW Update] ${timestamp} - Update check triggered (30min interval)`);
+          return this.bustCacheAndCheckForUpdate();
+        }),
+      )
+      .subscribe({
+        next: (updateFound) => {
+          const timestamp = new Date().toLocaleTimeString();
+          if (updateFound) {
+            console.log(`[SW Update] ${timestamp} - ✅ New version available`);
+          } else {
+            console.log(`[SW Update] ${timestamp} - ℹ️ App is up to date`);
+          }
+        },
+        error: (err) => {
+          console.error('[SW Update] Failed to check for updates:', err);
+        },
+      });
 
     // Listen for version update events
-    this.swUpdate.versionUpdates.pipe(
-      takeUntil(this.destroy$)
-    ).subscribe(async evt => {
+    this.swUpdate.versionUpdates.pipe(takeUntil(this.destroy$)).subscribe(async (evt) => {
       if (evt.type === 'VERSION_READY') {
         // Check localStorage flag to see if we're expecting an update
         const expectingUpdate = localStorage.getItem(this.EXPECTING_UPDATE_KEY) === 'true';
@@ -156,7 +154,9 @@ export class SwUpdateService implements OnDestroy {
         // Retry after delay to give GitHub Pages CDN time to propagate all files
         if (this.updateRetryCount < this.MAX_UPDATE_RETRIES) {
           this.updateRetryCount++;
-          console.log(`[SW Update] Retrying in 10 seconds (attempt ${this.updateRetryCount}/${this.MAX_UPDATE_RETRIES})...`);
+          console.log(
+            `[SW Update] Retrying in 10 seconds (attempt ${this.updateRetryCount}/${this.MAX_UPDATE_RETRIES})...`,
+          );
 
           setTimeout(() => {
             console.log('[SW Update] Retry attempt starting now');
@@ -185,19 +185,16 @@ export class SwUpdateService implements OnDestroy {
           // Show the update button since our manual check found a new version
           this.updateAvailable$.next(true);
         } else {
-          console.log('[SW Update] Not clearing update button (if showing, it\'s legitimate)');
+          console.log("[SW Update] Not clearing update button (if showing, it's legitimate)");
         }
       }
     });
 
     // Listen for unrecoverable state
-    this.swUpdate.unrecoverable.pipe(
-      takeUntil(this.destroy$)
-    ).subscribe(event => {
+    this.swUpdate.unrecoverable.pipe(takeUntil(this.destroy$)).subscribe((event) => {
       console.error('Service Worker unrecoverable state:', event.reason);
       this.notifyUnrecoverableState(
-        'An error occurred that cannot be recovered from.\n' +
-        'Please reload the page to continue.'
+        'An error occurred that cannot be recovered from.\n' + 'Please reload the page to continue.',
       );
     });
   }
@@ -269,8 +266,8 @@ export class SwUpdateService implements OnDestroy {
         cache: 'no-store',
         headers: {
           'Cache-Control': 'no-cache, no-store, must-revalidate',
-          'Pragma': 'no-cache'
-        }
+          Pragma: 'no-cache',
+        },
       });
 
       if (!response.ok) {
@@ -491,7 +488,7 @@ export class SwUpdateService implements OnDestroy {
 
         // Clear all caches
         const cacheNames = await caches.keys();
-        await Promise.all(cacheNames.map(name => caches.delete(name)));
+        await Promise.all(cacheNames.map((name) => caches.delete(name)));
         console.log('[SW Update] Cleared all caches');
 
         // Remove the marker and reload
@@ -585,7 +582,7 @@ export class SwUpdateService implements OnDestroy {
 
       // Clear ALL caches (including broken SW caches)
       const cacheNames = await caches.keys();
-      await Promise.all(cacheNames.map(name => caches.delete(name)));
+      await Promise.all(cacheNames.map((name) => caches.delete(name)));
       console.log('[SW Update] ✓ Cleared all caches');
 
       // Clear the installed timestamp so we start fresh
@@ -626,9 +623,8 @@ export class SwUpdateService implements OnDestroy {
       if ('caches' in window) {
         const cacheNames = await caches.keys();
         console.log('[SW Update] Clearing browser caches:', cacheNames);
-        await Promise.all(cacheNames.map(name => caches.delete(name)));
+        await Promise.all(cacheNames.map((name) => caches.delete(name)));
       }
-
     } catch (err) {
       console.error('[SW Update] Failed to prepare update:', err);
     }

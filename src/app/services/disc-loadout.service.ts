@@ -9,7 +9,7 @@ import { Disc } from '../models/disc.model';
  * Allows users to save and load disc configurations per agent
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DiscLoadoutService {
   private loadoutsSubject = new BehaviorSubject<DiscLoadout[]>([]);
@@ -87,7 +87,7 @@ export class DiscLoadoutService {
     }
 
     // Filter and cache result
-    const loadouts = this.loadoutsSubject.value.filter(l => l.agentId === agentId);
+    const loadouts = this.loadoutsSubject.value.filter((l) => l.agentId === agentId);
     this.loadoutsByAgentCache.set(agentId, loadouts);
     return loadouts;
   }
@@ -96,7 +96,7 @@ export class DiscLoadoutService {
    * Get a specific loadout by ID
    */
   getLoadoutById(id: string): DiscLoadout | undefined {
-    return this.loadoutsSubject.value.find(l => l.id === id);
+    return this.loadoutsSubject.value.find((l) => l.id === id);
   }
 
   /**
@@ -138,7 +138,7 @@ export class DiscLoadoutService {
       agentId: agentId,
       equippedDiscs: { ...equippedDiscs }, // Deep copy
       createdAt: new Date(),
-      updatedAt: new Date()
+      updatedAt: new Date(),
     };
 
     // Add to loadouts array
@@ -158,7 +158,7 @@ export class DiscLoadoutService {
    */
   updateLoadout(id: string, updates: Partial<DiscLoadout>): DiscLoadout | null {
     const loadouts = this.loadoutsSubject.value;
-    const index = loadouts.findIndex(l => l.id === id);
+    const index = loadouts.findIndex((l) => l.id === id);
 
     if (index === -1) {
       console.warn('[DiscLoadoutService] Loadout not found:', id);
@@ -169,7 +169,7 @@ export class DiscLoadoutService {
     const updatedLoadout = {
       ...loadouts[index],
       ...updates,
-      updatedAt: new Date()
+      updatedAt: new Date(),
     };
 
     // Update array
@@ -188,7 +188,7 @@ export class DiscLoadoutService {
    */
   deleteLoadout(id: string): boolean {
     const loadouts = this.loadoutsSubject.value;
-    const loadout = loadouts.find(l => l.id === id);
+    const loadout = loadouts.find((l) => l.id === id);
 
     if (!loadout) {
       console.warn('[DiscLoadoutService] Loadout not found:', id);
@@ -196,7 +196,7 @@ export class DiscLoadoutService {
     }
 
     // Remove from array
-    const newLoadouts = loadouts.filter(l => l.id !== id);
+    const newLoadouts = loadouts.filter((l) => l.id !== id);
     this.loadoutsSubject.next(newLoadouts);
     this.saveLoadouts();
 
@@ -211,7 +211,10 @@ export class DiscLoadoutService {
    * Validate a loadout - check if all discs still exist in the provided disc inventory
    * Returns object with validation results and list of missing disc slots
    */
-  validateLoadout(loadout: DiscLoadout, availableDiscs: Disc[]): {
+  validateLoadout(
+    loadout: DiscLoadout,
+    availableDiscs: Disc[],
+  ): {
     isValid: boolean;
     missingSlots: string[];
     availableSlots: string[];
@@ -220,7 +223,7 @@ export class DiscLoadoutService {
     const availableSlots: string[] = [];
 
     // Create a Set of available disc UIDs for quick lookup
-    const availableDiscUids = new Set(availableDiscs.map(d => d.uid));
+    const availableDiscUids = new Set(availableDiscs.map((d) => d.uid));
 
     // Check each disc in the loadout
     Object.entries(loadout.equippedDiscs).forEach(([slot, disc]) => {
@@ -234,7 +237,7 @@ export class DiscLoadoutService {
     return {
       isValid: missingSlots.length === 0,
       missingSlots,
-      availableSlots
+      availableSlots,
     };
   }
 
@@ -258,7 +261,7 @@ export class DiscLoadoutService {
       }
 
       // Validate loadout structure
-      const validLoadouts = loadouts.filter(loadout => {
+      const validLoadouts = loadouts.filter((loadout) => {
         return loadout.id && loadout.name && loadout.agentId && loadout.equippedDiscs;
       });
 
@@ -274,7 +277,7 @@ export class DiscLoadoutService {
 
       // Merge with existing loadouts (avoid duplicates)
       const existingLoadouts = this.loadoutsSubject.value;
-      const existingIds = new Set(existingLoadouts.map(l => l.id));
+      const existingIds = new Set(existingLoadouts.map((l) => l.id));
       const newLoadouts = validLoadouts.filter((l: DiscLoadout) => !existingIds.has(l.id));
 
       if (newLoadouts.length === 0) {
@@ -308,7 +311,7 @@ export class DiscLoadoutService {
 
     // Check if loadout already exists
     const existingLoadouts = this.loadoutsSubject.value;
-    const existingIndex = existingLoadouts.findIndex(l => l.id === loadout.id);
+    const existingIndex = existingLoadouts.findIndex((l) => l.id === loadout.id);
 
     if (existingIndex >= 0) {
       // Update existing loadout
@@ -341,7 +344,7 @@ export class DiscLoadoutService {
    */
   deleteAllLoadoutsByAgentId(agentId: string): number {
     const loadouts = this.loadoutsSubject.value;
-    const filtered = loadouts.filter(l => l.agentId !== agentId);
+    const filtered = loadouts.filter((l) => l.agentId !== agentId);
     const deletedCount = loadouts.length - filtered.length;
 
     if (deletedCount > 0) {

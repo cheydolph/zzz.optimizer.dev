@@ -10,7 +10,7 @@ export interface EnemyProfile {
   def: number;
   res: number;
   hp: number;
-  dazeGauge: number;  // Relative gauge length (0.5 = fills 2x faster, 1.0 = baseline)
+  dazeGauge: number; // Relative gauge length (0.5 = fills 2x faster, 1.0 = baseline)
 }
 
 /**
@@ -25,31 +25,31 @@ export const ENEMY_PROFILES: EnemyProfile[] = [
   {
     name: 'Trash Mob',
     def: 700,
-    res: 0.10,
+    res: 0.1,
     hp: 700000,
-    dazeGauge: 0.50
+    dazeGauge: 0.5,
   },
   {
     name: 'Elite',
     def: 760,
     res: 0.15,
     hp: 900000,
-    dazeGauge: 0.75
+    dazeGauge: 0.75,
   },
   {
     name: 'Boss',
     def: 955,
-    res: 0.20,
+    res: 0.2,
     hp: 8000000,
-    dazeGauge: 1.00
+    dazeGauge: 1.0,
   },
   {
     name: 'Miasma Boss',
     def: 955,
-    res: 0.20,
+    res: 0.2,
     hp: 12000000,
-    dazeGauge: 1.00
-  }
+    dazeGauge: 1.0,
+  },
 ];
 
 /**
@@ -57,8 +57,8 @@ export const ENEMY_PROFILES: EnemyProfile[] = [
  * Bosses weighted higher since optimization matters most for endgame content
  */
 export const ENEMY_WEIGHTS = {
-  'Trash Mob': 0.10,      // 10% - Easy content, less important
-  'Elite': 0.25,          // 25% - Moderate content
-  'Boss': 0.40,           // 40% - Most important (Shiyu Defense, etc.)
-  'Miasma Boss': 0.25     // 25% - Endgame content
+  'Trash Mob': 0.1, // 10% - Easy content, less important
+  Elite: 0.25, // 25% - Moderate content
+  Boss: 0.4, // 40% - Most important (Shiyu Defense, etc.)
+  'Miasma Boss': 0.25, // 25% - Endgame content
 };
