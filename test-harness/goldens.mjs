@@ -6,17 +6,12 @@ import { join } from 'node:path';
 import {
   REPO_ROOT,
   SYNTHETIC_DIR,
-  compareTrees,
+  computeSyntheticOutputs,
+  diffSyntheticGoldens,
   findUnrepresentable,
-  listJsonFiles,
-  readJson,
-  runCase,
   setup,
-  toGoldenForm,
-  withQuietConsole,
 } from './lib.mjs';
 
-const WENGINES_FILE = 'wengines.json';
 const MAX_PRINTED_DIFFS = 200;
 const write = process.argv.includes('--write');
 const fixturesDir = argValue('--fixtures') ?? join(SYNTHETIC_DIR, 'fixtures');
@@ -31,43 +26,9 @@ const started = performance.now();
 const ctx = await setup();
 const setupMs = performance.now() - started;
 
-const fixtureFiles = listJsonFiles(fixturesDir);
-if (fixtureFiles.length === 0) {
-  console.error(`No fixtures in ${fixturesDir}`);
-  process.exit(1);
-}
-
-// Computed output files keyed by file name. Each value is the raw object (before JSON) so that
-// -0, NaN, and Infinity can still be detected.
-const computed = new Map();
-computed.set(WENGINES_FILE, { wEngines: ctx.wEngines });
-let caseCount = 0;
-const consoleCounts = {};
 const runStarted = performance.now();
-for (const file of fixtureFiles) {
-  const fixture = readJson(join(fixturesDir, file));
-  const agent = ctx.agentsById.get(fixture.agentId);
-  if (!agent) throw new Error(`${file}: agent ${fixture.agentId} is not in agents.json`);
-  const cases = {};
-  for (const c of fixture.cases) {
-    // Fresh copies per case: the app reads the agent from IndexedDB and the build from localStorage JSON.
-    const wEngine = c.build.equippedWEngineId ? ctx.wEnginesById.get(c.build.equippedWEngineId) : undefined;
-    if (c.build.equippedWEngineId && !wEngine) throw new Error(`${file} ${c.id}: unknown W-Engine ${c.build.equippedWEngineId}`);
-    const { equippedWEngineId, ...build } = c.build;
-    build.equippedWEngine = wEngine ? toGoldenForm(wEngine) : undefined;
-    const { result, counts } = withQuietConsole(() => runCase(ctx, structuredClone(agent), build, c.plan));
-    for (const [level, n] of Object.entries(counts)) consoleCounts[level] = (consoleCounts[level] ?? 0) + n;
-    cases[c.id] = result;
-    caseCount++;
-  }
-  computed.set(file, { agentId: fixture.agentId, agent, cases });
-}
+const { computed, caseCount, consoleCounts } = computeSyntheticOutputs(ctx, fixturesDir);
 const runMs = performance.now() - runStarted;
-
-const unrepresentable = [];
-for (const [file, value] of computed) {
-  for (const hit of findUnrepresentable(value)) unrepresentable.push(`${file} ${hit}`);
-}
 
 const timing = `setup ${Math.round(setupMs)} ms, ${caseCount} cases in ${Math.round(runMs)} ms`;
 const quiet = Object.entries(consoleCounts)
@@ -76,6 +37,10 @@ const quiet = Object.entries(consoleCounts)
   .join(', ');
 
 if (write) {
+  const unrepresentable = [];
+  for (const [file, value] of computed) {
+    for (const hit of findUnrepresentable(value)) unrepresentable.push(`${file} ${hit}`);
+  }
   if (unrepresentable.length > 0) {
     console.error(`Outputs contain values JSON cannot store exactly:\n${unrepresentable.join('\n')}`);
     process.exit(1);
@@ -87,18 +52,7 @@ if (write) {
   process.exit(0);
 }
 
-const diffs = unrepresentable.map((hit) => `${hit}: not representable in a golden`);
-const goldenFiles = new Set(listJsonFiles(goldensDir));
-for (const [file, value] of computed) {
-  if (!goldenFiles.has(file)) {
-    diffs.push(`${file}: golden file missing`);
-    continue;
-  }
-  for (const d of compareTrees(readJson(join(goldensDir, file)), toGoldenForm(value))) diffs.push(`${file} ${d}`);
-  goldenFiles.delete(file);
-}
-for (const file of goldenFiles) diffs.push(`${file}: golden file has no fixture`);
-
+const diffs = diffSyntheticGoldens(computed, goldensDir);
 if (diffs.length > 0) {
   console.error(diffs.slice(0, MAX_PRINTED_DIFFS).join('\n'));
   if (diffs.length > MAX_PRINTED_DIFFS) {

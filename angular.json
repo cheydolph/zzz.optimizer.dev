@@ -106,6 +106,15 @@
                   "maximumError": "100kB"
                 }
               ]
+            },
+            "test": {
+              "assets": [],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "test-harness/stubs/environment.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -126,22 +135,10 @@
           "builder": "@angular/build:extract-i18n"
         },
         "test": {
-          "builder": "@angular/build:karma",
+          "builder": "@angular/build:unit-test",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
-            "tsConfig": "tsconfig.spec.json",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              },
-              "src/assets"
-            ],
-            "styles": ["src/styles.css"],
-            "scripts": []
+            "buildTarget": "zzz.optimizer:build:development,test",
+            "tsConfig": "tsconfig.spec.json"
           }
         },
         "deploy": {

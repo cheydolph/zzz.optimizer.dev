@@ -5,7 +5,17 @@
 // Usage: node test-harness/local-data.mjs [--write] [--dir <dir>]
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { LOCAL_DIR, compareTrees, findUnrepresentable, listJsonFiles, readJson, runCase, setup, toGoldenForm, withQuietConsole } from './lib.mjs';
+import {
+  LOCAL_DIR,
+  compareTrees,
+  computeLocalOutputs,
+  findUnrepresentable,
+  listJsonFiles,
+  readJson,
+  readLocalPlans,
+  setup,
+  toGoldenForm,
+} from './lib.mjs';
 
 const write = process.argv.includes('--write');
 const dirArg = process.argv.indexOf('--dir');
@@ -21,26 +31,14 @@ if (buildFiles.length === 0) {
 }
 
 const ctx = await setup();
-const plansById = new Map();
-for (const file of exportFiles.filter((f) => f.startsWith('plans-'))) {
-  for (const plan of readJson(join(exportsDir, file)).upgradePlans ?? []) plansById.set(plan.id, plan);
-}
+const plansById = readLocalPlans(exportsDir, exportFiles);
 
 const diffs = [];
 const notRecorded = [];
 let buildCount = 0;
 for (const file of buildFiles) {
-  const outputs = {};
-  for (const build of readJson(join(exportsDir, file)).builds ?? []) {
-    const agent = ctx.agentsById.get(build.agentId);
-    if (!agent) {
-      outputs[build.id] = { error: `agent ${build.agentId} is not in agents.json` };
-      continue;
-    }
-    const plan = build.activeUpgradePlanId ? plansById.get(build.activeUpgradePlanId) : undefined;
-    outputs[build.id] = withQuietConsole(() => runCase(ctx, structuredClone(agent), build, plan)).result;
-    buildCount++;
-  }
+  const { outputs, buildCount: count } = computeLocalOutputs(ctx, exportsDir, file, plansById);
+  buildCount += count;
   for (const hit of findUnrepresentable(outputs)) diffs.push(`${file} ${hit}: not representable in a golden`);
   const goldenPath = join(goldensDir, file);
   if (write) {
