@@ -9,7 +9,6 @@ import { fadeIn } from '../../animations/route-animations';
 
 @Component({
   selector: 'app-navigation',
-  standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.css'],

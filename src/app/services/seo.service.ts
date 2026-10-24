@@ -1,6 +1,6 @@
 // services/seo.service.ts
-import { Injectable, Inject } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { Injectable, Inject, DOCUMENT } from '@angular/core';
+
 
 /**
  * SEO Service for managing structured data and meta tags

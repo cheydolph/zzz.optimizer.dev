@@ -13,7 +13,6 @@ import { MAIN_STAT_BY_SLOT } from '../../constants/main-stat-possibilities';
 
 @Component({
   selector: 'app-upgrade-plans',
-  standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './upgrade-plans.component.html',
   styleUrls: ['./upgrade-plans.component.css'],

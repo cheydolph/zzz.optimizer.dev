@@ -5,7 +5,6 @@ import { version } from '../../../../package.json';
 
 @Component({
   selector: 'app-footer',
-  standalone: true,
   imports: [CommonModule, RouterLink],
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.css'],

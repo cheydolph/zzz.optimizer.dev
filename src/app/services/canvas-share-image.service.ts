@@ -1676,7 +1676,7 @@ export class CanvasShareImageService {
 
     // Common stat icons that appear in most builds
     const commonStatIcons = [
-      'HP', 'ATK', 'DEF', 'HP_', 'ATK_', 'DEF_',
+      'HP', 'ATK', 'DEF',
       'CRIT_Rate', 'CRIT_DMG', 'PEN_Ratio',
       'Energy_Regen', 'Anomaly_Proficiency',
       'Impact', 'Anomaly_Mastery'

@@ -7,7 +7,6 @@ import { trigger, transition, style, animate, state } from '@angular/animations'
   imports: [CommonModule],
   templateUrl: './loading-overlay.component.html',
   styleUrl: './loading-overlay.component.css',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('slideOut', [

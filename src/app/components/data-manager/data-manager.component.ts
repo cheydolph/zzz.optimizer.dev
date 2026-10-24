@@ -7,7 +7,6 @@ import { BuildImportExportService } from '../../services/build-import-export.ser
 
 @Component({
   selector: 'app-data-manager',
-  standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './data-manager.component.html',
   styleUrls: ['./data-manager.component.css'],

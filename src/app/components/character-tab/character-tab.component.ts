@@ -71,7 +71,6 @@ interface MindscapeData {
 
 @Component({
   selector: 'app-character-tab',
-  standalone: true,
   imports: [
     CommonModule,
     FormsModule,

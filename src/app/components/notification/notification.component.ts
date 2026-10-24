@@ -10,7 +10,6 @@ import { slideInRight } from '../../animations/route-animations';
   imports: [CommonModule],
   templateUrl: './notification.component.html',
   styleUrl: './notification.component.css',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [slideInRight]
 })

@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-optimizer',
-  standalone: true,
   imports: [CommonModule],
   templateUrl: './optimizer.component.html',
   styleUrls: ['./optimizer.component.css'],

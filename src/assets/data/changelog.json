@@ -8,7 +8,8 @@
         "Your saved disc loadouts are no longer deleted when the app updates"
       ],
       "improvements": [
-        "Added automated checks so agent stats, disc scores, and build ratings don't change unexpectedly in future updates"
+        "Added automated checks so agent stats, disc scores, and build ratings don't change unexpectedly in future updates",
+        "Updated the app's framework and removed unused code"
       ]
     },
     {
