@@ -53,7 +53,7 @@ export class DiscService {
     }
   }
 
-  private async loadDiscsFromDb(): Promise<void> {
+  async loadDiscsFromDb(): Promise<void> {
     // Only run in browser
     if (!isPlatformBrowser(this.platformId)) {
       this.discsSubject.next([]);
@@ -134,22 +134,22 @@ export class DiscService {
     return this.discsSubject.value.filter((d) => d.equippedBy === agentId);
   }
 
-  equipDisc(uid: string, agentId: string): void {
+  async equipDisc(uid: string, agentId: string): Promise<void> {
     const disc = this.getDiscById(uid);
     if (disc) {
       // Unequip any disc in the same slot from this agent
       const sameSlotDisc = this.getDiscsEquippedBy(agentId).find((d) => d.slot === disc.slot);
       if (sameSlotDisc) {
-        this.updateDisc(sameSlotDisc.uid, { equippedBy: undefined });
+        await this.updateDisc(sameSlotDisc.uid, { equippedBy: undefined });
       }
 
       // Equip the new disc
-      this.updateDisc(uid, { equippedBy: agentId });
+      await this.updateDisc(uid, { equippedBy: agentId });
     }
   }
 
-  unequipDisc(uid: string): void {
-    this.updateDisc(uid, { equippedBy: undefined });
+  async unequipDisc(uid: string): Promise<void> {
+    await this.updateDisc(uid, { equippedBy: undefined });
   }
 
   // Legacy scoring methods removed - now handled by ScoringService
@@ -170,11 +170,9 @@ export class DiscService {
   }
 
   async clearAllDiscs(): Promise<void> {
-    // Clear from database
-    const allDiscs = this.discsSubject.value;
-    for (const disc of allDiscs) {
-      await this.db.deleteDisc(disc.uid);
-    }
+    // Clear the whole table, including discs not loaded into memory yet
+    await this.db.discs.clear();
+    this.rebuildIndexes([]);
     this.discsSubject.next([]);
   }
 }

@@ -65,7 +65,7 @@
           <div class="import-options">
             <label>
               <input type="checkbox" [(ngModel)]="replaceExisting">
-              Replace existing builds, discs, and loadouts (will clear current data)
+              Replace existing data (clears current builds, discs, and loadouts, plus upgrade plans and share image settings if the file includes them)
             </label>
           </div>
           <div class="button-grid">
@@ -84,7 +84,7 @@
     <div class="section">
       <h2>📤 Export User Data</h2>
       <p class="section-description">
-        Backup your builds, disc inventory, and loadouts. Save this file to restore your data later.
+        Backup your builds, disc inventory, loadouts, upgrade plans, and share image settings. Save this file to restore your data later.
       </p>
 
       <div class="button-grid">
@@ -95,7 +95,7 @@
           Export Builds, Discs & Loadouts
         </button>
       </div>
-      <p class="note">Export includes all your builds, disc inventory, and loadouts. Reference data (agents, W-Engines) loads automatically.</p>
+      <p class="note">Export includes all your builds, disc inventory, loadouts, upgrade plans, and share image settings. Reference data (agents, W-Engines) loads automatically.</p>
     </div>
 
     <!-- Danger Zone -->

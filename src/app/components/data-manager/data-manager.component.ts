@@ -174,13 +174,17 @@ export class DataManagerComponent {
   }
 
   async clearUserData() {
-    if (confirm('Are you sure you want to delete your user data (disc inventory)? This cannot be undone!')) {
+    if (
+      confirm(
+        'Delete all your user data: builds, disc inventory, loadouts, upgrade plans, share image settings, and UID history? Game data is kept. This cannot be undone!',
+      )
+    ) {
       this.isLoading = true;
       this.cdr.markForCheck();
       this.setMessage('Clearing user data...', 'info');
 
       try {
-        await this.dataImportService.clearUserData();
+        await this.buildImportExportService.clearUserData();
         this.setMessage('User data cleared successfully', 'success');
       } catch (error) {
         console.error('Clear error:', error);
@@ -214,13 +218,17 @@ export class DataManagerComponent {
   }
 
   async clearAllData() {
-    if (confirm('Are you sure you want to delete ALL data (both reference and user data)? This cannot be undone!')) {
+    if (
+      confirm(
+        'Delete ALL data: game data and all your user data (builds, disc inventory, loadouts, upgrade plans, share image settings, and UID history)? This cannot be undone!',
+      )
+    ) {
       this.isLoading = true;
       this.cdr.markForCheck();
       this.setMessage('Clearing all data...', 'info');
 
       try {
-        await this.dataImportService.clearAllData();
+        await this.buildImportExportService.clearAllData();
         this.setMessage('All data cleared successfully', 'success');
       } catch (error) {
         console.error('Clear error:', error);

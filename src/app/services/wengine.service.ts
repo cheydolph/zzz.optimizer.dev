@@ -25,7 +25,7 @@ export class WEngineService {
     this.loadWEngines();
   }
 
-  private async loadWEngines() {
+  async loadWEngines() {
     // Only run in browser
     if (!isPlatformBrowser(this.platformId)) {
       this.wEnginesSubject.next([]);

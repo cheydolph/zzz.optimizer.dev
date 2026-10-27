@@ -4,7 +4,6 @@ import { SwUpdate } from '@angular/service-worker';
 import { interval, Subject, BehaviorSubject, Observable } from 'rxjs';
 import { first, takeUntil, switchMap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { DbService } from './db.service';
 
 /**
  * Service Worker Update Service
@@ -41,7 +40,6 @@ export class SwUpdateService implements OnDestroy {
   constructor(
     private swUpdate: SwUpdate,
     private appRef: ApplicationRef,
-    private db: DbService,
   ) {}
 
   /**
@@ -208,8 +206,10 @@ export class SwUpdateService implements OnDestroy {
   }
 
   /**
-   * Check if app version has changed and clear reference data if needed
-   * This ensures users never have stale game data after updates
+   * Check if app version has changed and clear the expecting-update flag if so.
+   * Reference data is not touched here: AppInitService compares the version stored in
+   * IndexedDB and re-imports game data itself, so a second tab on another version no
+   * longer clears the tables a second time (BUG-19).
    */
   private async checkVersionAndClearCaches(): Promise<void> {
     try {
@@ -217,7 +217,7 @@ export class SwUpdateService implements OnDestroy {
       const storedVersion = localStorage.getItem(this.VERSION_KEY);
 
       if (storedVersion && storedVersion !== currentVersion) {
-        console.log(`[SW Update] Version changed from ${storedVersion} to ${currentVersion} - clearing reference data`);
+        console.log(`[SW Update] Version changed from ${storedVersion} to ${currentVersion}`);
 
         // Clear the expecting update flag since we're now on the new version
         localStorage.removeItem(this.EXPECTING_UPDATE_KEY);
@@ -225,15 +225,6 @@ export class SwUpdateService implements OnDestroy {
 
         // localStorage is deliberately left alone: it holds user data (builds, plans,
         // disc loadouts, UID history) and settings, and none of it goes stale on an update.
-
-        // Clear IndexedDB reference data (agents, wEngines, discSets) on version change
-        // This ensures users always get fresh game data after updates
-        // USER DATA (discs, shareCustomizations) is preserved
-        console.log('[SW Update] Clearing IndexedDB reference data on version change');
-        await this.db.clearReferenceData();
-        console.log('[SW Update] IndexedDB reference data cleared - will reload on next init');
-
-        console.log('[SW Update] Cache clearing complete');
       }
 
       // Update stored version

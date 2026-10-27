@@ -25,7 +25,7 @@ export class AgentService {
     this.loadAgents();
   }
 
-  private async loadAgents() {
+  async loadAgents() {
     // Only run in browser
     if (!isPlatformBrowser(this.platformId)) {
       this.agentsSubject.next([]);

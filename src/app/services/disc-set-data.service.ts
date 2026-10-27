@@ -66,25 +66,32 @@ export class DiscSetDataService {
   }
 
   private async loadDataInternal(): Promise<void> {
-    try {
-      const promises = DISC_SET_EQUIPMENT_IDS.map((id) =>
-        firstValueFrom(this.http.get<DiscSetEquipmentData>(versionedUrl(`assets/data/equipment/${id}.json`))).catch(
-          () => null,
-        ),
-      );
+    const promises = DISC_SET_EQUIPMENT_IDS.map((id) =>
+      firstValueFrom(this.http.get<DiscSetEquipmentData>(versionedUrl(`assets/data/equipment/${id}.json`))).catch(
+        () => null,
+      ),
+    );
 
-      const results = await Promise.all(promises);
-      results.forEach((data) => {
-        if (data) {
-          this.discSetEquipmentData[data.Name] = data;
-        }
-      });
+    const results = await Promise.all(promises);
+    const missingIds: string[] = [];
+    results.forEach((data, index) => {
+      if (data) {
+        this.discSetEquipmentData[data.Name] = data;
+      } else {
+        missingIds.push(DISC_SET_EQUIPMENT_IDS[index]);
+      }
+    });
 
-      this.isLoaded = true;
-    } catch (error) {
-      console.error('DiscSetDataService: Failed to load disc set equipment data:', error);
+    // A missing set used to be dropped silently, and its bonuses vanished from every stat
+    // for the session. Fail instead, and let the next call retry.
+    if (missingIds.length > 0) {
+      this.loadPromise = null;
+      const error = new Error(`Disc set data failed to load for set IDs ${missingIds.join(', ')}`);
+      console.error('DiscSetDataService:', error.message);
       throw error;
     }
+
+    this.isLoaded = true;
   }
 
   /**
@@ -92,8 +99,8 @@ export class DiscSetDataService {
    */
   getDiscSetEquipmentData(): { [setName: string]: DiscSetEquipmentData } {
     if (!this.isLoaded) {
-      console.warn('DiscSetDataService: Data not loaded yet, returning empty object');
-      return {};
+      // Empty before the first load; after a partial failure, the sets that did load
+      console.warn('DiscSetDataService: Data not fully loaded, returning what is available');
     }
     return this.discSetEquipmentData;
   }

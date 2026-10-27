@@ -5,7 +5,11 @@
       "date": "2026-10-23",
       "features": [],
       "fixes": [
-        "Your saved disc loadouts are no longer deleted when the app updates"
+        "Your saved disc loadouts are no longer deleted when the app updates",
+        "Game data updates now refresh the stats and ratings of your saved builds",
+        "Backups now include upgrade plans and share image settings, and keep each build's active upgrade plan",
+        "Imports, game data updates, and Clear User Data no longer leave partial data behind, and unreadable saved data is backed up instead of overwritten",
+        "The disc editor no longer saves blank substats, and checks that substat rolls add up to a valid S-rank +15 disc"
       ],
       "improvements": [
         "Added automated checks so agent stats, disc scores, and build ratings don't change unexpectedly in future updates",

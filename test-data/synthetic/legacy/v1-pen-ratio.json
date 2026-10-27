@@ -1,0 +1,55 @@
+{
+  "version": "1.0",
+  "exportDate": "2025-06-01T00:00:00.000Z",
+  "builds": [
+    {
+      "id": "build_legacy_v1",
+      "agentId": "1011",
+      "name": "Anby",
+      "element": "Electric",
+      "specialty": "Stun",
+      "level": 60,
+      "mindscapeLevel": 0,
+      "equippedDiscs": {
+        "Drive5": {
+          "uid": "legacy-v1-drive5",
+          "slot": "Drive5",
+          "set": "Shockstar Disco",
+          "rarity": "S",
+          "level": 15,
+          "mainStat": { "type": "Pen_Ratio", "value": 24 },
+          "subStats": [
+            { "type": "CRIT_Rate", "value": 7.2, "rolls": 3 },
+            { "type": "CRIT_DMG", "value": 14.4, "rolls": 3 },
+            { "type": "ATK%", "value": 3, "rolls": 1 },
+            { "type": "HP", "value": 112, "rolls": 1 }
+          ],
+          "equippedBy": "1011",
+          "lock": false
+        }
+      },
+      "calculatedStats": {},
+      "score": 0,
+      "createdAt": "2025-06-01T00:00:00.000Z",
+      "updatedAt": "2025-06-01T00:00:00.000Z"
+    }
+  ],
+  "discs": [
+    {
+      "uid": "legacy-v1-drive5",
+      "slot": "Drive5",
+      "set": "Shockstar Disco",
+      "rarity": "S",
+      "level": 15,
+      "mainStat": { "type": "Pen_Ratio", "value": 24 },
+      "subStats": [
+        { "type": "CRIT_Rate", "value": 7.2, "rolls": 3 },
+        { "type": "CRIT_DMG", "value": 14.4, "rolls": 3 },
+        { "type": "ATK%", "value": 3, "rolls": 1 },
+        { "type": "HP", "value": 112, "rolls": 1 }
+      ],
+      "equippedBy": "1011",
+      "lock": false
+    }
+  ]
+}

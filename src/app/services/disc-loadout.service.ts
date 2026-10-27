@@ -3,6 +3,8 @@ import { isPlatformBrowser } from '@angular/common';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { DiscLoadout } from '../models/disc-loadout.model';
 import { Disc } from '../models/disc.model';
+import { readStoredArray, storageReadNotice } from '../utils/stored-array';
+import { NotificationService } from './notification.service';
 
 /**
  * Service for managing disc loadouts
@@ -18,11 +20,23 @@ export class DiscLoadoutService {
   private readonly STORAGE_KEY = 'zzz-optimizer-disc-loadouts';
   private readonly MAX_LOADOUTS_PER_AGENT = 5;
 
-  // OPTIMIZATION: Cache for per-agent loadout lookups
+  // OPTIMIZATION: Cache for per-agent loadout lookups. Cleared on every emit (setLoadouts),
+  // so no path can leave a stale entry (BUG-18).
   private loadoutsByAgentCache = new Map<string, DiscLoadout[]>();
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+  // Set when stored loadouts could not be read or backed up; saving would destroy them (BUG-15).
+  private saveBlocked = false;
+
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private notificationService: NotificationService,
+  ) {
     this.loadLoadouts();
+  }
+
+  private setLoadouts(loadouts: DiscLoadout[]): void {
+    this.loadoutsByAgentCache.clear();
+    this.loadoutsSubject.next(loadouts);
   }
 
   /**
@@ -30,27 +44,24 @@ export class DiscLoadoutService {
    */
   private loadLoadouts(): void {
     if (!isPlatformBrowser(this.platformId)) {
-      this.loadoutsSubject.next([]);
+      this.setLoadouts([]);
       return;
     }
 
-    try {
-      const loadoutsJson = localStorage.getItem(this.STORAGE_KEY);
-      if (loadoutsJson) {
-        const loadouts = JSON.parse(loadoutsJson);
-
-        // Convert date strings back to Date objects
-        loadouts.forEach((loadout: DiscLoadout) => {
-          loadout.createdAt = new Date(loadout.createdAt);
-          loadout.updatedAt = new Date(loadout.updatedAt);
-        });
-
-        this.loadoutsSubject.next(loadouts);
-      }
-    } catch (error) {
-      console.error('[DiscLoadoutService] Error loading loadouts:', error);
-      this.loadoutsSubject.next([]);
+    const read = readStoredArray<DiscLoadout>(this.STORAGE_KEY);
+    this.saveBlocked = read.saveBlocked;
+    const notice = storageReadNotice('loadouts', read);
+    if (notice) {
+      this.notificationService.error(notice, 10000);
     }
+
+    // Convert date strings back to Date objects
+    for (const loadout of read.items) {
+      loadout.createdAt = new Date(loadout.createdAt);
+      loadout.updatedAt = new Date(loadout.updatedAt);
+    }
+
+    this.setLoadouts(read.items);
   }
 
   /**
@@ -58,6 +69,11 @@ export class DiscLoadoutService {
    */
   private saveLoadouts(): void {
     if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
+    if (this.saveBlocked) {
+      console.error('[DiscLoadoutService] Loadouts were not saved: the stored loadouts could not be read or backed up');
       return;
     }
 
@@ -143,11 +159,8 @@ export class DiscLoadoutService {
 
     // Add to loadouts array
     const loadouts = [...this.loadoutsSubject.value, newLoadout];
-    this.loadoutsSubject.next(loadouts);
+    this.setLoadouts(loadouts);
     this.saveLoadouts();
-
-    // Clear cache for this agent
-    this.loadoutsByAgentCache.delete(agentId);
 
     console.log('[DiscLoadoutService] Saved loadout:', newLoadout.name, 'for agent:', agentId);
     return newLoadout;
@@ -176,7 +189,7 @@ export class DiscLoadoutService {
     const newLoadouts = [...loadouts];
     newLoadouts[index] = updatedLoadout;
 
-    this.loadoutsSubject.next(newLoadouts);
+    this.setLoadouts(newLoadouts);
     this.saveLoadouts();
 
     console.log('[DiscLoadoutService] Updated loadout:', id);
@@ -197,11 +210,8 @@ export class DiscLoadoutService {
 
     // Remove from array
     const newLoadouts = loadouts.filter((l) => l.id !== id);
-    this.loadoutsSubject.next(newLoadouts);
+    this.setLoadouts(newLoadouts);
     this.saveLoadouts();
-
-    // Clear cache for this agent
-    this.loadoutsByAgentCache.delete(loadout.agentId);
 
     console.log('[DiscLoadoutService] Deleted loadout:', id);
     return true;
@@ -227,7 +237,7 @@ export class DiscLoadoutService {
 
     // Check each disc in the loadout
     Object.entries(loadout.equippedDiscs).forEach(([slot, disc]) => {
-      if (availableDiscUids.has(disc.uid)) {
+      if (disc && availableDiscUids.has(disc.uid)) {
         availableSlots.push(slot);
       } else {
         missingSlots.push(slot);
@@ -286,7 +296,7 @@ export class DiscLoadoutService {
       }
 
       const mergedLoadouts = [...existingLoadouts, ...newLoadouts];
-      this.loadoutsSubject.next(mergedLoadouts);
+      this.setLoadouts(mergedLoadouts);
       this.saveLoadouts();
 
       console.log('[DiscLoadoutService] Imported', newLoadouts.length, 'new loadouts');
@@ -298,43 +308,41 @@ export class DiscLoadoutService {
   }
 
   /**
-   * Import a single loadout (for build import/export service)
+   * Import loadouts from a Data Manager backup with one save. A loadout whose ID already exists
+   * replaces it; with `replaceExisting` the current loadouts are dropped first. Throws if the
+   * save fails, so the caller can roll back.
    */
-  importLoadout(loadout: DiscLoadout): void {
-    // Convert date strings to Date objects if needed
-    if (typeof loadout.createdAt === 'string') {
-      loadout.createdAt = new Date(loadout.createdAt);
-    }
-    if (typeof loadout.updatedAt === 'string') {
-      loadout.updatedAt = new Date(loadout.updatedAt);
+  importLoadoutList(imported: DiscLoadout[], replaceExisting: boolean): void {
+    if (this.saveBlocked) {
+      throw new Error('Loadouts cannot be saved: the stored loadouts could not be read or backed up');
     }
 
-    // Check if loadout already exists
-    const existingLoadouts = this.loadoutsSubject.value;
-    const existingIndex = existingLoadouts.findIndex((l) => l.id === loadout.id);
-
-    if (existingIndex >= 0) {
-      // Update existing loadout
-      const updated = [...existingLoadouts];
-      updated[existingIndex] = loadout;
-      this.loadoutsSubject.next(updated);
-    } else {
-      // Add new loadout
-      this.loadoutsSubject.next([...existingLoadouts, loadout]);
+    const loadouts = replaceExisting ? [] : [...this.loadoutsSubject.value];
+    for (const loadout of imported) {
+      const restored: DiscLoadout = {
+        ...loadout,
+        createdAt: new Date(loadout.createdAt),
+        updatedAt: new Date(loadout.updatedAt),
+      };
+      const existingIndex = loadouts.findIndex((l) => l.id === loadout.id);
+      if (existingIndex >= 0) {
+        loadouts[existingIndex] = restored;
+      } else {
+        loadouts.push(restored);
+      }
     }
 
-    this.saveLoadouts();
-
-    // Clear cache for this agent
-    this.loadoutsByAgentCache.delete(loadout.agentId);
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(loadouts));
+    }
+    this.setLoadouts(loadouts);
   }
 
   /**
    * Clear all loadouts (for data management)
    */
   clearAllLoadouts(): void {
-    this.loadoutsSubject.next([]);
-    this.loadoutsByAgentCache.clear();
+    this.setLoadouts([]);
     this.saveLoadouts();
     console.log('[DiscLoadoutService] All loadouts cleared');
   }
@@ -348,11 +356,8 @@ export class DiscLoadoutService {
     const deletedCount = loadouts.length - filtered.length;
 
     if (deletedCount > 0) {
-      this.loadoutsSubject.next(filtered);
+      this.setLoadouts(filtered);
       this.saveLoadouts();
-
-      // Clear cache for this agent
-      this.loadoutsByAgentCache.delete(agentId);
 
       console.log('[DiscLoadoutService] Deleted', deletedCount, 'loadouts for agent:', agentId);
     }

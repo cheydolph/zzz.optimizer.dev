@@ -92,6 +92,7 @@ export class ScoringService {
   private breakpointsLoaded = false;
   private agentStatWeights: { [agentId: string]: any } = {};
   private mindscapeData: MindscapeData | null = null;
+  private dataLoaded: Promise<void>;
 
   // OPTIMIZATION: Use shared disc set data service
   constructor(
@@ -99,7 +100,19 @@ export class ScoringService {
     private skillParserService: SkillParserService,
     private discSetDataService: DiscSetDataService,
   ) {
-    this.loadAllData();
+    // Each loader logs its own failure; only the disc set loader rethrows, and callers that
+    // need disc sets await StatCalculatorService.ensureDataLoaded(), which retries it.
+    this.dataLoaded = this.loadAllData().catch((error: unknown) => {
+      console.error('Scoring data did not fully load:', error);
+    });
+  }
+
+  /**
+   * Resolves once the startup loads (breakpoints, stat weights, mindscape data, skill
+   * multipliers) have settled, so a score computed afterwards does not miss them.
+   */
+  ensureDataLoaded(): Promise<void> {
+    return this.dataLoaded;
   }
 
   /**

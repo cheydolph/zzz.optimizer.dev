@@ -6,7 +6,6 @@ import { AgentService } from './agent.service';
 import { WEngineService } from './wengine.service';
 import { DiscSetService } from './disc-set.service';
 import { DataTransformerService } from './data-transformer.service';
-import { BuildService } from './build.service';
 import { Agent } from '../models/agent.model';
 import { WEngine } from '../models/wengine.model';
 import { Disc } from '../models/disc.model';
@@ -41,7 +40,6 @@ export class DataImportService {
     private wEngineService: WEngineService,
     private discSetService: DiscSetService,
     private transformer: DataTransformerService,
-    private buildService: BuildService,
   ) {}
 
   /**
@@ -272,49 +270,56 @@ export class DataImportService {
 
       const wEngineIds = Object.keys(wEnginesIndex);
 
-      // Transform all agents directly from agents.json (now includes Icon field)
-      const agentPromises = agentIds.map(async (id) => {
-        return this.transformer.transformAgentWithDetailedStats(id, agentsIndex[id]);
-      });
+      // Transform all agents directly from agents.json (now includes Icon field). One agent
+      // that fails to transform is skipped, as transformWEngines already does for W-Engines.
+      const agents: Agent[] = [];
+      for (const id of agentIds) {
+        try {
+          const agent = this.transformer.transformAgentWithDetailedStats(id, agentsIndex[id]);
+          if (agent) {
+            agents.push(agent);
+          }
+        } catch (error) {
+          console.warn(`Failed to transform agent ${id}:`, error);
+        }
+      }
 
       // Load W-Engines from wengines.json (already has correct level 60 stats and Effect.Properties)
-      const wEnginePromises = wEngineIds.map(async (id) => {
-        // Use wEnginesIndex directly - it has the correct level 60 data
-        const transformed = this.transformer.transformWEngines({ [id]: wEnginesIndex[id] });
-        return transformed[0]; // transformWEngines returns an array
-      });
+      const wEngines = wEngineIds
+        .map((id) => this.transformer.transformWEngines({ [id]: wEnginesIndex[id] })[0])
+        .filter((w): w is WEngine => w !== undefined);
 
-      // Load all disc set files
-      const discSetPromises = DISC_SET_EQUIPMENT_IDS.map(async (id) => {
-        try {
+      // Load all disc set files. A file that fails to load fails the import, so the
+      // previous reference data stays in place and the next start retries.
+      const discSets = await Promise.all(
+        DISC_SET_EQUIPMENT_IDS.map(async (id) => {
           const discSetData = await firstValueFrom(
             this.http.get<any>(versionedUrl(`assets/data/equipment/${id}.json`)),
           );
-          // Transform disc set data
-          const transformed = this.transformer.transformDiscSets({ [id]: discSetData });
-          return transformed[0];
-        } catch (error) {
-          console.warn(`Failed to load disc set ${id}`);
-          return null;
-        }
-      });
+          return this.transformer.transformDiscSets({ [id]: discSetData })[0];
+        }),
+      );
 
-      // Wait for all loads to complete
-      const agents = (await Promise.all(agentPromises)).filter((a) => a !== null) as Agent[];
-      const wEngines = (await Promise.all(wEnginePromises)).filter((w) => w !== null) as WEngine[];
-      const discSets = (await Promise.all(discSetPromises)).filter((d) => d !== null);
+      // Clear and write in one transaction, stamping the version last: if any step fails,
+      // the old tables and version stay as they were. Only Dexie promises are chained inside
+      // (no await of other promises), which would end the transaction early.
+      const db = this.db;
+      const version = db.getCurrentAppVersion();
+      await db.transaction('rw', [db.agents, db.wEngines, db.discSets, db.metadata], () =>
+        db.agents
+          .clear()
+          .then(() => db.wEngines.clear())
+          .then(() => db.discSets.clear())
+          .then(() => db.agents.bulkPut(agents))
+          .then(() => db.wEngines.bulkPut(wEngines))
+          .then(() => db.discSets.bulkPut(discSets))
+          .then(() => db.metadata.put({ key: 'dataVersion', value: version })),
+      );
 
-      // Import into database
-      await this.agentService.bulkImportAgents(agents);
-      await this.wEngineService.bulkImportWEngines(wEngines);
-
-      // Store disc sets in IndexedDB
-      await this.db.bulkAddDiscSets(discSets);
-      // Reload disc sets into the service cache
+      // Refresh the in-memory copies from the new tables
+      await this.agentService.loadAgents();
+      await this.wEngineService.loadWEngines();
       await this.discSetService.reloadDiscSets();
-
-      // Save the current app version so we know when data needs to be reloaded
-      await this.db.setStoredDataVersion(this.db.getCurrentAppVersion());
 
       return {
         agents: agents.length,
@@ -373,26 +378,10 @@ export class DataImportService {
   }
 
   /**
-   * Clear only USER DATA (keeps reference data intact)
-   */
-  async clearUserData(): Promise<void> {
-    await this.db.clearUserData();
-    await this.buildService.clearAllBuilds();
-  }
-
-  /**
    * Clear only REFERENCE DATA (keeps user data intact)
    */
   async clearReferenceData(): Promise<void> {
     await this.db.clearReferenceData();
-  }
-
-  /**
-   * Clear ALL data from IndexedDB (both reference and user data)
-   */
-  async clearAllData(): Promise<void> {
-    await this.db.clearAllData();
-    await this.buildService.clearAllBuilds();
   }
 
   /**

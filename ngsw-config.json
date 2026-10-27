@@ -29,7 +29,7 @@
       "installMode": "lazy",
       "updateMode": "prefetch",
       "resources": {
-        "files": ["/assets/data/*.json"]
+        "files": ["/assets/data/*.json", "/assets/data/equipment/*.json"]
       }
     }
   ],

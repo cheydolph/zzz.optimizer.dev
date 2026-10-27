@@ -5,6 +5,10 @@ import { UpgradePlan } from '../models/upgrade-plan.model';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { versionedUrl } from '../utils/versioned-url';
+import { readStoredArray, storageReadNotice } from '../utils/stored-array';
+import { NotificationService } from './notification.service';
+
+const PLANS_STORAGE_KEY = 'zzz-optimizer-upgrade-plans';
 
 @Injectable({
   providedIn: 'root',
@@ -17,13 +21,19 @@ export class UpgradePlanService {
   public selectedPlan$: Observable<UpgradePlan | null> = this.selectedPlanSubject.asObservable();
 
   private agentBreakpoints: any = {};
+  // createPlan copies default breakpoints from this load, so it waits for it (BUG-13)
+  private breakpointsReady: Promise<void>;
+
+  // Set when stored plans could not be read or backed up; saving would destroy them (BUG-15).
+  private saveBlocked = false;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private http: HttpClient,
+    private notificationService: NotificationService,
   ) {
     this.loadPlans();
-    this.loadAgentBreakpoints();
+    this.breakpointsReady = this.loadAgentBreakpoints();
   }
 
   /**
@@ -48,18 +58,13 @@ export class UpgradePlanService {
       return;
     }
 
-    try {
-      const plansJson = localStorage.getItem('zzz-optimizer-upgrade-plans');
-      if (plansJson) {
-        const plans: UpgradePlan[] = JSON.parse(plansJson);
-        this.plansSubject.next(plans);
-      } else {
-        this.plansSubject.next([]);
-      }
-    } catch (error) {
-      console.error('Error loading upgrade plans:', error);
-      this.plansSubject.next([]);
+    const read = readStoredArray<UpgradePlan>(PLANS_STORAGE_KEY);
+    this.saveBlocked = read.saveBlocked;
+    const notice = storageReadNotice('upgrade plans', read);
+    if (notice) {
+      this.notificationService.error(notice, 10000);
     }
+    this.plansSubject.next(read.items);
   }
 
   /**
@@ -71,8 +76,14 @@ export class UpgradePlanService {
       return;
     }
 
+    if (this.saveBlocked) {
+      console.error('Upgrade plans were not saved: the stored plans could not be read or backed up');
+      this.plansSubject.next(plans);
+      return;
+    }
+
     try {
-      localStorage.setItem('zzz-optimizer-upgrade-plans', JSON.stringify(plans));
+      localStorage.setItem(PLANS_STORAGE_KEY, JSON.stringify(plans));
       this.plansSubject.next(plans);
     } catch (error) {
       console.error('Error saving upgrade plans:', error);
@@ -106,7 +117,8 @@ export class UpgradePlanService {
    * Only copies default breakpoints from agent-breakpoints.json
    * NO other pre-filling - user has complete freedom
    */
-  createPlan(agentId: string, name: string, description?: string): UpgradePlan {
+  async createPlan(agentId: string, name: string, description?: string): Promise<UpgradePlan> {
+    await this.breakpointsReady;
     const plans = this.plansSubject.value;
 
     // Copy default breakpoints from agent-breakpoints.json if available
@@ -286,6 +298,36 @@ export class UpgradePlanService {
     } catch (error) {
       console.error('Error importing upgrade plans:', error);
       throw error;
+    }
+  }
+
+  /**
+   * Import plans from a Data Manager backup with one save, keeping their IDs so builds'
+   * activeUpgradePlanId links survive a restore. A plan whose ID already exists replaces it;
+   * with `replaceExisting` the current plans are dropped first.
+   */
+  importPlanList(imported: UpgradePlan[], replaceExisting: boolean): void {
+    if (this.saveBlocked) {
+      throw new Error('Upgrade plans cannot be saved: the stored plans could not be read or backed up');
+    }
+    const plans = replaceExisting ? [] : [...this.plansSubject.value];
+    for (const plan of imported) {
+      const restored: UpgradePlan = {
+        ...plan,
+        createdAt: new Date(plan.createdAt),
+        updatedAt: new Date(plan.updatedAt),
+      };
+      const existingIndex = plans.findIndex((p) => p.id === plan.id);
+      if (existingIndex >= 0) {
+        plans[existingIndex] = restored;
+      } else {
+        plans.push(restored);
+      }
+    }
+
+    this.savePlans(plans);
+    if (replaceExisting) {
+      this.selectedPlanSubject.next(null);
     }
   }
 

@@ -1331,6 +1331,15 @@
 .modal-actions {
   margin-top: 0;
 }
+.disc-form-error {
+  margin: 0 20px 12px;
+  color: #ff6b6b;
+  font-size: 0.9rem;
+}
+.disc-form-modal .btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 .mindscape-section,
 .wengine-section,
 .stats-section {

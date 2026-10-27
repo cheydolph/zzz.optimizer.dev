@@ -42,7 +42,8 @@ import { UpgradePlan } from '../../models/upgrade-plan.model';
 import { calculateRollCount } from '../../constants/substat-rolls';
 import { UpgradePlansComponent } from '../upgrade-plans/upgrade-plans.component';
 import { CanvasShareImageService, ShareImageData } from '../../services/canvas-share-image.service';
-import { getDiscValidationErrors, hasValidationErrors } from '../../utils/disc-validation';
+import { getDiscFormSubstatError, getDiscValidationErrors, hasValidationErrors } from '../../utils/disc-validation';
+import { UID_HISTORY_STORAGE_KEY } from '../../constants/storage-keys';
 import { fadeIn, scaleIn, fadeInUp, expandCollapse, fadeInFast, slideInRight } from '../../animations/route-animations';
 
 interface MindscapeData {
@@ -247,7 +248,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
   enkaImportSuccess = '';
   uidHistory: Array<{ uid: string; username: string }> = [];
   showUidHistoryDropdown = false;
-  private readonly UID_HISTORY_KEY = 'zzz_uid_history';
+  private readonly UID_HISTORY_KEY = UID_HISTORY_STORAGE_KEY;
   private readonly MAX_UID_HISTORY = 10;
 
   private destroy$ = new Subject<void>();
@@ -2257,14 +2258,17 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
             type: mainStatType,
             value: mainStatValue,
           },
-          subStats: this.discFormData.subStats.map((s) => {
-            const value = typeof s.value === 'string' ? parseFloat(s.value) || 0 : s.value;
-            return {
-              type: s.type as SubStatType,
-              value: value,
-              rolls: calculateRollCount(s.type, value),
-            };
-          }),
+          // Rows left empty are dropped instead of saved as type '' (BUG-25)
+          subStats: this.discFormData.subStats
+            .filter((s) => s.type !== '')
+            .map((s) => {
+              const value = typeof s.value === 'string' ? parseFloat(s.value) || 0 : s.value;
+              return {
+                type: s.type as SubStatType,
+                value: value,
+                rolls: calculateRollCount(s.type, value),
+              };
+            }),
         };
 
         // Update in inventory
@@ -2303,14 +2307,17 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
             type: mainStatType,
             value: mainStatValue,
           },
-          subStats: this.discFormData.subStats.map((s) => {
-            const value = typeof s.value === 'string' ? parseFloat(s.value) || 0 : s.value;
-            return {
-              type: s.type as SubStatType,
-              value: value,
-              rolls: calculateRollCount(s.type, value),
-            };
-          }),
+          // Rows left empty are dropped instead of saved as type '' (BUG-25)
+          subStats: this.discFormData.subStats
+            .filter((s) => s.type !== '')
+            .map((s) => {
+              const value = typeof s.value === 'string' ? parseFloat(s.value) || 0 : s.value;
+              return {
+                type: s.type as SubStatType,
+                value: value,
+                rolls: calculateRollCount(s.type, value),
+              };
+            }),
           lock: false,
         };
 
@@ -2625,6 +2632,20 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     return this.availableSubStatTypes.filter(
       (stat) => !this.isMainStatConflict(stat.value, mainStatBase) && !selectedSubstats.includes(stat.value),
     );
+  }
+
+  /**
+   * Why Save is disabled in the disc form, or null. The checks assume an S-rank +15 disc, which
+   * every new disc is; an edited disc that is not (Enka imports bring A-rank and lower-level
+   * discs) is not checked, and its empty rows are dropped on save.
+   */
+  getDiscFormError(): string | null {
+    const editedDisc =
+      this.isEditMode && this.editingDiscUid ? this.discService.getDiscById(this.editingDiscUid) : null;
+    if (editedDisc && (editedDisc.rarity !== 'S' || editedDisc.level !== 15)) {
+      return null;
+    }
+    return getDiscFormSubstatError(this.discFormData.subStats);
   }
 
   /**
@@ -3578,11 +3599,12 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
           async () => {
             try {
               this.loadingService.show('Importing builds...');
-              const result = await this.enkaImportService.importBuilds(comparison, true);
+              const result = await this.enkaImportService.importBuilds(comparison);
 
               // Reload builds to show the imported data
               await this.buildService.loadBuilds();
               this.loadingService.hide();
+              this.warnAboutAffectedLoadouts(result.affectedLoadouts);
             } catch (error) {
               this.loadingService.hide();
               console.error('Import error:', error);
@@ -3600,6 +3622,16 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       this.loadingService.hide();
       console.error('Enka API error:', error);
       alert(error instanceof Error ? error.message : 'Failed to fetch data from provided UID');
+    }
+  }
+
+  /** Loadouts keep pointing at discs an Enka re-import replaced; applying them skips those slots. */
+  private warnAboutAffectedLoadouts(count: number): void {
+    if (count > 0) {
+      this.notificationService.warning(
+        `${count} loadout(s) used discs that this import replaced. Those slots are skipped when the loadout is applied.`,
+        8000,
+      );
     }
   }
 
@@ -3735,7 +3767,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       }
 
       // Add UID to history on successful fetch
-      this.addToUidHistory(this.enkaUid, enkaResult.playerName);
+      this.addToUidHistory(this.enkaUid.trim(), enkaResult.playerName);
 
       // Compare with existing builds
       const comparison = await this.enkaImportService.compareBuilds(enkaResult.builds);
@@ -3758,10 +3790,11 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
           Do you want to import these builds?`,
           async () => {
             try {
-              const result = await this.enkaImportService.importBuilds(comparison, true);
+              const result = await this.enkaImportService.importBuilds(comparison);
 
               // Reload builds to show the imported data
               await this.buildService.loadBuilds();
+              this.warnAboutAffectedLoadouts(result.affectedLoadouts);
             } catch (error) {
               console.error('Import error:', error);
               // Re-open the Enka modal to show error

@@ -192,22 +192,11 @@ export class DbService extends Dexie {
     return (await this.discSets.bulkPut(discSets, { allKeys: true })) as any;
   }
 
-  // Clear user data only (keeps reference data intact)
-  async clearUserData(): Promise<void> {
-    await this.discs.clear();
-  }
-
   // Clear reference data only
   async clearReferenceData(): Promise<void> {
     await this.agents.clear();
     await this.wEngines.clear();
     await this.discSets.clear();
-  }
-
-  // Clear ALL data (both reference and user data)
-  async clearAllData(): Promise<void> {
-    await this.clearReferenceData();
-    await this.clearUserData();
   }
 
   // Check if reference data is loaded

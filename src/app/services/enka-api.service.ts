@@ -185,11 +185,11 @@ export class EnkaApiService {
     // initiated, and serving a stale profile makes the app report that builds
     // are up to date when the user just changed their gear in game.
     if (this.CLOUDFLARE_WORKER) {
-      return `${this.CLOUDFLARE_WORKER}?uid=${uid}&fresh=1`;
+      return `${this.CLOUDFLARE_WORKER}?uid=${encodeURIComponent(uid)}&fresh=1`;
     }
 
     // Otherwise, use fallback CORS proxy
-    const enkaUrl = `${this.ENKA_API_URL}/${uid}`;
+    const enkaUrl = `${this.ENKA_API_URL}/${encodeURIComponent(uid)}`;
     const proxy = this.FALLBACK_PROXIES[this.currentProxyIndex % this.FALLBACK_PROXIES.length];
     return `${proxy}${encodeURIComponent(enkaUrl)}`;
   }
@@ -200,7 +200,12 @@ export class EnkaApiService {
    * OPTIMIZATION: Added retry logic with exponential backoff for rate limits
    */
   fetchPlayerData(uid: string): Observable<EnkaImportResult> {
-    const requestUrl = this.buildRequestUrl(uid);
+    // The UID is sent trimmed and encoded; the worker accepts digits only, so check that first
+    const trimmedUid = uid.trim();
+    if (!/^\d+$/.test(trimmedUid)) {
+      return throwError(() => new Error('Please enter a valid UID'));
+    }
+    const requestUrl = this.buildRequestUrl(trimmedUid);
 
     return this.http.get<EnkaResponse>(requestUrl).pipe(
       // OPTIMIZATION: Retry on rate limit (429) with exponential backoff
@@ -525,7 +530,7 @@ export class EnkaApiService {
     }
 
     return {
-      uid: `enka-${Date.now()}-${Math.random().toString(36).substring(7)}`,
+      uid: `enka-${crypto.randomUUID()}`,
       slot,
       set: setName,
       rarity,

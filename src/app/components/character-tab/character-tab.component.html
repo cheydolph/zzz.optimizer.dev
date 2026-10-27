@@ -1540,6 +1540,7 @@
                                             >
                                             <label class="substat-label">Substat {{ i + 1 }}:</label>
                                             <select [(ngModel)]="subStat.type" class="substat-type-select">
+                                              <option value="">Select substat...</option>
                                               @for (statType of getAvailableSubstatTypesForIndex(i); track statType) {
                                                 <option
                                                   [value]="statType.value"
@@ -1560,6 +1561,10 @@
                                         }
                                       </div>
                                     </div>
+                                    @let discFormError = getDiscFormError();
+                                    @if (discFormError) {
+                                      <p id="disc-form-error" class="disc-form-error" role="status">{{ discFormError }}</p>
+                                    }
                                     <div class="modal-actions">
                                       <button class="btn-secondary" (click)="closeDiscForm()">
                                         Cancel
@@ -1570,7 +1575,12 @@
                                         >
                                         Change Set
                                       </button>
-                                      <button class="btn-primary" (click)="createAndEquipDisc()">
+                                      <button
+                                        class="btn-primary"
+                                        [disabled]="!!discFormError"
+                                        [attr.aria-describedby]="discFormError ? 'disc-form-error' : null"
+                                        (click)="createAndEquipDisc()"
+                                        >
                                         {{ isEditMode ? "Save Changes" : "Create & Equip" }}
                                       </button>
                                     </div>

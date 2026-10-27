@@ -112,7 +112,7 @@ export class UpgradePlansComponent implements OnInit, OnDestroy {
   // PLAN CRUD OPERATIONS
   // ============================================================================
 
-  createNewPlan() {
+  async createNewPlan() {
     if (!this.newPlanName.trim() || !this.newPlanAgentId) {
       if (!this.newPlanName.trim()) {
         this.errorFields.add('newPlanName');
@@ -127,7 +127,7 @@ export class UpgradePlansComponent implements OnInit, OnDestroy {
     this.errorFields.delete('newPlanName');
     this.errorFields.delete('newPlanAgentId');
 
-    const plan = this.upgradePlanService.createPlan(
+    const plan = await this.upgradePlanService.createPlan(
       this.newPlanAgentId,
       this.newPlanName.trim(),
       this.newPlanDescription.trim(),
@@ -144,6 +144,8 @@ export class UpgradePlansComponent implements OnInit, OnDestroy {
     this.newPlanName = '';
     this.newPlanAgentId = '';
     this.newPlanDescription = '';
+    // The plan is set after an await, outside the click's change detection pass
+    this.cdr.markForCheck();
   }
 
   selectPlan(plan: UpgradePlan) {

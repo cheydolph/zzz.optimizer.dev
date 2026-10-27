@@ -4,6 +4,8 @@ import { BuildService, AgentBuild } from './build.service';
 import { DiscService } from './disc.service';
 import { EnkaBuildData } from './enka-api.service';
 import { DbService } from './db.service';
+import { DiscLoadoutService } from './disc-loadout.service';
+import { Agent } from '../models/agent.model';
 
 export interface ImportComparison {
   newBuilds: EnkaBuildData[];
@@ -17,6 +19,8 @@ export interface ImportResult {
   updated: number;
   unchanged: number;
   totalDiscs: number;
+  /** Saved loadouts that pointed at a disc this import replaced */
+  affectedLoadouts: number;
 }
 
 @Injectable({
@@ -27,6 +31,7 @@ export class EnkaImportService {
     private buildService: BuildService,
     private discService: DiscService,
     private dbService: DbService,
+    private discLoadoutService: DiscLoadoutService,
   ) {}
 
   /**
@@ -62,99 +67,129 @@ export class EnkaImportService {
   }
 
   /**
-   * Import builds and discs into the database
+   * Import builds and discs into the database. All disc changes happen in one Dexie
+   * transaction; if a build save fails afterwards, the builds and discs are put back as they
+   * were before the import (BUG-10).
    */
-  async importBuilds(comparison: ImportComparison, replaceExisting: boolean = true): Promise<ImportResult> {
-    let added = 0;
-    let updated = 0;
-    const unchanged = comparison.unchangedBuilds.length;
-    let totalDiscs = 0;
+  async importBuilds(comparison: ImportComparison): Promise<ImportResult> {
+    const newBuilds = await this.resolveNewBuilds(comparison.newBuilds);
+    const incomingBuilds = [
+      ...newBuilds.map(({ enkaBuild }) => enkaBuild),
+      ...comparison.updatedBuilds.map((u) => u.new),
+    ];
+    const incomingDiscs = incomingBuilds.flatMap((b) => this.discsOf(b.discs));
+    const oldDiscUids = comparison.updatedBuilds.flatMap(({ old }) =>
+      this.discsOf(old.equippedDiscs).map((d) => d.uid),
+    );
 
-    // Import new builds
-    for (const enkaBuild of comparison.newBuilds) {
-      const agent = await this.dbService.getAgent(enkaBuild.agentId);
-      if (!agent) {
-        console.warn(`Agent ${enkaBuild.agentId} not found, skipping`);
-        continue;
+    // Restore points: the inventory copies of the discs about to be replaced, and the builds
+    const removedDiscs = (await this.dbService.discs.bulkGet(oldDiscUids)).filter((d): d is Disc => d !== undefined);
+    const previousBuilds = [...this.buildService.getBuilds()];
+
+    await this.replaceDiscs(oldDiscUids, incomingDiscs);
+    try {
+      for (const { agent, enkaBuild } of newBuilds) {
+        await this.addNewBuild(agent, enkaBuild);
       }
-
-      // Create build
-      const newBuild = await this.buildService.createBuild(agent, enkaBuild.mindscapeLevel);
-
-      // Import discs first
-      const discsBySlot: { [slot: string]: Disc } = {};
-      for (const [slot, disc] of Object.entries(enkaBuild.discs)) {
-        if (disc) {
-          await this.discService.addDisc(disc);
-          discsBySlot[slot] = disc;
-          totalDiscs++;
-        }
-      }
-
-      // Initialize enabledDiscs with all discs enabled
-      const enabledDiscs: { [slot: string]: boolean } = {};
-      Object.keys(discsBySlot).forEach((slot) => {
-        enabledDiscs[slot] = true;
-      });
-
-      // Update build with equipment and default toggle flags
-      await this.buildService.updateBuild(newBuild.id, {
-        level: enkaBuild.level,
-        equippedWEngine: enkaBuild.wEngine,
-        wEngineRefinement: enkaBuild.wEngineRefinement || 1,
-        equippedDiscs: discsBySlot,
-        enabledDiscs: enabledDiscs,
-        includeWEngineBonuses: true,
-        includeMindscapeBonuses: true,
-        includePassiveBonuses: true,
-      });
-
-      added++;
-    }
-
-    // Import updated builds
-    if (replaceExisting) {
       for (const { old, new: enkaBuild } of comparison.updatedBuilds) {
-        // Remove old discs from disc inventory
-        const oldDiscs = Object.values(old.equippedDiscs).filter((d) => d !== undefined) as Disc[];
-        for (const disc of oldDiscs) {
-          await this.discService.deleteDisc(disc.uid);
-        }
-
-        // Import new discs
-        const discsBySlot: { [slot: string]: Disc } = {};
-        for (const [slot, disc] of Object.entries(enkaBuild.discs)) {
-          if (disc) {
-            await this.discService.addDisc(disc);
-            discsBySlot[slot] = disc;
-            totalDiscs++;
-          }
-        }
-
-        // Initialize enabledDiscs with all new discs enabled
-        const enabledDiscs: { [slot: string]: boolean } = {};
-        Object.keys(discsBySlot).forEach((slot) => {
-          enabledDiscs[slot] = true;
-        });
-
-        // Update build (preserve existing toggle flags)
-        await this.buildService.updateBuild(old.id, {
-          level: enkaBuild.level,
-          mindscapeLevel: enkaBuild.mindscapeLevel,
-          equippedWEngine: enkaBuild.wEngine,
-          wEngineRefinement: enkaBuild.wEngineRefinement || 1,
-          equippedDiscs: discsBySlot,
-          enabledDiscs: enabledDiscs,
-          includeWEngineBonuses: old.includeWEngineBonuses ?? true,
-          includeMindscapeBonuses: old.includeMindscapeBonuses ?? true,
-          includePassiveBonuses: old.includePassiveBonuses ?? true,
-        });
-
-        updated++;
+        await this.applyUpdatedBuild(old, enkaBuild);
       }
+    } catch (error) {
+      await this.buildService.importBuildList(previousBuilds, true);
+      await this.replaceDiscs(
+        incomingDiscs.map((d) => d.uid),
+        removedDiscs,
+      );
+      throw error;
+    } finally {
+      await this.discService.loadDiscsFromDb();
     }
 
-    return { added, updated, unchanged, totalDiscs };
+    return {
+      added: newBuilds.length,
+      updated: comparison.updatedBuilds.length,
+      unchanged: comparison.unchangedBuilds.length,
+      totalDiscs: incomingDiscs.length,
+      affectedLoadouts: this.countLoadoutsUsing(oldDiscUids),
+    };
+  }
+
+  private async resolveNewBuilds(enkaBuilds: EnkaBuildData[]): Promise<{ agent: Agent; enkaBuild: EnkaBuildData }[]> {
+    const resolved: { agent: Agent; enkaBuild: EnkaBuildData }[] = [];
+    for (const enkaBuild of enkaBuilds) {
+      const agent = await this.dbService.getAgent(enkaBuild.agentId);
+      if (agent) {
+        resolved.push({ agent, enkaBuild });
+      } else {
+        console.warn(`Agent ${enkaBuild.agentId} not found, skipping`);
+      }
+    }
+    return resolved;
+  }
+
+  private discsOf(discs: { [slot: string]: Disc | undefined }): Disc[] {
+    return Object.values(discs).filter((d): d is Disc => d !== undefined);
+  }
+
+  private replaceDiscs(removeUids: string[], add: Disc[]): Promise<unknown> {
+    const db = this.dbService;
+    // Only Dexie promises are chained inside the transaction, so it cannot commit early
+    return db.transaction('rw', db.discs, () => db.discs.bulkDelete(removeUids).then(() => db.discs.bulkPut(add)));
+  }
+
+  private filledSlots(discs: { [slot: string]: Disc | undefined }): { [slot: string]: Disc } {
+    const bySlot: { [slot: string]: Disc } = {};
+    for (const [slot, disc] of Object.entries(discs)) {
+      if (disc) {
+        bySlot[slot] = disc;
+      }
+    }
+    return bySlot;
+  }
+
+  private enabledSlots(discsBySlot: { [slot: string]: Disc }): { [slot: string]: boolean } {
+    return Object.fromEntries(Object.keys(discsBySlot).map((slot) => [slot, true]));
+  }
+
+  private async addNewBuild(agent: Agent, enkaBuild: EnkaBuildData): Promise<void> {
+    const newBuild = await this.buildService.createBuild(agent, enkaBuild.mindscapeLevel);
+    const discsBySlot = this.filledSlots(enkaBuild.discs);
+
+    // Update build with equipment and default toggle flags
+    await this.buildService.updateBuild(newBuild.id, {
+      level: enkaBuild.level,
+      equippedWEngine: enkaBuild.wEngine,
+      wEngineRefinement: enkaBuild.wEngineRefinement || 1,
+      equippedDiscs: discsBySlot,
+      enabledDiscs: this.enabledSlots(discsBySlot),
+      includeWEngineBonuses: true,
+      includeMindscapeBonuses: true,
+      includePassiveBonuses: true,
+    });
+  }
+
+  private async applyUpdatedBuild(old: AgentBuild, enkaBuild: EnkaBuildData): Promise<void> {
+    const discsBySlot = this.filledSlots(enkaBuild.discs);
+
+    // Update build (preserve existing toggle flags)
+    await this.buildService.updateBuild(old.id, {
+      level: enkaBuild.level,
+      mindscapeLevel: enkaBuild.mindscapeLevel,
+      equippedWEngine: enkaBuild.wEngine,
+      wEngineRefinement: enkaBuild.wEngineRefinement || 1,
+      equippedDiscs: discsBySlot,
+      enabledDiscs: this.enabledSlots(discsBySlot),
+      includeWEngineBonuses: old.includeWEngineBonuses ?? true,
+      includeMindscapeBonuses: old.includeMindscapeBonuses ?? true,
+      includePassiveBonuses: old.includePassiveBonuses ?? true,
+    });
+  }
+
+  private countLoadoutsUsing(discUids: string[]): number {
+    const replaced = new Set(discUids);
+    return this.discLoadoutService
+      .getAllLoadouts()
+      .filter((loadout) => Object.values(loadout.equippedDiscs).some((disc) => disc && replaced.has(disc.uid))).length;
   }
 
   /**

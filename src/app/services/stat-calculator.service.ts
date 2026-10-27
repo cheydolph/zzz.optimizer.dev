@@ -42,8 +42,9 @@ export class StatCalculatorService {
     private discSetDataService: DiscSetDataService,
     private http: HttpClient,
   ) {
-    // Data loading is handled by shared service
-    this.discSetDataService.loadDiscSetData();
+    // Data loading is handled by shared service. A failure is logged there and retried by
+    // ensureDataLoaded(), so it is not rethrown here.
+    this.discSetDataService.loadDiscSetData().catch(() => undefined);
     this.mindscapeDataPromise = this.loadMindscapeData();
   }
 

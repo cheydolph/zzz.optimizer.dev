@@ -4,9 +4,13 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { DbService } from './db.service';
 import { StatCalculatorService } from './stat-calculator.service';
 import { ScoringService } from './scoring.service';
+import { NotificationService } from './notification.service';
 import { Agent, BaseStats } from '../models/agent.model';
 import { WEngine } from '../models/wengine.model';
 import { Disc } from '../models/disc.model';
+import { backUpStoredValue, readStoredArray, storageReadNotice } from '../utils/stored-array';
+
+const BUILDS_STORAGE_KEY = 'zzz-optimizer-builds';
 
 /**
  * Represents a user's built character (agent + equipped gear)
@@ -40,6 +44,41 @@ export interface AgentBuild {
   preferredBuildType?: string; // 'CRIT' | 'Anomaly'
 }
 
+/**
+ * Fills fields that older builds lack and fixes the old "Pen_Ratio" main stat name, in place.
+ * Shared by loading from localStorage and by Data Manager imports, so an imported build is
+ * scored with the same fields a reloaded one has.
+ */
+export function normalizeStoredBuild(build: AgentBuild): void {
+  if (build.wEngineRefinement === undefined) {
+    build.wEngineRefinement = 1; // Default to 1 copy
+  }
+  // Add toggle flags with default true if not present
+  if (build.includeWEngineBonuses === undefined) {
+    build.includeWEngineBonuses = true;
+  }
+  if (build.includeMindscapeBonuses === undefined) {
+    build.includeMindscapeBonuses = true;
+  }
+  if (build.includePassiveBonuses === undefined) {
+    build.includePassiveBonuses = true;
+  }
+  // Default every equipped disc to enabled
+  if (build.enabledDiscs === undefined) {
+    build.enabledDiscs = {};
+    for (const slot of Object.keys(build.equippedDiscs ?? {})) {
+      build.enabledDiscs[slot] = true;
+    }
+  }
+  // "Pen_Ratio" -> "PEN_Ratio": a casing mismatch introduced in earlier versions
+  for (const disc of Object.values(build.equippedDiscs ?? {})) {
+    // Widened to string because the old name is no longer part of MainStatType.
+    if ((disc?.mainStat?.type as string) === 'Pen_Ratio') {
+      disc.mainStat.type = 'PEN_Ratio';
+    }
+  }
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -50,10 +89,14 @@ export class BuildService {
   private selectedBuildSubject = new BehaviorSubject<AgentBuild | null>(null);
   public selectedBuild$: Observable<AgentBuild | null> = this.selectedBuildSubject.asObservable();
 
+  // Set when stored builds could not be read or backed up; saving would destroy them (BUG-15).
+  private saveBlocked = false;
+
   constructor(
     private db: DbService,
     private statCalculator: StatCalculatorService,
     private scoringService: ScoringService,
+    private notificationService: NotificationService,
     @Inject(PLATFORM_ID) private platformId: Object,
   ) {
     this.loadBuilds();
@@ -69,66 +112,40 @@ export class BuildService {
       return;
     }
 
+    const read = readStoredArray<AgentBuild>(BUILDS_STORAGE_KEY);
+    let builds = read.items;
     try {
-      const buildsJson = localStorage.getItem('zzz-optimizer-builds');
-      if (buildsJson) {
-        const builds = JSON.parse(buildsJson);
-
-        // Migrate old builds to add wEngineRefinement field and toggle flags
-        builds.forEach((build: AgentBuild) => {
-          if (build.wEngineRefinement === undefined) {
-            build.wEngineRefinement = 1; // Default to 1 copy
-          }
-          // Add toggle flags with default true if not present
-          if (build.includeWEngineBonuses === undefined) {
-            build.includeWEngineBonuses = true;
-          }
-          if (build.includeMindscapeBonuses === undefined) {
-            build.includeMindscapeBonuses = true;
-          }
-          if (build.includePassiveBonuses === undefined) {
-            build.includePassiveBonuses = true;
-          }
-          // Initialize enabledDiscs if not present - default all equipped discs to enabled
-          if (build.enabledDiscs === undefined) {
-            build.enabledDiscs = {};
-            if (build.equippedDiscs) {
-              Object.keys(build.equippedDiscs).forEach((slot) => {
-                build.enabledDiscs![slot] = true;
-              });
-            }
-          }
-
-          // Migrate old disc main stat format: "Pen_Ratio" → "PEN_Ratio"
-          // This fixes a casing mismatch introduced in earlier versions
-          if (build.equippedDiscs) {
-            Object.values(build.equippedDiscs).forEach((disc: any) => {
-              if (disc?.mainStat?.type === 'Pen_Ratio') {
-                disc.mainStat.type = 'PEN_Ratio';
-              }
-            });
-          }
-        });
-
-        // Save migrated builds back to localStorage
-        localStorage.setItem('zzz-optimizer-builds', JSON.stringify(builds));
-
-        this.buildsSubject.next(builds);
-
-        // Re-sync selectedBuild if one is currently selected (e.g. after an Enka import reload)
-        const selectedId = this.selectedBuildSubject.value?.id;
-        if (selectedId) {
-          const refreshed = builds.find((b: AgentBuild) => b.id === selectedId);
-          if (refreshed) {
-            this.selectedBuildSubject.next(refreshed);
-          }
-        }
-      } else {
-        this.buildsSubject.next([]);
+      const before = JSON.stringify(builds);
+      for (const build of builds) {
+        normalizeStoredBuild(build);
+      }
+      // Write back only when normalizing changed something
+      const after = JSON.stringify(builds);
+      if (after !== before && !read.saveBlocked) {
+        localStorage.setItem(BUILDS_STORAGE_KEY, after);
       }
     } catch (error) {
+      // An entry that is not a build object: keep the stored text out of reach of the next save.
       console.error('Error loading builds:', error);
-      this.buildsSubject.next([]);
+      const raw = localStorage.getItem(BUILDS_STORAGE_KEY) ?? '';
+      read.backupKey = backUpStoredValue(BUILDS_STORAGE_KEY, raw) ?? undefined;
+      read.saveBlocked = !read.backupKey;
+      builds = [];
+    }
+
+    this.saveBlocked = read.saveBlocked;
+    const notice = storageReadNotice('builds', read);
+    if (notice) {
+      this.notificationService.error(notice, 10000);
+    }
+
+    this.buildsSubject.next(builds);
+
+    // Re-sync selectedBuild if one is currently selected (e.g. after an Enka import reload)
+    const selectedId = this.selectedBuildSubject.value?.id;
+    const refreshed = selectedId ? builds.find((b) => b.id === selectedId) : undefined;
+    if (refreshed) {
+      this.selectedBuildSubject.next(refreshed);
     }
   }
 
@@ -141,8 +158,14 @@ export class BuildService {
       return;
     }
 
+    if (this.saveBlocked) {
+      console.error('Builds were not saved: the stored builds could not be read or backed up');
+      this.buildsSubject.next(builds);
+      return;
+    }
+
     try {
-      localStorage.setItem('zzz-optimizer-builds', JSON.stringify(builds));
+      localStorage.setItem(BUILDS_STORAGE_KEY, JSON.stringify(builds));
       this.buildsSubject.next(builds);
     } catch (error) {
       console.error('Error saving builds:', error);
@@ -269,8 +292,10 @@ export class BuildService {
       return;
     }
 
-    // Ensure disc set equipment data is loaded for 4pc effects
+    // Ensure disc set equipment data is loaded for 4pc effects, and scoring data for the
+    // score (a recalculation right after startup could otherwise store an INCOMPLETE rating)
     await this.statCalculator.ensureDataLoaded();
+    await this.scoringService.ensureDataLoaded();
 
     // Calculate final stats using the stat calculator
     build.calculatedStats = this.statCalculator.calculateFinalStats(
@@ -462,22 +487,28 @@ export class BuildService {
   }
 
   /**
-   * Import a single build
+   * Import builds with one save. A build whose ID already exists replaces it; with
+   * `replaceExisting` the current builds are dropped first.
    */
-  async importBuild(build: AgentBuild): Promise<void> {
-    const builds = [...this.buildsSubject.value];
-
-    // Check if build with this ID already exists
-    const existingIndex = builds.findIndex((b) => b.id === build.id);
-    if (existingIndex >= 0) {
-      // Replace existing build
-      builds[existingIndex] = build;
-    } else {
-      // Add new build
-      builds.push(build);
+  async importBuildList(imported: AgentBuild[], replaceExisting: boolean): Promise<void> {
+    if (this.saveBlocked) {
+      throw new Error('Builds cannot be saved: the stored builds could not be read or backed up');
+    }
+    const builds = replaceExisting ? [] : [...this.buildsSubject.value];
+    for (const build of imported) {
+      normalizeStoredBuild(build);
+      const existingIndex = builds.findIndex((b) => b.id === build.id);
+      if (existingIndex >= 0) {
+        builds[existingIndex] = build;
+      } else {
+        builds.push(build);
+      }
     }
 
     await this.saveBuilds(builds);
+    if (replaceExisting) {
+      this.selectedBuildSubject.next(null);
+    }
   }
 
   /**

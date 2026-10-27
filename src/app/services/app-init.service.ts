@@ -45,14 +45,18 @@ export class AppInitService {
 
       if (needsReload) {
         const hasExistingData = await this.dataImport.hasReferenceData();
-        if (hasExistingData) {
-          this.loadingService.show('Updating game data for new version...');
-          // Clear old data first
-          await this.dataImport.clearReferenceData();
-        } else {
-          this.loadingService.show('Loading game data...');
-        }
+        // The import clears the old tables itself, in the same transaction as the new data
+        this.loadingService.show(hasExistingData ? 'Updating game data for new version...' : 'Loading game data...');
         await this.loadReferenceData();
+        // Stored builds keep the stats and score from their last edit; recalculate them
+        // against the new game data (BUG-02). Builds whose agent is missing are left as they are.
+        // The game data is already stored and stamped at this point, so a failure here is not
+        // reported as a data load failure; the builds keep their old values until edited.
+        try {
+          await this.buildService.recalculateAllBuilds();
+        } catch (error) {
+          console.error('Error recalculating builds after the game data update:', error);
+        }
         this.notificationService.success('Game data loaded successfully!');
       }
 
@@ -95,13 +99,10 @@ export class AppInitService {
    */
   async reloadReferenceData(): Promise<void> {
     try {
-      this.loadingService.show('Clearing old data...');
-
-      // Clear existing reference data
-      await this.dataImport.clearReferenceData();
       this.initialized = false;
 
-      // Force reload from assets (bypass the hasData check)
+      // Force reload from assets (bypass the hasData check). The import clears the old
+      // tables in the same transaction, so a failure keeps them.
       this.loadingService.show('Loading fresh data from assets...');
       await this.loadReferenceData();
 
