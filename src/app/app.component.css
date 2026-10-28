@@ -23,6 +23,16 @@
     0 0;
 }
 
-router-outlet + * {
-  flex: 1;
+/* Reserves the page's space before the lazy route renders, so the footer starts below the fold
+   instead of jumping down when the page arrives. svh (with a vh fallback) stays fixed while
+   the mobile URL bar collapses; dvh would re-lay out the page during scrolling. */
+.route-outlet {
+  flex: 1 0 auto;
+  min-height: 100vh;
+}
+
+@supports (min-height: 100svh) {
+  .route-outlet {
+    min-height: 100svh;
+  }
 }

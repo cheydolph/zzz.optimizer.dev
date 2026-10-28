@@ -1,28 +1,6 @@
 import { trigger, transition, style, query, animate, group } from '@angular/animations';
 
 /**
- * Page transition animations for route changes
- * Simple crossfade between pages
- */
-export const routeAnimations = trigger('routeAnimations', [
-  transition('* <=> *', [
-    query(
-      ':enter, :leave',
-      [
-        style({
-          position: 'absolute',
-          width: '100%',
-        }),
-      ],
-      { optional: true },
-    ),
-    query(':enter', [style({ opacity: 0 })], { optional: true }),
-    query(':leave', [animate('200ms ease-out', style({ opacity: 0 }))], { optional: true }),
-    query(':enter', [animate('300ms 100ms ease-in', style({ opacity: 1 }))], { optional: true }),
-  ]),
-]);
-
-/**
  * Fade in/out animation for elements
  */
 export const fadeIn = trigger('fadeIn', [

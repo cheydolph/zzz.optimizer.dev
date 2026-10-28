@@ -13,7 +13,8 @@
       ],
       "improvements": [
         "Added automated checks so agent stats, disc scores, and build ratings don't change unexpectedly in future updates",
-        "Updated the app's framework and removed unused code"
+        "Updated the app's framework and removed unused code",
+        "Pages no longer jump while they load or when you switch between them"
       ]
     },
     {
