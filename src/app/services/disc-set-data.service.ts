@@ -40,6 +40,7 @@ export interface DiscSetEquipmentData {
 })
 export class DiscSetDataService {
   private discSetEquipmentData: { [setName: string]: DiscSetEquipmentData } = {};
+  private discSetEquipmentById: { [setId: string]: DiscSetEquipmentData } = {};
   private loadPromise: Promise<void> | null = null;
   private isLoaded = false;
 
@@ -77,6 +78,7 @@ export class DiscSetDataService {
     results.forEach((data, index) => {
       if (data) {
         this.discSetEquipmentData[data.Name] = data;
+        this.discSetEquipmentById[DISC_SET_EQUIPMENT_IDS[index]] = data;
       } else {
         missingIds.push(DISC_SET_EQUIPMENT_IDS[index]);
       }
@@ -110,6 +112,13 @@ export class DiscSetDataService {
    */
   getDiscSet(setName: string): DiscSetEquipmentData | undefined {
     return this.discSetEquipmentData[setName];
+  }
+
+  /**
+   * Get the raw equipment file for a set ID from DISC_SET_EQUIPMENT_IDS (must call loadDiscSetData first)
+   */
+  getDiscSetById(setId: string): DiscSetEquipmentData | undefined {
+    return this.discSetEquipmentById[setId];
   }
 
   /**

@@ -6,6 +6,7 @@ import { AgentService } from './agent.service';
 import { WEngineService } from './wengine.service';
 import { DiscSetService } from './disc-set.service';
 import { DataTransformerService } from './data-transformer.service';
+import { DiscSetDataService } from './disc-set-data.service';
 import { Agent } from '../models/agent.model';
 import { WEngine } from '../models/wengine.model';
 import { Disc } from '../models/disc.model';
@@ -40,6 +41,7 @@ export class DataImportService {
     private wEngineService: WEngineService,
     private discSetService: DiscSetService,
     private transformer: DataTransformerService,
+    private discSetData: DiscSetDataService,
   ) {}
 
   /**
@@ -289,15 +291,12 @@ export class DataImportService {
         .map((id) => this.transformer.transformWEngines({ [id]: wEnginesIndex[id] })[0])
         .filter((w): w is WEngine => w !== undefined);
 
-      // Load all disc set files. A file that fails to load fails the import, so the
-      // previous reference data stays in place and the next start retries.
-      const discSets = await Promise.all(
-        DISC_SET_EQUIPMENT_IDS.map(async (id) => {
-          const discSetData = await firstValueFrom(
-            this.http.get<any>(versionedUrl(`assets/data/equipment/${id}.json`)),
-          );
-          return this.transformer.transformDiscSets({ [id]: discSetData })[0];
-        }),
+      // The disc set files come from the shared loader the stat and scoring services already
+      // started, so they are not requested twice. A file that fails to load fails the import, so
+      // the previous reference data stays in place and the next start retries.
+      await this.discSetData.loadDiscSetData();
+      const discSets = DISC_SET_EQUIPMENT_IDS.map(
+        (id) => this.transformer.transformDiscSets({ [id]: this.discSetData.getDiscSetById(id) })[0],
       );
 
       // Clear and write in one transaction, stamping the version last: if any step fails,

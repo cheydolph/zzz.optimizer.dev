@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { NotificationService } from './notification.service';
-import confetti from 'canvas-confetti';
 
 @Injectable({
   providedIn: 'root',
@@ -64,43 +63,10 @@ export class AnniversaryService {
     const prefersReducedMotion = false; // Disabled for now
 
     if (!prefersReducedMotion) {
-      // Beautiful confetti burst covering the screen
-      const duration = 3000; // 3 seconds
-      const end = Date.now() + duration;
-      let frameCount = 0;
-
-      const frame = () => {
-        frameCount++;
-
-        // Fire confetti every 3 frames to reduce lag while maintaining visual density
-        if (frameCount % 3 === 0) {
-          // Create bursts from top of screen falling down (3 positions across)
-          for (let i = 0; i < 3; i++) {
-            confetti({
-              particleCount: 5,
-              angle: 90,
-              spread: 120,
-              origin: { x: Math.random(), y: 0 },
-              colors: ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8', '#F38181', '#95E1D3'],
-              gravity: 2.2,
-              scalar: 1.8,
-              drift: Math.random() * 0.3 - 0.15,
-              ticks: 250,
-              startVelocity: 60,
-              decay: 0.92,
-              flat: false,
-            });
-          }
-        }
-
-        if (Date.now() < end) {
-          this.animationFrameId = requestAnimationFrame(frame);
-        } else {
-          this.animationFrameId = null;
-        }
-      };
-
-      frame();
+      // canvas-confetti is fetched only when it is used, once a year (BUILD-09)
+      import('canvas-confetti')
+        .then(({ default: fire }) => this.launchConfetti(fire))
+        .catch((error: unknown) => console.error('[Anniversary] Confetti could not be loaded:', error));
     }
 
     // Show thank you message after 500ms so user sees confetti first
@@ -112,6 +78,48 @@ export class AnniversaryService {
       );
       this.messageTimeoutId = null;
     }, 500);
+  }
+
+  /**
+   * Beautiful confetti burst covering the screen
+   */
+  private launchConfetti(confetti: typeof import('canvas-confetti')): void {
+    const duration = 3000; // 3 seconds
+    const end = Date.now() + duration;
+    let frameCount = 0;
+
+    const frame = () => {
+      frameCount++;
+
+      // Fire confetti every 3 frames to reduce lag while maintaining visual density
+      if (frameCount % 3 === 0) {
+        // Create bursts from top of screen falling down (3 positions across)
+        for (let i = 0; i < 3; i++) {
+          confetti({
+            particleCount: 5,
+            angle: 90,
+            spread: 120,
+            origin: { x: Math.random(), y: 0 },
+            colors: ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8', '#F38181', '#95E1D3'],
+            gravity: 2.2,
+            scalar: 1.8,
+            drift: Math.random() * 0.3 - 0.15,
+            ticks: 250,
+            startVelocity: 60,
+            decay: 0.92,
+            flat: false,
+          });
+        }
+      }
+
+      if (Date.now() < end) {
+        this.animationFrameId = requestAnimationFrame(frame);
+      } else {
+        this.animationFrameId = null;
+      }
+    };
+
+    frame();
   }
 
   /**

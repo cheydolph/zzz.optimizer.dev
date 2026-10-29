@@ -13,7 +13,6 @@ import { FormsModule } from '@angular/forms';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { DragDropModule, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Subject, takeUntil, debounceTime, distinctUntilChanged, firstValueFrom } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
 import { Agent, DiscSlot } from '../../models/agent.model';
 import { WEngine } from '../../models/wengine.model';
 import { Disc, MainStatType, SubStatType } from '../../models/disc.model';
@@ -29,7 +28,7 @@ import { StatCalculatorService } from '../../services/stat-calculator.service';
 import { ScoringService } from '../../services/scoring.service';
 import { ImagePreloaderService } from '../../services/image-preloader.service';
 import { DataMappingService } from '../../services/data-mapping.service';
-import { versionedUrl } from '../../utils/versioned-url';
+import { DataFileService } from '../../services/data-file.service';
 import { DiscRating, BuildRating, FeedbackItem } from '../../constants/disc-scoring';
 import { DISC_MAIN_STAT_MAX, MAIN_STAT_BY_SLOT } from '../../constants/main-stat-possibilities';
 import { OptimizerComponent } from '../optimizer/optimizer.component';
@@ -289,7 +288,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     private loadingService: LoadingService,
     private notificationService: NotificationService,
     private cdr: ChangeDetectorRef,
-    private http: HttpClient,
+    private dataFiles: DataFileService,
     private dbService: DbService,
   ) {
     // Load mindscape data
@@ -1123,9 +1122,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
 
   private async loadMindscapeData(): Promise<void> {
     try {
-      this.mindscapeData = await firstValueFrom(
-        this.http.get<MindscapeData>(versionedUrl('assets/data/mindscape-stats.json')),
-      );
+      this.mindscapeData = await this.dataFiles.load<MindscapeData>('assets/data/mindscape-stats.json');
     } catch (error) {
       console.error('Failed to load mindscape data:', error);
     }

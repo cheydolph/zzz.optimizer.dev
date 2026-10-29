@@ -2,11 +2,9 @@ import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { UpgradePlan } from '../models/upgrade-plan.model';
-import { HttpClient } from '@angular/common/http';
-import { firstValueFrom } from 'rxjs';
-import { versionedUrl } from '../utils/versioned-url';
 import { readStoredArray, storageReadNotice } from '../utils/stored-array';
 import { NotificationService } from './notification.service';
+import { DataFileService } from './data-file.service';
 
 const PLANS_STORAGE_KEY = 'zzz-optimizer-upgrade-plans';
 
@@ -29,7 +27,7 @@ export class UpgradePlanService {
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
-    private http: HttpClient,
+    private dataFiles: DataFileService,
     private notificationService: NotificationService,
   ) {
     this.loadPlans();
@@ -41,7 +39,7 @@ export class UpgradePlanService {
    */
   private async loadAgentBreakpoints() {
     try {
-      const data = await firstValueFrom(this.http.get<any>(versionedUrl('assets/data/agent-breakpoints.json')));
+      const data = await this.dataFiles.load<any>('assets/data/agent-breakpoints.json');
       this.agentBreakpoints = data.agents || {};
     } catch (error) {
       console.error('Failed to load agent breakpoints:', error);

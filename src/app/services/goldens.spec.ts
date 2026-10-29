@@ -14,6 +14,7 @@ import {
   readLocalPlans,
   toGoldenForm,
 } from '../../../test-harness/golden-core.mjs';
+import { DataFileService } from './data-file.service';
 import { DataMappingService } from './data-mapping.service';
 import { DataTransformerService } from './data-transformer.service';
 import { DiscSetDataService } from './disc-set-data.service';
@@ -41,6 +42,7 @@ async function createContext() {
   // Same construction order as the app's injector and test-harness/lib.mjs setup().
   TestBed.inject(DataMappingService);
   const transformer = TestBed.inject(DataTransformerService);
+  TestBed.inject(DataFileService);
   const discSet = TestBed.inject(DiscSetDataService);
   TestBed.inject(SkillParserService);
   const statCalc = TestBed.inject(StatCalculatorService);

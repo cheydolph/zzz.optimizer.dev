@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { firstValueFrom } from 'rxjs';
 import { Disc } from '../models/disc.model';
 import { BaseStats, WEngine } from '../models/agent.model';
 import {
@@ -17,6 +15,7 @@ import {
 import { UpgradePlan } from '../models/upgrade-plan.model';
 import { calculateRollCount } from '../constants/substat-rolls';
 import { DiscSetDataService } from './disc-set-data.service';
+import { DataFileService } from './data-file.service';
 import {
   estimateDamage,
   calculateStatusDamage,
@@ -28,7 +27,6 @@ import {
 import { ENEMY_PROFILES, ENEMY_WEIGHTS } from '../constants/enemy-profiles';
 import { getAgentSkillMultiplier, getStatusEffectType } from '../constants/agent-skills';
 import { SkillParserService } from './skill-parser.service';
-import { versionedUrl } from '../utils/versioned-url';
 import { hasValidationErrors } from '../utils/disc-validation';
 
 interface AgentBreakpoint {
@@ -96,7 +94,7 @@ export class ScoringService {
 
   // OPTIMIZATION: Use shared disc set data service
   constructor(
-    private http: HttpClient,
+    private dataFiles: DataFileService,
     private skillParserService: SkillParserService,
     private discSetDataService: DiscSetDataService,
   ) {
@@ -198,7 +196,7 @@ export class ScoringService {
    */
   private async loadAgentBreakpoints() {
     try {
-      const data = await firstValueFrom(this.http.get<any>(versionedUrl('assets/data/agent-breakpoints.json')));
+      const data = await this.dataFiles.load<any>('assets/data/agent-breakpoints.json');
       this.agentBreakpoints = this.extractAgentsMap(data, 'agent-breakpoints.json');
       this.breakpointsLoaded = true;
     } catch (error) {
@@ -211,7 +209,7 @@ export class ScoringService {
    */
   private async loadAgentStatWeights() {
     try {
-      const data = await firstValueFrom(this.http.get<any>(versionedUrl('assets/data/agent-stat-weights.json')));
+      const data = await this.dataFiles.load<any>('assets/data/agent-stat-weights.json');
       this.agentStatWeights = this.extractAgentsMap(data, 'agent-stat-weights.json');
     } catch (error) {
       console.error('Failed to load agent stat weights:', error);
@@ -225,9 +223,7 @@ export class ScoringService {
    */
   private async loadMindscapeData() {
     try {
-      this.mindscapeData = await firstValueFrom(
-        this.http.get<MindscapeData>(versionedUrl('assets/data/mindscape-stats.json')),
-      );
+      this.mindscapeData = await this.dataFiles.load<MindscapeData>('assets/data/mindscape-stats.json');
     } catch (error) {
       console.error('Failed to load mindscape data:', error);
     }

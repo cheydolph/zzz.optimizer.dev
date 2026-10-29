@@ -1,13 +1,11 @@
 // services/stat-calculator.service.ts
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { firstValueFrom } from 'rxjs';
 import { Agent, BaseStats, DiscSlot } from '../models/agent.model';
 import { Disc } from '../models/disc.model';
 import { WEngine, RefinementProperty } from '../models/wengine.model';
 // DISC_SETS import removed - now using equipment data from DiscSetDataService
 import { DiscSetDataService, DiscSetEquipmentData } from './disc-set-data.service';
-import { versionedUrl } from '../utils/versioned-url';
+import { DataFileService } from './data-file.service';
 
 interface MindscapeStatBonus {
   type: string;
@@ -40,7 +38,7 @@ export class StatCalculatorService {
   // OPTIMIZATION: Use shared disc set data service
   constructor(
     private discSetDataService: DiscSetDataService,
-    private http: HttpClient,
+    private dataFiles: DataFileService,
   ) {
     // Data loading is handled by shared service. A failure is logged there and retried by
     // ensureDataLoaded(), so it is not rethrown here.
@@ -55,9 +53,7 @@ export class StatCalculatorService {
    */
   private async loadMindscapeData(): Promise<void> {
     try {
-      this.mindscapeData = await firstValueFrom(
-        this.http.get<MindscapeData>(versionedUrl('assets/data/mindscape-stats.json')),
-      );
+      this.mindscapeData = await this.dataFiles.load<MindscapeData>('assets/data/mindscape-stats.json');
     } catch (error) {
       console.error('Failed to load mindscape data:', error);
     }

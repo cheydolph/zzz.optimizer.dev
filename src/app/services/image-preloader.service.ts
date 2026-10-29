@@ -1,45 +1,11 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ImagePreloaderService implements OnDestroy {
+export class ImagePreloaderService {
   private preloadedImages: Set<string> = new Set();
   private preloadPromises: Map<string, Promise<void>> = new Map();
-  private intersectionObserver?: IntersectionObserver;
-
-  constructor() {
-    this.initIntersectionObserver();
-  }
-
-  /**
-   * Initialize IntersectionObserver for lazy loading images
-   */
-  private initIntersectionObserver(): void {
-    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) {
-      return;
-    }
-
-    this.intersectionObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const img = entry.target as HTMLImageElement;
-            const src = img.dataset['src'];
-            if (src) {
-              img.src = src;
-              img.removeAttribute('data-src');
-              this.intersectionObserver?.unobserve(img);
-            }
-          }
-        });
-      },
-      {
-        rootMargin: '50px', // Start loading 50px before entering viewport
-        threshold: 0.01,
-      },
-    );
-  }
 
   /**
    * Preload a single image
@@ -102,24 +68,6 @@ export class ImagePreloaderService implements OnDestroy {
   }
 
   /**
-   * Observe an image element for lazy loading
-   */
-  observeImage(img: HTMLImageElement): void {
-    if (this.intersectionObserver && img.dataset['src']) {
-      this.intersectionObserver.observe(img);
-    }
-  }
-
-  /**
-   * Unobserve an image element
-   */
-  unobserveImage(img: HTMLImageElement): void {
-    if (this.intersectionObserver) {
-      this.intersectionObserver.unobserve(img);
-    }
-  }
-
-  /**
    * Check if an image is preloaded
    */
   isPreloaded(src: string): boolean {
@@ -131,19 +79,5 @@ export class ImagePreloaderService implements OnDestroy {
    */
   getPreloadedCount(): number {
     return this.preloadedImages.size;
-  }
-
-  /**
-   * Cleanup. Called by Angular when the root injector is destroyed; also safe to
-   * call manually.
-   */
-  ngOnDestroy(): void {
-    this.destroy();
-  }
-
-  destroy(): void {
-    if (this.intersectionObserver) {
-      this.intersectionObserver.disconnect();
-    }
   }
 }

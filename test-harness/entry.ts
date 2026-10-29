@@ -1,3 +1,4 @@
+export { DataFileService } from '../src/app/services/data-file.service';
 export { DataMappingService } from '../src/app/services/data-mapping.service';
 export { DataTransformerService } from '../src/app/services/data-transformer.service';
 export { DiscSetDataService } from '../src/app/services/disc-set-data.service';

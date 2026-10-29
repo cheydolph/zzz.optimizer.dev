@@ -21,10 +21,11 @@ export async function setup() {
   const http = new AssetHttp(SRC_DIR);
   const mapping = new B.DataMappingService();
   const transformer = new B.DataTransformerService(mapping);
+  const dataFiles = new B.DataFileService(http);
   const discSet = new B.DiscSetDataService(http);
   const skillParser = new B.SkillParserService(http);
-  const statCalc = new B.StatCalculatorService(discSet, http);
-  const scoring = new B.ScoringService(http, skillParser, discSet);
+  const statCalc = new B.StatCalculatorService(discSet, dataFiles);
+  const scoring = new B.ScoringService(dataFiles, skillParser, discSet);
 
   return { B, ...(await prepareContext({ transformer, discSet, statCalc, scoring }, SRC_DIR)) };
 }

@@ -5,6 +5,7 @@ import { of } from 'rxjs';
 import type { Disc } from '../models/disc.model';
 import { BuildImportExportService } from './build-import-export.service';
 import { BuildService } from './build.service';
+import { DataFileService } from './data-file.service';
 import type { DbService, ShareCustomization } from './db.service';
 import { DiscLoadoutService } from './disc-loadout.service';
 import { DiscService } from './disc.service';
@@ -58,7 +59,7 @@ function createService() {
     buildService,
     new DiscService(dbService, 'browser'),
     new DiscLoadoutService('browser', notifications),
-    new UpgradePlanService('browser', http, notifications),
+    new UpgradePlanService('browser', new DataFileService(http), notifications),
     dbService,
   );
   return { db, service };
