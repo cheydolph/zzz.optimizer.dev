@@ -53,6 +53,31 @@
   <!-- Preload critical loading screen assets -->
   <link rel="preload" href="assets/data/images/page-icons/zzz-zenless-zone-zero.gif" as="image">
 
+  <!-- Font (PERF-06): the Latin subset is preloaded for the first screen; the CJK, kana, and fullwidth
+       glyphs are in a second file that browsers fetch only when such a character is on screen. Declared
+       here rather than in styles.css so the preload and @font-face share one unhashed URL. Both files are
+       subsets of the original InpinHongMeti font and keep its name and copyright entries. -->
+  <link rel="preload" href="assets/fonts/inpinhongmeti-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <style>
+    @font-face {
+      font-family: "InpinHongMeti";
+      src: url("assets/fonts/inpinhongmeti-latin.woff2") format("woff2");
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+      unicode-range: U+0000-2E7F;
+    }
+    @font-face {
+      font-family: "InpinHongMeti";
+      src: url("assets/fonts/inpinhongmeti-cjk.woff2") format("woff2");
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+      /* Only the blocks this file has glyphs for, so emoji and variation selectors (U+FE0F) never fetch it */
+      unicode-range: U+3000-312F, U+3200-33FF, U+4E00-9FFF, U+E78A-E796, U+E7C7-E7C8, U+FE30-FE4F, U+FF00-FFEF;
+    }
+  </style>
+
   <!-- Structured Data for SEO -->
   <script type="application/ld+json">
   {

@@ -2771,7 +2771,9 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       return; // Don't preload if no agents yet
     }
 
-    const imageUrls = agents.map((agent) => agent.icon).filter((icon) => icon) as string[];
+    // The thumbnails the agent picker and builds list show; the full portrait is fetched by the
+    // share image when it is generated (PERF-01).
+    const imageUrls = agents.map((agent) => agent.iconThumb || agent.icon).filter((icon) => icon) as string[];
 
     this.imagePreloader.preloadImages(imageUrls);
   }
