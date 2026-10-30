@@ -218,3 +218,35 @@ body {
 .animate-corner-pulse {
   animation: corner-pulse 2s ease-in-out infinite;
 }
+
+/* Opacity-only progress indicator for spinners under reduced motion */
+@keyframes progress-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+/* Reduced motion: animations and transitions jump to their end, and navigation does not animate.
+   Durations are shortened rather than removed so animations with fill-mode still reach their final frame. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0s !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+    scroll-behavior: auto !important;
+  }
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}

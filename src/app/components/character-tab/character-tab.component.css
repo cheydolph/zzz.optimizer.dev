@@ -447,22 +447,13 @@
   right: 0;
   height: 2px;
   background: linear-gradient(90deg, transparent 0%, rgba(244, 185, 66, 0.6) 50%, transparent 100%);
-  animation: divider-glow 3s ease-in-out infinite;
+  opacity: 0.8;
 }
 .section h3 {
   color: var(--gold2);
   margin-top: 20px;
   margin-bottom: 10px;
   text-shadow: 0 0 8px rgba(244, 185, 66, 0.3);
-}
-@keyframes divider-glow {
-  0%,
-  100% {
-    opacity: 0.3;
-  }
-  50% {
-    opacity: 0.8;
-  }
 }
 .build-header-with-actions,
 .section-header-inline {
@@ -624,32 +615,67 @@
     inset 0 0 20px rgba(77, 150, 255, 0.2),
     0 0 15px rgba(96, 165, 250, 0.3);
 }
+/* Selected card: pulses on selection, then holds the pulse's peak glow (S-Rank #ffb500, A-Rank #e900ff) */
 .build-card.selected,
 .agent-card.selected {
-  border-color: #ffd700;
+  border-color: #ffb500;
   box-shadow:
-    0 0 20px rgba(255, 215, 0, 0.6),
-    0 0 40px rgba(244, 185, 66, 0.5),
-    inset 0 0 30px rgba(244, 185, 66, 0.2);
-  animation: neon-pulse 2s ease-in-out infinite;
+    0 0 10px rgba(255, 181, 0, 0.8),
+    0 0 20px rgba(255, 181, 0, 0.5),
+    0 0 30px rgba(255, 181, 0, 0.3);
+  animation: selected-pulse-s 2s ease-in-out 3.5;
 }
 .build-card.selected::before,
 .agent-card.selected::before {
   opacity: 0.7;
+  box-shadow:
+    inset 0 0 20px rgba(255, 181, 0, 0.2),
+    0 0 15px rgba(255, 181, 0, 0.3);
 }
 .build-card.selected.a-rank,
 .agent-card.selected.a-rank {
-  border-color: #a78bfa;
+  border-color: #e900ff;
   box-shadow:
-    0 0 20px rgba(139, 92, 246, 0.6),
-    0 0 40px rgba(167, 139, 250, 0.5),
-    inset 0 0 30px rgba(139, 92, 246, 0.2);
+    0 0 10px rgba(233, 0, 255, 0.8),
+    0 0 20px rgba(233, 0, 255, 0.5),
+    0 0 30px rgba(233, 0, 255, 0.3);
+  animation-name: selected-pulse-a;
 }
 .build-card.selected.a-rank::before,
 .agent-card.selected.a-rank::before {
   box-shadow:
-    inset 0 0 20px rgba(139, 92, 246, 0.2),
-    0 0 15px rgba(167, 139, 250, 0.3);
+    inset 0 0 20px rgba(233, 0, 255, 0.2),
+    0 0 15px rgba(233, 0, 255, 0.3);
+}
+@keyframes selected-pulse-s {
+  0%,
+  100% {
+    box-shadow:
+      0 0 5px rgba(255, 181, 0, 0.5),
+      0 0 10px rgba(255, 181, 0, 0.3),
+      0 0 15px rgba(255, 181, 0, 0.2);
+  }
+  50% {
+    box-shadow:
+      0 0 10px rgba(255, 181, 0, 0.8),
+      0 0 20px rgba(255, 181, 0, 0.5),
+      0 0 30px rgba(255, 181, 0, 0.3);
+  }
+}
+@keyframes selected-pulse-a {
+  0%,
+  100% {
+    box-shadow:
+      0 0 5px rgba(233, 0, 255, 0.5),
+      0 0 10px rgba(233, 0, 255, 0.3),
+      0 0 15px rgba(233, 0, 255, 0.2);
+  }
+  50% {
+    box-shadow:
+      0 0 10px rgba(233, 0, 255, 0.8),
+      0 0 20px rgba(233, 0, 255, 0.5),
+      0 0 30px rgba(233, 0, 255, 0.3);
+  }
 }
 .build-card.selected.b-rank {
   border-color: #60a5fa;
@@ -1139,7 +1165,9 @@
   border-right: 0;
   border-bottom: 0;
   border-radius: 12px 0 0 0;
-  animation: corner-glow 2s ease-in-out infinite;
+  opacity: 0.8;
+  filter: drop-shadow(0 0 6px rgba(244, 185, 66, 0.6));
+  animation: corner-glow 2s ease-in-out 3.5;
 }
 .modal-header::after {
   content: "";
@@ -1152,23 +1180,23 @@
   border-left: 0;
   border-bottom: 0;
   border-radius: 0 12px 0 0;
-  animation: corner-glow 2s ease-in-out infinite;
-  animation-delay: 0.5s;
+  opacity: 0.8;
+  filter: drop-shadow(0 0 6px rgba(244, 185, 66, 0.6));
+  animation: corner-glow 2s ease-in-out 0.5s 3.5 backwards;
 }
 .modal-header h2 {
   color: var(--gold);
   margin: 0;
   text-shadow: 0 0 10px rgba(244, 185, 66, 0.5);
 }
+/* Opacity only, so the glow stays on the compositor; the drop-shadow is static at its old peak */
 @keyframes corner-glow {
   0%,
   100% {
     opacity: 0.4;
-    filter: drop-shadow(0 0 2px rgba(244, 185, 66, 0.3));
   }
   50% {
     opacity: 0.8;
-    filter: drop-shadow(0 0 6px rgba(244, 185, 66, 0.6));
   }
 }
 .modal-body {
@@ -1384,10 +1412,12 @@
     0 2px 4px rgba(0, 0, 0, 0.3),
     0 0 15px rgba(244, 185, 66, 0.25);
 }
+/* Pulses a few times, then holds the pulse's peak (no animation at idle) */
 .disc-slot:not(.equipped) {
-  border: 2px dashed #ff6b6b;
+  border: 2px dashed #ff8787;
   background: rgba(255, 107, 107, 0.05);
-  animation: p 2s ease-in-out infinite;
+  box-shadow: 0 0 15px rgba(255, 107, 107, 0.4);
+  animation: p 2s ease-in-out 3.5;
 }
 .disc-slot:not(.equipped):hover {
   border-color: #ff6b6b;
@@ -1420,7 +1450,7 @@
   content: "⚠";
   font-size: 2.5em;
   opacity: 0.8;
-  animation: i 2s ease-in-out infinite;
+  animation: i 2s ease-in-out 3;
 }
 @keyframes i {
   0%,
@@ -1504,7 +1534,7 @@
   cursor: help;
   flex-shrink: 0;
   filter: drop-shadow(0 0 2px rgba(255, 193, 7, 0.6));
-  animation: pulse-warning 2s ease-in-out infinite;
+  animation: pulse-warning 2s ease-in-out 3;
 }
 @keyframes pulse-warning {
   0%,
@@ -1564,13 +1594,6 @@
   background: transparent;
   padding: 2px;
   flex-shrink: 0;
-}
-
-/* Slow spin animation for disc icons - desktop only */
-@media (min-width: 769px) {
-  .disc-set-icon-inline {
-    animation: global-disc-spin 8s linear infinite;
-  }
 }
 .disc-main-stat,
 .disc-picker-main {
@@ -3486,12 +3509,11 @@
     transform: rotate(360deg);
   }
 }
-@keyframes global-disc-spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
+/* progress-pulse is global (styles.css); it overrides the reduced-motion block so spinners still show progress */
+@media (prefers-reduced-motion: reduce) {
+  .spinner,
+  .share-loading .loading-spinner {
+    animation: progress-pulse 1.5s ease-in-out infinite !important;
   }
 }
 

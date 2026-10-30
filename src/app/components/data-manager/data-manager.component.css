@@ -74,6 +74,13 @@ h1 {
   }
 }
 
+/* progress-pulse is global (styles.css); it overrides the reduced-motion block so the spinner still shows progress */
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation: progress-pulse 1.5s ease-in-out infinite !important;
+  }
+}
+
 @keyframes slideIn {
   from {
     opacity: 0;
