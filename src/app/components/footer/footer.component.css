@@ -54,7 +54,9 @@
   padding: 6px 16px;
   border: 1px solid #f4b942;
   border-radius: 4px;
-  transition: all 0.2s ease;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
   display: inline-block;
 }
 

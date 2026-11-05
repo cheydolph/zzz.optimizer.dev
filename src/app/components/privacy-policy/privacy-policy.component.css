@@ -19,7 +19,12 @@
   padding: 8px 16px;
   border: 1px solid #f4b942;
   border-radius: 6px;
-  transition: all 0.2s ease;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease,
+    outline 0.2s ease,
+    outline-offset 0.2s ease;
   background: rgba(244, 185, 66, 0.1);
 }
 
@@ -63,7 +68,10 @@ h1 {
   border-radius: 8px;
   padding: 20px;
   margin-bottom: 20px;
-  transition: all 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
 }
 
 .info-card:hover {

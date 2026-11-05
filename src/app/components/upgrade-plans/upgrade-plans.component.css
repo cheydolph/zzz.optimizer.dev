@@ -62,7 +62,12 @@
   cursor: pointer;
   font-size: 0.85em;
   font-weight: 600;
-  transition: all 0.15s;
+  transition:
+    background 0.15s,
+    color 0.15s,
+    transform 0.15s,
+    outline 0.15s,
+    outline-offset 0.15s;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -162,7 +167,11 @@
   cursor: pointer;
   font-weight: 600;
   font-size: 0.95em;
-  transition: all 0.15s;
+  transition:
+    background 0.15s,
+    transform 0.15s,
+    outline 0.15s,
+    outline-offset 0.15s;
 }
 
 .btn-create:hover {
@@ -206,7 +215,11 @@
   padding: 12px;
   margin-bottom: 8px;
   cursor: pointer;
-  transition: all 0.15s;
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    box-shadow 0.15s,
+    transform 0.15s;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -320,7 +333,11 @@
   cursor: pointer;
   font-weight: 600;
   font-size: 0.95em;
-  transition: all 0.15s;
+  transition:
+    background 0.15s,
+    transform 0.15s,
+    outline 0.15s,
+    outline-offset 0.15s;
 }
 
 .btn-save:hover {
@@ -453,7 +470,11 @@
   border-radius: 6px;
   padding: 12px;
   cursor: pointer;
-  transition: all 0.15s;
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    box-shadow 0.15s,
+    transform 0.15s;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -547,7 +568,12 @@
   padding: 8px 12px;
   font-size: 0.9em;
   cursor: pointer;
-  transition: all 0.15s;
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    color 0.15s,
+    outline 0.15s,
+    outline-offset 0.15s;
 }
 
 .substat-select:hover,
@@ -661,7 +687,12 @@
   border-radius: 4px;
   cursor: pointer;
   font-size: 0.8em;
-  transition: all 0.15s;
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    color 0.15s,
+    outline 0.15s,
+    outline-offset 0.15s;
 }
 
 .btn-reset:hover {
@@ -687,7 +718,12 @@
   cursor: pointer;
   font-weight: 600;
   font-size: 1.1em;
-  transition: all 0.15s;
+  transition:
+    background 0.15s,
+    box-shadow 0.15s,
+    transform 0.15s,
+    outline 0.15s,
+    outline-offset 0.15s;
 }
 
 .btn-save-large:hover {
@@ -745,7 +781,11 @@
   align-items: center;
   justify-content: center;
   border-radius: 4px;
-  transition: all 0.15s;
+  transition:
+    background 0.15s,
+    color 0.15s,
+    outline 0.15s,
+    outline-offset 0.15s;
 }
 
 .close-btn:hover {
@@ -785,7 +825,12 @@
   cursor: pointer;
   font-weight: 600;
   font-size: 0.95em;
-  transition: all 0.15s;
+  transition:
+    background 0.15s,
+    box-shadow 0.15s,
+    transform 0.15s,
+    outline 0.15s,
+    outline-offset 0.15s;
 }
 
 .btn-primary:hover {
@@ -803,7 +848,10 @@
   cursor: pointer;
   font-weight: 600;
   font-size: 0.95em;
-  transition: all 0.15s;
+  transition:
+    background 0.15s,
+    outline 0.15s,
+    outline-offset 0.15s;
 }
 
 .btn-secondary:hover {
@@ -819,7 +867,12 @@
   cursor: pointer;
   font-weight: 600;
   font-size: 0.95em;
-  transition: all 0.15s;
+  transition:
+    background 0.15s,
+    box-shadow 0.15s,
+    transform 0.15s,
+    outline 0.15s,
+    outline-offset 0.15s;
 }
 
 .btn-danger:hover {

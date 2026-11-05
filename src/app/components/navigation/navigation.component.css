@@ -33,7 +33,9 @@
 .site-title-link {
   text-decoration: none;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition:
+    outline 0.3s ease,
+    outline-offset 0.3s ease;
 }
 
 .site-title-link:hover .site-title {
@@ -57,7 +59,10 @@
     0 2px 4px rgba(0, 0, 0, 0.5);
   position: relative;
   display: block;
-  transition: all 0.3s ease;
+  transition:
+    color 0.3s ease,
+    text-shadow 0.3s ease,
+    transform 0.3s ease;
 }
 
 .nav-brand {
@@ -104,7 +109,15 @@
   border-radius: 8px;
   font-weight: 600;
   font-size: 0.95em;
-  transition: all 0.3s ease;
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    color 0.3s ease,
+    text-shadow 0.3s ease,
+    transform 0.3s ease,
+    outline 0.3s ease,
+    outline-offset 0.3s ease;
   border: 2px solid transparent;
   position: relative;
   overflow: hidden;
