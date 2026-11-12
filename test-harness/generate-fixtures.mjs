@@ -1,11 +1,34 @@
 // Seeded generator for the synthetic characterization fixtures.
 // Writes test-data/synthetic/fixtures/<agentId>.json (inputs only; goldens.mjs computes the outputs).
-// Usage: node test-harness/generate-fixtures.mjs [--out <dir>]
+// Usage: node test-harness/generate-fixtures.mjs [--out <dir>] [--regenerate-all]
+//        node test-harness/generate-fixtures.mjs --only <agentId> [--wengine <wEngineId>] [--out <dir>]
+//
+// The full run draws every case from one seeded stream over all agents and W-Engines, so it reproduces
+// the committed fixtures only with the reference data they were generated from. Since Severian (1631)
+// and Incarcerating Grip (14163) were added, a full run rewrites all 61 earlier fixtures, so it refuses
+// to write into the committed folder without --regenerate-all (which needs the user's approval).
+// --only adds one agent's fixture and leaves every other file alone: it uses its own seed, writes only
+// <agentId>.json, and skips the cross-agent set and condition cases. --wengine equips that W-Engine on
+// the agent's cases and adds R1 to R5 cases for it.
 import { mkdirSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { SRC_DIR, SYNTHETIC_DIR, readJson, runCase, setup, withQuietConsole } from './lib.mjs';
 
-const outDir = argValue('--out') ?? join(SYNTHETIC_DIR, 'fixtures');
+const committedDir = join(SYNTHETIC_DIR, 'fixtures');
+const outDir = argValue('--out') ?? committedDir;
+const only = argValue('--only');
+const onlyWEngine = argValue('--wengine');
+if (!only && outDir === committedDir && !process.argv.includes('--regenerate-all')) {
+  console.error(
+    'Refusing to rewrite every committed fixture. Use --only <agentId> to add one agent, --out <dir> to ' +
+      'write elsewhere, or --regenerate-all (needs approval: it changes all fixtures and their goldens).',
+  );
+  process.exit(1);
+}
+if (onlyWEngine && !only) {
+  console.error('--wengine needs --only <agentId>.');
+  process.exit(1);
+}
 const SEED = 20261023;
 const FIXED_DATE = '2026-01-01T00:00:00.000Z';
 const SLOTS = ['Drive1', 'Drive2', 'Drive3', 'Drive4', 'Drive5', 'Drive6'];
@@ -63,7 +86,8 @@ function mulberry32(seed) {
     return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
   };
 }
-const rng = mulberry32(SEED);
+// A single-agent run gets its own stream, so adding an agent never shifts any other agent's cases.
+const rng = mulberry32(only ? SEED + Number(only) : SEED);
 const pick = (arr) => arr[Math.floor(rng() * arr.length)];
 const shuffled = (arr) => {
   const a = arr.slice();
@@ -83,6 +107,14 @@ const setNames = Object.keys(discSet.getDiscSetEquipmentData()).sort();
 const statWeights = readJson(join(SRC_DIR, 'assets/data/agent-stat-weights.json')).agents;
 const breakpoints = readJson(join(SRC_DIR, 'assets/data/agent-breakpoints.json')).agents;
 const ROLL = B.SUBSTAT_ROLL_VALUES;
+if (only && !agents.some((a) => a.id === only)) {
+  console.error(`--only ${only}: no such agent in agents.json`);
+  process.exit(1);
+}
+if (onlyWEngine && !wEngines.some((w) => w.id === onlyWEngine)) {
+  console.error(`--wengine ${onlyWEngine}: no such W-Engine in wengines.json`);
+  process.exit(1);
+}
 
 /** Per-agent random choices shared by every case of that agent, so cases differ only in what they test. */
 function makeProfile(agent) {
@@ -209,7 +241,9 @@ function addCase(agent, id, note, build, plan) {
 
 // Per-agent cases
 for (const [index, agent] of agents.entries()) {
+  if (only && agent.id !== only) continue;
   const profile = makeProfile(agent);
+  if (onlyWEngine) profile.wEngineId = onlyWEngine;
   profiles.set(agent.id, profile);
   fixtures.set(agent.id, { agentId: agent.id, agentName: agent.name, cases: [] });
   const w = { equippedWEngineId: profile.wEngineId };
@@ -285,10 +319,12 @@ for (const [index, agent] of agents.entries()) {
   }
 }
 
-// Every W-Engine at refinements 1 to 5 on a matching-specialty agent
-for (const wEngine of wEngines) {
+// Every W-Engine at refinements 1 to 5 on a matching-specialty agent (with --only: just --wengine, on that agent)
+const onlyAgent = only ? agents.find((a) => a.id === only) : undefined;
+const refinementWEngines = only ? wEngines.filter((w) => w.id === onlyWEngine) : wEngines;
+for (const wEngine of refinementWEngines) {
   const candidates = agents.filter((a) => a.specialty === wEngine.specialty);
-  const agent = pick(candidates.length > 0 ? candidates : agents);
+  const agent = onlyAgent ?? pick(candidates.length > 0 ? candidates : agents);
   const profile = profiles.get(agent.id);
   for (let r = 1; r <= 5; r++) {
     const id = `wengine-${wEngine.id}-r${r}`;
@@ -301,13 +337,13 @@ for (const wEngine of wEngines) {
   }
 }
 
-// Every set as the 4pc and as the 2pc
+// Every set as the 4pc and as the 2pc (cross-agent: skipped with --only)
 const slug = (name) =>
   name
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-|-$/g, '');
-for (const set of setNames) {
+for (const set of only ? [] : setNames) {
   for (const role of ['4pc', '2pc']) {
     const agent = pick(agents);
     const profile = profiles.get(agent.id);
@@ -326,6 +362,7 @@ for (const set of setNames) {
 // Conditional 4pc sets on both sides of each condition. Each group's 4pc output must not be all alike.
 const conditionGroups = [];
 function conditional(group, set, agentFilter, label, discOpts = {}) {
+  if (only) return; // cross-agent cases stay in the full run
   const agent = pick(agents.filter(agentFilter));
   const profile = profiles.get(agent.id);
   const id = `cond-${slug(set)}-${label}`;
@@ -397,7 +434,7 @@ for (const [group, members] of Object.entries(groups)) {
   }
   if (distinct.size < 2) failures.push(`condition group ${group}: every case produced the same 4pc output`);
 }
-for (const agent of agents) {
+for (const agent of agents.filter((a) => fixtures.has(a.id))) {
   const c = caseById(agent.id, 'pin-stale');
   const resolved = evaluate(agent.id, c).resolvedBuildType;
   if (resolved === STALE_BUILD_TYPE) failures.push(`${agent.id}: stale pin was not ignored`);
@@ -407,7 +444,7 @@ if (failures.length > 0) {
   process.exit(1);
 }
 
-rmSync(outDir, { recursive: true, force: true });
+if (!only) rmSync(outDir, { recursive: true, force: true });
 mkdirSync(outDir, { recursive: true });
 let total = 0;
 for (const fixture of fixtures.values()) {

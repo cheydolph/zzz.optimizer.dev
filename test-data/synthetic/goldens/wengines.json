@@ -2716,6 +2716,47 @@
       "icon": "assets/data/images/wengines/Weapon_S_1621.webp"
     },
     {
+      "id": "14163",
+      "name": "Incarcerating Grip",
+      "rarity": "S",
+      "specialty": "Attack",
+      "baseAtk": 713,
+      "baseStatType": "ATK",
+      "subStat": {
+        "type": "CRIT_Rate",
+        "value": 24
+      },
+      "effect": {
+        "name": "Effect",
+        "description": "Increases the equipper's CRIT Rate by %. When the equipper's [Basic Attack] hits an enemy, increases their own ATK by %, and the DMG dealt ignores % of the target's Wind RES for 16s.",
+        "properties": [
+          {
+            "name": "CRIT Rate",
+            "type": "CRIT_Rate",
+            "values": {
+              "W1": 20,
+              "W2": 23,
+              "W3": 26,
+              "W4": 29,
+              "W5": 32
+            }
+          },
+          {
+            "name": "ATK",
+            "type": "ATK%",
+            "values": {
+              "W1": 10,
+              "W2": 11.5,
+              "W3": 13,
+              "W4": 14.5,
+              "W5": 16
+            }
+          }
+        ]
+      },
+      "icon": "assets/data/images/wengines/Weapon_S_1631.webp"
+    },
+    {
       "id": "14164",
       "name": "Nirvana's First Plume",
       "rarity": "S",

@@ -4838,6 +4838,79 @@
           "Energy_Regen": 3
         }
       }
+    },
+    "1631": {
+      "comment": "Severian",
+      "name": "Severian",
+      "breakpoints": {
+        "hp": {
+          "min": 7500,
+          "optimal": 9500
+        },
+        "atk": {
+          "min": 2900,
+          "optimal": 3500
+        },
+        "def": {
+          "min": 650,
+          "optimal": 750
+        },
+        "impact": {
+          "min": 0,
+          "optimal": 0
+        },
+        "anomalyMastery": {
+          "min": 0,
+          "optimal": 0
+        },
+        "critRate": {
+          "min": 80,
+          "optimal": 100
+        },
+        "critDmg": {
+          "min": 150,
+          "optimal": 210
+        },
+        "anomalyProficiency": {
+          "min": 0,
+          "optimal": 0
+        },
+        "pen": {
+          "min": 0,
+          "optimal": 0
+        },
+        "penRatio": {
+          "min": 0,
+          "optimal": 0
+        },
+        "energyRegen": {
+          "min": 1.5,
+          "optimal": 2.0
+        }
+      },
+      "priorityStats": ["CRIT_Rate", "CRIT_DMG", "ATK%", "PEN", "ATK", "PEN_Ratio", "Element_DMG"],
+      "statWeights": {
+        "CRIT_DMG": 1,
+        "CRIT_Rate": 1,
+        "ATK%": 0.85,
+        "PEN": 0.15,
+        "ATK": 0.15
+      },
+      "mainStatWeights": {
+        "Drive4": {
+          "CRIT_Rate": 3,
+          "CRIT_DMG": 3,
+          "ATK%": 2
+        },
+        "Drive5": {
+          "Element_DMG": 3,
+          "PEN_Ratio": 3,
+          "ATK%": 2
+        },
+        "Drive6": {
+          "ATK%": 3
+        }
+      }
     }
   }
 }
