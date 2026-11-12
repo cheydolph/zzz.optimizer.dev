@@ -47,24 +47,6 @@
   line-height: 1.5;
 }
 
-.github-link {
-  color: #f4b942;
-  text-decoration: none;
-  font-size: 0.9em;
-  padding: 6px 16px;
-  border: 1px solid #f4b942;
-  border-radius: 4px;
-  transition:
-    background 0.2s ease,
-    color 0.2s ease;
-  display: inline-block;
-}
-
-.github-link:hover {
-  background: #f4b942;
-  color: #0a0a0a;
-}
-
 .privacy-link {
   color: #888;
   text-decoration: none;
@@ -100,12 +82,5 @@
     font-size: 0.9em;
     min-height: 44px;
     line-height: 20px;
-  }
-
-  .github-link {
-    min-height: 44px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
   }
 }

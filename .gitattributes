@@ -10,6 +10,9 @@
 *.md text eol=lf
 *.xml text eol=lf
 *.txt text eol=lf
+*.mjs text eol=lf
+*.mts text eol=lf
+*.webmanifest text eol=lf
 
 # Binary files
 *.png binary

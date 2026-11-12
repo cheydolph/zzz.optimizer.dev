@@ -393,60 +393,6 @@
   font-style: italic;
 }
 
-/* Radio Group */
-.radio-group {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.radio-label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--txt);
-  cursor: pointer;
-  font-size: 0.95em;
-}
-
-.radio-label input[type="radio"] {
-  width: 18px;
-  height: 18px;
-  cursor: pointer;
-  accent-color: var(--gold);
-}
-
-/* Checkbox Grid */
-.checkbox-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 12px;
-}
-
-.checkbox-label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--txt);
-  cursor: pointer;
-  font-size: 0.9em;
-  padding: 8px;
-  background: var(--bg);
-  border-radius: 4px;
-  transition: background 0.15s;
-}
-
-.checkbox-label:hover {
-  background: var(--card);
-}
-
-.checkbox-label input[type="checkbox"] {
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
-  accent-color: var(--gold);
-}
-
 /* Main Stat Preferences */
 .main-stat-slot {
   margin-bottom: 20px;
@@ -893,14 +839,6 @@
 }
 
 @media (max-width: 768px) {
-  .radio-label input[type="radio"],
-  .checkbox-label input[type="checkbox"] {
-    min-width: 24px;
-    min-height: 24px;
-    width: 24px;
-    height: 24px;
-  }
-
   .slot-indicator {
     min-width: 44px;
     min-height: 44px;
@@ -922,10 +860,6 @@
   }
 
   .sidebar {
-    padding: 12px;
-  }
-
-  .plan-form {
     padding: 12px;
   }
 

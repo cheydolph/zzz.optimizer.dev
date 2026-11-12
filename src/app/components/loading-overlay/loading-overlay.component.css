@@ -82,56 +82,6 @@
   }
 }
 
-/* Loading text in bottom left */
-.loading-text-container {
-  display: flex;
-  align-items: baseline;
-  gap: 4px;
-  color: #ffffff;
-  font-size: 1.5rem;
-  font-weight: 500;
-  letter-spacing: 2px;
-  text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
-  order: 1;
-  z-index: 2;
-}
-
-.loading-text {
-  animation: pulse-glow 2s ease-in-out infinite;
-}
-
-.loading-dots {
-  display: inline-flex;
-  gap: 2px;
-}
-
-.dot {
-  animation: dot-bounce 1.4s ease-in-out infinite;
-  opacity: 0;
-}
-
-.dot-1 {
-  animation-delay: 0s;
-}
-
-.dot-2 {
-  animation-delay: 0.2s;
-}
-
-.dot-3 {
-  animation-delay: 0.4s;
-}
-
-@keyframes pulse-glow {
-  0%,
-  100% {
-    opacity: 0.85;
-  }
-  50% {
-    opacity: 1;
-  }
-}
-
 @keyframes dot-bounce {
   0%,
   80%,
@@ -164,11 +114,6 @@
     height: 200px;
     align-self: flex-end;
   }
-
-  .loading-text-container {
-    font-size: 1.2rem;
-    align-self: flex-start;
-  }
 }
 
 @media (max-width: 480px) {
@@ -180,9 +125,5 @@
   .bangboo-container {
     width: 150px;
     height: 150px;
-  }
-
-  .loading-text-container {
-    font-size: 1rem;
   }
 }
