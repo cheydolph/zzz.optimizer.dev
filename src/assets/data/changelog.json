@@ -20,7 +20,8 @@
         "The app opens faster and downloads much less data on your first visit",
         "Scrolling and opening menus are smoother on larger screens, especially in Firefox and Safari",
         "Agent picker cards now fill evenly, and empty disc slots brighten when you hover over them",
-        "Agent data and animated W-Engine icons now download much less data"
+        "Agent data and animated W-Engine icons now download much less data",
+        "Importing from a different UID now warns you before it overwrites your existing builds"
       ]
     },
     {

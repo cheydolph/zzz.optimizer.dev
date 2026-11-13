@@ -1856,6 +1856,13 @@
                             }
 
                             <!-- Enka UID Import Modal -->
+                            <!-- Info dialog: acknowledgement-only messages (native <dialog>, replaces alert()) -->
+                            <app-info-dialog
+                              [open]="!!infoDialog"
+                              [heading]="infoDialog?.title ?? ''"
+                              [message]="infoDialog?.message ?? ''"
+                              (closed)="closeInfoDialog()"
+                            />
                             @if (showEnkaImportModal) {
                               <div
                                 class="modal-overlay"

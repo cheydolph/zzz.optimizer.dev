@@ -5,6 +5,7 @@ import { switchMap, catchError, retryWhen, mergeMap, map } from 'rxjs/operators'
 import { Disc, MainStatType, SubStat, SubStatType } from '../models/disc.model';
 import { DiscSlot, WEngine } from '../models/agent.model';
 import { DbService } from './db.service';
+import { ENKA_INVALID_UID_MESSAGE, ENKA_NOT_CONFIGURED_MESSAGE } from '../constants/enka-messages';
 import { DISC_MAIN_STAT_MAX } from '../constants/main-stat-possibilities';
 import { environment } from '../../environments/environment';
 
@@ -156,10 +157,6 @@ const DISC_SET_MAP: { [key: number]: string } = {
   34200: 'Thorned Rose',
 };
 
-/** Shown when a build has no Worker URL (forks, local builds without `environment.local.ts`). Wording pending approval. */
-export const ENKA_NOT_CONFIGURED_MESSAGE =
-  'Profile import is not configured for this deployment, so there is no import service to contact.';
-
 @Injectable({
   providedIn: 'root',
 })
@@ -188,7 +185,7 @@ export class EnkaApiService {
     // The UID is sent trimmed and encoded; the worker accepts digits only, so check that first
     const trimmedUid = uid.trim();
     if (!/^\d+$/.test(trimmedUid)) {
-      return throwError(() => new Error('Please enter a valid UID'));
+      return throwError(() => new Error(ENKA_INVALID_UID_MESSAGE));
     }
     // fresh=1 bypasses the worker's 5 minute cache - imports are always user
     // initiated, and serving a stale profile makes the app report that builds
@@ -266,10 +263,7 @@ export class EnkaApiService {
         );
 
       case 400:
-        return (
-          'That UID is not formatted correctly. A ZZZ UID is numbers only, ' +
-          'usually 8-10 digits, shown in the bottom right of the in-game menu.'
-        );
+        return ENKA_INVALID_UID_MESSAGE;
 
       case 403:
         return (

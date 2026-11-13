@@ -8,7 +8,7 @@ import { DbService, ShareCustomization } from './db.service';
 import { Disc } from '../models/disc.model';
 import { DiscLoadout } from '../models/disc-loadout.model';
 import { UpgradePlan } from '../models/upgrade-plan.model';
-import { UID_HISTORY_STORAGE_KEY } from '../constants/storage-keys';
+import { OWNING_UID_STORAGE_KEY, UID_HISTORY_STORAGE_KEY } from '../constants/storage-keys';
 
 export interface ExportData {
   version: string;
@@ -248,6 +248,7 @@ export class BuildImportExportService {
     this.discLoadoutService.clearAllLoadouts();
     this.upgradePlanService.clearAllPlans();
     localStorage.removeItem(UID_HISTORY_STORAGE_KEY);
+    localStorage.removeItem(OWNING_UID_STORAGE_KEY);
   }
 
   /**

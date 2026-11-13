@@ -1,0 +1,47 @@
+/* Same look as the character tab's confirm dialog; the colours fall back to that tab's tokens. */
+.info-dialog {
+  padding: 0;
+  width: min(90vw, 520px);
+  max-height: 90vh;
+  border: 1px solid rgba(244, 185, 66, 0.2);
+  border-radius: 12px;
+  background: rgba(26, 26, 26, 0.97);
+  color: var(--txt, #e5e5e5);
+  box-shadow: 0 8px 32px rgba(244, 185, 66, 0.3);
+}
+/* Matches the modal overlay darkness chosen in slice 4.5a (o3). */
+.info-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.88);
+}
+.info-dialog-box {
+  padding: 24px;
+}
+.info-dialog h2 {
+  margin: 0 0 12px;
+  color: var(--gold, #f4b942);
+  font-size: 1.25em;
+}
+.info-dialog-message {
+  margin: 0;
+  line-height: 1.6;
+  white-space: pre-line;
+}
+.info-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+.info-dialog-ok {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 6px;
+  background: linear-gradient(135deg, var(--gold, #f4b942), #ca8a04);
+  color: var(--bg, #0a0a0a);
+  font-size: 0.95em;
+  font-weight: bold;
+  cursor: pointer;
+}
+.info-dialog-ok:focus-visible {
+  outline: 2px solid var(--gold2, #ffd666);
+  outline-offset: 2px;
+}

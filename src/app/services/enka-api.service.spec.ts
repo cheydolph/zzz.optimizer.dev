@@ -3,7 +3,8 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { TestBed } from '@angular/core/testing';
 import { firstValueFrom } from 'rxjs';
 import { DbService } from './db.service';
-import { ENKA_NOT_CONFIGURED_MESSAGE, EnkaApiService } from './enka-api.service';
+import { ENKA_INVALID_UID_MESSAGE, ENKA_NOT_CONFIGURED_MESSAGE } from '../constants/enka-messages';
+import { EnkaApiService } from './enka-api.service';
 
 // BUILD-16: imports go only through our own Worker. Without one the import fails with a message
 // instead of falling back to public CORS proxies, and a failed request never moves to another host.
@@ -41,7 +42,7 @@ describe('EnkaApiService request routing', () => {
 
   it('rejects a UID that is not digits before sending anything', async () => {
     configureWorker(WORKER);
-    await expect(firstValueFrom(service.fetchPlayerData('12ab'))).rejects.toThrow('Please enter a valid UID');
+    await expect(firstValueFrom(service.fetchPlayerData('12ab'))).rejects.toThrow(ENKA_INVALID_UID_MESSAGE);
   });
 
   it('asks the Worker for a fresh profile, with the UID trimmed and encoded', async () => {

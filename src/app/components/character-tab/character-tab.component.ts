@@ -47,7 +47,9 @@ import { UpgradePlansComponent } from '../upgrade-plans/upgrade-plans.component'
 // fetched on demand in loadCanvasShareService().
 import type { CanvasShareImageService, ShareImageData } from '../../services/canvas-share-image.service';
 import { getDiscFormSubstatError, getDiscValidationErrors, hasValidationErrors } from '../../utils/disc-validation';
-import { UID_HISTORY_STORAGE_KEY } from '../../constants/storage-keys';
+import { OWNING_UID_STORAGE_KEY, UID_HISTORY_STORAGE_KEY } from '../../constants/storage-keys';
+import { ENKA_INVALID_UID_MESSAGE } from '../../constants/enka-messages';
+import { InfoDialogComponent } from '../info-dialog/info-dialog.component';
 import { fadeIn, scaleIn, fadeInUp, expandCollapse, fadeInFast, slideInRight } from '../../animations/route-animations';
 
 interface MindscapeData {
@@ -72,6 +74,7 @@ interface MindscapeData {
     DragDropModule,
     OptimizerComponent,
     UpgradePlansComponent,
+    InfoDialogComponent,
     DatePipe,
     DecimalPipe,
     NgClass,
@@ -243,6 +246,9 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     cancelText: 'Cancel',
     onConfirm: () => {},
   };
+
+  // Info dialog: acknowledgement-only messages in place of alert() (native <dialog>, InfoDialogComponent)
+  infoDialog: { title: string; message: string } | null = null;
 
   // Enka UID Import
   showEnkaImportModal = false;
@@ -3609,9 +3615,10 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
 
     try {
       const enka = await this.loadEnkaServices();
+      const uid = historyItem.uid.trim();
 
       // Fetch data from Enka API
-      const enkaResult = await firstValueFrom(enka.api.fetchPlayerData(historyItem.uid));
+      const enkaResult = await firstValueFrom(enka.api.fetchPlayerData(uid));
 
       if (!enkaResult) {
         throw new Error('No data received from provided UID');
@@ -3628,17 +3635,15 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
 
         await this.handleUnknownAgents(enkaResult);
 
+        const confirm = this.buildImportConfirmation(uid, enkaResult, summary, comparison);
         this.showConfirmation(
-          'Import from UID',
-          `Found player: ${enkaResult.playerName}
-
-          ${summary}
-
-          Do you want to import these builds?`,
+          confirm.title,
+          confirm.message,
           async () => {
             try {
               this.loadingService.show('Importing builds...');
               const result = await enka.importer.importBuilds(comparison);
+              this.setOwningUid(uid);
 
               // Reload builds to show the imported data
               await this.buildService.loadBuilds();
@@ -3647,21 +3652,83 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
             } catch (error) {
               this.loadingService.hide();
               console.error('Import error:', error);
-              alert(error instanceof Error ? error.message : 'Failed to import builds');
+              this.showInfo('Import failed', error instanceof Error ? error.message : 'Failed to import builds');
             }
           },
-          'Import',
+          confirm.confirmText,
           'Cancel',
         );
       } else {
         await this.handleUnknownAgents(enkaResult);
-        alert(this.buildNoChangesMessage(enkaResult));
+        this.showInfo('Nothing to import', this.buildNoChangesMessage(enkaResult));
       }
     } catch (error) {
       this.loadingService.hide();
       console.error('Enka API error:', error);
-      alert(error instanceof Error ? error.message : 'Failed to fetch data from provided UID');
+      this.showInfo('Import failed', error instanceof Error ? error.message : 'Failed to fetch data from provided UID');
     }
+  }
+
+  /**
+   * The import confirmation. When builds imported from another UID would be overwritten, it carries
+   * the warning (title, text, and button chosen by the user, 2026-11-12); otherwise the plain
+   * confirmation. Asked only when an existing build would actually change.
+   */
+  private buildImportConfirmation(
+    uid: string,
+    enkaResult: EnkaImportResult,
+    summary: string,
+    comparison: ImportComparison,
+  ): { title: string; message: string; confirmText: string } {
+    const owningUid = this.getOwningUid();
+    if (owningUid && owningUid !== uid && comparison.updatedBuilds.length > 0) {
+      return {
+        title: 'Import from a different UID?',
+        message:
+          `Your saved builds came from UID ${owningUid}, but you are importing UID ${uid} (${enkaResult.playerName}).\n\n` +
+          'Any agent you both have will be overwritten with their levels, mindscapes, W-Engines and discs. ' +
+          'Your own data for those agents cannot be recovered.\n\n' +
+          `${summary}\n\nContinue?`,
+        confirmText: 'Overwrite my builds',
+      };
+    }
+    return {
+      title: 'Import from UID',
+      message: `Found player: ${enkaResult.playerName}
+
+          ${summary}
+
+          Do you want to import these builds?`,
+      confirmText: 'Import',
+    };
+  }
+
+  /** The UID of the last completed import on this device, or null (none yet, or storage unavailable). */
+  private getOwningUid(): string | null {
+    try {
+      return localStorage.getItem(OWNING_UID_STORAGE_KEY);
+    } catch {
+      return null; // storage blocked (private mode): no warning, imports still work
+    }
+  }
+
+  private setOwningUid(uid: string): void {
+    try {
+      localStorage.setItem(OWNING_UID_STORAGE_KEY, uid);
+    } catch {
+      // storage blocked or full: the warning just does not fire later
+    }
+  }
+
+  /** Shows an acknowledgement-only message in the info dialog (replaces alert(), COPY-Q17). */
+  showInfo(title: string, message: string): void {
+    this.infoDialog = { title, message };
+    this.cdr.markForCheck();
+  }
+
+  closeInfoDialog(): void {
+    this.infoDialog = null;
+    this.cdr.markForCheck();
   }
 
   /** Loadouts keep pointing at discs an Enka re-import replaced; applying them skips those slots. */
@@ -3699,7 +3766,17 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     const skipped = enkaResult.unknownAgentIds.length;
 
     if (skipped === 0) {
-      return 'All builds are already up to date!';
+      // Only showcased agents are in an Enka response, so name them: a bare "all up to date" reads
+      // as though agents left out of the showcase were checked too.
+      const names = enkaResult.builds
+        .map((build) => this.referenceAgents.find((a) => a.id === build.agentId)?.name)
+        .filter((name): name is string => !!name)
+        .sort();
+      const who = names.length > 0 ? `Your showcased agents (${names.join(', ')})` : 'Your showcased agents';
+      return (
+        `${who} are already up to date. Only agents in your in-game Character Showcase can be imported; ` +
+        "other agents weren't changed."
+      );
     }
 
     return `No builds were imported. ${this.buildSkippedAgentNotice(skipped)}`;
@@ -3792,7 +3869,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
 
   async importFromEnka() {
     if (!this.enkaUid.trim()) {
-      this.enkaImportError = 'Please enter a valid UID';
+      this.enkaImportError = ENKA_INVALID_UID_MESSAGE;
       this.cdr.markForCheck();
       return;
     }
@@ -3804,16 +3881,18 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
 
     try {
       const enka = await this.loadEnkaServices();
+      // Captured now: closeEnkaImportModal() clears this.enkaUid before the confirmation runs.
+      const uid = this.enkaUid.trim();
 
       // Fetch data from Enka API
-      const enkaResult = await firstValueFrom(enka.api.fetchPlayerData(this.enkaUid));
+      const enkaResult = await firstValueFrom(enka.api.fetchPlayerData(uid));
 
       if (!enkaResult) {
         throw new Error('No data received from provided UID');
       }
 
       // Add UID to history on successful fetch
-      this.addToUidHistory(this.enkaUid.trim(), enkaResult.playerName);
+      this.addToUidHistory(uid, enkaResult.playerName);
 
       // Compare with existing builds
       const comparison = await enka.importer.compareBuilds(enkaResult.builds);
@@ -3827,16 +3906,14 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
         // Close the Enka import modal before showing confirmation dialog
         this.closeEnkaImportModal();
 
+        const confirm = this.buildImportConfirmation(uid, enkaResult, summary, comparison);
         this.showConfirmation(
-          'Import from UID',
-          `Found player: ${enkaResult.playerName}
-
-          ${summary}
-
-          Do you want to import these builds?`,
+          confirm.title,
+          confirm.message,
           async () => {
             try {
               const result = await enka.importer.importBuilds(comparison);
+              this.setOwningUid(uid);
 
               // Reload builds to show the imported data
               await this.buildService.loadBuilds();
@@ -3848,7 +3925,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
               this.openEnkaImportModal();
             }
           },
-          'Import',
+          confirm.confirmText,
           'Cancel',
         );
       } else {
