@@ -69,6 +69,16 @@ const KEEP_FIELDS = {
   scoring: 'data-transformer.service.ts - buffs/debuffs/dazeBonus',
 };
 
+/** The agents with DROP_FIELDS removed; exported so test-harness/slim-check.mjs tests this exact code. */
+function slimAgents(agents) {
+  return agents.map((agent) => {
+    if (!agent || typeof agent !== 'object') return agent;
+    const copy = { ...agent };
+    for (const field of DROP_FIELDS) delete copy[field];
+    return copy;
+  });
+}
+
 function fail(message) {
   console.error(`[slim-agent-data] ${message}`);
   process.exit(1);
@@ -124,12 +134,7 @@ function slim() {
   // Park the full dump before overwriting.
   fs.copyFileSync(TARGET, BACKUP);
 
-  const slimmed = agents.map((agent) => {
-    if (!agent || typeof agent !== 'object') return agent;
-    const copy = { ...agent };
-    for (const field of DROP_FIELDS) delete copy[field];
-    return copy;
-  });
+  const slimmed = slimAgents(agents);
 
   fs.writeFileSync(TARGET, JSON.stringify(slimmed), 'utf8');
 
@@ -188,8 +193,13 @@ function run(argv) {
   process.exit(result.status === null ? 1 : result.status);
 }
 
-const mode = process.argv[2];
-if (mode === 'slim') {
+module.exports = { DROP_FIELDS, slimAgents };
+
+// Command line only; requiring this file (test-harness/slim-check.mjs) runs nothing.
+const mode = require.main === module ? process.argv[2] : null;
+if (mode === null) {
+  // Required as a module.
+} else if (mode === 'slim') {
   slim();
 } else if (mode === 'restore') {
   restore();

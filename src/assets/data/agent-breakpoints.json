@@ -4884,8 +4884,8 @@
           "optimal": 0
         },
         "energyRegen": {
-          "min": 1.5,
-          "optimal": 2.0
+          "min": 0,
+          "optimal": 0
         }
       },
       "priorityStats": ["CRIT_Rate", "CRIT_DMG", "ATK%", "PEN", "ATK", "PEN_Ratio", "Element_DMG"],

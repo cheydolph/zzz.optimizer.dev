@@ -5491,8 +5491,8 @@
             "optimal": 0
           },
           "energyRegen": {
-            "min": 1.5,
-            "optimal": 2
+            "min": 0,
+            "optimal": 0
           }
         },
         "createdAt": "2026-01-01T00:00:00.000Z",
@@ -5855,8 +5855,8 @@
             "optimal": 0
           },
           "energyRegen": {
-            "min": 1.5,
-            "optimal": 2
+            "min": 0,
+            "optimal": 0
           }
         },
         "createdAt": "2026-01-01T00:00:00.000Z",

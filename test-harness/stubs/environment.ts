@@ -3,4 +3,6 @@
 export const environment = {
   production: false,
   appVersion: 'harness',
+  // Empty: tests never reach the real Worker. enka-api.service.spec.ts sets a fake URL per test.
+  enkaProxyUrl: '',
 };

@@ -7,6 +7,7 @@ import {
   ElementRef,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
+  Injector,
 } from '@angular/core';
 import { NgClass, DatePipe, DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -32,15 +33,19 @@ import { DataFileService } from '../../services/data-file.service';
 import { DiscRating, BuildRating, FeedbackItem } from '../../constants/disc-scoring';
 import { DISC_MAIN_STAT_MAX, MAIN_STAT_BY_SLOT } from '../../constants/main-stat-possibilities';
 import { OptimizerComponent } from '../optimizer/optimizer.component';
-import { EnkaApiService, EnkaImportResult } from '../../services/enka-api.service';
-import { EnkaImportService, ImportComparison } from '../../services/enka-import.service';
+// Type-only: the Enka import stack is reachable only from the import modal, so its
+// implementations are fetched on demand in loadEnkaServices() instead of riding in this chunk.
+import type { EnkaApiService, EnkaImportResult } from '../../services/enka-api.service';
+import type { EnkaImportService, ImportComparison } from '../../services/enka-import.service';
 import { UpgradePlanService } from '../../services/upgrade-plan.service';
 import { LoadingService } from '../../services/loading.service';
 import { NotificationService } from '../../services/notification.service';
 import { UpgradePlan } from '../../models/upgrade-plan.model';
 import { calculateRollCount } from '../../constants/substat-rolls';
 import { UpgradePlansComponent } from '../upgrade-plans/upgrade-plans.component';
-import { CanvasShareImageService, ShareImageData } from '../../services/canvas-share-image.service';
+// Type-only: the ~1,700-line canvas service is reachable only from the share modal and is
+// fetched on demand in loadCanvasShareService().
+import type { CanvasShareImageService, ShareImageData } from '../../services/canvas-share-image.service';
 import { getDiscFormSubstatError, getDiscValidationErrors, hasValidationErrors } from '../../utils/disc-validation';
 import { UID_HISTORY_STORAGE_KEY } from '../../constants/storage-keys';
 import { fadeIn, scaleIn, fadeInUp, expandCollapse, fadeInFast, slideInRight } from '../../animations/route-animations';
@@ -281,15 +286,13 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     private scoringService: ScoringService,
     private imagePreloader: ImagePreloaderService,
     private dataMappingService: DataMappingService,
-    private enkaApiService: EnkaApiService,
-    private enkaImportService: EnkaImportService,
     private upgradePlanService: UpgradePlanService,
-    private canvasShareImageService: CanvasShareImageService,
     private loadingService: LoadingService,
     private notificationService: NotificationService,
     private cdr: ChangeDetectorRef,
     private dataFiles: DataFileService,
     private dbService: DbService,
+    private injector: Injector,
   ) {
     // Load mindscape data
     this.loadMindscapeData();
@@ -2962,6 +2965,38 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
   // Share Build as Image
   // =====================================
 
+  /** Cached on first use; a failed import is dropped so the next attempt retries. */
+  private canvasShareServicePromise?: Promise<CanvasShareImageService>;
+
+  private loadCanvasShareService(): Promise<CanvasShareImageService> {
+    this.canvasShareServicePromise ??= import('../../services/canvas-share-image.service')
+      .then((m) => this.injector.get(m.CanvasShareImageService))
+      .catch((error: unknown) => {
+        this.canvasShareServicePromise = undefined;
+        throw error;
+      });
+    return this.canvasShareServicePromise;
+  }
+
+  /** Both Enka services load together: every import flow needs the pair. Same caching as above. */
+  private enkaServicesPromise?: Promise<{ api: EnkaApiService; importer: EnkaImportService }>;
+
+  private loadEnkaServices(): Promise<{ api: EnkaApiService; importer: EnkaImportService }> {
+    this.enkaServicesPromise ??= Promise.all([
+      import('../../services/enka-api.service'),
+      import('../../services/enka-import.service'),
+    ])
+      .then(([apiModule, importModule]) => ({
+        api: this.injector.get(apiModule.EnkaApiService),
+        importer: this.injector.get(importModule.EnkaImportService),
+      }))
+      .catch((error: unknown) => {
+        this.enkaServicesPromise = undefined;
+        throw error;
+      });
+    return this.enkaServicesPromise;
+  }
+
   async shareAsImage() {
     if (!this.selectedBuild) return;
     this.showShareModal = true;
@@ -2969,7 +3004,9 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     // Start fetching the shared icons/backgrounds now rather than at app start.
     // No await - generateShareImage() prefetches what it needs anyway, this just
     // gives those requests a head start while the modal renders.
-    this.canvasShareImageService.warmImageCache();
+    this.loadCanvasShareService()
+      .then((service) => service.warmImageCache())
+      .catch((error: unknown) => console.warn('Share image service failed to load:', error));
 
     // Load agent-specific customizations
     this.loadCustomizations();
@@ -3105,7 +3142,8 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       };
 
       // Generate image using Canvas service
-      const blob = await this.canvasShareImageService.generateShareImage(shareData);
+      const canvasShareImageService = await this.loadCanvasShareService();
+      const blob = await canvasShareImageService.generateShareImage(shareData);
 
       // Display the image on canvas
       const displayCanvas = this.shareCanvasRef.nativeElement;
@@ -3570,21 +3608,23 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     this.loadingService.show(`Fetching data for ${historyItem.username}...`);
 
     try {
+      const enka = await this.loadEnkaServices();
+
       // Fetch data from Enka API
-      const enkaResult = await firstValueFrom(this.enkaApiService.fetchPlayerData(historyItem.uid));
+      const enkaResult = await firstValueFrom(enka.api.fetchPlayerData(historyItem.uid));
 
       if (!enkaResult) {
         throw new Error('No data received from provided UID');
       }
 
       // Compare with existing builds
-      const comparison = await this.enkaImportService.compareBuilds(enkaResult.builds);
+      const comparison = await enka.importer.compareBuilds(enkaResult.builds);
 
       this.loadingService.hide();
 
       // Show confirmation dialog if there are changes
       if (comparison.newBuilds.length > 0 || comparison.updatedBuilds.length > 0) {
-        const summary = this.buildImportSummaryMessage(comparison, enkaResult);
+        const summary = this.buildImportSummaryMessage(enka.importer, comparison, enkaResult);
 
         await this.handleUnknownAgents(enkaResult);
 
@@ -3598,7 +3638,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
           async () => {
             try {
               this.loadingService.show('Importing builds...');
-              const result = await this.enkaImportService.importBuilds(comparison);
+              const result = await enka.importer.importBuilds(comparison);
 
               // Reload builds to show the imported data
               await this.buildService.loadBuilds();
@@ -3683,8 +3723,13 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
    * Import summary plus a warning about any agents that were skipped, so a
    * partial import doesn't look like a complete one.
    */
-  private buildImportSummaryMessage(comparison: ImportComparison, enkaResult: EnkaImportResult): string {
-    const summary = this.enkaImportService.generateImportSummary(comparison);
+  private buildImportSummaryMessage(
+    importer: EnkaImportService,
+    comparison: ImportComparison,
+    enkaResult: EnkaImportResult,
+  ): string {
+    // The importer is passed in because it is lazily loaded and every caller already holds it.
+    const summary = importer.generateImportSummary(comparison);
     const skipped = enkaResult.unknownAgentIds.length;
 
     if (skipped === 0) {
@@ -3758,8 +3803,10 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     this.cdr.markForCheck();
 
     try {
+      const enka = await this.loadEnkaServices();
+
       // Fetch data from Enka API
-      const enkaResult = await firstValueFrom(this.enkaApiService.fetchPlayerData(this.enkaUid));
+      const enkaResult = await firstValueFrom(enka.api.fetchPlayerData(this.enkaUid));
 
       if (!enkaResult) {
         throw new Error('No data received from provided UID');
@@ -3769,11 +3816,11 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       this.addToUidHistory(this.enkaUid.trim(), enkaResult.playerName);
 
       // Compare with existing builds
-      const comparison = await this.enkaImportService.compareBuilds(enkaResult.builds);
+      const comparison = await enka.importer.compareBuilds(enkaResult.builds);
 
       // Show confirmation dialog if there are changes
       if (comparison.newBuilds.length > 0 || comparison.updatedBuilds.length > 0) {
-        const summary = this.buildImportSummaryMessage(comparison, enkaResult);
+        const summary = this.buildImportSummaryMessage(enka.importer, comparison, enkaResult);
 
         await this.handleUnknownAgents(enkaResult);
 
@@ -3789,7 +3836,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
           Do you want to import these builds?`,
           async () => {
             try {
-              const result = await this.enkaImportService.importBuilds(comparison);
+              const result = await enka.importer.importBuilds(comparison);
 
               // Reload builds to show the imported data
               await this.buildService.loadBuilds();

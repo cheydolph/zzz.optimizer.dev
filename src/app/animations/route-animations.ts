@@ -1,11 +1,15 @@
 import { trigger, transition, style, query, animate, group } from '@angular/animations';
 
 /**
- * Fade in/out animation for elements
+ * Fade in/out animation for elements (modal overlays).
+ *
+ * Shortened from 300/200 ms (trunk `f853ffa`, to make modals feel quicker). The 2026-11-12 A/B
+ * measured no change in the modal-open Event Timing steps from this.
+ * TODO(zzz): slice 4.7a compares these durations with the longer ones (user decision 2026-11-12).
  */
 export const fadeIn = trigger('fadeIn', [
-  transition(':enter', [style({ opacity: 0 }), animate('300ms ease-out', style({ opacity: 1 }))]),
-  transition(':leave', [animate('200ms ease-in', style({ opacity: 0 }))]),
+  transition(':enter', [style({ opacity: 0 }), animate('140ms ease-out', style({ opacity: 1 }))]),
+  transition(':leave', [animate('100ms ease-in', style({ opacity: 0 }))]),
 ]);
 
 /**
@@ -26,14 +30,18 @@ export const fadeInFast = trigger('fadeInFast', [
 ]);
 
 /**
- * Scale in/out animation for cards and modals
+ * Scale in/out animation for cards and modals.
+ *
+ * Shortened from 300/200 ms at scale 0.95 (trunk `f853ffa`); the subtler 0.97 keeps the motion
+ * readable at the shorter duration. Under `@fadeIn` this trigger never runs (GPU-04, slice 4.7a).
+ * TODO(zzz): slice 4.7a compares these durations with the longer ones (user decision 2026-11-12).
  */
 export const scaleIn = trigger('scaleIn', [
   transition(':enter', [
-    style({ opacity: 0, transform: 'scale(0.95)' }),
-    animate('300ms ease-out', style({ opacity: 1, transform: 'scale(1)' })),
+    style({ opacity: 0, transform: 'scale(0.97)' }),
+    animate('140ms ease-out', style({ opacity: 1, transform: 'scale(1)' })),
   ]),
-  transition(':leave', [animate('200ms ease-in', style({ opacity: 0, transform: 'scale(0.95)' }))]),
+  transition(':leave', [animate('100ms ease-in', style({ opacity: 0, transform: 'scale(0.97)' }))]),
 ]);
 
 /**
@@ -64,12 +72,16 @@ export const listStagger = trigger('listStagger', [
 ]);
 
 /**
- * Expand/collapse animation for accordions
+ * Expand/collapse animation for accordions.
+ *
+ * Animating height forces layout on every frame (GPU-16, slice 4.7a), so it was shortened from
+ * 300/200 ms (trunk `f853ffa`) to keep that work brief.
+ * TODO(zzz): slice 4.7a compares these durations with the longer ones (user decision 2026-11-12).
  */
 export const expandCollapse = trigger('expandCollapse', [
   transition(':enter', [
     style({ height: 0, opacity: 0 }),
-    animate('300ms ease-out', style({ height: '*', opacity: 1 })),
+    animate('140ms ease-out', style({ height: '*', opacity: 1 })),
   ]),
-  transition(':leave', [animate('200ms ease-in', style({ height: 0, opacity: 0 }))]),
+  transition(':leave', [animate('100ms ease-in', style({ height: 0, opacity: 0 }))]),
 ]);

@@ -27,7 +27,7 @@
     {
       "name": "assets-data",
       "installMode": "lazy",
-      "updateMode": "prefetch",
+      "updateMode": "lazy",
       "resources": {
         "files": ["/assets/data/*.json", "/assets/data/equipment/*.json"]
       }

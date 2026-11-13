@@ -21,7 +21,7 @@ export class DataTransformerService {
     // Handle both array format (agents.json) and object format (legacy)
     if (Array.isArray(rawData)) {
       // Array format: agents.json has array of agent objects
-      for (const rawAgent of rawData) {
+      for (const [index, rawAgent] of rawData.entries()) {
         try {
           const id = String(rawAgent.id);
           const agent = this.transformSingleAgent(id, rawAgent);
@@ -29,7 +29,9 @@ export class DataTransformerService {
             agents.push(agent);
           }
         } catch (error) {
-          console.warn(`Failed to transform agent ${rawAgent.id}:`, error);
+          // Report the index, not rawAgent.id: for a null entry the id lookup would throw again
+          // inside this handler and abort the whole import instead of skipping one record.
+          console.warn(`Failed to transform agent at index ${index}:`, error);
         }
       }
     } else {
