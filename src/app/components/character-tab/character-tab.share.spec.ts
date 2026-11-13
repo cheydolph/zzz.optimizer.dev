@@ -12,7 +12,7 @@ import { ScoringService } from '../../services/scoring.service';
 import { CharacterTabComponent } from './character-tab.component';
 
 /** The share renderer as the component sees it after the lazy import. */
-type ShareService = { warmImageCache: () => void; generateShareImage: () => Promise<Blob> };
+type ShareService = { warmImageCache: () => void; generateShareImage: () => Promise<HTMLCanvasElement> };
 /** The private loader under test, reached through a cast. */
 type Internals = { loadCanvasShareService: () => Promise<ShareService> };
 
@@ -26,8 +26,17 @@ function deferred<T>() {
   return { promise, resolve, reject };
 }
 
+/** A stand-in for the renderer's output: the 3x canvas size, no content (jsdom has no 2D context). */
+function renderedCanvas(): HTMLCanvasElement {
+  const canvas = document.createElement('canvas');
+  canvas.width = 3540;
+  canvas.height = 1890;
+  return canvas;
+}
+
 // Slice 4.6a: the share modal shows its spinner from the first frame (PERF-03), every early exit resets it
 // (BUG-28), and closing the modal while an image is generating stops quietly (BUG-29).
+// Slice 4.6b: the rendered canvas is copied onto the display canvas, with no PNG round trip (PERF-09).
 describe('CharacterTabComponent share image', () => {
   let component: CharacterTabComponent;
   let internals: Internals;
@@ -156,24 +165,46 @@ describe('CharacterTabComponent share image', () => {
     expect(component.isGeneratingShareImage).toBe(false);
   });
 
+  it('copies the rendered canvas onto the display canvas and stops the spinner (PERF-09)', async () => {
+    openModal();
+    const display = component.shareCanvasRef.nativeElement;
+    const drawImage = vi.fn();
+    // jsdom has no 2D context; only drawImage is called on the display canvas
+    vi.spyOn(display, 'getContext').mockReturnValue({ drawImage } as unknown as CanvasRenderingContext2D);
+    const rendered = renderedCanvas();
+    vi.spyOn(internals, 'loadCanvasShareService').mockResolvedValue({
+      warmImageCache: vi.fn(),
+      generateShareImage: vi.fn(() => Promise.resolve(rendered)),
+    });
+
+    await component.generateShareImage();
+
+    expect(display.width).toBe(3540);
+    expect(display.height).toBe(1890);
+    expect(drawImage).toHaveBeenCalledExactlyOnceWith(rendered, 0, 0);
+    expect(alertSpy).not.toHaveBeenCalled();
+    expect(component.isGeneratingShareImage).toBe(false);
+  });
+
   it('stops quietly when the modal closes while the image is drawn (BUG-29)', async () => {
     openModal();
-    const drawing = deferred<Blob>();
+    const display = component.shareCanvasRef.nativeElement;
+    const drawing = deferred<HTMLCanvasElement>();
     const render = vi.fn(() => drawing.promise);
     vi.spyOn(internals, 'loadCanvasShareService').mockResolvedValue({
       warmImageCache: vi.fn(),
       generateShareImage: render,
     });
-    const createUrl = vi.fn(() => 'blob:test');
-    Object.defineProperty(URL, 'createObjectURL', { value: createUrl, configurable: true });
 
     const run = component.generateShareImage();
     await vi.waitFor(() => expect(render).toHaveBeenCalled());
     closeModal();
-    drawing.resolve(new Blob(['png']));
+    drawing.resolve(renderedCanvas());
     await run;
 
-    expect(createUrl).not.toHaveBeenCalled();
+    // the closed modal's canvas keeps its default size: nothing was copied onto it
+    expect(display.width).toBe(300);
+    expect(display.height).toBe(150);
     expect(alertSpy).not.toHaveBeenCalled();
     // other services log IndexedDB errors in jsdom; the share flow must not log its own
     expect(errorSpy).not.toHaveBeenCalledWith('Error generating share image:', expect.anything());
@@ -182,7 +213,7 @@ describe('CharacterTabComponent share image', () => {
 
   it('stops quietly without an alert when the renderer fails after the modal closed (BUG-29)', async () => {
     openModal();
-    const drawing = deferred<Blob>();
+    const drawing = deferred<HTMLCanvasElement>();
     const render = vi.fn(() => drawing.promise);
     vi.spyOn(internals, 'loadCanvasShareService').mockResolvedValue({
       warmImageCache: vi.fn(),

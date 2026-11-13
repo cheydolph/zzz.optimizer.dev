@@ -90,8 +90,8 @@
           <div class="upgrade-plan-selector">
             <label>Active Upgrade Plan:</label>
             <select
-              [(ngModel)]="selectedBuild.activeUpgradePlanId"
-              (change)="onUpgradePlanChange()"
+              [ngModel]="selectedBuild.activeUpgradePlanId"
+              (ngModelChange)="onUpgradePlanChange($event)"
               class="plan-select">
               <option [ngValue]="undefined">(Default)</option>
               @for (plan of getPlansForSelectedAgent(); track plan) {

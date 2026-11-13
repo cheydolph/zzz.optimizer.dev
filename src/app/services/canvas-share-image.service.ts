@@ -67,9 +67,10 @@ export class CanvasShareImageService {
   }
 
   /**
-   * Main entry point: Generate share image as PNG blob
+   * Main entry point: render the share image and return the rendered canvas (SCALE times the logical size).
+   * The caller copies it onto its display canvas; no PNG is encoded here (PERF-09).
    */
-  async generateShareImage(data: ShareImageData): Promise<Blob> {
+  async generateShareImage(data: ShareImageData): Promise<HTMLCanvasElement> {
     // Create canvas
     const canvas = document.createElement('canvas');
     canvas.width = this.WIDTH * this.SCALE;
@@ -98,46 +99,11 @@ export class CanvasShareImageService {
     await this.drawEquipmentSection(ctx, data);
     await this.drawFooter(ctx, data);
 
-    // Ensure all rendering is complete before converting to blob
-    // This fixes Firefox-specific timing issues where canvas may not be fully rendered
+    // Wait one frame before handing the canvas over (kept from the PNG version, which waited here before
+    // encoding to work around Firefox timing issues where the canvas was not fully rendered)
     await new Promise((resolve) => requestAnimationFrame(resolve));
 
-    // TEST: Check if canvas has actual content by sampling a pixel
-    try {
-      const testPixel = ctx.getImageData(canvas.width / 2, canvas.height / 2, 1, 1);
-    } catch (err) {
-      console.error('[Canvas] Canvas may be tainted (CORS issue):', err);
-    }
-
-    // Convert canvas to blob with fallback handling
-    return new Promise((resolve, reject) => {
-      canvas.toBlob(
-        (blob) => {
-          // Check if blob was created successfully AND has content
-          if (blob && blob.size > 0) {
-            resolve(blob);
-          } else {
-            // Fallback to dataURL method if blob is empty or null
-            // This handles Firefox privacy settings and edge cases
-            console.warn('[Canvas] ⚠️ Blob empty or null, using dataURL fallback');
-            try {
-              const dataUrl = canvas.toDataURL('image/png', 1.0);
-              const blobFromDataUrl = this.dataURLToBlob(dataUrl);
-              resolve(blobFromDataUrl);
-            } catch (err) {
-              console.error('[Canvas] ❌ Failed to create blob via both methods:', err);
-              console.error('[Canvas] Error name:', (err as Error).name);
-              console.error('[Canvas] Error message:', (err as Error).message);
-              console.error('[Canvas] Canvas size:', canvas.width, 'x', canvas.height);
-              console.error('[Canvas] Image cache size:', this.imageCache.size);
-              reject(new Error('Failed to generate image blob: ' + (err as Error).message));
-            }
-          }
-        },
-        'image/png',
-        1.0,
-      );
-    });
+    return canvas;
   }
 
   /**
@@ -212,22 +178,6 @@ export class CanvasShareImageService {
     }
 
     await Promise.allSettled([...urls].map((src) => this.loadImage(src).catch(() => {})));
-  }
-
-  /**
-   * Convert dataURL to Blob (fallback method for browsers with canvas restrictions)
-   */
-  private dataURLToBlob(dataUrl: string): Blob {
-    const parts = dataUrl.split(',');
-    const mime = parts[0].match(/:(.*?);/)?.[1] || 'image/png';
-    const binaryString = atob(parts[1]);
-    const bytes = new Uint8Array(binaryString.length);
-
-    for (let i = 0; i < binaryString.length; i++) {
-      bytes[i] = binaryString.charCodeAt(i);
-    }
-
-    return new Blob([bytes], { type: mime });
   }
 
   /**

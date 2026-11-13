@@ -89,6 +89,11 @@ export class BuildService {
   private selectedBuildSubject = new BehaviorSubject<AgentBuild | null>(null);
   public selectedBuild$: Observable<AgentBuild | null> = this.selectedBuildSubject.asObservable();
 
+  // BUG-17: the current builds. Every change replaces this array (and the changed build) instead of writing
+  // into it, before any await, so a call that overlaps another's await reads its result; saveBuilds() emits it.
+  // Nothing emitted is written to afterwards.
+  private builds: AgentBuild[] = [];
+
   // Set when stored builds could not be read or backed up; saving would destroy them (BUG-15).
   private saveBlocked = false;
 
@@ -108,7 +113,8 @@ export class BuildService {
   async loadBuilds() {
     // Only run in browser
     if (!isPlatformBrowser(this.platformId)) {
-      this.buildsSubject.next([]);
+      this.builds = [];
+      this.buildsSubject.next(this.builds);
       return;
     }
 
@@ -139,6 +145,7 @@ export class BuildService {
       this.notificationService.error(notice, 10000);
     }
 
+    this.builds = builds;
     this.buildsSubject.next(builds);
 
     // Re-sync selectedBuild if one is currently selected (e.g. after an Enka import reload)
@@ -157,6 +164,7 @@ export class BuildService {
     if (!isPlatformBrowser(this.platformId)) {
       return;
     }
+    this.builds = builds;
 
     if (this.saveBlocked) {
       console.error('Builds were not saved: the stored builds could not be read or backed up');
@@ -177,29 +185,27 @@ export class BuildService {
    * Get all builds
    */
   getBuilds(): AgentBuild[] {
-    return this.buildsSubject.value;
+    return this.builds;
   }
 
   /**
    * Get build by ID
    */
   getBuildById(id: string): AgentBuild | undefined {
-    return this.buildsSubject.value.find((b) => b.id === id);
+    return this.builds.find((b) => b.id === id);
   }
 
   /**
    * Get all builds for a specific agent
    */
   getBuildsByAgentId(agentId: string): AgentBuild[] {
-    return this.buildsSubject.value.filter((b) => b.agentId === agentId);
+    return this.builds.filter((b) => b.agentId === agentId);
   }
 
   /**
    * Create a new build from a reference agent
    */
   async createBuild(agent: Agent, mindscapeLevel: number = 0): Promise<AgentBuild> {
-    const builds = this.buildsSubject.value;
-
     const newBuild: AgentBuild = {
       id: this.generateId(),
       agentId: agent.id,
@@ -220,37 +226,38 @@ export class BuildService {
       includePassiveBonuses: true,
     };
 
-    builds.push(newBuild);
+    this.builds = [...this.builds, newBuild];
 
     // Recalculate stats to apply passive bonuses, W-Engine bonuses, etc.
-    await this.recalculateStats(newBuild);
+    const calculated = await this.recalculateStats(newBuild);
+    this.builds = this.builds.map((b) => (b === newBuild ? calculated : b));
 
-    await this.saveBuilds(builds);
+    await this.saveBuilds(this.builds);
 
-    return newBuild;
+    return calculated;
   }
 
   /**
    * Update a build
    */
   async updateBuild(id: string, updates: Partial<AgentBuild>): Promise<void> {
-    const builds = this.buildsSubject.value;
-    const index = builds.findIndex((b) => b.id === id);
+    const index = this.builds.findIndex((b) => b.id === id);
 
     if (index === -1) {
       throw new Error(`Build ${id} not found`);
     }
 
-    builds[index] = {
-      ...builds[index],
+    const updated: AgentBuild = {
+      ...this.builds[index],
       ...updates,
       updatedAt: new Date(),
     };
 
     // Handle explicit undefined for equippedWEngine (to properly remove it)
     if ('equippedWEngine' in updates && updates.equippedWEngine === undefined) {
-      delete builds[index].equippedWEngine;
+      delete updated.equippedWEngine;
     }
+    this.builds = this.builds.map((b, i) => (i === index ? updated : b));
 
     // Recalculate stats if equipment, refinement, mindscape, or toggle flags changed
     if (
@@ -269,27 +276,29 @@ export class BuildService {
       updates.enabledDiscs !== undefined
     ) {
       this.statCalculator.clearCache();
-      await this.recalculateStats(builds[index]);
+      const calculated = await this.recalculateStats(updated);
+      // A later update that started during the await replaced `updated` already; keep that one
+      this.builds = this.builds.map((b) => (b === updated ? calculated : b));
     }
 
-    await this.saveBuilds(builds);
+    await this.saveBuilds(this.builds);
 
     // Update selected build if it's the one being updated
     if (this.selectedBuildSubject.value?.id === id) {
-      this.selectedBuildSubject.next(builds[index]);
-    } else {
+      this.selectedBuildSubject.next(this.builds.find((b) => b.id === id) ?? null);
     }
   }
 
   /**
-   * Recalculate stats for a build based on equipped gear
+   * The build with its stats and score recalculated from its equipped gear (a new object; the argument is not
+   * changed). Returns the build itself when its agent is not in the database.
    */
-  private async recalculateStats(build: AgentBuild): Promise<void> {
+  private async recalculateStats(build: AgentBuild): Promise<AgentBuild> {
     // Get the agent reference data
     const agent = await this.db.getAgent(build.agentId);
     if (!agent) {
       console.warn(`Agent ${build.agentId} not found, using cached stats`);
-      return;
+      return build;
     }
 
     // Ensure disc set equipment data is loaded for 4pc effects, and scoring data for the
@@ -298,7 +307,7 @@ export class BuildService {
     await this.scoringService.ensureDataLoaded();
 
     // Calculate final stats using the stat calculator
-    build.calculatedStats = this.statCalculator.calculateFinalStats(
+    const calculatedStats = this.statCalculator.calculateFinalStats(
       agent,
       build.level,
       build.equippedWEngine || null,
@@ -317,7 +326,7 @@ export class BuildService {
     const equippedDiscsArray = Object.values(build.equippedDiscs).filter((d) => d !== undefined);
     const scoreResult = this.scoringService.calculateCompositeBuildScore(
       build.agentId,
-      build.calculatedStats,
+      calculatedStats,
       equippedDiscsArray,
       build.equippedWEngine,
       build.wEngineRefinement || 1,
@@ -331,14 +340,15 @@ export class BuildService {
       undefined, // upgradePlan
       build.preferredBuildType,
     );
-    build.score = scoreResult.score;
+    // Existing keys keep their place, so the stored JSON is unchanged
+    return { ...build, calculatedStats, score: scoreResult.score };
   }
 
   /**
    * Delete a build
    */
   async deleteBuild(id: string): Promise<void> {
-    const builds = this.buildsSubject.value.filter((b) => b.id !== id);
+    const builds = this.builds.filter((b) => b.id !== id);
     await this.saveBuilds(builds);
 
     // Clear selection if deleted build was selected
@@ -427,7 +437,7 @@ export class BuildService {
    * Export all user builds as JSON
    */
   exportBuilds(): string {
-    return JSON.stringify(this.buildsSubject.value, null, 2);
+    return JSON.stringify(this.builds, null, 2);
   }
 
   /**
@@ -461,7 +471,7 @@ export class BuildService {
    * Get all builds (for export)
    */
   async getAllBuilds(): Promise<AgentBuild[]> {
-    return this.buildsSubject.value;
+    return this.builds;
   }
 
   /**
@@ -469,10 +479,12 @@ export class BuildService {
    * Useful after reloading reference data to ensure all builds use updated agent base stats
    */
   async recalculateAllBuilds(): Promise<void> {
-    const builds = this.buildsSubject.value;
-    for (const build of builds) {
-      await this.recalculateStats(build);
+    const recalculated = new Map<AgentBuild, AgentBuild>();
+    for (const build of this.builds) {
+      recalculated.set(build, await this.recalculateStats(build));
     }
+    // A build an update replaced during the awaits keeps that update
+    const builds = this.builds.map((b) => recalculated.get(b) ?? b);
 
     await this.saveBuilds(builds);
 
@@ -494,7 +506,7 @@ export class BuildService {
     if (this.saveBlocked) {
       throw new Error('Builds cannot be saved: the stored builds could not be read or backed up');
     }
-    const builds = replaceExisting ? [] : [...this.buildsSubject.value];
+    const builds = replaceExisting ? [] : [...this.builds];
     for (const build of imported) {
       normalizeStoredBuild(build);
       const existingIndex = builds.findIndex((b) => b.id === build.id);

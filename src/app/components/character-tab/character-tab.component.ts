@@ -621,11 +621,12 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       return;
     }
 
-    // Reorder the builds array
-    moveItemInArray(this.builds, event.previousIndex, event.currentIndex);
+    // Reorder a copy (BUG-17: this.builds is the array the service emitted)
+    const reordered = [...this.builds];
+    moveItemInArray(reordered, event.previousIndex, event.currentIndex);
 
-    // Update the order in the build service
-    await this.buildService.reorderBuilds(this.builds);
+    // Update the order in the build service (its emission updates this.builds)
+    await this.buildService.reorderBuilds(reordered);
 
     this.cdr.markForCheck();
   }
@@ -766,13 +767,8 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
   async onDiscToggle(slot: DiscSlot) {
     if (!this.selectedBuild) return;
 
-    // Initialize enabledDiscs if it doesn't exist
-    if (!this.selectedBuild.enabledDiscs) {
-      this.selectedBuild.enabledDiscs = {};
-    }
-
-    // Toggle the disc's enabled state
-    const currentState = this.selectedBuild.enabledDiscs[slot] ?? true;
+    // Toggle the disc's enabled state (BUG-17: a new object; the stored build is not written to)
+    const currentState = this.selectedBuild.enabledDiscs?.[slot] ?? true;
     const newState = !currentState;
 
     // Update the enabledDiscs object
@@ -3075,7 +3071,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
   ];
 
   async generateShareImage() {
-    // BUG-28: every exit that never reaches the image's onload or onerror resets the spinner flag
+    // BUG-28: every exit resets the spinner flag, except the BUG-29 quiet stops below
     if (!this.selectedBuild || !this.shareCanvasRef) {
       this.isGeneratingShareImage = false;
       this.cdr.markForCheck();
@@ -3103,29 +3099,19 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       // Generate image using Canvas service
       const canvasShareImageService = await this.loadCanvasShareService();
       if (this.isShareCanvasGone(displayCanvas)) return;
-      const blob = await canvasShareImageService.generateShareImage(shareData);
+      const rendered = await canvasShareImageService.generateShareImage(shareData);
       if (this.isShareCanvasGone(displayCanvas)) return;
 
-      // Display the image on canvas
-      const img = new Image();
-      img.onload = () => {
-        displayCanvas.width = img.width;
-        displayCanvas.height = img.height;
-        const ctx = displayCanvas.getContext('2d');
-        if (ctx) {
-          ctx.drawImage(img, 0, 0);
-        }
-        URL.revokeObjectURL(img.src);
-        this.isGeneratingShareImage = false;
-        this.cdr.markForCheck();
-      };
-      img.onerror = (err) => {
-        console.error('Failed to load generated image:', err);
-        alert('Error loading generated image');
-        this.isGeneratingShareImage = false;
-        this.cdr.markForCheck();
-      };
-      img.src = URL.createObjectURL(blob);
+      // PERF-09: copy the rendered canvas straight onto the display canvas (no PNG encode and decode);
+      // downloadShareImage() encodes from the display canvas
+      displayCanvas.width = rendered.width;
+      displayCanvas.height = rendered.height;
+      const ctx = displayCanvas.getContext('2d');
+      if (ctx) {
+        ctx.drawImage(rendered, 0, 0);
+      }
+      this.isGeneratingShareImage = false;
+      this.cdr.markForCheck();
     } catch (error) {
       if (this.isShareCanvasGone(displayCanvas)) return;
       console.error('Error generating share image:', error);
@@ -4001,16 +3987,15 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
    * Handle upgrade plan change
    * Recalculates disc scores and build score with new plan's priorities/breakpoints
    */
-  async onUpgradePlanChange(): Promise<void> {
+  async onUpgradePlanChange(planId: string | undefined): Promise<void> {
     if (!this.selectedBuild) {
       return;
     }
 
     try {
-      // Update the build with the new active plan ID
-      // This will trigger a recalculation in the build service
+      // Update the build with the new active plan ID (BUG-17: the select no longer writes into the stored build)
       await this.buildService.updateBuild(this.selectedBuild.id, {
-        activeUpgradePlanId: this.selectedBuild.activeUpgradePlanId,
+        activeUpgradePlanId: planId,
       });
 
       this.clearScoreCaches(); // OPTIMIZATION: Invalidate caches when upgrade plan changes

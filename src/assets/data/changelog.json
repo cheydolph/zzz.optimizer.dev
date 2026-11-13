@@ -22,7 +22,8 @@
         "Agent picker cards now fill evenly, and empty disc slots brighten when you hover over them",
         "Agent data and animated W-Engine icons now download much less data",
         "Importing from a different UID now warns you before it overwrites your existing builds",
-        "The share window shows its progress right away and no longer jumps when the image appears"
+        "The share window shows its progress right away and no longer jumps when the image appears",
+        "Share images are ready to download sooner"
       ]
     },
     {

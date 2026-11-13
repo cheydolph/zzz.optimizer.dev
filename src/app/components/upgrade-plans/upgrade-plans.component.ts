@@ -92,8 +92,8 @@ export class UpgradePlansComponent implements OnInit, OnDestroy {
 
     // Load reference data
     this.agentService.agents$.pipe(takeUntil(this.destroy$)).subscribe((agents) => {
-      // Sort agents alphabetically by name
-      this.referenceAgents = agents.sort((a, b) => a.name.localeCompare(b.name));
+      // Sort a copy alphabetically by name (BUG-14: the array is shared from AgentService)
+      this.referenceAgents = [...agents].sort((a, b) => a.name.localeCompare(b.name));
       this.cdr.markForCheck();
     });
 
@@ -134,8 +134,7 @@ export class UpgradePlansComponent implements OnInit, OnDestroy {
     );
 
     // Select the newly created plan
-    this.selectedPlan = plan;
-    this.upgradePlanService.selectPlan(plan);
+    this.selectPlan(plan);
 
     // Show success notification
     this.notificationService.success('Upgrade plan created successfully!', 3000);
@@ -148,8 +147,9 @@ export class UpgradePlansComponent implements OnInit, OnDestroy {
     this.cdr.markForCheck();
   }
 
+  // BUG-14: the editor works on a copy of the stored plan, so unsaved edits never reach scoring; Save writes it back
   selectPlan(plan: UpgradePlan) {
-    this.selectedPlan = plan;
+    this.selectedPlan = structuredClone(plan);
     this.upgradePlanService.selectPlan(plan);
   }
 
@@ -157,7 +157,8 @@ export class UpgradePlansComponent implements OnInit, OnDestroy {
     if (!this.selectedPlan) return;
 
     try {
-      this.upgradePlanService.updatePlan(this.selectedPlan.id, this.selectedPlan);
+      // A copy again: the stored plan must not share nested objects with the draft that stays in the editor
+      this.upgradePlanService.updatePlan(this.selectedPlan.id, structuredClone(this.selectedPlan));
       this.notificationService.success('Plan saved successfully!', 3000);
     } catch (error) {
       console.error('Error saving plan:', error);

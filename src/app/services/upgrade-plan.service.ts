@@ -117,7 +117,6 @@ export class UpgradePlanService {
    */
   async createPlan(agentId: string, name: string, description?: string): Promise<UpgradePlan> {
     await this.breakpointsReady;
-    const plans = this.plansSubject.value;
 
     // Copy default breakpoints from agent-breakpoints.json if available
     const agentBreakpoints = this.agentBreakpoints[agentId];
@@ -178,8 +177,8 @@ export class UpgradePlanService {
       updatedAt: new Date(),
     };
 
-    plans.push(newPlan);
-    this.savePlans(plans);
+    // BUG-17: a new array; the emitted one is never written to
+    this.savePlans([...this.plansSubject.value, newPlan]);
 
     return newPlan;
   }
@@ -195,17 +194,17 @@ export class UpgradePlanService {
       throw new Error(`Upgrade plan ${id} not found`);
     }
 
-    plans[index] = {
+    const updated: UpgradePlan = {
       ...plans[index],
       ...updates,
       updatedAt: new Date(),
     };
 
-    this.savePlans(plans);
+    this.savePlans(plans.map((p, i) => (i === index ? updated : p)));
 
     // Update selected plan if it's the one being updated
     if (this.selectedPlanSubject.value?.id === id) {
-      this.selectedPlanSubject.next(plans[index]);
+      this.selectedPlanSubject.next(updated);
     }
   }
 
@@ -232,8 +231,6 @@ export class UpgradePlanService {
       return null;
     }
 
-    const plans = this.plansSubject.value;
-
     const duplicatedPlan: UpgradePlan = {
       ...JSON.parse(JSON.stringify(originalPlan)), // Deep clone
       id: this.generateId(),
@@ -242,8 +239,7 @@ export class UpgradePlanService {
       updatedAt: new Date(),
     };
 
-    plans.push(duplicatedPlan);
-    this.savePlans(plans);
+    this.savePlans([...this.plansSubject.value, duplicatedPlan]);
 
     return duplicatedPlan;
   }
