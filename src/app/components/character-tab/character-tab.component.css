@@ -3486,7 +3486,10 @@
   align-items: center;
   justify-content: center;
   gap: 20px;
-  min-height: 400px;
+  /* The finished image's shape (1180 x 630) and cap, so the modal keeps its size when the image replaces this */
+  width: 100%;
+  aspect-ratio: 1180 / 630;
+  max-height: 70vh;
 }
 
 .share-loading p {

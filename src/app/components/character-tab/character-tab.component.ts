@@ -3006,6 +3006,8 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
   async shareAsImage() {
     if (!this.selectedBuild) return;
     this.showShareModal = true;
+    // Spinner from the first frame: generation starts only after the timeout below
+    this.isGeneratingShareImage = true;
 
     // Start fetching the shared icons/backgrounds now rather than at app start.
     // No await - generateShareImage() prefetches what it needs anyway, this just
@@ -3025,6 +3027,8 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
 
   closeShareModal() {
     this.showShareModal = false;
+    // A generation still running stops quietly at its next await (BUG-29); the next open sets this again
+    this.isGeneratingShareImage = false;
     // Don't clear custom images - they persist until user explicitly resets them
     this.cdr.markForCheck();
   }
@@ -3071,7 +3075,14 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
   ];
 
   async generateShareImage() {
-    if (!this.selectedBuild || !this.shareCanvasRef) return;
+    // BUG-28: every exit that never reaches the image's onload or onerror resets the spinner flag
+    if (!this.selectedBuild || !this.shareCanvasRef) {
+      this.isGeneratingShareImage = false;
+      this.cdr.markForCheck();
+      return;
+    }
+    // The canvas this run draws into. The modal can close, or close and reopen with a new canvas, during an await.
+    const displayCanvas = this.shareCanvasRef.nativeElement;
 
     this.isGeneratingShareImage = true;
     this.cdr.markForCheck(); // Force change detection
@@ -3082,77 +3093,20 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       if (!agent) {
         console.error('Agent not found');
         alert('Error: Agent data not found');
+        this.isGeneratingShareImage = false;
+        this.cdr.markForCheck();
         return;
       }
 
-      // Collect disc scores
-      const discScores = new Map<string, { score: number; rating: any }>();
-      Object.values(this.selectedBuild.equippedDiscs).forEach((disc) => {
-        if (disc) {
-          const score = this.getDiscScore(disc);
-          if (score) {
-            discScores.set(disc.uid, score);
-          }
-        }
-      });
-
-      // Get priority stats for highlighting (stats with weight >= 1.0)
-      // Use the same logic as isPrioritySubstat() to ensure consistency
-
-      // Detect build type from equipped discs
-      const equippedDiscsList: Disc[] = [];
-      Object.values(this.selectedBuild.equippedDiscs).forEach((disc) => {
-        if (disc) equippedDiscsList.push(disc);
-      });
-
-      const detectedBuildType =
-        equippedDiscsList.length > 0
-          ? this.scoringService.resolveBuildType(
-              equippedDiscsList,
-              this.selectedBuild.agentId,
-              this.selectedBuild.preferredBuildType,
-            )
-          : 'CRIT';
-
-      const buildWeights = this.scoringService.getBuildStatWeights(this.selectedBuild.agentId, detectedBuildType);
-
-      // Build list of priority stats (weight >= 1.0)
-      const priorityStats = Object.keys(buildWeights).filter((stat) => buildWeights[stat] >= 1.0);
-
-      // Special case: Miyabi (1091) - always include Anomaly_Proficiency as priority
-      if (this.selectedBuild.agentId === '1091' && !priorityStats.includes('Anomaly_Proficiency')) {
-        priorityStats.push('Anomaly_Proficiency');
-      }
-
-      // Prepare data for Canvas renderer
-      const shareData: ShareImageData = {
-        build: this.selectedBuild,
-        agent: agent,
-        buildScore: this.getBuildScore(),
-        discScores: discScores,
-        mainStats: this.getMainStats(),
-        wEngineStats: this.getWEngineStats(),
-        discSets: this.referenceDiscSets,
-        substatBreakdown: this.getSubstatBreakdown(),
-        priorityStats: priorityStats,
-        totalEffectiveSubstats: this.getTotalEffectiveSubstats(),
-        showBuildRating: this.showBuildRating && !this.inGameStatsMode,
-        showDiscRatings: this.showDiscRatings,
-        customAgentImageUrl: this.customAgentImageUrl || undefined,
-        customBackgroundImageUrl: this.customBackgroundImageUrl || undefined,
-        customBarImageUrl: this.customBarImageUrl || undefined,
-        agentImageArtist: this.agentImageArtist || undefined,
-        backgroundImageArtist: this.backgroundImageArtist || undefined,
-        barImageArtist: this.barImageArtist || undefined,
-        accentColor: this.accentColor,
-      };
+      const shareData = this.buildShareImageData(this.selectedBuild, agent);
 
       // Generate image using Canvas service
       const canvasShareImageService = await this.loadCanvasShareService();
+      if (this.isShareCanvasGone(displayCanvas)) return;
       const blob = await canvasShareImageService.generateShareImage(shareData);
+      if (this.isShareCanvasGone(displayCanvas)) return;
 
       // Display the image on canvas
-      const displayCanvas = this.shareCanvasRef.nativeElement;
       const img = new Image();
       img.onload = () => {
         displayCanvas.width = img.width;
@@ -3173,11 +3127,81 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       };
       img.src = URL.createObjectURL(blob);
     } catch (error) {
+      if (this.isShareCanvasGone(displayCanvas)) return;
       console.error('Error generating share image:', error);
       alert('Error generating share image. Check console for details.');
       this.isGeneratingShareImage = false;
       this.cdr.markForCheck();
     }
+  }
+
+  /** The renderer input for a build, read from the component state the build view already shows. */
+  private buildShareImageData(build: AgentBuild, agent: Agent): ShareImageData {
+    // Collect disc scores
+    const discScores = new Map<string, { score: number; rating: any }>();
+    Object.values(build.equippedDiscs).forEach((disc) => {
+      if (disc) {
+        const score = this.getDiscScore(disc);
+        if (score) {
+          discScores.set(disc.uid, score);
+        }
+      }
+    });
+
+    // Get priority stats for highlighting (stats with weight >= 1.0)
+    // Use the same logic as isPrioritySubstat() to ensure consistency
+
+    // Detect build type from equipped discs
+    const equippedDiscsList: Disc[] = [];
+    Object.values(build.equippedDiscs).forEach((disc) => {
+      if (disc) equippedDiscsList.push(disc);
+    });
+
+    const detectedBuildType =
+      equippedDiscsList.length > 0
+        ? this.scoringService.resolveBuildType(equippedDiscsList, build.agentId, build.preferredBuildType)
+        : 'CRIT';
+
+    const buildWeights = this.scoringService.getBuildStatWeights(build.agentId, detectedBuildType);
+
+    // Build list of priority stats (weight >= 1.0)
+    const priorityStats = Object.keys(buildWeights).filter((stat) => buildWeights[stat] >= 1.0);
+
+    // Special case: Miyabi (1091) - always include Anomaly_Proficiency as priority
+    if (build.agentId === '1091' && !priorityStats.includes('Anomaly_Proficiency')) {
+      priorityStats.push('Anomaly_Proficiency');
+    }
+
+    // Prepare data for Canvas renderer
+    return {
+      build: build,
+      agent: agent,
+      buildScore: this.getBuildScore(),
+      discScores: discScores,
+      mainStats: this.getMainStats(),
+      wEngineStats: this.getWEngineStats(),
+      discSets: this.referenceDiscSets,
+      substatBreakdown: this.getSubstatBreakdown(),
+      priorityStats: priorityStats,
+      totalEffectiveSubstats: this.getTotalEffectiveSubstats(),
+      showBuildRating: this.showBuildRating && !this.inGameStatsMode,
+      showDiscRatings: this.showDiscRatings,
+      customAgentImageUrl: this.customAgentImageUrl || undefined,
+      customBackgroundImageUrl: this.customBackgroundImageUrl || undefined,
+      customBarImageUrl: this.customBarImageUrl || undefined,
+      agentImageArtist: this.agentImageArtist || undefined,
+      backgroundImageArtist: this.backgroundImageArtist || undefined,
+      barImageArtist: this.barImageArtist || undefined,
+      accentColor: this.accentColor,
+    };
+  }
+
+  /**
+   * BUG-29: true once the modal this run drew for has closed (closeShareModal() already reset the flag)
+   * or was reopened with a new canvas (whose own run owns the flag), so the run stops without an alert.
+   */
+  private isShareCanvasGone(canvas: HTMLCanvasElement): boolean {
+    return this.shareCanvasRef?.nativeElement !== canvas;
   }
 
   downloadShareImage() {
