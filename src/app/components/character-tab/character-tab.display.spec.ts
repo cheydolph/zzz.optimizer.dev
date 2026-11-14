@@ -44,13 +44,16 @@ type Fixture = {
   agentId: string;
   cases: Array<{ id: string; build: Omit<AgentBuild, 'equippedWEngine'> & { equippedWEngineId?: string } }>;
 };
-/** The display functions under test and the cache reset the app runs when a build changes, reached through a cast. */
+/**
+ * The displayed values under test (computed() signals over the compute functions since NG-07a) and the cache reset
+ * the app runs when a build changes, reached through a cast.
+ */
 type Internals = {
   mindscapeData: unknown;
   clearScoreCaches(): void;
-  computeSubstatBreakdown(): unknown;
-  computePassiveBonuses(): unknown;
-  computeMindscapeBonuses(): unknown;
+  substatBreakdown(): unknown;
+  passiveBonuses(): unknown;
+  mindscapeBonuses(): unknown;
 };
 
 /** What the build view shows for one build. The single place to adapt when the state work changes the API. */
@@ -60,9 +63,9 @@ function readDisplay(component: CharacterTabComponent, build: AgentBuild, agent:
   component.selectedBuild = build;
   internals.clearScoreCaches();
   return {
-    substats: internals.computeSubstatBreakdown(),
-    passives: internals.computePassiveBonuses(),
-    mindscapes: internals.computeMindscapeBonuses(),
+    substats: internals.substatBreakdown(),
+    passives: internals.passiveBonuses(),
+    mindscapes: internals.mindscapeBonuses(),
   };
 }
 

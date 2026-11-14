@@ -85,11 +85,12 @@ describe('CharacterTabComponent share image', () => {
     component.selectedBuild = { id: 'b1', agentId: '1091', name: 'Test', equippedDiscs: {} } as unknown as AgentBuild; // only these fields are read
     component.referenceAgents = [{ id: '1091', name: 'Miyabi' } as unknown as Agent]; // only id is read before the renderer
     // The share data inputs come from scoring code the goldens cover; stub them so the test drives only the flow
-    vi.spyOn(component, 'getBuildScore').mockReturnValue(null);
+    // computed() values since slice 4.6b's NG-07a: stubbed as the functions they are
+    const derived = component as unknown as { buildScore: () => unknown; substatBreakdown: () => unknown };
+    vi.spyOn(derived, 'buildScore').mockReturnValue(null);
     vi.spyOn(component, 'getMainStats').mockReturnValue([]);
     vi.spyOn(component, 'getWEngineStats').mockReturnValue([]);
-    vi.spyOn(component, 'getSubstatBreakdown').mockReturnValue([]);
-    vi.spyOn(component, 'getTotalEffectiveSubstats').mockReturnValue(0);
+    vi.spyOn(derived, 'substatBreakdown').mockReturnValue({ breakdown: [], totalEffectiveSubstats: 0 });
     vi.spyOn(TestBed.inject(ScoringService), 'getBuildStatWeights').mockReturnValue({});
   });
 

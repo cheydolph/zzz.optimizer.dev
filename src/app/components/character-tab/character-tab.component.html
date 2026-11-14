@@ -94,7 +94,7 @@
               (ngModelChange)="onUpgradePlanChange($event)"
               class="plan-select">
               <option [ngValue]="undefined">(Default)</option>
-              @for (plan of getPlansForSelectedAgent(); track plan) {
+              @for (plan of plansForSelectedAgent(); track plan) {
                 <option
                   [ngValue]="plan.id">
                   {{ plan.name }}
@@ -272,15 +272,15 @@
                   <button
                     type="button"
                     class="build-type-label"
-                    [title]="getBuildTypeHint()"
+                    [title]="buildTypeHint()"
                     [attr.aria-expanded]="showBuildTypeHint"
                     (click)="showBuildTypeHint = !showBuildTypeHint">Build Type:<span class="build-type-info" aria-hidden="true">?</span></button>
                     <div class="build-type-options">
-                      @for (buildType of getAvailableBuildTypes(); track buildType) {
+                      @for (buildType of availableBuildTypes(); track buildType) {
                         <button
                           type="button"
                           class="build-type-btn"
-                          [class.active]="getActiveBuildType() === buildType"
+                          [class.active]="activeBuildType() === buildType"
                           (click)="setPreferredBuildType(buildType)"
                           [title]="'Score this build as ' + buildType">
                           {{ buildType }}
@@ -289,7 +289,7 @@
                     </div>
                   </div>
                   @if (showBuildTypeHint) {
-                    <p class="build-type-hint">{{ getBuildTypeHint() }}</p>
+                    <p class="build-type-hint">{{ buildTypeHint() }}</p>
                   }
                 </div>
               }
@@ -353,9 +353,7 @@
                                   />
                               </label>
                               @if (
-                                getDiscScore(
-                                selectedBuild.equippedDiscs[slot]!
-                                ); as discScore
+                                equippedDiscScores()[slot]; as discScore
                                 ) {
                                 <div
                                   class="disc-rating-badge"
@@ -748,7 +746,7 @@
                               <div class="section summary-panel">
                                 <!-- Build Summary -->
                                 <div class="build-summary-section">
-                                  @if (getBuildScore(); as buildScore) {
+                                  @if (buildScore(); as buildScore) {
                                     <div
                                       class="summary-item build-rating-display"
                                       [class.disabled-ingame-mode]="inGameStatsMode"
@@ -782,14 +780,14 @@
                                         </div>
                                       }
                                       <!-- Build Feedback Section -->
-                                      @if (getBuildFeedback().length > 0 && !inGameStatsMode) {
+                                      @if (buildFeedback().length > 0 && !inGameStatsMode) {
                                         <div
                                           class="build-feedback-section"
                                           >
                                           <h4>How to Improve</h4>
                                           <div class="feedback-list">
                                             @for (
-                                              item of getBuildFeedback(); track trackByFeedbackIndex($index,
+                                              item of buildFeedback(); track trackByFeedbackIndex($index,
                                               item)) {
                                               <div
                                                 class="feedback-item"
@@ -860,7 +858,7 @@
                                                   ✓ Specialty matches - applying bonuses:
                                                 </p>
                                                 @for (
-                                                  prop of getWEngineRefinementBonuses(); track trackByBonusIndex($index,
+                                                  prop of wEngineRefinementBonuses(); track trackByBonusIndex($index,
                                                   prop)) {
                                                   <div
                                                     class="bonus-stat"
@@ -894,7 +892,7 @@
                                         </div>
                                       }
                                       <!-- Mindscape Stat Bonuses -->
-                                      @if (getMindscapeBonuses().length > 0) {
+                                      @if (mindscapeBonuses().length > 0) {
                                         <div
                                           class="mindscape-active-effect"
                                           >
@@ -918,7 +916,7 @@
                                               M{{ selectedBuild.mindscapeLevel }} Active
                                             </p>
                                             @for (
-                                              bonus of getMindscapeBonuses(); track trackByBonusIndex($index,
+                                              bonus of mindscapeBonuses(); track trackByBonusIndex($index,
                                               bonus)) {
                                               <div
                                                 class="bonus-stat"
@@ -943,7 +941,7 @@
                                           </div>
                                         }
                                         <!-- Active Passive Bonuses -->
-                                        @if (getPassiveBonuses().length > 0) {
+                                        @if (passiveBonuses().length > 0) {
                                           <div
                                             class="passive-bonuses"
                                             >
@@ -961,7 +959,7 @@
                                               </label>
                                             </div>
                                             <div class="passive-bonus-box">
-                                              @for (bonus of getPassiveBonuses(); track trackByBonusIndex($index, bonus)) {
+                                              @for (bonus of passiveBonuses(); track trackByBonusIndex($index, bonus)) {
                                                 <div
                                                   class="bonus-stat"
                                                   >
@@ -974,7 +972,7 @@
                                         }
                                         <!-- Disc Set Bonuses (includes 2pc and 4pc effects) -->
                                         @if (
-                                          getSetBonuses().length > 0 || get4pcEffectBonuses().length > 0
+                                          setBonuses().length > 0 || fourPcEffectBonuses().length > 0
                                           ) {
                                           <div
                                             class="set-bonuses"
@@ -993,7 +991,7 @@
                                               </label>
                                             </div>
                                             <div class="set-bonus-box">
-                                              @for (bonus of getSetBonuses(); track trackByBonusIndex($index, bonus)) {
+                                              @for (bonus of setBonuses(); track trackByBonusIndex($index, bonus)) {
                                                 <div
                                                   class="set-bonus"
                                                   >
@@ -1001,7 +999,7 @@
                                                 </div>
                                               }
                                               @for (
-                                                bonus of get4pcEffectBonuses(); track trackByBonusIndex($index,
+                                                bonus of fourPcEffectBonuses(); track trackByBonusIndex($index,
                                                 bonus)) {
                                                 <div
                                                   class="set-bonus"
@@ -1013,13 +1011,13 @@
                                           </div>
                                         }
                                         <!-- Substat Breakdown -->
-                                        @if (getSubstatBreakdown().length > 0) {
+                                        @if (substatBreakdown().breakdown.length > 0) {
                                           <div
                                             class="substat-breakdown"
                                             >
                                             <h4>Substat Breakdown:</h4>
                                             <div class="substat-breakdown-box">
-                                              @for (stat of getSubstatBreakdown(); track trackByBonusIndex($index, stat)) {
+                                              @for (stat of substatBreakdown().breakdown; track trackByBonusIndex($index, stat)) {
                                                 <div
                                                   class="bonus-stat"
                                                   >

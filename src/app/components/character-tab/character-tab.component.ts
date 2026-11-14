@@ -8,6 +8,8 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Injector,
+  computed,
+  signal,
 } from '@angular/core';
 import { NgClass, DatePipe, DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -88,20 +90,64 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
   // Expose Object for template use
   Object = Object;
 
+  // NG-05 (slice 4.6b): the state that displayed values are derived from is held in signals. The accessors keep
+  // every existing read and write (and TypeScript's narrowing) as they were; a template or computed() that reads
+  // one now tracks its signal.
+
   // User builds (not reference data!)
-  builds: AgentBuild[] = [];
-  selectedBuild: AgentBuild | null = null;
+  private readonly buildsState = signal<AgentBuild[]>([]);
+  get builds(): AgentBuild[] {
+    return this.buildsState();
+  }
+  set builds(value: AgentBuild[]) {
+    this.buildsState.set(value);
+  }
+  private readonly selectedBuildState = signal<AgentBuild | null>(null);
+  get selectedBuild(): AgentBuild | null {
+    return this.selectedBuildState();
+  }
+  set selectedBuild(value: AgentBuild | null) {
+    this.selectedBuildState.set(value);
+  }
 
   // Active tab
   activeTab: 'builds' | 'upgrade-plans' | 'optimizer' = 'builds';
 
   // Available upgrade plans (stored locally for change detection)
-  availablePlans: UpgradePlan[] = [];
+  private readonly availablePlansState = signal<UpgradePlan[]>([]);
+  get availablePlans(): UpgradePlan[] {
+    return this.availablePlansState();
+  }
+  set availablePlans(value: UpgradePlan[]) {
+    this.availablePlansState.set(value);
+  }
 
   // Reference data for adding new builds
-  referenceAgents: Agent[] = [];
-  referenceWEngines: WEngine[] = [];
-  referenceDiscSets: DiscSet[] = [];
+  private readonly referenceAgentsState = signal<Agent[]>([]);
+  get referenceAgents(): Agent[] {
+    return this.referenceAgentsState();
+  }
+  set referenceAgents(value: Agent[]) {
+    this.referenceAgentsState.set(value);
+  }
+  private readonly referenceWEnginesState = signal<WEngine[]>([]);
+  get referenceWEngines(): WEngine[] {
+    return this.referenceWEnginesState();
+  }
+  set referenceWEngines(value: WEngine[]) {
+    this.referenceWEnginesState.set(value);
+  }
+  private readonly referenceDiscSetsState = signal<DiscSet[]>([]);
+  get referenceDiscSets(): DiscSet[] {
+    return this.referenceDiscSetsState();
+  }
+  set referenceDiscSets(value: DiscSet[]) {
+    this.referenceDiscSetsState.set(value);
+  }
+
+  // Scoring and stat reference data (breakpoints, weights, disc set effects, mindscapes) arrives after the first
+  // render; true once both services' loads have settled
+  private readonly referenceDataReady = signal(false);
 
   // UI state
   showAddAgentModal = false;
@@ -115,7 +161,13 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
 
   // Disc Loadout modal state
   showLoadoutsModal = false;
-  agentLoadouts: DiscLoadout[] = [];
+  private readonly agentLoadoutsState = signal<DiscLoadout[]>([]);
+  get agentLoadouts(): DiscLoadout[] {
+    return this.agentLoadoutsState();
+  }
+  set agentLoadouts(value: DiscLoadout[]) {
+    this.agentLoadoutsState.set(value);
+  }
 
   // Mobile responsiveness
   @ViewChild('buildHeader', { read: ElementRef }) buildHeader?: ElementRef;
@@ -137,14 +189,44 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
   @ViewChild('shareCard') shareCardRef!: ElementRef<HTMLDivElement>;
 
   // Bonus enable/disable toggles (for stat calculations)
-  includeWEngineBonuses = true;
-  includeMindscapeBonuses = true;
-  includePassiveBonuses = true;
-  includeSetBonuses = true;
+  private readonly includeWEngineBonusesState = signal<boolean>(true);
+  get includeWEngineBonuses(): boolean {
+    return this.includeWEngineBonusesState();
+  }
+  set includeWEngineBonuses(value: boolean) {
+    this.includeWEngineBonusesState.set(value);
+  }
+  private readonly includeMindscapeBonusesState = signal<boolean>(true);
+  get includeMindscapeBonuses(): boolean {
+    return this.includeMindscapeBonusesState();
+  }
+  set includeMindscapeBonuses(value: boolean) {
+    this.includeMindscapeBonusesState.set(value);
+  }
+  private readonly includePassiveBonusesState = signal<boolean>(true);
+  get includePassiveBonuses(): boolean {
+    return this.includePassiveBonusesState();
+  }
+  set includePassiveBonuses(value: boolean) {
+    this.includePassiveBonusesState.set(value);
+  }
+  private readonly includeSetBonusesState = signal<boolean>(true);
+  get includeSetBonuses(): boolean {
+    return this.includeSetBonusesState();
+  }
+  set includeSetBonuses(value: boolean) {
+    this.includeSetBonusesState.set(value);
+  }
 
   // In-game stats mode (matches in-game character screen)
   // When enabled: only base stats + W-Engine base ATK & substat + disc stats + 2pc bonuses
-  inGameStatsMode = false;
+  private readonly inGameStatsModeState = signal<boolean>(false);
+  get inGameStatsMode(): boolean {
+    return this.inGameStatsModeState();
+  }
+  set inGameStatsMode(value: boolean) {
+    this.inGameStatsModeState.set(value);
+  }
 
   // Track failed video loads to prevent infinite error loops
   private failedVideoLoads = new Set<string>();
@@ -178,7 +260,13 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
   ];
 
   // Disc inventory (user's created discs)
-  allDiscs: Disc[] = [];
+  private readonly allDiscsState = signal<Disc[]>([]);
+  get allDiscs(): Disc[] {
+    return this.allDiscsState();
+  }
+  set allDiscs(value: Disc[]) {
+    this.allDiscsState.set(value);
+  }
 
   // Disc picker filters
   discSearchTerm = '';
@@ -200,21 +288,14 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
   cachedFilteredDiscSets: DiscSet[] = [];
   cachedFilteredDiscs: Disc[] = [];
 
-  // OPTIMIZATION: Memoization caches for score calculations
-  private discScoreCache = new Map<string, { score: number; rating: DiscRating }>();
-  private buildScoreCache = new Map<string, { score: number; rating: BuildRating }>();
+  // OPTIMIZATION: Memoization cache for loadout set counts
   private loadoutSetCountCache = new Map<string, string>();
 
   // OPTIMIZATION: Cached results for expensive template functions
-  private cachedSubstatBreakdown: ReturnType<typeof this.computeSubstatBreakdown> | null = null;
-  private cachedMindscapeBonuses: ReturnType<typeof this.computeMindscapeBonuses> | null = null;
-  private cachedPassiveBonuses: ReturnType<typeof this.computePassiveBonuses> | null = null;
-  private cachedWEngineRefinementBonuses: ReturnType<typeof this.computeWEngineRefinementBonuses> | null = null;
   private cachedFilteredAgents: Agent[] | null = null;
   private cachedFilteredWEngines: WEngine[] | null = null;
   private lastAgentFilterKey = '';
   private lastWEngineFilterKey = '';
-  private lastBuildStateKey = '';
 
   // W-Engine picker
   showWEnginePicker = false;
@@ -279,7 +360,13 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
   errorFields: Set<string> = new Set();
 
   // Mindscape data from mindscape-stats.json
-  private mindscapeData: MindscapeData | null = null;
+  private readonly mindscapeDataState = signal<MindscapeData | null>(null);
+  private get mindscapeData(): MindscapeData | null {
+    return this.mindscapeDataState();
+  }
+  private set mindscapeData(value: MindscapeData | null) {
+    this.mindscapeDataState.set(value);
+  }
 
   constructor(
     private buildService: BuildService,
@@ -302,6 +389,16 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
   ) {
     // Load mindscape data
     this.loadMindscapeData();
+
+    // The scoring loader always resolves; the stat calculator's rejects when disc set data is missing and retries
+    // on its next call, so wait for both to settle, as the methods today simply use whatever has arrived
+    void Promise.allSettled([this.scoringService.ensureDataLoaded(), this.statCalculator.ensureDataLoaded()]).then(
+      () => {
+        this.referenceDataReady.set(true);
+        // OnPush: nothing else marks the view when the data lands (the build view kept its pre-load values)
+        this.cdr.markForCheck();
+      },
+    );
   }
 
   ngOnInit() {
@@ -352,9 +449,8 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
         this.includeSetBonuses = build.includeSetBonuses ?? true;
       }
 
-      // Now assign the build and invalidate caches
+      // Now assign the build (the computed() values that read it follow)
       this.selectedBuild = build;
-      this.invalidateBuildCaches();
       this.cdr.markForCheck();
     });
 
@@ -460,7 +556,6 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
 
   async selectBuild(build: AgentBuild) {
     this.buildService.selectBuild(build);
-    this.clearFeedbackCache();
 
     // Reset In-Game Stats mode when switching agents to prevent weird display behavior
     if (this.inGameStatsMode) {
@@ -843,20 +938,20 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
    * Build types this agent has weight profiles for. Empty or single-entry means
    * there is nothing to choose between, so the pin control stays hidden.
    */
-  getAvailableBuildTypes(): string[] {
+  protected readonly availableBuildTypes = computed((): string[] => {
+    this.referenceDataReady();
     if (!this.selectedBuild) return [];
     return this.scoringService.getAvailableBuildTypes(this.selectedBuild.agentId);
-  }
+  });
 
-  hasMultipleBuildTypes(): boolean {
-    return this.getAvailableBuildTypes().length > 1;
-  }
+  protected readonly hasMultipleBuildTypes = computed((): boolean => this.availableBuildTypes().length > 1);
 
   /**
    * What scoring currently resolves to, whether pinned or auto-detected.
    * Used to show the user which profile 'Auto' actually picked.
    */
-  getActiveBuildType(): string {
+  protected readonly activeBuildType = computed((): string => {
+    this.referenceDataReady();
     if (!this.selectedBuild) return 'CRIT';
     const equippedDiscs = Object.values(this.selectedBuild.equippedDiscs || {}).filter((d) => d) as Disc[];
     return this.scoringService.resolveBuildType(
@@ -864,7 +959,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       this.selectedBuild.agentId,
       this.selectedBuild.preferredBuildType,
     );
-  }
+  });
 
   // Tap-to-reveal state for the build type explanation. Needed because `title`
   // tooltips never fire on touch devices, where this hint matters just as much.
@@ -874,12 +969,12 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
    * Explanatory tooltip for the build type control. Mentions auto-detection only
    * while the build is still unpinned.
    */
-  getBuildTypeHint(): string {
+  protected readonly buildTypeHint = computed((): string => {
     const base = 'Disc ratings and stat weights are based on this profile.';
     return this.selectedBuild?.preferredBuildType
       ? base
       : `${base} Auto-detected from your equipped discs - select one to lock it in.`;
-  }
+  });
 
   /**
    * Pin a scoring profile. Until the user picks one the build stays on
@@ -895,7 +990,6 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       preferredBuildType: buildType,
     });
     this.clearScoreCaches();
-    this.clearFeedbackCache();
     this.cdr.markForCheck();
   }
 
@@ -1056,7 +1150,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     return sorted;
   }
 
-  isWEngineSpecialtyMatch(): boolean {
+  protected readonly isWEngineSpecialtyMatch = computed((): boolean => {
     if (!this.selectedBuild || !this.selectedBuild.equippedWEngine) {
       return false;
     }
@@ -1067,32 +1161,9 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     }
 
     return agent.specialty === this.selectedBuild!.equippedWEngine!.specialty;
-  }
+  });
 
-  // OPTIMIZATION: Key that changes whenever build state changes — used to invalidate all build-dependent caches
-  private getBuildStateKey(): string {
-    if (!this.selectedBuild) return '';
-    const discUids = Object.entries(this.selectedBuild.equippedDiscs || {})
-      .filter(([, d]) => d)
-      .map(([slot, d]) => `${slot}:${d!.uid}`)
-      .sort()
-      .join(',');
-    return `${this.selectedBuild.id}|${this.selectedBuild.equippedWEngine?.id || ''}|${this.selectedBuild.wEngineRefinement || 1}|${this.selectedBuild.mindscapeLevel || 0}|${discUids}|${this.selectedBuild.enabledDiscs ? JSON.stringify(this.selectedBuild.enabledDiscs) : ''}|${this.selectedBuild.preferredBuildType || ''}`;
-  }
-
-  getWEngineRefinementBonuses(): Array<{
-    name: string;
-    value: string;
-    isPercent: boolean;
-  }> {
-    const key = this.getBuildStateKey();
-    if (this.cachedWEngineRefinementBonuses && this.lastBuildStateKey === key) {
-      return this.cachedWEngineRefinementBonuses;
-    }
-    this.cachedWEngineRefinementBonuses = this.computeWEngineRefinementBonuses();
-    this.lastBuildStateKey = key;
-    return this.cachedWEngineRefinementBonuses;
-  }
+  protected readonly wEngineRefinementBonuses = computed(() => this.computeWEngineRefinementBonuses());
 
   private computeWEngineRefinementBonuses(): Array<{
     name: string;
@@ -1133,19 +1204,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     }
   }
 
-  getMindscapeBonuses(): Array<{
-    level: number;
-    name: string;
-    stats: Array<{ name: string; value: string; isPercent: boolean }>;
-  }> {
-    const key = this.getBuildStateKey();
-    if (this.cachedMindscapeBonuses && this.lastBuildStateKey === key) {
-      return this.cachedMindscapeBonuses;
-    }
-    this.cachedMindscapeBonuses = this.computeMindscapeBonuses();
-    this.lastBuildStateKey = key;
-    return this.cachedMindscapeBonuses;
-  }
+  protected readonly mindscapeBonuses = computed(() => this.computeMindscapeBonuses());
 
   private computeMindscapeBonuses(): Array<{
     level: number;
@@ -1244,19 +1303,11 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     return result;
   }
 
-  getPassiveBonuses(): Array<{
-    name: string;
-    value: string;
-    isPercent: boolean;
-  }> {
-    const key = this.getBuildStateKey();
-    if (this.cachedPassiveBonuses && this.lastBuildStateKey === key) {
-      return this.cachedPassiveBonuses;
-    }
-    this.cachedPassiveBonuses = this.computePassiveBonuses();
-    this.lastBuildStateKey = key;
-    return this.cachedPassiveBonuses;
-  }
+  // Reads disc set and mindscape data through the stat calculator
+  protected readonly passiveBonuses = computed(() => {
+    this.referenceDataReady();
+    return this.computePassiveBonuses();
+  });
 
   private computePassiveBonuses(): Array<{
     name: string;
@@ -1402,31 +1453,11 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     return mappedKey ? stats[mappedKey] : 0;
   }
 
-  getSubstatBreakdown(): Array<{
-    name: string;
-    value: string;
-    isPercent: boolean;
-    rollCount: number;
-    isPriority: boolean;
-  }> {
-    const key = this.getBuildStateKey();
-    if (this.cachedSubstatBreakdown && this.lastBuildStateKey === key) {
-      return this.cachedSubstatBreakdown.breakdown;
-    }
-    this.cachedSubstatBreakdown = this.computeSubstatBreakdown();
-    this.lastBuildStateKey = key;
-    return this.cachedSubstatBreakdown.breakdown;
-  }
-
-  getTotalEffectiveSubstats(): number {
-    const key = this.getBuildStateKey();
-    if (this.cachedSubstatBreakdown && this.lastBuildStateKey === key) {
-      return this.cachedSubstatBreakdown.totalEffectiveSubstats;
-    }
-    this.cachedSubstatBreakdown = this.computeSubstatBreakdown();
-    this.lastBuildStateKey = key;
-    return this.cachedSubstatBreakdown.totalEffectiveSubstats;
-  }
+  // Reads stat weights and breakpoints; breakdown plus the total of effective substats
+  protected readonly substatBreakdown = computed(() => {
+    this.referenceDataReady();
+    return this.computeSubstatBreakdown();
+  });
 
   private computeSubstatBreakdown(): {
     breakdown: Array<{
@@ -1719,21 +1750,10 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     this.cdr.markForCheck();
   }
 
-  // OPTIMIZATION: Clear score caches when build changes
+  // The stat calculator's cache is size-limited and keyed on every input; clearing it changes no value. The score
+  // and display caches this used to clear are computed() values now (LOGIC-10).
   private clearScoreCaches(): void {
-    this.discScoreCache.clear();
-    this.buildScoreCache.clear();
     this.statCalculator.clearCache();
-    this.invalidateBuildCaches();
-  }
-
-  // OPTIMIZATION: Invalidate cached template function results
-  private invalidateBuildCaches(): void {
-    this.cachedSubstatBreakdown = null;
-    this.cachedMindscapeBonuses = null;
-    this.cachedPassiveBonuses = null;
-    this.cachedWEngineRefinementBonuses = null;
-    this.lastBuildStateKey = '';
   }
 
   async unequipDisc(slot: DiscSlot, event: Event) {
@@ -1748,12 +1768,14 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     }
   }
 
-  getSetBonuses(): string[] {
+  protected readonly setBonuses = computed((): string[] => {
+    this.referenceDataReady();
     if (!this.selectedBuild) return [];
     return this.statCalculator.getSetBonuses(this.selectedBuild.equippedDiscs);
-  }
+  });
 
-  get4pcEffectBonuses(): string[] {
+  protected readonly fourPcEffectBonuses = computed((): string[] => {
+    this.referenceDataReady();
     if (!this.selectedBuild) return [];
     const agent = this.referenceAgents.find((a) => a.id === this.selectedBuild!.agentId);
     if (!agent) return [];
@@ -1765,7 +1787,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       this.selectedBuild.mindscapeLevel || 0,
       this.selectedBuild.wEngineRefinement || 1,
     );
-  }
+  });
 
   // Disc picker methods
 
@@ -2377,33 +2399,15 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     if (!this.selectedBuild) return null;
 
     // Wait for scoring service to load data before calculating
-    if (!this.scoringService.areBreakpointsLoaded()) {
+    if (!this.isScoringDataLoaded()) {
       return null;
     }
 
     // Get active upgrade plan if one is set
-    const activePlan = this.selectedBuild.activeUpgradePlanId
-      ? this.upgradePlanService.getPlanById(this.selectedBuild.activeUpgradePlanId)
-      : undefined;
+    const activePlan = this.activePlan();
 
     // Detect build type based on ALL equipped discs (not just this one)
-    const allDiscs = Object.values(this.selectedBuild.equippedDiscs || {}).filter((d) => d);
-    const detectedBuildType =
-      allDiscs.length > 0
-        ? this.scoringService.resolveBuildType(
-            allDiscs,
-            this.selectedBuild.agentId,
-            this.selectedBuild.preferredBuildType,
-          )
-        : undefined;
-
-    // OPTIMIZATION: Cache key for memoization
-    const cacheKey = `${disc.uid}-${this.selectedBuild.agentId}-${detectedBuildType || 'default'}-${activePlan?.id || 'none'}`;
-
-    // Check cache first
-    if (this.discScoreCache.has(cacheKey)) {
-      return this.discScoreCache.get(cacheKey)!;
-    }
+    const detectedBuildType = this.discScoreBuildType();
 
     const result = this.scoringService.calculateDiscScore(
       disc,
@@ -2412,27 +2416,51 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       activePlan, // Pass upgrade plan to override default weights
     );
 
-    const cachedResult = {
+    return {
       score: result.score,
       rating: result.rating,
     };
-
-    // Store in cache
-    this.discScoreCache.set(cacheKey, cachedResult);
-
-    return cachedResult;
   }
+
+  /** The selected build's active plan, from the plans signal (the same objects `getPlanById()` returns). */
+  private readonly activePlan = computed(() => {
+    const planId = this.selectedBuild?.activeUpgradePlanId;
+    return planId ? this.availablePlans.find((p) => p.id === planId) : undefined;
+  });
+
+  /** The build type disc scores use: resolved from ALL equipped discs, undefined while none is equipped. */
+  private readonly discScoreBuildType = computed(() => {
+    this.referenceDataReady();
+    if (!this.selectedBuild) return undefined;
+    const allDiscs = Object.values(this.selectedBuild.equippedDiscs || {}).filter((d) => d);
+    return allDiscs.length > 0
+      ? this.scoringService.resolveBuildType(
+          allDiscs,
+          this.selectedBuild.agentId,
+          this.selectedBuild.preferredBuildType,
+        )
+      : undefined;
+  });
+
+  /** Scores of the selected build's equipped discs, by slot (the build view's badges). */
+  protected readonly equippedDiscScores = computed(() => {
+    const scores: { [slot: string]: { score: number; rating: DiscRating } | null } = {};
+    for (const [slot, disc] of Object.entries(this.selectedBuild?.equippedDiscs ?? {})) {
+      if (disc) scores[slot] = this.getDiscScore(disc);
+    }
+    return scores;
+  });
 
   getDiscRatingClass(rating: DiscRating): string {
     return `rating-${rating.grade.toLowerCase().replace(/\s+/g, '-')}`;
   }
 
   // Build scoring methods
-  getBuildScore(): { score: number; rating: BuildRating } | null {
+  protected readonly buildScore = computed((): { score: number; rating: BuildRating } | null => {
     if (!this.selectedBuild) return null;
 
     // Wait for scoring service to load data before calculating
-    if (!this.scoringService.areBreakpointsLoaded()) {
+    if (!this.isScoringDataLoaded()) {
       return null;
     }
 
@@ -2443,21 +2471,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     const agent = this.referenceAgents.find((a) => a.id === this.selectedBuild!.agentId);
 
     // Get active upgrade plan if one is set
-    const activePlan = this.selectedBuild.activeUpgradePlanId
-      ? this.upgradePlanService.getPlanById(this.selectedBuild.activeUpgradePlanId)
-      : undefined;
-
-    // OPTIMIZATION: Cache key based on build state
-    const discUids = equippedDiscsArray
-      .map((d) => d.uid)
-      .sort()
-      .join('|');
-    const cacheKey = `${this.selectedBuild.id}-${discUids}-${this.selectedBuild.equippedWEngine || 'none'}-${this.selectedBuild.wEngineRefinement || 1}-${this.selectedBuild.mindscapeLevel || 0}-${activePlan?.id || 'none'}`;
-
-    // Check cache first
-    if (this.buildScoreCache.has(cacheKey)) {
-      return this.buildScoreCache.get(cacheKey)!;
-    }
+    const activePlan = this.activePlan();
 
     // Use composite scoring which accounts for disc quality, W-Engine, Mindscape, set bonuses, and damage estimation
     const result = this.scoringService.calculateCompositeBuildScore(
@@ -2477,76 +2491,28 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       this.selectedBuild.preferredBuildType,
     );
 
-    const cachedResult = {
+    return {
       score: result.score,
       rating: result.rating,
     };
-
-    // Store in cache
-    this.buildScoreCache.set(cacheKey, cachedResult);
-
-    return cachedResult;
-  }
+  });
 
   getBuildRatingClass(rating: BuildRating): string {
     return `rating-${rating.grade.toLowerCase().replace(/\s+/g, '-')}`;
   }
 
-  // Cached feedback to avoid recalculating on every change detection
-  private cachedFeedback: FeedbackItem[] | null = null;
-  private lastFeedbackBuildHash: string | null = null;
-
-  // Generate a simple hash of build state to detect changes
-  private getBuildHash(): string {
-    if (!this.selectedBuild) return '';
-    const discCount = Object.values(this.selectedBuild.equippedDiscs).filter((d) => d).length;
-    const wEngineId = this.selectedBuild.equippedWEngine?.id || 'none';
-    const stats = this.selectedBuild.calculatedStats;
-
-    // Include disc UIDs to detect disc changes (even if stats are same)
-    const discUids = Object.values(this.selectedBuild.equippedDiscs)
-      .filter((d) => d)
-      .map((d) => d.uid)
-      .sort()
-      .join(',');
-
-    // Include active upgrade plan ID
-    const planId = this.selectedBuild.activeUpgradePlanId || 'none';
-
-    // Include detected build type (CRIT vs Anomaly) since feedback differs by build type
-    const allDiscs = Object.values(this.selectedBuild.equippedDiscs || {}).filter((d) => d);
-    const detectedBuildType =
-      allDiscs.length > 0
-        ? this.scoringService.resolveBuildType(
-            allDiscs,
-            this.selectedBuild.agentId,
-            this.selectedBuild.preferredBuildType,
-          )
-        : 'unknown';
-
-    return `${this.selectedBuild.id}-${discCount}-${wEngineId}-${stats.atk}-${stats.critRate}-${stats.critDmg}-${discUids}-${planId}-${detectedBuildType}`;
-  }
-
-  getBuildFeedback(): FeedbackItem[] {
+  protected readonly buildFeedback = computed((): FeedbackItem[] => {
     if (!this.selectedBuild) return [];
 
     // Wait for scoring service to load data
-    if (!this.scoringService.areBreakpointsLoaded()) {
+    if (!this.isScoringDataLoaded()) {
       return [];
     }
 
-    // Return cached result if build state hasn't changed
-    const currentHash = this.getBuildHash();
-    if (this.cachedFeedback && this.lastFeedbackBuildHash === currentHash) {
-      return this.cachedFeedback;
-    }
-
     // Get active upgrade plan if one is set
-    const activePlan = this.selectedBuild.activeUpgradePlanId
-      ? this.upgradePlanService.getPlanById(this.selectedBuild.activeUpgradePlanId)
-      : undefined;
+    const activePlan = this.activePlan();
 
-    this.cachedFeedback = this.scoringService.generateBuildFeedback(
+    return this.scoringService.generateBuildFeedback(
       this.selectedBuild.agentId,
       this.selectedBuild.calculatedStats,
       this.selectedBuild.equippedDiscs,
@@ -2556,16 +2522,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       this.selectedBuild.preferredBuildType,
       this.referenceAgents.find((a) => a.id === this.selectedBuild!.agentId)?.specialty,
     );
-    this.lastFeedbackBuildHash = currentHash;
-
-    return this.cachedFeedback;
-  }
-
-  // Clear feedback cache when build changes
-  clearFeedbackCache(): void {
-    this.cachedFeedback = null;
-    this.lastFeedbackBuildHash = null;
-  }
+  });
 
   // Input validation and formatting methods
   /**
@@ -2675,16 +2632,43 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     return `Validation errors:\n${errors.map((e) => `• ${e}`).join('\n')}`;
   }
 
+  /** `areBreakpointsLoaded()`, with `referenceDataReady` read first so that whatever calls this re-runs when the data lands. */
+  private isScoringDataLoaded(): boolean {
+    this.referenceDataReady(); // a dependency only: the result is today's check, unchanged
+    return this.scoringService.areBreakpointsLoaded();
+  }
+
   // Check if a substat type is a priority stat for the selected build's agent
   // Now uses build-aware weights that adapt based on detected build type (CRIT vs Anomaly)
   isPrioritySubstat(substatType: SubStatType): boolean {
-    if (!this.selectedBuild || !this.scoringService.areBreakpointsLoaded()) {
+    const priority = this.prioritySubstatSource();
+    if (!priority) {
       return false;
     }
 
     // Special case: Miyabi (1091) - always treat Anomaly_Proficiency as priority
-    if (this.selectedBuild.agentId === '1091' && substatType === 'Anomaly_Proficiency') {
+    if (priority.agentId === '1091' && substatType === 'Anomaly_Proficiency') {
       return true;
+    }
+
+    // Check if this substat is valued in the detected build (weight >= 1.0)
+    if (Object.keys(priority.buildWeights).length > 0) {
+      return (priority.buildWeights[substatType] || 0) >= 1.0;
+    }
+
+    // Fallback to priorityStats array if no stat weights available (legacy agents)
+    const breakpoints = priority.breakpoints;
+    if (breakpoints?.priorityStats && Array.isArray(breakpoints.priorityStats)) {
+      return breakpoints.priorityStats.includes(substatType);
+    }
+
+    return false;
+  }
+
+  /** What isPrioritySubstat() checks against, for the selected build: its build-aware weights and breakpoints. */
+  private readonly prioritySubstatSource = computed(() => {
+    if (!this.selectedBuild || !this.isScoringDataLoaded()) {
+      return null;
     }
 
     // Get all equipped discs for build detection
@@ -2708,19 +2692,12 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     // Get build-aware stat weights
     const buildWeights = this.scoringService.getBuildStatWeights(this.selectedBuild.agentId, detectedBuildType);
 
-    // Check if this substat is valued in the detected build (weight >= 1.0)
-    if (Object.keys(buildWeights).length > 0) {
-      return (buildWeights[substatType] || 0) >= 1.0;
-    }
-
-    // Fallback to priorityStats array if no stat weights available (legacy agents)
-    const breakpoints = this.scoringService.getAgentBreakpoints(this.selectedBuild.agentId);
-    if (breakpoints?.priorityStats && Array.isArray(breakpoints.priorityStats)) {
-      return breakpoints.priorityStats.includes(substatType);
-    }
-
-    return false;
-  }
+    return {
+      agentId: this.selectedBuild.agentId,
+      buildWeights,
+      breakpoints: this.scoringService.getAgentBreakpoints(this.selectedBuild.agentId),
+    };
+  });
 
   // Auto-fill main stat value when user selects a main stat type for slots 4-6
   onMainStatTypeChange(): void {
@@ -3162,14 +3139,14 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     return {
       build: build,
       agent: agent,
-      buildScore: this.getBuildScore(),
+      buildScore: this.buildScore(),
       discScores: discScores,
       mainStats: this.getMainStats(),
       wEngineStats: this.getWEngineStats(),
       discSets: this.referenceDiscSets,
-      substatBreakdown: this.getSubstatBreakdown(),
+      substatBreakdown: this.substatBreakdown().breakdown,
       priorityStats: priorityStats,
-      totalEffectiveSubstats: this.getTotalEffectiveSubstats(),
+      totalEffectiveSubstats: this.substatBreakdown().totalEffectiveSubstats,
       showBuildRating: this.showBuildRating && !this.inGameStatsMode,
       showDiscRatings: this.showDiscRatings,
       customAgentImageUrl: this.customAgentImageUrl || undefined,
@@ -3974,14 +3951,14 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
   /**
    * Get all upgrade plans for the selected build's agent
    */
-  getPlansForSelectedAgent(): UpgradePlan[] {
+  protected readonly plansForSelectedAgent = computed((): UpgradePlan[] => {
     if (!this.selectedBuild) {
       return [];
     }
 
     // Filter from locally stored plans for proper change detection
     return this.availablePlans.filter((plan) => plan.agentId === this.selectedBuild!.agentId);
-  }
+  });
 
   /**
    * Handle upgrade plan change
@@ -4008,20 +3985,20 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
   // SHARE IMAGE HELPER METHODS
   // ============================================================================
 
-  isRuptureAgent(): boolean {
+  protected readonly isRuptureAgent = computed((): boolean => {
     if (!this.selectedBuild) return false;
     const agent = this.referenceAgents.find((a) => a.id === this.selectedBuild!.agentId);
     return agent?.specialty === 'Rupture';
-  }
+  });
 
   /**
    * Armorer agents show Sharpness (which auto-accumulates) in place of Energy Regen.
    */
-  isArmorerAgent(): boolean {
+  protected readonly isArmorerAgent = computed((): boolean => {
     if (!this.selectedBuild) return false;
     const agent = this.referenceAgents.find((a) => a.id === this.selectedBuild!.agentId);
     return agent?.specialty === 'Armorer';
-  }
+  });
 
   getMainStats(): Array<{ iconName: string; label: string; value: string }> {
     if (!this.selectedBuild) return [];

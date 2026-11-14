@@ -91,9 +91,10 @@ export class DiscService {
     const index = current.findIndex((d) => d.uid === uid);
     if (index !== -1) {
       await this.db.updateDisc(uid, updates);
-      current[index] = { ...current[index], ...updates };
-      this.rebuildIndexes(current); // OPTIMIZATION: Rebuild indexes
-      this.discsSubject.next([...current]);
+      // A new array: the emitted one is never written to (BUG-17, slice 4.6b)
+      const updated = current.map((d, i) => (i === index ? { ...d, ...updates } : d));
+      this.rebuildIndexes(updated); // OPTIMIZATION: Rebuild indexes
+      this.discsSubject.next(updated);
     }
   }
 
