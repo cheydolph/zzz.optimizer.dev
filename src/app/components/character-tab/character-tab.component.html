@@ -180,12 +180,14 @@
               (cdkDropListDropped)="onBuildDrop($event)"
               >
               @for (build of builds; track trackByBuildId(i, build); let i = $index) {
+                @let agent = agentsById().get(build.agentId);
+                @let elementIcon = agentElementIcons().get(build.agentId);
                 <div
                   class="build-card"
                   cdkDrag
                   [class.selected]="selectedBuild?.id === build.id"
-                  [class.s-rank]="getAgentRarity(build.agentId) === 'S'"
-                  [class.a-rank]="getAgentRarity(build.agentId) === 'A'"
+                  [class.s-rank]="agent?.rarity === 'S'"
+                  [class.a-rank]="agent?.rarity === 'A'"
                   (click)="selectBuild(build)"
                   >
                   <!-- Info Section with Drag Handle -->
@@ -200,25 +202,25 @@
                       </div>
                     </div>
                     <div class="build-badges">
-                      @if (getAgentElementIcon(build.agentId)) {
+                      @if (elementIcon) {
                         <img
-                          [src]="getAgentElementIcon(build.agentId)"
-                          [alt]="getAgentElement(build.agentId)"
+                          [src]="elementIcon"
+                          [alt]="agent?.element"
                           class="build-element-badge"
                           width="20"
                           height="20"
-                          [title]="getAgentElement(build.agentId)"
+                          [title]="agent?.element"
                           loading="lazy"
                           />
                       }
-                      @if (getAgentSpecialtyIcon(build.agentId)) {
+                      @if (agent?.specialtyIcon) {
                         <img
-                          [src]="getAgentSpecialtyIcon(build.agentId)"
-                          [alt]="getAgentSpecialty(build.agentId)"
+                          [src]="agent?.specialtyIcon"
+                          [alt]="agent?.specialty"
                           class="build-specialty-badge"
                           width="20"
                           height="20"
-                          [title]="getAgentSpecialty(build.agentId)"
+                          [title]="agent?.specialty"
                           loading="lazy"
                           />
                       }
@@ -226,9 +228,9 @@
                   </div>
                   <!-- Portrait -->
                   <div class="build-portrait">
-                    @if (getAgentIcon(build.agentId)) {
+                    @if (agent?.icon) {
                       <img
-                        [src]="getAgentIconThumb(build.agentId)"
+                        [src]="agent?.iconThumb || agent?.icon"
                         [alt]="build.name"
                         class="agent-icon"
                         width="60"
@@ -237,7 +239,7 @@
                         decoding="async"
                         />
                     }
-                    @if (!getAgentIcon(build.agentId)) {
+                    @if (!agent?.icon) {
                       <span class="build-name">{{
                         build.name
                       }}</span>
@@ -497,7 +499,7 @@
                         <span class="wengine-list-name">None</span>
                       </div>
                       @for (
-                        engine of getFilteredWEngines(); track trackByWEngineId($index,
+                        engine of filteredWEngines(); track trackByWEngineId($index,
                         engine)) {
                         <div
                           class="wengine-list-item"
@@ -1067,7 +1069,7 @@
                                           <button
                                             type="button"
                                             class="icon-filter-btn"
-                                            [class.active]="agentElementFilters.has('Fire')"
+                                            [class.active]="agentElementFilters().has('Fire')"
                                             (click)="toggleElementFilter('Fire')"
                                             title="Fire">
                                             <img src="assets/data/images/elements/IconFire.webp" alt="Fire" width="32" height="32" />
@@ -1075,7 +1077,7 @@
                                           <button
                                             type="button"
                                             class="icon-filter-btn"
-                                            [class.active]="agentElementFilters.has('Ice')"
+                                            [class.active]="agentElementFilters().has('Ice')"
                                             (click)="toggleElementFilter('Ice')"
                                             title="Ice">
                                             <img src="assets/data/images/elements/IconIce.webp" alt="Ice" width="32" height="32" />
@@ -1083,7 +1085,7 @@
                                           <button
                                             type="button"
                                             class="icon-filter-btn"
-                                            [class.active]="agentElementFilters.has('Electric')"
+                                            [class.active]="agentElementFilters().has('Electric')"
                                             (click)="toggleElementFilter('Electric')"
                                             title="Electric">
                                             <img src="assets/data/images/elements/IconElectric.webp" alt="Electric" width="32" height="32" />
@@ -1091,7 +1093,7 @@
                                           <button
                                             type="button"
                                             class="icon-filter-btn"
-                                            [class.active]="agentElementFilters.has('Physical')"
+                                            [class.active]="agentElementFilters().has('Physical')"
                                             (click)="toggleElementFilter('Physical')"
                                             title="Physical">
                                             <img src="assets/data/images/elements/IconPhysical.webp" alt="Physical" width="32" height="32" />
@@ -1099,7 +1101,7 @@
                                           <button
                                             type="button"
                                             class="icon-filter-btn"
-                                            [class.active]="agentElementFilters.has('Ether')"
+                                            [class.active]="agentElementFilters().has('Ether')"
                                             (click)="toggleElementFilter('Ether')"
                                             title="Ether">
                                             <img src="assets/data/images/elements/IconEther.webp" alt="Ether" width="32" height="32" />
@@ -1107,7 +1109,7 @@
                                           <button
                                             type="button"
                                             class="icon-filter-btn"
-                                            [class.active]="agentElementFilters.has('Wind')"
+                                            [class.active]="agentElementFilters().has('Wind')"
                                             (click)="toggleElementFilter('Wind')"
                                             title="Wind">
                                             <img src="assets/data/images/elements/IconWind.webp" alt="Wind" width="32" height="32" />
@@ -1115,7 +1117,7 @@
                                           <button
                                             type="button"
                                             class="icon-filter-btn"
-                                            [class.active]="agentElementFilters.has('Lumen')"
+                                            [class.active]="agentElementFilters().has('Lumen')"
                                             (click)="toggleElementFilter('Lumen')"
                                             title="Lumen">
                                             <img src="assets/data/images/elements/IconLumen.webp" alt="Lumen" width="32" height="32" />
@@ -1131,7 +1133,7 @@
                                           <button
                                             type="button"
                                             class="icon-filter-btn"
-                                            [class.active]="agentSpecialtyFilters.has('Attack')"
+                                            [class.active]="agentSpecialtyFilters().has('Attack')"
                                             (click)="toggleSpecialtyFilter('Attack')"
                                             title="Attack">
                                             <img src="assets/data/images/roles/IconAttackType.webp" alt="Attack" width="32" height="32" />
@@ -1139,7 +1141,7 @@
                                           <button
                                             type="button"
                                             class="icon-filter-btn"
-                                            [class.active]="agentSpecialtyFilters.has('Stun')"
+                                            [class.active]="agentSpecialtyFilters().has('Stun')"
                                             (click)="toggleSpecialtyFilter('Stun')"
                                             title="Stun">
                                             <img src="assets/data/images/roles/IconStun.webp" alt="Stun" width="32" height="32" />
@@ -1147,7 +1149,7 @@
                                           <button
                                             type="button"
                                             class="icon-filter-btn"
-                                            [class.active]="agentSpecialtyFilters.has('Anomaly')"
+                                            [class.active]="agentSpecialtyFilters().has('Anomaly')"
                                             (click)="toggleSpecialtyFilter('Anomaly')"
                                             title="Anomaly">
                                             <img src="assets/data/images/roles/IconAnomaly.webp" alt="Anomaly" width="32" height="32" />
@@ -1155,7 +1157,7 @@
                                           <button
                                             type="button"
                                             class="icon-filter-btn"
-                                            [class.active]="agentSpecialtyFilters.has('Support')"
+                                            [class.active]="agentSpecialtyFilters().has('Support')"
                                             (click)="toggleSpecialtyFilter('Support')"
                                             title="Support">
                                             <img src="assets/data/images/roles/IconSupport.webp" alt="Support" width="32" height="32" />
@@ -1163,7 +1165,7 @@
                                           <button
                                             type="button"
                                             class="icon-filter-btn"
-                                            [class.active]="agentSpecialtyFilters.has('Defense')"
+                                            [class.active]="agentSpecialtyFilters().has('Defense')"
                                             (click)="toggleSpecialtyFilter('Defense')"
                                             title="Defense">
                                             <img src="assets/data/images/roles/IconDefense.webp" alt="Defense" width="32" height="32" />
@@ -1171,7 +1173,7 @@
                                           <button
                                             type="button"
                                             class="icon-filter-btn"
-                                            [class.active]="agentSpecialtyFilters.has('Rupture')"
+                                            [class.active]="agentSpecialtyFilters().has('Rupture')"
                                             (click)="toggleSpecialtyFilter('Rupture')"
                                             title="Rupture">
                                             <img src="assets/data/images/roles/IconRupture.webp" alt="Rupture" width="32" height="32" />
@@ -1179,7 +1181,7 @@
                                           <button
                                             type="button"
                                             class="icon-filter-btn"
-                                            [class.active]="agentSpecialtyFilters.has('Armorer')"
+                                            [class.active]="agentSpecialtyFilters().has('Armorer')"
                                             (click)="toggleSpecialtyFilter('Armorer')"
                                             title="Armorer">
                                             <img src="assets/data/images/roles/IconArmorer.webp" alt="Armorer" width="32" height="32" />
@@ -1273,7 +1275,7 @@
                                     </div>
                                     <!-- Agent Selection Grid -->
                                     <div class="agent-select-grid scrollable">
-                                      @for (agent of getFilteredAgents(); track trackByAgentId($index, agent)) {
+                                      @for (agent of filteredAgents(); track trackByAgentId($index, agent)) {
                                         <div
                                           class="agent-select-card"
                                           [class.selected]="selectedAgentForAdd?.id === agent.id"
@@ -1302,9 +1304,9 @@
                                           <div class="agent-info">
                                             <div class="agent-name">{{ agent.name }}</div>
                                             <div class="agent-badges">
-                                              @if (getAgentElementIcon(agent.id)) {
+                                              @if (agentElementIcons().get(agent.id)) {
                                                 <img
-                                                  [src]="getAgentElementIcon(agent.id)"
+                                                  [src]="agentElementIcons().get(agent.id)"
                                                   [alt]="agent.element"
                                                   class="element-badge"
                                                   width="20"
@@ -1393,7 +1395,7 @@
                                     </div>
                                     <div class="disc-set-grid">
                                       @for (
-                                        discSet of getFilteredDiscSets(); track trackByDiscSetName($index,
+                                        discSet of filteredDiscSets(); track trackByDiscSetName($index,
                                         discSet)) {
                                         <div
                                           class="disc-set-card"
@@ -1427,7 +1429,7 @@
                                         </div>
                                       }
                                     </div>
-                                    @if (getFilteredDiscSets().length === 0) {
+                                    @if (filteredDiscSets().length === 0) {
                                       <div class="no-discs">
                                         <p>No disc sets found matching your search.</p>
                                         <p class="hint">Try adjusting your search term.</p>
@@ -1498,12 +1500,12 @@
                                           selectedDiscSlot !== 'Drive3'
                                           ) {
                                           <select
-                                            [(ngModel)]="discFormData.mainStatType"
-                                            (ngModelChange)="onMainStatTypeChange()"
+                                            [ngModel]="discFormData.mainStatType"
+                                            (ngModelChange)="onMainStatTypeChange($event)"
                                             class="substat-type-select"
                                             >
                                             <option value="">Select main stat...</option>
-                                            @for (stat of getMainStatOptionsForSlot(); track stat) {
+                                            @for (stat of mainStatOptions(); track stat) {
                                               <option
                                                 [value]="stat"
                                                 >
@@ -1537,9 +1539,9 @@
                                             class="substat-row"
                                             >
                                             <label class="substat-label">Substat {{ i + 1 }}:</label>
-                                            <select [(ngModel)]="subStat.type" class="substat-type-select">
+                                            <select [ngModel]="subStat.type" (ngModelChange)="setDiscFormSubStat(i, { type: $event })" class="substat-type-select">
                                               <option value="">Select substat...</option>
-                                              @for (statType of getAvailableSubstatTypesForIndex(i); track statType) {
+                                              @for (statType of discFormSubstatOptions()[i]; track statType) {
                                                 <option
                                                   [value]="statType.value"
                                                   [class.priority]="isPrioritySubstat(statType.value)"
@@ -1550,7 +1552,8 @@
                                             </select>
                                             <input
                                               type="text"
-                                              [(ngModel)]="subStat.value"
+                                              [ngModel]="subStat.value"
+                                              (ngModelChange)="setDiscFormSubStat(i, { value: $event })"
                                               (blur)="validateAndFormatSubStat(i)"
                                               placeholder="Value"
                                               class="substat-value-input"
@@ -1621,7 +1624,7 @@
                                                     />
                                                 }
                                               </div>
-                                              @if (getDiscScore(selectedBuild.equippedDiscs[compareDiscSlot]!); as discScore) {
+                                              @if (equippedDiscScores()[compareDiscSlot]; as discScore) {
                                                 <div
                                                   class="disc-rating-badge"
                                                   [ngClass]="getDiscRatingClass(discScore.rating)"
@@ -1687,14 +1690,14 @@
                                                   >
                                                   Change Set
                                                 </button>
-                                                @if (getCustomDiscScore(); as customDiscScore) {
+                                                @if (customDiscScore(); as customScore) {
                                                   <div
                                                     class="disc-rating-badge"
-                                                    [ngClass]="getDiscRatingClass(customDiscScore.rating)"
-                                                    [title]="customDiscScore.rating.description"
+                                                    [ngClass]="getDiscRatingClass(customScore.rating)"
+                                                    [title]="customScore.rating.description"
                                                     >
-                                                    <span class="rating-grade">{{ customDiscScore.rating.grade }}</span>
-                                                    <span class="rating-score">{{ customDiscScore.score }}</span>
+                                                    <span class="rating-grade">{{ customScore.rating.grade }}</span>
+                                                    <span class="rating-score">{{ customScore.score }}</span>
                                                   </div>
                                                 }
                                               </div>
@@ -1720,7 +1723,7 @@
                                                     class="substat-type-select"
                                                     >
                                                     <option value="">Select main stat...</option>
-                                                    @for (stat of getMainStatOptionsForSlot(); track stat) {
+                                                    @for (stat of mainStatOptions(); track stat) {
                                                       <option
                                                         [value]="stat"
                                                         >
@@ -1759,7 +1762,7 @@
                                                       class="substat-type-select"
                                                       >
                                                       <option value="">Select substat...</option>
-                                                      @for (statType of getAvailableCompareSubstatTypesForIndex(i); track statType) {
+                                                      @for (statType of compareSubstatOptions()[i]; track statType) {
                                                         <option
                                                           [value]="statType.value"
                                                           [class.priority]="isPrioritySubstat(statType.value)"
@@ -1791,7 +1794,7 @@
                                       <button
                                         class="btn-primary"
                                         (click)="replaceWithCustomDisc()"
-                                        [disabled]="!getCustomDiscScore()"
+                                        [disabled]="!customDiscScore()"
                                         title="Replace current disc with new disc"
                                         >
                                         Replace
@@ -2244,7 +2247,7 @@
                                         <button
                                           class="btn-primary btn-action"
                                           (click)="startSaveCurrentLoadout()"
-                                          [disabled]="!canAddMoreLoadouts()"
+                                          [disabled]="!loadoutLimits().canAdd"
                                           title="Save your currently equipped discs as a loadout"
                                           >
                                           💾 Save Current as Loadout
@@ -2252,19 +2255,19 @@
                                         <button
                                           class="btn-secondary btn-action"
                                           (click)="startCreateEmptyLoadout()"
-                                          [disabled]="!canAddMoreLoadouts()"
+                                          [disabled]="!loadoutLimits().canAdd"
                                           title="Create a new loadout by selecting discs"
                                           >
                                           ➕ Create Empty Loadout
                                         </button>
                                       </div>
                                       <div class="loadout-limit-info">
-                                        @if (canAddMoreLoadouts()) {
+                                        @if (loadoutLimits().canAdd) {
                                           <span>
-                                            {{ getRemainingLoadoutSlots() }} slot(s) remaining (max 5 per agent)
+                                            {{ loadoutLimits().remaining }} slot(s) remaining (max 5 per agent)
                                           </span>
                                         }
-                                        @if (!canAddMoreLoadouts()) {
+                                        @if (!loadoutLimits().canAdd) {
                                           <span class="limit-reached">
                                             Maximum loadouts reached (5/5). Delete a loadout to save a new one.
                                           </span>
@@ -2327,7 +2330,7 @@
                                                         <span class="disc-slot-number">{{ formatDiscSlot(slot) }}</span>
                                                       </div>
                                                       <div class="disc-header-right">
-                                                        @if (getDiscScore(newLoadoutDiscs[slot]); as discScore) {
+                                                        @if (newLoadoutDiscScores()[slot]; as discScore) {
                                                           <div
                                                             class="disc-rating-badge"
                                                             [ngClass]="getDiscRatingClass(discScore.rating)"
@@ -2432,7 +2435,7 @@
                                                     {{ Object.keys(loadout.equippedDiscs).length }} disc(s)
                                                   </div>
                                                   <div class="loadout-disc-sets-simplified">
-                                                    {{ getLoadoutDiscSetCounts(loadout) }}
+                                                    {{ loadoutSetCounts().get(loadout.id) }}
                                                   </div>
                                                   <div class="loadout-timestamp">
                                                     Saved: {{ loadout.createdAt | date:'short' }}
@@ -2480,7 +2483,7 @@
                                                             <span class="disc-slot-number">{{ formatDiscSlot(slot) }}</span>
                                                           </div>
                                                           <div class="disc-header-right">
-                                                            @if (getDiscScore(selectedLoadoutForPreview.equippedDiscs[slot]); as discScore) {
+                                                            @if (previewDiscScores()[slot]; as discScore) {
                                                               <div
                                                                 class="disc-rating-badge"
                                                                 [ngClass]="getDiscRatingClass(discScore.rating)"

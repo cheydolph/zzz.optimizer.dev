@@ -68,6 +68,13 @@ interface MindscapeData {
   };
 }
 
+/** The disc form's state; replaced as a whole on every change (never written in place), so computed() values follow it. */
+interface DiscFormData {
+  mainStatType: string; // Only used for slots 4-6
+  mainStatValue: string | number; // Can be string for input, number for processing
+  subStats: Array<{ type: string; value: string | number }>;
+}
+
 @Component({
   selector: 'app-character-tab',
   imports: [
@@ -149,15 +156,60 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
   // render; true once both services' loads have settled
   private readonly referenceDataReady = signal(false);
 
+  /** Agents by id; the first entry wins, as the `find()` lookups it replaces did. */
+  protected readonly agentsById = computed(() => {
+    const byId = new Map<string, Agent>();
+    for (const agent of this.referenceAgents) {
+      if (!byId.has(agent.id)) byId.set(agent.id, agent);
+    }
+    return byId;
+  });
+
+  /** Element icon by agent id: the special element's icon where the agent has one, otherwise the standard one. */
+  protected readonly agentElementIcons = computed(() => {
+    const icons = new Map<string, string | undefined>();
+    for (const [id, agent] of this.agentsById()) {
+      icons.set(
+        id,
+        agent.specialElementIcon
+          ? this.dataMappingService.getElementIconPath(agent.specialElementIcon)
+          : agent.elementIcon,
+      );
+    }
+    return icons;
+  });
+
+  /** Disc sets by name; the last entry wins, as in `DiscSetService`'s map (built from the same emitted array). */
+  private readonly discSetsByName = computed(() => new Map(this.referenceDiscSets.map((s) => [s.name, s])));
+
   // UI state
   showAddAgentModal = false;
   selectedAgentForAdd: Agent | null = null;
   showDiscPicker = false;
-  selectedDiscSlot: DiscSlot | null = null;
+  private readonly selectedDiscSlotState = signal<DiscSlot | null>(null);
+  get selectedDiscSlot(): DiscSlot | null {
+    return this.selectedDiscSlotState();
+  }
+  set selectedDiscSlot(value: DiscSlot | null) {
+    this.selectedDiscSlotState.set(value);
+  }
   showShareModal = false;
   showCompareModal = false;
-  compareDiscSlot: DiscSlot | null = null;
-  compareCustomDisc: Partial<Disc> | null = null;
+  private readonly compareDiscSlotState = signal<DiscSlot | null>(null);
+  get compareDiscSlot(): DiscSlot | null {
+    return this.compareDiscSlotState();
+  }
+  set compareDiscSlot(value: DiscSlot | null) {
+    this.compareDiscSlotState.set(value);
+  }
+  // The compare form's new disc: replaced on every change, never written in place
+  private readonly compareCustomDiscState = signal<Partial<Disc> | null>(null);
+  get compareCustomDisc(): Partial<Disc> | null {
+    return this.compareCustomDiscState();
+  }
+  set compareCustomDisc(value: Partial<Disc> | null) {
+    this.compareCustomDiscState.set(value);
+  }
 
   // Disc Loadout modal state
   showLoadoutsModal = false;
@@ -174,7 +226,13 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
   @ViewChild('buildsGrid', { read: ElementRef }) buildsGrid?: ElementRef;
   isMobile: boolean = false;
   showScrollTopButton: boolean = false;
-  selectedLoadoutForPreview: DiscLoadout | null = null;
+  private readonly selectedLoadoutForPreviewState = signal<DiscLoadout | null>(null);
+  get selectedLoadoutForPreview(): DiscLoadout | null {
+    return this.selectedLoadoutForPreviewState();
+  }
+  set selectedLoadoutForPreview(value: DiscLoadout | null) {
+    this.selectedLoadoutForPreviewState.set(value);
+  }
   loadoutPreviewStats: any = null; // Will hold calculated stats for preview
   loadoutValidation: { isValid: boolean; missingSlots: string[]; availableSlots: string[] } | null = null;
   newLoadoutName = '';
@@ -182,7 +240,14 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
   // Create/Save loadout flow state
   showSaveCurrentForm = false;
   showCreateEmptyForm = false;
-  newLoadoutDiscs: { [slot: string]: Disc } = {};
+  // Replaced on every change, never written in place
+  private readonly newLoadoutDiscsState = signal<{ [slot: string]: Disc }>({});
+  get newLoadoutDiscs(): { [slot: string]: Disc } {
+    return this.newLoadoutDiscsState();
+  }
+  set newLoadoutDiscs(value: { [slot: string]: Disc }) {
+    this.newLoadoutDiscsState.set(value);
+  }
   loadoutCreationSlot: DiscSlot | null = null; // Track which slot we're selecting for
 
   @ViewChild('shareCanvas') shareCanvasRef!: ElementRef<HTMLCanvasElement>;
@@ -236,11 +301,13 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
   selectedDiscSetForCreation: DiscSet | null = null;
   editingDiscUid: string | null = null; // Track which disc is being edited
   isEditMode: boolean = false; // Track if we're editing vs creating
-  discFormData = {
-    mainStatType: '', // Only used for slots 4-6
-    mainStatValue: '' as string | number, // Can be string for input, number for processing
-    subStats: [] as Array<{ type: string; value: string | number }>,
-  };
+  private readonly discFormDataState = signal<DiscFormData>({ mainStatType: '', mainStatValue: '', subStats: [] });
+  get discFormData(): DiscFormData {
+    return this.discFormDataState();
+  }
+  set discFormData(value: DiscFormData) {
+    this.discFormDataState.set(value);
+  }
 
   // Disc slots
   discSlots: DiscSlot[] = ['Drive1', 'Drive2', 'Drive3', 'Drive4', 'Drive5', 'Drive6'];
@@ -279,41 +346,30 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
   private discEffectSearchSubject$ = new Subject<string>();
   private wengineSearchSubject$ = new Subject<string>();
 
-  // Actual debounced search values
-  private debouncedDiscSearch = '';
-  private debouncedDiscEffectSearch = '';
-  private debouncedWEngineSearch = '';
+  // Actual debounced search values (the filtered picker lists follow them)
+  private readonly debouncedDiscSearch = signal('');
+  private readonly debouncedDiscEffectSearch = signal('');
+  private readonly debouncedWEngineSearch = signal('');
 
-  // Cached filtered results to avoid re-filtering on every change detection
-  cachedFilteredDiscSets: DiscSet[] = [];
   cachedFilteredDiscs: Disc[] = [];
 
-  // OPTIMIZATION: Memoization cache for loadout set counts
-  private loadoutSetCountCache = new Map<string, string>();
-
-  // OPTIMIZATION: Cached results for expensive template functions
-  private cachedFilteredAgents: Agent[] | null = null;
-  private cachedFilteredWEngines: WEngine[] | null = null;
-  private lastAgentFilterKey = '';
-  private lastWEngineFilterKey = '';
-
-  // W-Engine picker
+  // W-Engine picker (the filters are signals, bound two-way, and feed filteredWEngines)
   showWEnginePicker = false;
   wengineSearchTerm = '';
-  wengineSpecialtyFilter = '';
-  wengineRarityFilter = '';
-  wengineSortBy = 'name';
+  protected readonly wengineSpecialtyFilter = signal('');
+  protected readonly wengineRarityFilter = signal('');
+  protected readonly wengineSortBy = signal('name');
 
-  // Agent picker filters (multi-select for desktop)
-  agentElementFilters: Set<string> = new Set();
-  agentSpecialtyFilters: Set<string> = new Set();
-  agentRarityFilter = '';
-  agentSortBy = 'name';
-  agentSearchTerm = ''; // Search by agent name
+  // Agent picker filters (multi-select for desktop), feeding filteredAgents; the sets are replaced, never changed in place
+  protected readonly agentElementFilters = signal<ReadonlySet<string>>(new Set());
+  protected readonly agentSpecialtyFilters = signal<ReadonlySet<string>>(new Set());
+  protected readonly agentRarityFilter = signal('');
+  protected readonly agentSortBy = signal('name');
+  protected readonly agentSearchTerm = signal(''); // Search by agent name
 
   // Legacy single-select filters (for mobile dropdowns)
-  agentElementFilter = '';
-  agentSpecialtyFilter = '';
+  protected readonly agentElementFilter = signal('');
+  protected readonly agentSpecialtyFilter = signal('');
 
   // Assumptions notice
   showAssumptionsNotice = !localStorage.getItem('assumptionsAcknowledged');
@@ -491,8 +547,6 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     // Load reference disc sets
     this.discSetService.discSets$.pipe(takeUntil(this.destroy$)).subscribe((discSets) => {
       this.referenceDiscSets = discSets;
-      // Initialize cached filtered disc sets
-      this.updateFilteredDiscSets();
       // Preload disc set images
       this.preloadDiscSetImages(discSets);
       this.cdr.markForCheck();
@@ -510,8 +564,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     this.discSearchSubject$
       .pipe(debounceTime(150), distinctUntilChanged(), takeUntil(this.destroy$))
       .subscribe((searchTerm) => {
-        this.debouncedDiscSearch = searchTerm;
-        this.updateFilteredDiscSets();
+        this.debouncedDiscSearch.set(searchTerm);
         this.cdr.markForCheck();
       });
 
@@ -519,8 +572,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     this.discEffectSearchSubject$
       .pipe(debounceTime(150), distinctUntilChanged(), takeUntil(this.destroy$))
       .subscribe((searchTerm) => {
-        this.debouncedDiscEffectSearch = searchTerm;
-        this.updateFilteredDiscSets();
+        this.debouncedDiscEffectSearch.set(searchTerm);
         this.cdr.markForCheck();
       });
 
@@ -528,7 +580,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     this.wengineSearchSubject$
       .pipe(debounceTime(300), distinctUntilChanged(), takeUntil(this.destroy$))
       .subscribe((searchTerm) => {
-        this.debouncedWEngineSearch = searchTerm;
+        this.debouncedWEngineSearch.set(searchTerm);
         this.cdr.markForCheck();
       });
   }
@@ -1006,14 +1058,13 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     return specialtyMap[specialty] || 'assets/data/images/roles/IconAttackType.webp';
   }
 
-  getFilteredAgents(): Agent[] {
-    const elementFiltersKey = Array.from(this.agentElementFilters).sort().join(',');
-    const specialtyFiltersKey = Array.from(this.agentSpecialtyFilters).sort().join(',');
-    const searchKey = this.agentSearchTerm.toLowerCase().trim();
-    const filterKey = `${this.referenceAgents.length}|${elementFiltersKey}|${specialtyFiltersKey}|${this.agentElementFilter}|${this.agentSpecialtyFilter}|${this.agentRarityFilter}|${this.agentSortBy}|${searchKey}`;
-    if (this.cachedFilteredAgents && this.lastAgentFilterKey === filterKey) {
-      return this.cachedFilteredAgents;
-    }
+  protected readonly filteredAgents = computed((): Agent[] => {
+    const searchKey = this.agentSearchTerm().toLowerCase().trim();
+    const elementFilters = this.agentElementFilters();
+    const specialtyFilters = this.agentSpecialtyFilters();
+    const elementFilter = this.agentElementFilter();
+    const specialtyFilter = this.agentSpecialtyFilter();
+    const rarityFilter = this.agentRarityFilter();
 
     // OPTIMIZED: Single-pass filtering with multi-select support
     const filtered = this.referenceAgents.filter((a) => {
@@ -1027,56 +1078,56 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
         }
       }
       // Multi-select element filter (desktop) - if any selected, agent must match one of them
-      if (this.agentElementFilters.size > 0 && !this.agentElementFilters.has(a.element)) {
+      if (elementFilters.size > 0 && !elementFilters.has(a.element)) {
         return false;
       }
       // Single-select element filter (mobile fallback)
-      if (this.agentElementFilter && a.element !== this.agentElementFilter) {
+      if (elementFilter && a.element !== elementFilter) {
         return false;
       }
       // Multi-select specialty filter (desktop) - if any selected, agent must match one of them
-      if (this.agentSpecialtyFilters.size > 0 && !this.agentSpecialtyFilters.has(a.specialty)) {
+      if (specialtyFilters.size > 0 && !specialtyFilters.has(a.specialty)) {
         return false;
       }
       // Single-select specialty filter (mobile fallback)
-      if (this.agentSpecialtyFilter && a.specialty !== this.agentSpecialtyFilter) {
+      if (specialtyFilter && a.specialty !== specialtyFilter) {
         return false;
       }
       // Rarity filter (both desktop and mobile)
-      if (this.agentRarityFilter && a.rarity !== this.agentRarityFilter) {
+      if (rarityFilter && a.rarity !== rarityFilter) {
         return false;
       }
       return true;
     });
 
-    this.cachedFilteredAgents = this.sortAgents(filtered);
-    this.lastAgentFilterKey = filterKey;
-    return this.cachedFilteredAgents;
-  }
+    return this.sortAgents(filtered);
+  });
 
-  // Toggle filter selection for desktop icon filters
+  // Toggle filter selection for desktop icon filters (a new set each time, so filteredAgents sees the change)
   toggleElementFilter(element: string): void {
-    if (this.agentElementFilters.has(element)) {
-      this.agentElementFilters.delete(element);
-    } else {
-      this.agentElementFilters.add(element);
-    }
+    this.agentElementFilters.set(this.toggledSet(this.agentElementFilters(), element));
     this.cdr.markForCheck();
   }
 
   toggleSpecialtyFilter(specialty: string): void {
-    if (this.agentSpecialtyFilters.has(specialty)) {
-      this.agentSpecialtyFilters.delete(specialty);
-    } else {
-      this.agentSpecialtyFilters.add(specialty);
-    }
+    this.agentSpecialtyFilters.set(this.toggledSet(this.agentSpecialtyFilters(), specialty));
     this.cdr.markForCheck();
+  }
+
+  private toggledSet(current: ReadonlySet<string>, value: string): ReadonlySet<string> {
+    const next = new Set(current);
+    if (next.has(value)) {
+      next.delete(value);
+    } else {
+      next.add(value);
+    }
+    return next;
   }
 
   sortAgents(agents: Agent[]): Agent[] {
     const sorted = [...agents];
 
-    switch (this.agentSortBy) {
+    switch (this.agentSortBy()) {
       case 'name':
         sorted.sort((a, b) => a.name.localeCompare(b.name));
         break;
@@ -1097,21 +1148,18 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     return sorted;
   }
 
-  getFilteredWEngines(): WEngine[] {
-    const filterKey = `${this.referenceWEngines.length}|${this.wengineSpecialtyFilter}|${this.wengineRarityFilter}|${this.debouncedWEngineSearch}|${this.wengineSortBy}`;
-    if (this.cachedFilteredWEngines && this.lastWEngineFilterKey === filterKey) {
-      return this.cachedFilteredWEngines;
-    }
-
+  protected readonly filteredWEngines = computed((): WEngine[] => {
     // OPTIMIZED: Single-pass filtering instead of 3 sequential filters
     // Pre-compute lowercase search term outside the loop
-    const searchLower = this.debouncedWEngineSearch?.toLowerCase();
+    const searchLower = this.debouncedWEngineSearch().toLowerCase();
+    const specialtyFilter = this.wengineSpecialtyFilter();
+    const rarityFilter = this.wengineRarityFilter();
 
     const filtered = this.referenceWEngines.filter((w) => {
-      if (this.wengineSpecialtyFilter && w.specialty !== this.wengineSpecialtyFilter) {
+      if (specialtyFilter && w.specialty !== specialtyFilter) {
         return false;
       }
-      if (this.wengineRarityFilter && w.rarity !== this.wengineRarityFilter) {
+      if (rarityFilter && w.rarity !== rarityFilter) {
         return false;
       }
       if (
@@ -1124,15 +1172,13 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       return true;
     });
 
-    this.cachedFilteredWEngines = this.sortWEngines(filtered);
-    this.lastWEngineFilterKey = filterKey;
-    return this.cachedFilteredWEngines;
-  }
+    return this.sortWEngines(filtered);
+  });
 
   sortWEngines(wengines: WEngine[]): WEngine[] {
     const sorted = [...wengines];
 
-    switch (this.wengineSortBy) {
+    switch (this.wengineSortBy()) {
       case 'name':
         sorted.sort((a, b) => a.name.localeCompare(b.name));
         break;
@@ -1618,58 +1664,6 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     return Object.keys(build.equippedDiscs).length;
   }
 
-  // Helper to get agent rank display
-  // Helper to get agent icon
-  getAgentIcon(agentId: string): string | undefined {
-    const agent = this.referenceAgents.find((a) => a.id === agentId);
-    return agent?.icon;
-  }
-
-  /**
-   * Small portrait for list/grid views. Falls back to the full-size art so a
-   * missing thumbnail is only slow, never a broken image.
-   */
-  getAgentIconThumb(agentId: string): string | undefined {
-    const agent = this.referenceAgents.find((a) => a.id === agentId);
-    return agent?.iconThumb || agent?.icon;
-  }
-
-  // Helper to get agent element icon (with special element support)
-  getAgentElementIcon(agentId: string): string | undefined {
-    const agent = this.referenceAgents.find((a) => a.id === agentId);
-    if (!agent) return undefined;
-
-    // Use special element icon if available, otherwise use standard element icon
-    if (agent.specialElementIcon) {
-      return this.dataMappingService.getElementIconPath(agent.specialElementIcon);
-    }
-    return agent.elementIcon;
-  }
-
-  // Helper to get agent rarity
-  getAgentRarity(agentId: string): 'A' | 'S' | undefined {
-    const agent = this.referenceAgents.find((a) => a.id === agentId);
-    return agent?.rarity;
-  }
-
-  // Helper to get agent element
-  getAgentElement(agentId: string): string | undefined {
-    const agent = this.referenceAgents.find((a) => a.id === agentId);
-    return agent?.element;
-  }
-
-  // Helper to get agent specialty
-  getAgentSpecialty(agentId: string): string | undefined {
-    const agent = this.referenceAgents.find((a) => a.id === agentId);
-    return agent?.specialty;
-  }
-
-  // Helper to get agent specialty icon
-  getAgentSpecialtyIcon(agentId: string): string | undefined {
-    const agent = this.referenceAgents.find((a) => a.id === agentId);
-    return agent?.specialtyIcon;
-  }
-
   // Helper to calculate dynamic font size based on name length
   getAgentNameFontSize(name: string): string {
     const baseSize = 0.75; // em
@@ -1694,8 +1688,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     if (!this.selectedBuild) return;
     this.selectedDiscSlot = slot;
     this.showDiscPicker = true;
-    // Update filtered disc sets and discs when opening picker
-    this.updateFilteredDiscSets();
+    // Update the filtered discs when opening the picker (the disc set list is a computed())
     this.updateFilteredDiscs();
     this.cdr.markForCheck();
   }
@@ -1792,15 +1785,15 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
   // Disc picker methods
 
   /**
-   * Updates the cached filtered disc sets based on current filter criteria
-   * Called when filters change (debounced search terms)
+   * The disc sets the picker lists, filtered by the debounced search terms. `discFilterSet` is a plain field that
+   * nothing writes (no template binding; CLEAN-11), so it is not a dependency.
    */
-  private updateFilteredDiscSets(): void {
+  protected readonly filteredDiscSets = computed((): DiscSet[] => {
     // OPTIMIZED: Single-pass filtering instead of 3 separate filter() calls
-    const searchLower = this.debouncedDiscSearch?.toLowerCase();
-    const effectSearchLower = this.debouncedDiscEffectSearch?.toLowerCase();
+    const searchLower = this.debouncedDiscSearch().toLowerCase();
+    const effectSearchLower = this.debouncedDiscEffectSearch().toLowerCase();
 
-    this.cachedFilteredDiscSets = this.referenceDiscSets.filter((s) => {
+    return this.referenceDiscSets.filter((s) => {
       // Filter by set name (exact match)
       if (this.discFilterSet && s.name !== this.discFilterSet) {
         return false;
@@ -1823,15 +1816,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
 
       return true;
     });
-  }
-
-  /**
-   * Returns cached filtered disc sets (used in template)
-   * This is fast because it just returns the pre-computed array
-   */
-  getFilteredDiscSets(): DiscSet[] {
-    return this.cachedFilteredDiscSets;
-  }
+  });
 
   /**
    * Updates the cached filtered discs based on current filter criteria
@@ -1840,7 +1825,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
   private updateFilteredDiscs(): void {
     // OPTIMIZED: Single-pass filtering instead of 4 separate filter() calls
     // Pre-compute lowercase search term outside the loop
-    const searchLower = this.debouncedDiscSearch?.toLowerCase();
+    const searchLower = this.debouncedDiscSearch().toLowerCase();
 
     // OPTIMIZATION: Use DiscService indexed lookups to reduce search space
     let sourceDiscs: Disc[];
@@ -1916,7 +1901,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     // Check if we're coming from comparison modal
     if (this.compareCustomDisc && this.compareDiscSlot) {
       // Update the disc set in comparison modal and return to it
-      this.compareCustomDisc.set = discSet.name;
+      this.compareCustomDisc = { ...this.compareCustomDisc, set: discSet.name };
       this.showCompareModal = true;
       this.cdr.markForCheck();
       return;
@@ -2025,7 +2010,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     }
 
     // Validate that custom disc has valid data
-    if (!this.getCustomDiscScore()) {
+    if (!this.customDiscScore()) {
       alert('Please fill in all disc stats before replacing');
       return;
     }
@@ -2094,24 +2079,17 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
   onCompareMainStatTypeChange(mainStatType: string): void {
     if (!this.compareCustomDisc || !this.compareDiscSlot) return;
 
-    // Update the main stat type
+    // The new main stat type, its value cleared, then auto-filled for slots 4-6 (a new object, not written in place)
     if (this.compareCustomDisc.mainStat) {
-      this.compareCustomDisc.mainStat.type = mainStatType as MainStatType;
-      this.compareCustomDisc.mainStat.value = 0;
-    }
-
-    // Exit if no main stat selected
-    if (!mainStatType) {
-      this.cdr.markForCheck();
-      return;
-    }
-
-    // Only auto-fill for slots 4-6
-    if (this.compareDiscSlot === 'Drive4' || this.compareDiscSlot === 'Drive5' || this.compareDiscSlot === 'Drive6') {
-      const maxValues = DISC_MAIN_STAT_MAX[this.compareDiscSlot];
-      if (maxValues && maxValues[mainStatType] !== undefined) {
-        this.compareCustomDisc.mainStat!.value = maxValues[mainStatType];
+      let value = 0;
+      const slot = this.compareDiscSlot;
+      if (mainStatType && (slot === 'Drive4' || slot === 'Drive5' || slot === 'Drive6')) {
+        const maxValues = DISC_MAIN_STAT_MAX[slot];
+        if (maxValues && maxValues[mainStatType] !== undefined) {
+          value = maxValues[mainStatType];
+        }
       }
+      this.compareCustomDisc = { ...this.compareCustomDisc, mainStat: { type: mainStatType as MainStatType, value } };
     }
 
     this.cdr.markForCheck();
@@ -2121,37 +2099,42 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
    * Updates custom disc for comparison
    */
   updateCompareCustomDisc(field: string, value: any) {
-    if (!this.compareCustomDisc) return;
+    const disc = this.compareCustomDisc;
+    if (!disc) return;
 
+    // Every change builds a new disc object (and new nested objects); the current one is never written in place
     if (field.startsWith('subStat')) {
       const index = parseInt(field.split('-')[1]);
       const subField = field.split('-')[2]; // 'type' or 'value'
 
-      if (!this.compareCustomDisc.subStats) {
-        this.compareCustomDisc.subStats = [];
-      }
-
-      while (this.compareCustomDisc.subStats.length <= index) {
-        this.compareCustomDisc.subStats.push({ type: '' as SubStatType, value: 0 });
+      const subStats = [...(disc.subStats || [])];
+      while (subStats.length <= index) {
+        subStats.push({ type: '' as SubStatType, value: 0 });
       }
 
       if (subField === 'type') {
-        this.compareCustomDisc.subStats[index].type = value as SubStatType;
+        subStats[index] = { ...subStats[index], type: value as SubStatType };
       } else if (subField === 'value') {
-        this.compareCustomDisc.subStats[index].value = parseFloat(value) || 0;
+        subStats[index] = { ...subStats[index], value: parseFloat(value) || 0 };
       }
+      this.compareCustomDisc = { ...disc, subStats };
     } else if (field === 'mainStatValue') {
-      if (this.compareCustomDisc.mainStat) {
-        this.compareCustomDisc.mainStat.value = parseFloat(value) || 0;
+      if (disc.mainStat) {
+        this.compareCustomDisc = { ...disc, mainStat: { ...disc.mainStat, value: parseFloat(value) || 0 } };
       }
     } else if (field === 'mainStatType') {
-      if (this.compareCustomDisc.mainStat) {
-        this.compareCustomDisc.mainStat.type = value as MainStatType;
+      if (disc.mainStat) {
+        this.compareCustomDisc = { ...disc, mainStat: { ...disc.mainStat, type: value as MainStatType } };
       }
     }
 
     this.cdr.markForCheck();
   }
+
+  /** The compare form's substat options for each of its four rows. */
+  protected readonly compareSubstatOptions = computed(() =>
+    [0, 1, 2, 3].map((index) => this.getAvailableCompareSubstatTypesForIndex(index)),
+  );
 
   /**
    * Get available substat types for comparison modal at given index
@@ -2177,9 +2160,9 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Gets the score for the custom comparison disc
+   * The score for the custom comparison disc
    */
-  getCustomDiscScore() {
+  protected readonly customDiscScore = computed(() => {
     if (!this.compareCustomDisc || !this.compareCustomDisc.mainStat) {
       return null;
     }
@@ -2219,7 +2202,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     };
 
     return this.getDiscScore(tempDisc);
-  }
+  });
 
   /**
    * Opens disc picker to change set while preserving form data
@@ -2305,7 +2288,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
           // Check if we're editing a disc in loadout creation mode
           if (this.showCreateEmptyForm && this.loadoutCreationSlot) {
             // Update the disc in the new loadout being created
-            this.newLoadoutDiscs[this.loadoutCreationSlot] = updatedDisc;
+            this.newLoadoutDiscs = { ...this.newLoadoutDiscs, [this.loadoutCreationSlot]: updatedDisc };
             this.loadoutCreationSlot = null; // Clear the slot
           } else {
             // Normal mode: Update the build's equippedDiscs with the updated disc
@@ -2351,7 +2334,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
         // Check if we're in loadout creation mode
         if (this.showCreateEmptyForm && this.loadoutCreationSlot) {
           // Add to the new loadout being created instead of equipping to build
-          this.newLoadoutDiscs[this.loadoutCreationSlot] = newDisc;
+          this.newLoadoutDiscs = { ...this.newLoadoutDiscs, [this.loadoutCreationSlot]: newDisc };
           this.loadoutCreationSlot = null; // Clear the slot
         } else {
           // Normal mode: Equip it to the build
@@ -2579,6 +2562,11 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
    * 1. The main stat (if it matches exactly)
    * 2. Substats already selected in other dropdown positions
    */
+  /** The disc form's substat options for each of its rows. */
+  protected readonly discFormSubstatOptions = computed(() =>
+    this.discFormData.subStats.map((_, index) => this.getAvailableSubstatTypesForIndex(index)),
+  );
+
   getAvailableSubstatTypesForIndex(index: number): Array<{ value: SubStatType; label: string }> {
     const mainStatBase = this.getMainStatBaseType();
 
@@ -2699,34 +2687,35 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     };
   });
 
-  // Auto-fill main stat value when user selects a main stat type for slots 4-6
-  onMainStatTypeChange(): void {
-    // Clear value first
-    this.discFormData.mainStatValue = 0;
-
-    // Exit if no slot or no main stat selected
-    if (!this.selectedDiscSlot || !this.discFormData.mainStatType) {
-      return;
-    }
+  // The main stat type, with its value auto-filled for slots 4-6 (cleared otherwise)
+  onMainStatTypeChange(mainStatType: string): void {
+    let mainStatValue: string | number = 0;
 
     // Only auto-fill for slots 4-6
-    if (
-      this.selectedDiscSlot === 'Drive4' ||
-      this.selectedDiscSlot === 'Drive5' ||
-      this.selectedDiscSlot === 'Drive6'
-    ) {
-      const maxValues = DISC_MAIN_STAT_MAX[this.selectedDiscSlot];
-      if (maxValues && maxValues[this.discFormData.mainStatType] !== undefined) {
-        this.discFormData.mainStatValue = maxValues[this.discFormData.mainStatType];
+    const slot = this.selectedDiscSlot;
+    if (mainStatType && (slot === 'Drive4' || slot === 'Drive5' || slot === 'Drive6')) {
+      const maxValues = DISC_MAIN_STAT_MAX[slot];
+      if (maxValues && maxValues[mainStatType] !== undefined) {
+        mainStatValue = maxValues[mainStatType];
       }
     }
+
+    this.discFormData = { ...this.discFormData, mainStatType, mainStatValue };
   }
 
-  // Get available main stat options for the current disc slot
-  getMainStatOptionsForSlot(): string[] {
+  /** Changes one substat row of the disc form (a new form object and row, never written in place). */
+  setDiscFormSubStat(index: number, change: { type?: string; value?: string | number }): void {
+    this.discFormData = {
+      ...this.discFormData,
+      subStats: this.discFormData.subStats.map((s, i) => (i === index ? { ...s, ...change } : s)),
+    };
+  }
+
+  // Main stat options for the current disc slot (the disc form and the compare form)
+  protected readonly mainStatOptions = computed((): string[] => {
     if (!this.selectedDiscSlot) return [];
     return MAIN_STAT_BY_SLOT[this.selectedDiscSlot] || [];
-  }
+  });
 
   validateAndFormatSubStat(index: number): void {
     const subStat = this.discFormData.subStats[index];
@@ -2738,12 +2727,8 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       const cleaned = value.replace(/[^\d.-]/g, '');
       const parsed = parseFloat(cleaned);
 
-      if (isNaN(parsed)) {
-        subStat.value = 0;
-      } else {
-        // Round to 1 decimal place
-        subStat.value = Math.round(parsed * 10) / 10;
-      }
+      // Round to 1 decimal place
+      this.setDiscFormSubStat(index, { value: isNaN(parsed) ? 0 : Math.round(parsed * 10) / 10 });
     }
   }
 
@@ -4102,7 +4087,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
   }
 
   getDiscSetByName(name: string): DiscSet | undefined {
-    return this.discSetService.getDiscSetByName(name);
+    return this.discSetsByName().get(name);
   }
 
   getWEngineIconPath(wengine: any): string {
@@ -4285,7 +4270,6 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       this.agentLoadouts = this.discLoadoutService.getLoadoutsByAgentId(this.selectedBuild.agentId);
       this.newLoadoutName = '';
       this.showSaveCurrentForm = false;
-      this.loadoutSetCountCache.clear(); // Clear cache when loadouts change
       this.notificationService.success(`Loadout "${loadout.name}" saved successfully!`);
       this.cdr.markForCheck();
     } else {
@@ -4375,7 +4359,9 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
    */
   removeDiscFromNewLoadout(slot: string, event: Event): void {
     event.stopPropagation();
-    delete this.newLoadoutDiscs[slot];
+    const remaining = { ...this.newLoadoutDiscs };
+    delete remaining[slot];
+    this.newLoadoutDiscs = remaining;
     this.cdr.markForCheck();
   }
 
@@ -4423,7 +4409,6 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       this.newLoadoutName = '';
       this.newLoadoutDiscs = {};
       this.showCreateEmptyForm = false;
-      this.loadoutSetCountCache.clear(); // Clear cache when loadouts change
       this.notificationService.success(`Loadout "${loadout.name}" created successfully!`);
       this.cdr.markForCheck();
     } else {
@@ -4571,7 +4556,6 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
         this.clearLoadoutPreview();
       }
 
-      this.loadoutSetCountCache.clear(); // Clear cache when loadouts change
       this.notificationService.success(`Loadout "${loadout.name}" deleted successfully.`);
       this.cdr.markForCheck();
     } else {
@@ -4579,16 +4563,33 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     }
   }
 
+  /** Disc set counts by loadout id, for the loadout cards. */
+  protected readonly loadoutSetCounts = computed(
+    () => new Map(this.agentLoadouts.map((loadout) => [loadout.id, this.formatLoadoutDiscSetCounts(loadout)])),
+  );
+
+  /** Scores of the discs picked for the loadout being created, by slot. */
+  protected readonly newLoadoutDiscScores = computed(() => {
+    const scores: { [slot: string]: { score: number; rating: DiscRating } | null } = {};
+    for (const [slot, disc] of Object.entries(this.newLoadoutDiscs)) {
+      if (disc) scores[slot] = this.getDiscScore(disc);
+    }
+    return scores;
+  });
+
+  /** Scores of the previewed loadout's discs, by slot. */
+  protected readonly previewDiscScores = computed(() => {
+    const scores: { [slot: string]: { score: number; rating: DiscRating } | null } = {};
+    for (const [slot, disc] of Object.entries(this.selectedLoadoutForPreview?.equippedDiscs ?? {})) {
+      if (disc) scores[slot] = this.getDiscScore(disc);
+    }
+    return scores;
+  });
+
   /**
    * Get disc set counts for a loadout (e.g., "Woodpecker x4, Hormone x2")
-   * OPTIMIZED: Memoized to avoid recalculating on every render
    */
-  getLoadoutDiscSetCounts(loadout: DiscLoadout): string {
-    // Check cache first
-    if (this.loadoutSetCountCache.has(loadout.id)) {
-      return this.loadoutSetCountCache.get(loadout.id)!;
-    }
-
+  private formatLoadoutDiscSetCounts(loadout: DiscLoadout): string {
     const setCounts: { [setName: string]: number } = {};
 
     // Count each disc set
@@ -4599,34 +4600,24 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     });
 
     // Convert to string format: "Woodpecker x4, Hormone x2"
-    const result = Object.entries(setCounts)
+    return Object.entries(setCounts)
       .sort((a, b) => b[1] - a[1]) // Sort by count descending
       .map(([setName, count]) => `${setName} x${count}`)
       .join(', ');
-
-    // Cache the result
-    this.loadoutSetCountCache.set(loadout.id, result);
-
-    return result;
   }
 
   /**
-   * Get remaining loadout slots for current agent
+   * Whether the selected agent can take another loadout, and how many slots remain. The service owns the limit;
+   * `agentLoadouts` is read as a dependency because it is refreshed after every save and delete.
    */
-  getRemainingLoadoutSlots(): number {
+  protected readonly loadoutLimits = computed((): { canAdd: boolean; remaining: number } => {
+    this.agentLoadoutsState(); // a dependency only
     if (!this.selectedBuild) {
-      return 0;
+      return { canAdd: false, remaining: 0 };
     }
-    return this.discLoadoutService.getRemainingSlots(this.selectedBuild.agentId);
-  }
-
-  /**
-   * Check if we can add more loadouts
-   */
-  canAddMoreLoadouts(): boolean {
-    if (!this.selectedBuild) {
-      return false;
-    }
-    return this.discLoadoutService.canAddLoadout(this.selectedBuild.agentId);
-  }
+    return {
+      canAdd: this.discLoadoutService.canAddLoadout(this.selectedBuild.agentId),
+      remaining: this.discLoadoutService.getRemainingSlots(this.selectedBuild.agentId),
+    };
+  });
 }
