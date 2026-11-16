@@ -141,4 +141,34 @@ describe('BuildService immutable updates (BUG-17)', () => {
       expect.objectContaining({ includeSetBonuses: false, include4pcBonuses: false }),
     );
   });
+
+  it('resets only the builds whose active plan is gone, and saves nothing when none is (BUG-30)', async () => {
+    const a = await service.createBuild(agent as unknown as Agent);
+    await service.updateBuild(a.id, { activeUpgradePlanId: 'plan-kept' });
+    const b = await service.createBuild(agent as unknown as Agent);
+    await service.updateBuild(b.id, { activeUpgradePlanId: 'plan-gone' });
+    const c = await service.createBuild(agent as unknown as Agent);
+    service.selectBuild(service.getBuildById(b.id) ?? null);
+    const selected: (AgentBuild | null)[] = [];
+    service.selectedBuild$.subscribe((s) => selected.push(s));
+    const before = service.getBuilds();
+
+    await service.clearMissingPlanLinks(new Set(['plan-kept']));
+
+    const after = service.getBuilds();
+    expect(after[0]).toBe(before[0]);
+    expect(after[2]).toBe(before[2]);
+    expect(after[1]).not.toBe(before[1]);
+    expect(after[1].activeUpgradePlanId).toBeUndefined();
+    expect(after[1].updatedAt).toEqual(before[1].updatedAt);
+    expect(selected.at(-1)).toBe(after[1]);
+    const stored: AgentBuild[] = JSON.parse(localStorage.getItem('zzz-optimizer-builds') ?? '[]');
+    expect(stored.map((s) => s.activeUpgradePlanId)).toEqual(['plan-kept', undefined, undefined]);
+    expect([a.id, b.id, c.id]).toEqual(stored.map((s) => s.id));
+
+    localStorage.removeItem('zzz-optimizer-builds');
+    await service.clearMissingPlanLinks(new Set(['plan-kept']));
+    expect(service.getBuilds()).toBe(after);
+    expect(localStorage.getItem('zzz-optimizer-builds')).toBeNull();
+  });
 });

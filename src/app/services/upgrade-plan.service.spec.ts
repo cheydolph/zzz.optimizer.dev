@@ -1,10 +1,14 @@
 import type { UpgradePlan } from '../models/upgrade-plan.model';
+import type { BuildService } from './build.service';
 import type { DataFileService } from './data-file.service';
 import type { NotificationService } from './notification.service';
 import { UpgradePlanService } from './upgrade-plan.service';
 
 // BUG-17 (slice 4.6b): every value the service emits is deep-frozen here, so any later in-place write to an
 // emitted array or plan throws (ES modules run in strict mode) and the write path's test fails.
+// The plan-link reset (BUG-30) is covered in its own block below; elsewhere it has no builds to change.
+const noBuilds = { clearMissingPlanLinks: async () => undefined } as unknown as BuildService;
+
 function deepFreeze<T>(value: T): T {
   if (value !== null && typeof value === 'object' && !Object.isFrozen(value)) {
     Object.freeze(value);
@@ -22,7 +26,7 @@ describe('UpgradePlanService immutable updates (BUG-17)', () => {
       load: async () => ({ agents: { '1011': { breakpoints: { atk: { min: 1000, optimal: 2000 } } } } }),
     } as unknown as DataFileService;
     const notifications = { error: () => undefined } as unknown as NotificationService;
-    service = new UpgradePlanService('browser', dataFiles, notifications);
+    service = new UpgradePlanService('browser', dataFiles, notifications, noBuilds);
     service.plans$.subscribe(deepFreeze);
     service.selectedPlan$.subscribe(deepFreeze);
   });
@@ -68,7 +72,7 @@ describe('UpgradePlanService plan-editor drafts (slice 4.6b)', () => {
     localStorage.clear();
     const dataFiles = { load: async () => ({ agents: {} }) } as unknown as DataFileService;
     const notifications = { error: () => undefined } as unknown as NotificationService;
-    service = new UpgradePlanService('browser', dataFiles, notifications);
+    service = new UpgradePlanService('browser', dataFiles, notifications, noBuilds);
     service.plans$.subscribe(deepFreeze);
   });
 
@@ -142,5 +146,49 @@ describe('UpgradePlanService plan-editor drafts (slice 4.6b)', () => {
     expect(service.getSelectedStoredPlan()?.name).toBe('Restored');
     service.deletePlan(plan.id);
     expect(service.getSelectedStoredPlan()).toBeUndefined();
+  });
+});
+
+describe('UpgradePlanService resets builds of removed plans (BUG-30)', () => {
+  let service: UpgradePlanService;
+  let calls: string[][];
+
+  beforeEach(() => {
+    localStorage.clear();
+    calls = [];
+    const dataFiles = { load: async () => ({ agents: {} }) } as unknown as DataFileService;
+    const notifications = { error: () => undefined } as unknown as NotificationService;
+    const builds = {
+      clearMissingPlanLinks: async (ids: ReadonlySet<string>) => {
+        calls.push([...ids]);
+      },
+    } as unknown as BuildService; // only the reset is called
+    service = new UpgradePlanService('browser', dataFiles, notifications, builds);
+  });
+
+  it('passes the remaining plan IDs after a delete, a replace restore, and a clear', async () => {
+    const a = await service.createPlan('1011', 'A');
+    const b = await service.createPlan('1011', 'B');
+    service.deletePlan(a.id);
+    service.importPlanList([{ ...structuredClone(b), id: 'restored' }], true);
+    service.clearAllPlans();
+    expect(calls).toEqual([[b.id], ['restored'], []]);
+  });
+
+  it('leaves builds alone on a create, an update, a duplicate, and a merge import', async () => {
+    const a = await service.createPlan('1011', 'A');
+    service.updatePlan(a.id, { name: 'A2' });
+    service.duplicatePlan(a.id);
+    service.importPlans(JSON.stringify({ upgradePlans: [structuredClone(a)] }));
+    service.importPlanList([{ ...structuredClone(a), id: 'merged' }], false);
+    expect(calls).toEqual([]);
+  });
+
+  it('keeps every link while a backup of unreadable plans exists', async () => {
+    const a = await service.createPlan('1011', 'A');
+    localStorage.setItem('zzz-optimizer-upgrade-plans-backup', '[{"id":"lost"');
+    service.deletePlan(a.id);
+    service.clearAllPlans();
+    expect(calls).toEqual([]);
   });
 });

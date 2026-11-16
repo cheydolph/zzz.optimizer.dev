@@ -59,7 +59,7 @@ function createService() {
     buildService,
     new DiscService(dbService, 'browser'),
     new DiscLoadoutService('browser', notifications),
-    new UpgradePlanService('browser', new DataFileService(http), notifications),
+    new UpgradePlanService('browser', new DataFileService(http), notifications, buildService),
     dbService,
   );
   return { db, service };

@@ -2,11 +2,11 @@ import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { UpgradePlan } from '../models/upgrade-plan.model';
-import { readStoredArray, storageReadNotice } from '../utils/stored-array';
+import { hasStoredBackup, readStoredArray, storageReadNotice } from '../utils/stored-array';
+import { UPGRADE_PLANS_STORAGE_KEY as PLANS_STORAGE_KEY } from '../constants/storage-keys';
 import { NotificationService } from './notification.service';
 import { DataFileService } from './data-file.service';
-
-const PLANS_STORAGE_KEY = 'zzz-optimizer-upgrade-plans';
+import { BuildService } from './build.service';
 
 @Injectable({
   providedIn: 'root',
@@ -35,6 +35,7 @@ export class UpgradePlanService {
     @Inject(PLATFORM_ID) private platformId: Object,
     private dataFiles: DataFileService,
     private notificationService: NotificationService,
+    private buildService: BuildService,
   ) {
     this.loadPlans();
     this.breakpointsReady = this.loadAgentBreakpoints();
@@ -221,6 +222,7 @@ export class UpgradePlanService {
     const plans = this.plansSubject.value.filter((p) => p.id !== id);
     this.savePlans(plans);
     this.drafts.delete(id);
+    this.clearRemovedPlanLinks();
 
     // Clear selection if deleted plan was selected
     if (this.selectedPlanSubject.value?.id === id) {
@@ -367,6 +369,7 @@ export class UpgradePlanService {
     if (replaceExisting) {
       this.selectedPlanSubject.next(null);
       this.drafts.clear();
+      this.clearRemovedPlanLinks();
     }
   }
 
@@ -377,6 +380,20 @@ export class UpgradePlanService {
     this.savePlans([]);
     this.selectedPlanSubject.next(null);
     this.drafts.clear();
+    this.clearRemovedPlanLinks();
+  }
+
+  /**
+   * BUG-30: after a delete, a clear, or a replace restore, builds whose active plan is gone go back to the default
+   * plan. Skipped while some stored plans could not be read (a backup copy exists, or saving is blocked): a build's
+   * link may name one of those plans, and keeping it lets a restored backup link up again.
+   */
+  private clearRemovedPlanLinks(): void {
+    if (!isPlatformBrowser(this.platformId) || this.saveBlocked || hasStoredBackup(PLANS_STORAGE_KEY)) return;
+    const planIds = new Set(this.plansSubject.value.map((p) => p.id));
+    this.buildService.clearMissingPlanLinks(planIds).catch((error: unknown) => {
+      console.error('Error resetting builds to the default plan:', error);
+    });
   }
 
   /**

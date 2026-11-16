@@ -499,6 +499,24 @@ export class BuildService {
   }
 
   /**
+   * BUG-30: builds whose active upgrade plan is not in `planIds` go back to the default plan. The other builds keep
+   * their objects, and nothing is saved when no build changes.
+   */
+  async clearMissingPlanLinks(planIds: ReadonlySet<string>): Promise<void> {
+    const isMissing = (b: AgentBuild) => !!b.activeUpgradePlanId && !planIds.has(b.activeUpgradePlanId);
+    if (!this.builds.some(isMissing)) return;
+    const builds = this.builds.map((b) => (isMissing(b) ? { ...b, activeUpgradePlanId: undefined } : b));
+
+    await this.saveBuilds(builds);
+
+    const selected = this.selectedBuildSubject.value;
+    const refreshed = selected && isMissing(selected) ? builds.find((b) => b.id === selected.id) : undefined;
+    if (refreshed) {
+      this.selectedBuildSubject.next(refreshed);
+    }
+  }
+
+  /**
    * Import builds with one save. A build whose ID already exists replaces it; with
    * `replaceExisting` the current builds are dropped first.
    */

@@ -3,6 +3,7 @@ import { of } from 'rxjs';
 import type { Agent } from '../../models/agent.model';
 import type { UpgradePlan } from '../../models/upgrade-plan.model';
 import type { AgentService } from '../../services/agent.service';
+import type { BuildService } from '../../services/build.service';
 import type { DataFileService } from '../../services/data-file.service';
 import type { DiscSetService } from '../../services/disc-set.service';
 import type { NotificationService } from '../../services/notification.service';
@@ -44,7 +45,8 @@ describe('UpgradePlansComponent copy-on-edit (BUG-14)', () => {
   beforeEach(() => {
     localStorage.clear();
     const dataFiles = { load: async () => ({ agents: {} }) } as unknown as DataFileService;
-    plans = new UpgradePlanService('browser', dataFiles, notifications as unknown as NotificationService);
+    const builds = { clearMissingPlanLinks: async () => undefined } as unknown as BuildService; // no builds here
+    plans = new UpgradePlanService('browser', dataFiles, notifications as unknown as NotificationService, builds);
     plans.plans$.subscribe(deepFreeze);
     component = createComponent();
   });

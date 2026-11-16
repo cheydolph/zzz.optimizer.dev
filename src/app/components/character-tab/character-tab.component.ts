@@ -2418,6 +2418,13 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     return planId ? this.availablePlans.find((p) => p.id === planId) : undefined;
   });
 
+  /**
+   * The plan dropdown's value: the active plan's ID, or undefined for "(Default)", also when the build's link names a
+   * plan that is gone, as the ratings already treat it (BUG-30). Computed here because `?.` in a template gives null,
+   * which does not match the "(Default)" option's undefined.
+   */
+  protected readonly activePlanId = computed(() => this.activePlan()?.id);
+
   /** The build type disc scores use: resolved from ALL equipped discs, undefined while none is equipped. */
   private readonly discScoreBuildType = computed(() => {
     this.referenceDataReady();

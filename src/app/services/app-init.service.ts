@@ -4,6 +4,26 @@ import { DataImportService } from './data-import.service';
 import { LoadingService } from './loading.service';
 import { NotificationService } from './notification.service';
 import { BuildService } from './build.service';
+import { UPGRADE_PLANS_STORAGE_KEY } from '../constants/storage-keys';
+import { hasStoredBackup } from '../utils/stored-array';
+
+/**
+ * The IDs of the stored upgrade plans, or undefined when they cannot all be read (unreadable text, or a backup copy of
+ * earlier unreadable plans). Read here rather than through UpgradePlanService, which stays out of the initial bundle.
+ */
+function readStoredPlanIds(): ReadonlySet<string> | undefined {
+  if (hasStoredBackup(UPGRADE_PLANS_STORAGE_KEY)) return undefined;
+  const raw = localStorage.getItem(UPGRADE_PLANS_STORAGE_KEY);
+  if (raw === null) return new Set();
+  try {
+    const parsed: unknown = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return undefined;
+    const ids = parsed.map((plan: { id?: unknown } | null) => plan?.id);
+    return new Set(ids.filter((id): id is string => typeof id === 'string'));
+  } catch {
+    return undefined; // Unreadable: UpgradePlanService backs it up when it loads; no link is cleared
+  }
+}
 
 /**
  * Service to handle app initialization
@@ -56,6 +76,14 @@ export class AppInitService {
           await this.buildService.recalculateAllBuilds();
         } catch (error) {
           console.error('Error recalculating builds after the game data update:', error);
+        }
+        // BUG-30, once per app version: builds whose active plan was deleted before 7.1.0 go back to the default plan.
+        // After the recalculation, which would otherwise keep a build replaced during its awaits without new stats.
+        try {
+          const planIds = readStoredPlanIds();
+          if (planIds) await this.buildService.clearMissingPlanLinks(planIds);
+        } catch (error) {
+          console.error('Error resetting builds to the default plan:', error);
         }
         this.notificationService.success('Game data loaded successfully!');
       }

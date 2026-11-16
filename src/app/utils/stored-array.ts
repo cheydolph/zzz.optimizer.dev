@@ -62,3 +62,12 @@ export function storageReadNotice(label: string, read: StoredArrayRead<unknown>)
   }
   return null;
 }
+
+/** Whether `backUpStoredValue` has kept a copy of unreadable text for `key` (`<key>-backup` or `<key>-backup-<time>`). */
+export function hasStoredBackup(key: string): boolean {
+  const prefix = `${key}-backup`;
+  for (let i = 0; i < localStorage.length; i++) {
+    if (localStorage.key(i)?.startsWith(prefix)) return true;
+  }
+  return false;
+}
