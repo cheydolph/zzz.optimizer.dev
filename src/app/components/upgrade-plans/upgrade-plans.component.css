@@ -864,9 +864,8 @@
     grid-template-columns: 1fr;
     height: auto;
   }
-  .sidebar {
-    max-height: 400px;
-  }
+  /* BUG-31: no height cap on the stacked sidebar. A 400 px cap left the plan list 0 px tall under the create form
+     (the list is the only part allowed to shrink), so saved plans could not be reached; the page scrolls instead */
 }
 
 @media (max-width: 768px) {
