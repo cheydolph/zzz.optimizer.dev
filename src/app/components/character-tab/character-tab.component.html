@@ -71,7 +71,7 @@
                     </button>
                   </div>
                   <div class="uid-history-list">
-                    @for (historyItem of uidHistory; track historyItem) {
+                    @for (historyItem of uidHistory; track historyItem.uid) {
                       <div
                         class="uid-history-item"
                         (click)="selectUidFromHistory(historyItem)"
@@ -94,7 +94,7 @@
               (ngModelChange)="onUpgradePlanChange($event)"
               class="plan-select">
               <option [ngValue]="undefined">(Default)</option>
-              @for (plan of plansForSelectedAgent(); track plan) {
+              @for (plan of plansForSelectedAgent(); track plan.id) {
                 <option
                   [ngValue]="plan.id">
                   {{ plan.name }}
@@ -359,7 +359,7 @@
                                 ) {
                                 <div
                                   class="disc-rating-badge"
-                                  [ngClass]="getDiscRatingClass(discScore.rating)"
+                                  [class]="discScore.ratingClass"
                                   [title]="discScore.rating.description"
                                   >
                                   <span class="rating-grade">{{
@@ -759,7 +759,7 @@
                                         >
                                         <div
                                           class="build-rating-badge"
-                                          [ngClass]="getBuildRatingClass(buildScore.rating)"
+                                          [class]="buildScore.ratingClass"
                                           [title]="inGameStatsMode ? 'Not available in In-Game Stats mode' : buildScore.rating.description"
                                           >
                                           <span class="rating-grade-large">{{
@@ -793,7 +793,7 @@
                                               item)) {
                                               <div
                                                 class="feedback-item"
-                                                [ngClass]="'priority-' + item.priority"
+                                                [class]="'priority-' + item.priority"
                                                 >
                                                 <span class="feedback-icon">
                                                   @switch (item.category) {
@@ -1627,7 +1627,7 @@
                                               @if (equippedDiscScores()[compareDiscSlot]; as discScore) {
                                                 <div
                                                   class="disc-rating-badge"
-                                                  [ngClass]="getDiscRatingClass(discScore.rating)"
+                                                  [class]="discScore.ratingClass"
                                                   [title]="discScore.rating.description"
                                                   >
                                                   <span class="rating-grade">{{ discScore.rating.grade }}</span>
@@ -1645,7 +1645,7 @@
                                               </div>
                                               <div class="stat-section">
                                                 <div class="stat-label">Sub Stats:</div>
-                                                @for (subStat of selectedBuild.equippedDiscs[compareDiscSlot]!.subStats; track subStat; let i = $index) {
+                                                @for (subStat of selectedBuild.equippedDiscs[compareDiscSlot]!.subStats; track trackBySubStatIndex($index, subStat)) {
                                                   <div
                                                     class="stat-row substat-row"
                                                     >
@@ -1693,7 +1693,7 @@
                                                 @if (customDiscScore(); as customScore) {
                                                   <div
                                                     class="disc-rating-badge"
-                                                    [ngClass]="getDiscRatingClass(customScore.rating)"
+                                                    [class]="customScore.ratingClass"
                                                     [title]="customScore.rating.description"
                                                     >
                                                     <span class="rating-grade">{{ customScore.rating.grade }}</span>
@@ -2141,7 +2141,7 @@
                                             <span class="label-text" title="Color used for borders, labels, and accents">Accent Color:</span>
                                             <div class="accent-color-picker">
                                               <!-- Preset color swatches -->
-                                              @for (preset of presetColors; track preset) {
+                                              @for (preset of presetColors; track preset.name) {
                                                 <button
                                                   class="color-swatch"
                                                   [class.active]="accentColor === preset.color"
@@ -2333,7 +2333,7 @@
                                                         @if (newLoadoutDiscScores()[slot]; as discScore) {
                                                           <div
                                                             class="disc-rating-badge"
-                                                            [ngClass]="getDiscRatingClass(discScore.rating)"
+                                                            [class]="discScore.ratingClass"
                                                             [title]="discScore.rating.description"
                                                             >
                                                             <span class="rating-grade">{{ discScore.rating.grade }}</span>
@@ -2486,7 +2486,7 @@
                                                             @if (previewDiscScores()[slot]; as discScore) {
                                                               <div
                                                                 class="disc-rating-badge"
-                                                                [ngClass]="getDiscRatingClass(discScore.rating)"
+                                                                [class]="discScore.ratingClass"
                                                                 [title]="discScore.rating.description"
                                                                 >
                                                                 <span class="rating-grade">{{ discScore.rating.grade }}</span>

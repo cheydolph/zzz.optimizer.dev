@@ -11,7 +11,7 @@ import {
   computed,
   signal,
 } from '@angular/core';
-import { NgClass, DatePipe, DecimalPipe } from '@angular/common';
+import { DatePipe, DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { DragDropModule, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
@@ -75,6 +75,13 @@ interface DiscFormData {
   subStats: Array<{ type: string; value: string | number }>;
 }
 
+/** A disc's score as the rating badges show it; `ratingClass` feeds the badge's `[class]` binding. */
+interface ScoredDisc {
+  score: number;
+  rating: DiscRating;
+  ratingClass: string;
+}
+
 @Component({
   selector: 'app-character-tab',
   imports: [
@@ -86,7 +93,6 @@ interface DiscFormData {
     InfoDialogComponent,
     DatePipe,
     DecimalPipe,
-    NgClass,
   ],
   templateUrl: './character-tab.component.html',
   styleUrls: ['./character-tab.component.css'],
@@ -2378,7 +2384,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
   }
 
   // Disc scoring methods
-  getDiscScore(disc: Disc): { score: number; rating: DiscRating } | null {
+  getDiscScore(disc: Disc): ScoredDisc | null {
     if (!this.selectedBuild) return null;
 
     // Wait for scoring service to load data before calculating
@@ -2402,6 +2408,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     return {
       score: result.score,
       rating: result.rating,
+      ratingClass: this.getDiscRatingClass(result.rating),
     };
   }
 
@@ -2427,19 +2434,19 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
 
   /** Scores of the selected build's equipped discs, by slot (the build view's badges). */
   protected readonly equippedDiscScores = computed(() => {
-    const scores: { [slot: string]: { score: number; rating: DiscRating } | null } = {};
+    const scores: { [slot: string]: ScoredDisc | null } = {};
     for (const [slot, disc] of Object.entries(this.selectedBuild?.equippedDiscs ?? {})) {
       if (disc) scores[slot] = this.getDiscScore(disc);
     }
     return scores;
   });
 
-  getDiscRatingClass(rating: DiscRating): string {
+  private getDiscRatingClass(rating: DiscRating): string {
     return `rating-${rating.grade.toLowerCase().replace(/\s+/g, '-')}`;
   }
 
   // Build scoring methods
-  protected readonly buildScore = computed((): { score: number; rating: BuildRating } | null => {
+  protected readonly buildScore = computed((): { score: number; rating: BuildRating; ratingClass: string } | null => {
     if (!this.selectedBuild) return null;
 
     // Wait for scoring service to load data before calculating
@@ -2477,10 +2484,11 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     return {
       score: result.score,
       rating: result.rating,
+      ratingClass: this.getBuildRatingClass(result.rating),
     };
   });
 
-  getBuildRatingClass(rating: BuildRating): string {
+  private getBuildRatingClass(rating: BuildRating): string {
     return `rating-${rating.grade.toLowerCase().replace(/\s+/g, '-')}`;
   }
 
@@ -2906,6 +2914,9 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     return discSet.name;
   }
 
+  // Index tracking on purpose: a disc's substats, the bonus lists, and the feedback list are rebuilt whole
+  // for one build and never reorder, and their items have no stable id (a disc form row's type can be empty
+  // or change while it is edited, so keying by type would recreate the row and lose input focus).
   trackBySubStatIndex(index: number, _subStat: unknown): number {
     return index;
   }
@@ -2921,6 +2932,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     return loadout.id;
   }
 
+  // Index tracking: see trackBySubStatIndex.
   trackByFeedbackIndex(index: number, _item: FeedbackItem): number {
     return index;
   }
@@ -4570,7 +4582,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
 
   /** Scores of the discs picked for the loadout being created, by slot. */
   protected readonly newLoadoutDiscScores = computed(() => {
-    const scores: { [slot: string]: { score: number; rating: DiscRating } | null } = {};
+    const scores: { [slot: string]: ScoredDisc | null } = {};
     for (const [slot, disc] of Object.entries(this.newLoadoutDiscs)) {
       if (disc) scores[slot] = this.getDiscScore(disc);
     }
@@ -4579,7 +4591,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
 
   /** Scores of the previewed loadout's discs, by slot. */
   protected readonly previewDiscScores = computed(() => {
-    const scores: { [slot: string]: { score: number; rating: DiscRating } | null } = {};
+    const scores: { [slot: string]: ScoredDisc | null } = {};
     for (const [slot, disc] of Object.entries(this.selectedLoadoutForPreview?.equippedDiscs ?? {})) {
       if (disc) scores[slot] = this.getDiscScore(disc);
     }

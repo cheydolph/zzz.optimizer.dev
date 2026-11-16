@@ -23,7 +23,7 @@
           Stay up to date with the latest features, bug fixes, and improvements to ZZZ Optimizer.
         </p>
         <!-- Version cards -->
-        @for (version of changelog; track version) {
+        @for (version of changelog; track version.version) {
           <div class="version-card">
             <div class="version-header">
               <h2>v{{ version.version }}</h2>
