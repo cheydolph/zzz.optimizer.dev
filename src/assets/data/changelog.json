@@ -11,6 +11,8 @@
         "Imports, game data updates, and Clear User Data no longer leave partial data behind, and unreadable saved data is backed up instead of overwritten",
         "The disc editor no longer saves blank substats, and checks that substat rolls add up to a valid S-rank +15 disc",
         "A build whose upgrade plan was deleted goes back to the default plan, and its plan list shows (Default) instead of a blank",
+        "Saved upgrade plans can be opened again on phones and narrow windows",
+        "Unsaved upgrade plan edits no longer change your ratings before you save them",
         "Fixed [Reverb] Mark I Impact%. It now adds 8% to 12% Impact, as its description says",
         "Severian's W-Engine is now Incarcerating Grip with its correct stats, and his build rating uses updated stat targets"
       ],
