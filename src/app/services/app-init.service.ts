@@ -77,7 +77,7 @@ export class AppInitService {
         } catch (error) {
           console.error('Error recalculating builds after the game data update:', error);
         }
-        // BUG-30, once per app version: builds whose active plan was deleted before 7.1.0 go back to the default plan.
+        // BUG-30, once per app version: builds whose active plan was deleted before this fix go back to the default plan.
         // After the recalculation, which would otherwise keep a build replaced during its awaits without new stats.
         try {
           const planIds = readStoredPlanIds();

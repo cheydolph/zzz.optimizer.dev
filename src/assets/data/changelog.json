@@ -1,31 +1,52 @@
 {
   "versions": [
     {
-      "version": "7.1.0",
-      "date": "2026-10-23",
-      "features": [
-        "Added the S-rank agent Severian and his W-Engine Incarcerating Grip"
-      ],
+      "version": "7.2.0",
+      "date": "2026-11-16",
+      "features": [],
       "fixes": [
         "Your saved disc loadouts are no longer deleted when the app updates",
         "Game data updates now refresh the stats and ratings of your saved builds",
         "Backups now include upgrade plans and share image settings, and keep each build's active upgrade plan",
         "Imports, game data updates, and Clear User Data no longer leave partial data behind, and unreadable saved data is backed up instead of overwritten",
         "The disc editor no longer saves blank substats, and checks that substat rolls add up to a valid S-rank +15 disc",
-        "A build whose upgrade plan was deleted goes back to the default plan, and its plan list shows (Default) instead of a blank"
+        "A build whose upgrade plan was deleted goes back to the default plan, and its plan list shows (Default) instead of a blank",
+        "Fixed [Reverb] Mark I Impact%. It now adds 8% to 12% Impact, as its description says",
+        "Severian's W-Engine is now Incarcerating Grip with its correct stats, and his build rating uses updated stat targets"
       ],
       "improvements": [
-        "Added automated checks so agent stats, disc scores, and build ratings don't change unexpectedly in future updates",
         "Updated the app's framework and removed unused code",
-        "Pages no longer jump while they load or when you switch between them",
         "The app opens faster and downloads much less data on your first visit",
+        "Pages no longer jump while they load or when you switch between them",
         "Scrolling and opening menus are smoother on larger screens, especially in Firefox and Safari",
         "Agent picker cards now fill evenly, and empty disc slots brighten when you hover over them",
-        "Agent data and animated W-Engine icons now download much less data",
-        "Importing from a different UID now warns you before it overwrites your existing builds",
-        "The share window shows its progress right away and no longer jumps when the image appears",
-        "Share images are ready to download sooner",
-        "Unsaved upgrade plan edits are kept when you switch plans or tabs, and the plan you were editing reopens when you come back. A dot marks plans with unsaved changes."
+        "The share window shows its progress right away, no longer jumps when the image appears, and has the image ready sooner",
+        "Unsaved upgrade plan edits are kept when you switch plans or tabs, the plan you were editing reopens when you come back, and a dot marks plans with unsaved changes",
+        "Added automated checks so agent stats, disc scores, and build ratings don't change unexpectedly in future updates"
+      ]
+    },
+    {
+      "version": "7.1.16",
+      "date": "2026-11-11",
+      "features": [
+        "Added the S-rank agent Severian"
+      ],
+      "fixes": [
+        "Importing a UID no longer wipes mindscapes on agents that are not in your in game Character Showcase. Only showcased agents are sent by the API, so every other agent was being reset to M0 on each import",
+        "Importing someone else's UID now warns you before it overwrites your builds. Previously it replaced any agent you both had with their levels, mindscapes, W Engines and discs with no confirmation",
+        "When an import finds no changes, it now lists which agents were actually checked. The old message said everything was up to date even when agents were missing from the response entirely",
+        "A single malformed agent record no longer cancels the whole data import. One bad entry used to discard every agent after it",
+        "Entering an invalid UID now explains that the format is wrong rather than reporting a network error"
+      ],
+      "improvements": [
+        "Opening the disc picker, loadouts and compare windows is much faster. The whole page behind them was being redrawn on every click and keystroke even though none of it was visible",
+        "Removed a full screen blur effect from behind every popup. It sat behind an almost solid background so it was invisible, but it made the graphics card redraw the entire screen every frame",
+        "Agent data downloads are 90 percent smaller, from 2.56 MB to 0.26 MB. Skill and passive text that the app never reads is now stripped out when the site is built",
+        "Animated W Engine icons are 72 percent smaller, from 409 MB to 116 MB in total. They were stored at 720p and 60 frames per second but only ever shown at 80 pixels",
+        "Popups no longer play one window's closing animation and the next window's opening animation back to back when you move between them",
+        "Removed three animations that had no effect but still ran continuously in the background",
+        "Lists throughout the app now reuse rows instead of rebuilding them whenever anything changes",
+        "Share and import features are now loaded only when you use them, so the first page load is smaller"
       ]
     },
     {
@@ -34,9 +55,7 @@
       "features": [
         "Added the A-rank W-Engine Candlelight Conspiracy"
       ],
-      "fixes": [
-        "Fixed [Reverb] Mark I Impact%. It now adds 8% to 12% Impact, as its description says. Existing builds keep showing their saved stats until you edit them"
-      ],
+      "fixes": [],
       "improvements": []
     },
     {
