@@ -62,6 +62,7 @@
             <div
               class="plan-card"
               [class.selected]="selectedPlan?.id === plan.id"
+              [class.has-unsaved]="hasUnsavedEdits(plan.id)"
               (click)="selectPlan(plan)"
               >
               <div class="plan-card-content">
@@ -102,7 +103,7 @@
         <!-- Editor Header -->
         <div class="editor-header">
           <h2>{{ selectedPlan.name }}</h2>
-          <button class="btn-save" (click)="savePlan()">
+          <button class="btn-save" [class.has-unsaved]="hasUnsavedEdits(selectedPlan.id)" (click)="savePlan()">
             💾 Save Plan
           </button>
         </div>
@@ -114,6 +115,7 @@
             <input
               type="text"
               [(ngModel)]="selectedPlan.name"
+              (ngModelChange)="markEdited()"
               class="form-input"
               />
           </div>
@@ -136,6 +138,7 @@
             <label>Description</label>
             <textarea
               [(ngModel)]="selectedPlan.description"
+              (ngModelChange)="markEdited()"
               class="form-textarea"
               rows="3"
               placeholder="Optional description for this plan"
@@ -262,7 +265,7 @@
         </div>
         <!-- Save Button at Bottom -->
         <div class="editor-footer">
-          <button class="btn-save-large" (click)="savePlan()">
+          <button class="btn-save-large" [class.has-unsaved]="hasUnsavedEdits(selectedPlan.id)" (click)="savePlan()">
             💾 Save All Changes
           </button>
         </div>

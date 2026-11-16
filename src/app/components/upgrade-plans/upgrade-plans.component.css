@@ -241,6 +241,37 @@
   min-width: 0;
 }
 
+/* Unsaved-draft cue (slice 4.6b): a dot after the plan's name, and in the top right corner of both Save buttons
+   (inside their padding, so the buttons keep their size), while the plan has edits that are not saved. A shape, not
+   only a colour; text for screen readers waits for slice 4.8 (labelling). */
+.plan-card.has-unsaved .plan-name::after,
+.btn-save.has-unsaved::after,
+.btn-save-large.has-unsaved::after {
+  content: "";
+  display: inline-block;
+  width: 0.5em;
+  height: 0.5em;
+  margin-left: 0.5em;
+  border-radius: 50%;
+  background: currentColor;
+  vertical-align: middle;
+}
+
+.btn-save.has-unsaved,
+.btn-save-large.has-unsaved {
+  position: relative;
+}
+
+.btn-save.has-unsaved::after,
+.btn-save-large.has-unsaved::after {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 8px;
+  height: 8px;
+  margin-left: 0;
+}
+
 .plan-name {
   color: var(--txt);
   font-weight: 600;

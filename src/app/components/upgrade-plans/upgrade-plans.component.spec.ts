@@ -28,20 +28,25 @@ describe('UpgradePlansComponent copy-on-edit (BUG-14)', () => {
     { id: '1011', name: 'Anby' },
   ] as Agent[]; // only id and name are read
 
-  beforeEach(() => {
-    localStorage.clear();
-    const dataFiles = { load: async () => ({ agents: {} }) } as unknown as DataFileService;
-    const notifications = { success: () => undefined, error: () => undefined, warning: () => undefined };
-    plans = new UpgradePlanService('browser', dataFiles, notifications as unknown as NotificationService);
-    plans.plans$.subscribe(deepFreeze);
-    component = new UpgradePlansComponent(
+  const notifications = { success: () => undefined, error: () => undefined, warning: () => undefined };
+  const createComponent = () => {
+    const created = new UpgradePlansComponent(
       plans,
       { agents$: of(agents) } as unknown as AgentService,
       { discSets$: of([]) } as unknown as DiscSetService,
       notifications as unknown as NotificationService,
       { markForCheck: () => undefined } as unknown as ChangeDetectorRef,
     );
-    component.ngOnInit();
+    created.ngOnInit();
+    return created;
+  };
+
+  beforeEach(() => {
+    localStorage.clear();
+    const dataFiles = { load: async () => ({ agents: {} }) } as unknown as DataFileService;
+    plans = new UpgradePlanService('browser', dataFiles, notifications as unknown as NotificationService);
+    plans.plans$.subscribe(deepFreeze);
+    component = createComponent();
   });
 
   afterEach(() => component.ngOnDestroy());
@@ -92,5 +97,56 @@ describe('UpgradePlansComponent copy-on-edit (BUG-14)', () => {
     expect(component.selectedPlan).not.toBe(stored);
     edit();
     expect(plans.getPlans()[0]).toEqual(untouched);
+  });
+
+  // Slice 4.6b drafts: unsaved edits survive a plan switch and the editor's destroy and re-create (a tab switch),
+  // the plan that was open re-opens, and the unsaved-changes cue follows the edits and Save
+  it("keeps each plan's unsaved draft through a plan switch and a tab switch, and re-opens the last plan", async () => {
+    const a = await plans.createPlan('1011', 'A');
+    const b = await plans.createPlan('1011', 'B');
+    const storedA = structuredClone(plans.getPlanById(a.id));
+    component.selectPlan(plans.getPlanById(a.id) as UpgradePlan);
+    edit();
+    expect(component.hasUnsavedEdits(a.id)).toBe(true);
+    component.selectPlan(plans.getPlanById(b.id) as UpgradePlan);
+    expect(component.hasUnsavedEdits(b.id)).toBe(false);
+    component.toggleMainStatPreference('Drive5', 'ATK%');
+
+    component.ngOnDestroy();
+    component = createComponent();
+    expect(component.selectedPlan?.id).toBe(b.id);
+    expect(component.getMainStatPreference('Drive5', 'ATK%')).toBe('Not Acceptable');
+    component.selectPlan(plans.getPlanById(a.id) as UpgradePlan);
+    expect(component.getSubstatPriority('Drive1', 'ATK%')).toBe('Essential');
+    expect(component.hasUnsavedEdits(a.id)).toBe(true);
+    expect(plans.getPlanById(a.id)).toEqual(storedA);
+  });
+
+  it('clears the cue on Save and keeps edits made after it as a new unsaved draft', async () => {
+    const created = await plans.createPlan('1011', 'Plan');
+    component.selectPlan(plans.getPlanById(created.id) as UpgradePlan);
+    component.markEdited();
+    expect(component.hasUnsavedEdits(created.id)).toBe(true);
+    component.savePlan();
+    expect(component.hasUnsavedEdits(created.id)).toBe(false);
+
+    component.setBreakpoint('atk', 'min', '42');
+    expect(component.hasUnsavedEdits(created.id)).toBe(true);
+    component.ngOnDestroy();
+    component = createComponent();
+    expect(component.getBreakpoint('atk', 'min')).toBe(42);
+    expect(plans.getPlanById(created.id)?.customBreakpoints).toEqual(
+      expect.objectContaining({ atk: { min: 0, optimal: 0 } }),
+    );
+  });
+
+  it('shows the empty editor on return when the open plan was deleted', async () => {
+    const created = await plans.createPlan('1011', 'Plan');
+    component.selectPlan(plans.getPlanById(created.id) as UpgradePlan);
+    component.confirmDeletePlan(plans.getPlanById(created.id) as UpgradePlan);
+    component.deletePlan();
+    component.ngOnDestroy();
+    component = createComponent();
+    expect(component.selectedPlan).toBeNull();
   });
 });

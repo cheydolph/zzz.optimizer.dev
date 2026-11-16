@@ -101,6 +101,12 @@ export class UpgradePlansComponent implements OnInit, OnDestroy {
       this.referenceDiscSets = sets;
       this.cdr.markForCheck();
     });
+
+    // Re-open the plan that was open when the editor was last shown, with its unsaved draft (slice 4.6b)
+    const last = this.upgradePlanService.getSelectedStoredPlan();
+    if (last) {
+      this.selectedPlan = this.upgradePlanService.getDraft(last);
+    }
   }
 
   ngOnDestroy() {
@@ -147,10 +153,20 @@ export class UpgradePlansComponent implements OnInit, OnDestroy {
     this.cdr.markForCheck();
   }
 
-  // BUG-14: the editor works on a copy of the stored plan, so unsaved edits never reach scoring; Save writes it back
+  // BUG-14: the editor works on a copy of the stored plan (the service's draft for it, kept across tab switches and
+  // plan switches), so unsaved edits never reach scoring; Save writes it back
   selectPlan(plan: UpgradePlan) {
-    this.selectedPlan = structuredClone(plan);
+    this.selectedPlan = this.upgradePlanService.getDraft(plan);
     this.upgradePlanService.selectPlan(plan);
+  }
+
+  /** Called by every edit of the open draft (the setters below and the name and description fields). */
+  markEdited() {
+    if (this.selectedPlan) this.upgradePlanService.markDraftEdited(this.selectedPlan.id);
+  }
+
+  hasUnsavedEdits(planId: string): boolean {
+    return this.upgradePlanService.hasUnsavedEdits(planId);
   }
 
   savePlan() {
@@ -159,6 +175,7 @@ export class UpgradePlansComponent implements OnInit, OnDestroy {
     try {
       // A copy again: the stored plan must not share nested objects with the draft that stays in the editor
       this.upgradePlanService.updatePlan(this.selectedPlan.id, structuredClone(this.selectedPlan));
+      this.upgradePlanService.markDraftSaved(this.selectedPlan);
       this.notificationService.success('Plan saved successfully!', 3000);
     } catch (error) {
       console.error('Error saving plan:', error);
@@ -232,6 +249,7 @@ export class UpgradePlansComponent implements OnInit, OnDestroy {
 
     const current = this.selectedPlan.mainStatPreferences[validSlot][stat] || 'Acceptable';
     this.selectedPlan.mainStatPreferences[validSlot][stat] = current === 'Acceptable' ? 'Not Acceptable' : 'Acceptable';
+    this.markEdited();
   }
 
   // ============================================================================
@@ -251,6 +269,7 @@ export class UpgradePlansComponent implements OnInit, OnDestroy {
     }
 
     this.selectedPlan.substatPriorities[slot][stat] = priority as any;
+    this.markEdited();
   }
 
   // ============================================================================
@@ -273,6 +292,7 @@ export class UpgradePlansComponent implements OnInit, OnDestroy {
     }
 
     this.selectedPlan.customBreakpoints[statKey][field] = numValue;
+    this.markEdited();
   }
 
   resetBreakpoint(statKey: string) {
@@ -281,6 +301,7 @@ export class UpgradePlansComponent implements OnInit, OnDestroy {
     if (!this.selectedPlan) return;
 
     this.selectedPlan.customBreakpoints[statKey] = { min: 0, optimal: 0 };
+    this.markEdited();
   }
 
   // ============================================================================
@@ -290,6 +311,7 @@ export class UpgradePlansComponent implements OnInit, OnDestroy {
   toggleDiscSetType(type: '4pc+2pc' | '2pc+2pc+2pc') {
     if (!this.selectedPlan) return;
     this.selectedPlan.setPreferences.type = type;
+    this.markEdited();
   }
 
   togglePreferredSet(setName: string) {
@@ -301,6 +323,7 @@ export class UpgradePlansComponent implements OnInit, OnDestroy {
     } else {
       this.selectedPlan.setPreferences.preferredSets.push(setName);
     }
+    this.markEdited();
   }
 
   isSetPreferred(setName: string): boolean {

@@ -60,3 +60,87 @@ describe('UpgradePlanService immutable updates (BUG-17)', () => {
     expect(afterUpdate[1]).toBe(afterB[1]);
   });
 });
+
+describe('UpgradePlanService plan-editor drafts (slice 4.6b)', () => {
+  let service: UpgradePlanService;
+
+  beforeEach(() => {
+    localStorage.clear();
+    const dataFiles = { load: async () => ({ agents: {} }) } as unknown as DataFileService;
+    const notifications = { error: () => undefined } as unknown as NotificationService;
+    service = new UpgradePlanService('browser', dataFiles, notifications);
+    service.plans$.subscribe(deepFreeze);
+  });
+
+  it('keeps one draft per plan that never reaches the store or an export', async () => {
+    const plan = await service.createPlan('1011', 'Plan');
+    const draft = service.getDraft(plan);
+    expect(draft).not.toBe(plan);
+    draft.substatPriorities = { ...draft.substatPriorities, Drive1: { 'ATK%': 'Essential' } };
+    service.markDraftEdited(plan.id);
+
+    expect(service.getDraft(plan)).toBe(draft);
+    expect(service.getPlanById(plan.id)?.substatPriorities).toEqual(expect.objectContaining({ Drive1: {} }));
+    expect(service.exportPlans()).not.toContain('Essential');
+    expect(localStorage.getItem('zzz-optimizer-upgrade-plans')).not.toContain('Essential');
+    expect(service.hasUnsavedEdits(plan.id)).toBe(true);
+  });
+
+  it('keeps the saved draft with no unsaved edits after a Save', async () => {
+    const plan = await service.createPlan('1011', 'Plan');
+    const draft = service.getDraft(plan);
+    draft.name = 'Saved';
+    service.markDraftEdited(plan.id);
+    service.updatePlan(plan.id, structuredClone(draft));
+    service.markDraftSaved(draft);
+
+    expect(service.hasUnsavedEdits(plan.id)).toBe(false);
+    expect(service.getDraft(plan)).toBe(draft);
+    expect(service.getPlanById(plan.id)?.name).toBe('Saved');
+  });
+
+  it('drops a draft once the stored plan changes, or is deleted, restored over, or cleared', async () => {
+    const a = await service.createPlan('1011', 'A');
+    const b = await service.createPlan('1011', 'B');
+    const c = await service.createPlan('1011', 'C');
+    const draftA = service.getDraft(a);
+    service.markDraftEdited(a.id);
+    service.updatePlan(a.id, { name: 'A from elsewhere' });
+    expect(service.hasUnsavedEdits(a.id)).toBe(false);
+    expect(service.getDraft(a)).not.toBe(draftA);
+    expect(service.getDraft(a).name).toBe('A from elsewhere');
+
+    const draftB = service.getDraft(b);
+    service.importPlanList([{ ...structuredClone(b), name: 'B restored' }], false);
+    expect(service.getDraft(b)).not.toBe(draftB);
+    expect(service.getDraft(b).name).toBe('B restored');
+
+    service.getDraft(c);
+    service.markDraftEdited(c.id);
+    service.deletePlan(c.id);
+    expect(service.hasUnsavedEdits(c.id)).toBe(false);
+
+    service.getDraft(a);
+    service.markDraftEdited(a.id);
+    service.clearAllPlans();
+    expect(service.hasUnsavedEdits(a.id)).toBe(false);
+  });
+
+  it('keeps the drafts of other plans through a merge import', async () => {
+    const plan = await service.createPlan('1011', 'Plan');
+    const draft = service.getDraft(plan);
+    service.markDraftEdited(plan.id);
+    service.importPlans(JSON.stringify({ upgradePlans: [{ ...structuredClone(plan), name: 'Imported' }] }));
+    expect(service.getDraft(plan)).toBe(draft);
+    expect(service.hasUnsavedEdits(plan.id)).toBe(true);
+  });
+
+  it('returns the last selected plan as stored now, or nothing once it is deleted', async () => {
+    const plan = await service.createPlan('1011', 'Plan');
+    service.selectPlan(plan);
+    service.importPlanList([{ ...structuredClone(plan), name: 'Restored' }], false);
+    expect(service.getSelectedStoredPlan()?.name).toBe('Restored');
+    service.deletePlan(plan.id);
+    expect(service.getSelectedStoredPlan()).toBeUndefined();
+  });
+});

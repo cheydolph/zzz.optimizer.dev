@@ -25,6 +25,12 @@ export class UpgradePlanService {
   // Set when stored plans could not be read or backed up; saving would destroy them (BUG-15).
   private saveBlocked = false;
 
+  // Plan-editor drafts (slice 4.6b): the editor's unsaved copy of each plan, kept in memory only, so it survives a
+  // tab switch, a route change, and a switch to another plan, and never reaches the store, scoring, or an export.
+  // `base` is the stored plan object the draft was copied from: once the store holds another object for that id
+  // (a save, a restore, a clear), the draft is stale and the next getDraft() starts again from the stored plan.
+  private drafts = new Map<string, { base: UpgradePlan; draft: UpgradePlan; edited: boolean }>();
+
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private dataFiles: DataFileService,
@@ -214,6 +220,7 @@ export class UpgradePlanService {
   deletePlan(id: string): void {
     const plans = this.plansSubject.value.filter((p) => p.id !== id);
     this.savePlans(plans);
+    this.drafts.delete(id);
 
     // Clear selection if deleted plan was selected
     if (this.selectedPlanSubject.value?.id === id) {
@@ -249,6 +256,43 @@ export class UpgradePlanService {
    */
   selectPlan(plan: UpgradePlan | null): void {
     this.selectedPlanSubject.next(plan);
+  }
+
+  /** The stored plan selected last, if it still exists (the plan editor re-opens it when it is shown again). */
+  getSelectedStoredPlan(): UpgradePlan | undefined {
+    const selected = this.selectedPlanSubject.value;
+    return selected ? this.getPlanById(selected.id) : undefined;
+  }
+
+  /**
+   * The editor's draft of a stored plan: the kept draft while it was copied from the plan now stored under that id,
+   * otherwise a new copy of the stored plan. Edits go into the draft; only Save (`updatePlan`) writes the store.
+   */
+  getDraft(plan: UpgradePlan): UpgradePlan {
+    const stored = this.getPlanById(plan.id) ?? plan;
+    const kept = this.drafts.get(plan.id);
+    if (kept && kept.base === stored) return kept.draft;
+    const draft = structuredClone(stored);
+    this.drafts.set(plan.id, { base: stored, draft, edited: false });
+    return draft;
+  }
+
+  /** Records that the user changed a plan's draft (the unsaved-changes cue). */
+  markDraftEdited(id: string): void {
+    const kept = this.drafts.get(id);
+    if (kept) kept.edited = true;
+  }
+
+  /** After a Save of `draft`: the same draft now matches the stored plan, so it is kept with no unsaved edits. */
+  markDraftSaved(draft: UpgradePlan): void {
+    const stored = this.getPlanById(draft.id);
+    if (stored) this.drafts.set(draft.id, { base: stored, draft, edited: false });
+  }
+
+  /** Whether a plan has a draft with edits that are not saved (and not overtaken by a newer stored plan). */
+  hasUnsavedEdits(id: string): boolean {
+    const kept = this.drafts.get(id);
+    return !!kept && kept.edited && kept.base === this.getPlanById(id);
   }
 
   /**
@@ -322,6 +366,7 @@ export class UpgradePlanService {
     this.savePlans(plans);
     if (replaceExisting) {
       this.selectedPlanSubject.next(null);
+      this.drafts.clear();
     }
   }
 
@@ -331,6 +376,7 @@ export class UpgradePlanService {
   clearAllPlans(): void {
     this.savePlans([]);
     this.selectedPlanSubject.next(null);
+    this.drafts.clear();
   }
 
   /**
