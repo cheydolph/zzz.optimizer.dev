@@ -32,6 +32,7 @@ import { ScoringService } from '../../services/scoring.service';
 import { ImagePreloaderService } from '../../services/image-preloader.service';
 import { DataMappingService } from '../../services/data-mapping.service';
 import { DataFileService } from '../../services/data-file.service';
+import { MediaQueryService } from '../../services/media-query.service';
 import { DiscRating, BuildRating, FeedbackItem } from '../../constants/disc-scoring';
 import { DISC_MAIN_STAT_MAX, MAIN_STAT_BY_SLOT } from '../../constants/main-stat-possibilities';
 import { OptimizerComponent } from '../optimizer/optimizer.component';
@@ -448,6 +449,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     private dataFiles: DataFileService,
     private dbService: DbService,
     private injector: Injector,
+    private mediaQueries: MediaQueryService,
   ) {
     // Load mindscape data
     this.loadMindscapeData();
@@ -4112,7 +4114,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
   getWEngineIconPath(wengine: any): string {
     // Check if desktop using multiple signals
     // Only show MP4s on true desktop devices, not mobile/tablet
-    const isDesktop = this.isDesktopDevice();
+    const isDesktop = this.mediaQueries.isDesktopDevice();
 
     if (isDesktop && wengine.icon) {
       // Try animated version first
@@ -4146,34 +4148,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       return false;
     }
 
-    return this.isDesktopDevice();
-  }
-
-  /**
-   * Detect if device is a true desktop (not mobile/tablet)
-   * Uses multiple signals: pointer type, touch support, and user agent
-   */
-  private isDesktopDevice(): boolean {
-    if (typeof window === 'undefined') {
-      return false;
-    }
-
-    // Check for touch capability (mobile/tablet will have touch)
-    const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-
-    // Check pointer type (fine = mouse, coarse = touch)
-    const hasCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
-
-    // Check user agent for mobile keywords
-    const userAgent = navigator.userAgent.toLowerCase();
-    const isMobileUA = /iphone|ipad|ipod|android|webos|blackberry|windows phone/i.test(userAgent);
-
-    // Device is desktop if:
-    // 1. No touch support AND fine pointer (mouse), OR
-    // 2. Not identified as mobile in user agent AND width >= 769px
-    const isDesktop = (!hasTouch && !hasCoarsePointer) || (!isMobileUA && window.innerWidth >= 769);
-
-    return isDesktop;
+    return this.mediaQueries.isDesktopDevice();
   }
 
   onWEngineVideoError(event: any, wengine: any): void {
