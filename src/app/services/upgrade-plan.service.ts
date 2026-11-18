@@ -1,5 +1,4 @@
-import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { UpgradePlan } from '../models/upgrade-plan.model';
 import { hasStoredBackup, readStoredArray, storageReadNotice } from '../utils/stored-array';
@@ -32,7 +31,6 @@ export class UpgradePlanService {
   private drafts = new Map<string, { base: UpgradePlan; draft: UpgradePlan; edited: boolean }>();
 
   constructor(
-    @Inject(PLATFORM_ID) private platformId: Object,
     private dataFiles: DataFileService,
     private notificationService: NotificationService,
     private buildService: BuildService,
@@ -57,12 +55,6 @@ export class UpgradePlanService {
    * Load all upgrade plans from localStorage
    */
   private loadPlans() {
-    // Only run in browser
-    if (!isPlatformBrowser(this.platformId)) {
-      this.plansSubject.next([]);
-      return;
-    }
-
     const read = readStoredArray<UpgradePlan>(PLANS_STORAGE_KEY);
     this.saveBlocked = read.saveBlocked;
     const notice = storageReadNotice('upgrade plans', read);
@@ -76,11 +68,6 @@ export class UpgradePlanService {
    * Save plans to localStorage
    */
   private savePlans(plans: UpgradePlan[]) {
-    // Only run in browser
-    if (!isPlatformBrowser(this.platformId)) {
-      return;
-    }
-
     if (this.saveBlocked) {
       console.error('Upgrade plans were not saved: the stored plans could not be read or backed up');
       this.plansSubject.next(plans);
@@ -389,7 +376,7 @@ export class UpgradePlanService {
    * link may name one of those plans, and keeping it lets a restored backup link up again.
    */
   private clearRemovedPlanLinks(): void {
-    if (!isPlatformBrowser(this.platformId) || this.saveBlocked || hasStoredBackup(PLANS_STORAGE_KEY)) return;
+    if (this.saveBlocked || hasStoredBackup(PLANS_STORAGE_KEY)) return;
     const planIds = new Set(this.plansSubject.value.map((p) => p.id));
     this.buildService.clearMissingPlanLinks(planIds).catch((error: unknown) => {
       console.error('Error resetting builds to the default plan:', error);

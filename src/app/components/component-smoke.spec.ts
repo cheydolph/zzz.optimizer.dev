@@ -16,7 +16,6 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { NotificationComponent } from './notification/notification.component';
 import { OptimizerComponent } from './optimizer/optimizer.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
-import { SkeletonLoaderComponent } from './skeleton-loader/skeleton-loader.component';
 import { UpdateNotificationComponent } from './update-notification/update-notification.component';
 import { UpgradePlansComponent } from './upgrade-plans/upgrade-plans.component';
 import { WhatsNewComponent } from './whats-new/whats-new.component';
@@ -41,7 +40,6 @@ const COMPONENTS: Array<[string, Type<unknown>]> = [
   ['NotificationComponent', NotificationComponent],
   ['OptimizerComponent', OptimizerComponent],
   ['PrivacyPolicyComponent', PrivacyPolicyComponent],
-  ['SkeletonLoaderComponent', SkeletonLoaderComponent],
   ['UpdateNotificationComponent', UpdateNotificationComponent],
   ['UpgradePlansComponent', UpgradePlansComponent],
   ['WhatsNewComponent', WhatsNewComponent],

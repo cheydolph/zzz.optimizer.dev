@@ -68,7 +68,7 @@ describe('BuildService immutable updates (BUG-17)', () => {
       calculateCompositeBuildScore: () => ({ score: 42 }),
     } as unknown as ScoringService;
     const notifications = { error: () => undefined } as unknown as NotificationService;
-    const created = new BuildService(db, stats, scoring, notifications, 'browser');
+    const created = new BuildService(db, stats, scoring, notifications);
     created.builds$.subscribe(deepFreeze);
     created.selectedBuild$.subscribe(deepFreeze);
     return created;

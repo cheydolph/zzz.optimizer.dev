@@ -1,6 +1,5 @@
 // services/agent.service.ts
-import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Agent } from '../models/agent.model';
 import { DbService } from './db.service';
@@ -18,20 +17,11 @@ export class AgentService {
   private selectedAgentSubject = new BehaviorSubject<Agent | null>(null);
   public selectedAgent$: Observable<Agent | null> = this.selectedAgentSubject.asObservable();
 
-  constructor(
-    private db: DbService,
-    @Inject(PLATFORM_ID) private platformId: Object,
-  ) {
+  constructor(private db: DbService) {
     this.loadAgents();
   }
 
   async loadAgents() {
-    // Only run in browser
-    if (!isPlatformBrowser(this.platformId)) {
-      this.agentsSubject.next([]);
-      return;
-    }
-
     try {
       const agents = await this.db.getAllAgents();
       this.agentsSubject.next(agents);

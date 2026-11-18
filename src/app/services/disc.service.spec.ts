@@ -26,7 +26,7 @@ describe('DiscService.updateDisc', () => {
   it('emits a new array with a new disc object, keeps untouched discs, and leaves the emitted array alone', async () => {
     const stored = [disc('a'), disc('b')];
     const db = { getAllDiscs: async () => stored, updateDisc: async () => undefined } as unknown as DbService;
-    const service = new DiscService(db, 'browser');
+    const service = new DiscService(db);
     await service.loadDiscsFromDb();
     const emitted: Disc[][] = [];
     service.discs$.subscribe((d) => emitted.push(deepFreeze(d)));

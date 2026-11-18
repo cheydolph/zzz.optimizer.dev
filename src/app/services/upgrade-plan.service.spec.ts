@@ -26,7 +26,7 @@ describe('UpgradePlanService immutable updates (BUG-17)', () => {
       load: async () => ({ agents: { '1011': { breakpoints: { atk: { min: 1000, optimal: 2000 } } } } }),
     } as unknown as DataFileService;
     const notifications = { error: () => undefined } as unknown as NotificationService;
-    service = new UpgradePlanService('browser', dataFiles, notifications, noBuilds);
+    service = new UpgradePlanService(dataFiles, notifications, noBuilds);
     service.plans$.subscribe(deepFreeze);
     service.selectedPlan$.subscribe(deepFreeze);
   });
@@ -72,7 +72,7 @@ describe('UpgradePlanService plan-editor drafts (slice 4.6b)', () => {
     localStorage.clear();
     const dataFiles = { load: async () => ({ agents: {} }) } as unknown as DataFileService;
     const notifications = { error: () => undefined } as unknown as NotificationService;
-    service = new UpgradePlanService('browser', dataFiles, notifications, noBuilds);
+    service = new UpgradePlanService(dataFiles, notifications, noBuilds);
     service.plans$.subscribe(deepFreeze);
   });
 
@@ -163,7 +163,7 @@ describe('UpgradePlanService resets builds of removed plans (BUG-30)', () => {
         calls.push([...ids]);
       },
     } as unknown as BuildService; // only the reset is called
-    service = new UpgradePlanService('browser', dataFiles, notifications, builds);
+    service = new UpgradePlanService(dataFiles, notifications, builds);
   });
 
   it('passes the remaining plan IDs after a delete, a replace restore, and a clear', async () => {

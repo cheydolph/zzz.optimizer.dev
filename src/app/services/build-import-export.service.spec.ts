@@ -48,18 +48,12 @@ function createService() {
   const dbService = db as unknown as DbService;
   const notifications = { error: () => undefined, warning: () => undefined } as unknown as NotificationService;
   const http = { get: () => of({ agents: {} }) } as unknown as HttpClient;
-  const buildService = new BuildService(
-    dbService,
-    {} as StatCalculatorService,
-    {} as ScoringService,
-    notifications,
-    'browser',
-  );
+  const buildService = new BuildService(dbService, {} as StatCalculatorService, {} as ScoringService, notifications);
   const service = new BuildImportExportService(
     buildService,
-    new DiscService(dbService, 'browser'),
-    new DiscLoadoutService('browser', notifications),
-    new UpgradePlanService('browser', new DataFileService(http), notifications, buildService),
+    new DiscService(dbService),
+    new DiscLoadoutService(notifications),
+    new UpgradePlanService(new DataFileService(http), notifications, buildService),
     dbService,
   );
   return { db, service };

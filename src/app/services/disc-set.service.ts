@@ -1,5 +1,4 @@
-import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { DbService } from './db.service';
 
@@ -26,20 +25,11 @@ export class DiscSetService {
   private discSetMapById = new Map<string, DiscSet>();
   private discSetMapByName = new Map<string, DiscSet>();
 
-  constructor(
-    private db: DbService,
-    @Inject(PLATFORM_ID) private platformId: Object,
-  ) {
+  constructor(private db: DbService) {
     this.loadDiscSetsFromDb();
   }
 
   private async loadDiscSetsFromDb(): Promise<void> {
-    // Only run in browser
-    if (!isPlatformBrowser(this.platformId)) {
-      this.discSetsSubject.next([]);
-      return;
-    }
-
     try {
       const discSets = await this.db.getAllDiscSets();
       this.discSetsSubject.next(discSets);

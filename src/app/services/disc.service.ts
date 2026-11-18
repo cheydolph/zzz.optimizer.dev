@@ -1,6 +1,5 @@
 // services/disc.service.ts
-import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Disc } from '../models/disc.model';
 import { DiscSlot } from '../models/agent.model';
@@ -18,10 +17,7 @@ export class DiscService {
   private discsBySet = new Map<string, Disc[]>();
   private unequippedDiscs: Disc[] = [];
 
-  constructor(
-    private db: DbService,
-    @Inject(PLATFORM_ID) private platformId: Object,
-  ) {
+  constructor(private db: DbService) {
     this.loadDiscsFromDb();
   }
 
@@ -54,12 +50,6 @@ export class DiscService {
   }
 
   async loadDiscsFromDb(): Promise<void> {
-    // Only run in browser
-    if (!isPlatformBrowser(this.platformId)) {
-      this.discsSubject.next([]);
-      return;
-    }
-
     try {
       const discs = await this.db.getAllDiscs();
       this.rebuildIndexes(discs); // OPTIMIZATION: Build indexes

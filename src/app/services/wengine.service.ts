@@ -1,6 +1,5 @@
 // services/wengine.service.ts
-import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { WEngine } from '../models/wengine.model';
 import { DbService } from './db.service';
@@ -18,20 +17,11 @@ export class WEngineService {
   private wEnginesByRarity = new Map<'S' | 'A' | 'B', WEngine[]>();
   private signatureWEngineMap = new Map<string, WEngine>();
 
-  constructor(
-    private db: DbService,
-    @Inject(PLATFORM_ID) private platformId: Object,
-  ) {
+  constructor(private db: DbService) {
     this.loadWEngines();
   }
 
   async loadWEngines() {
-    // Only run in browser
-    if (!isPlatformBrowser(this.platformId)) {
-      this.wEnginesSubject.next([]);
-      return;
-    }
-
     try {
       const wEngines = await this.db.getAllWEngines();
       this.wEnginesSubject.next(wEngines);

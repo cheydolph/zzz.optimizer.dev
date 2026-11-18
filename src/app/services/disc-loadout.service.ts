@@ -1,5 +1,4 @@
-import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { DiscLoadout } from '../models/disc-loadout.model';
 import { Disc } from '../models/disc.model';
@@ -27,10 +26,7 @@ export class DiscLoadoutService {
   // Set when stored loadouts could not be read or backed up; saving would destroy them (BUG-15).
   private saveBlocked = false;
 
-  constructor(
-    @Inject(PLATFORM_ID) private platformId: Object,
-    private notificationService: NotificationService,
-  ) {
+  constructor(private notificationService: NotificationService) {
     this.loadLoadouts();
   }
 
@@ -43,11 +39,6 @@ export class DiscLoadoutService {
    * Load all disc loadouts from localStorage
    */
   private loadLoadouts(): void {
-    if (!isPlatformBrowser(this.platformId)) {
-      this.setLoadouts([]);
-      return;
-    }
-
     const read = readStoredArray<DiscLoadout>(this.STORAGE_KEY);
     this.saveBlocked = read.saveBlocked;
     const notice = storageReadNotice('loadouts', read);
@@ -68,10 +59,6 @@ export class DiscLoadoutService {
    * Save loadouts to localStorage
    */
   private saveLoadouts(): void {
-    if (!isPlatformBrowser(this.platformId)) {
-      return;
-    }
-
     if (this.saveBlocked) {
       console.error('[DiscLoadoutService] Loadouts were not saved: the stored loadouts could not be read or backed up');
       return;
@@ -332,9 +319,7 @@ export class DiscLoadoutService {
       }
     }
 
-    if (isPlatformBrowser(this.platformId)) {
-      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(loadouts));
-    }
+    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(loadouts));
     this.setLoadouts(loadouts);
   }
 

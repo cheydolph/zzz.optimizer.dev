@@ -1,5 +1,4 @@
-import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { Injectable } from '@angular/core';
 import { DataImportService } from './data-import.service';
 import { LoadingService } from './loading.service';
 import { NotificationService } from './notification.service';
@@ -40,7 +39,6 @@ export class AppInitService {
     private loadingService: LoadingService,
     private notificationService: NotificationService,
     private buildService: BuildService,
-    @Inject(PLATFORM_ID) private platformId: Object,
   ) {}
 
   /**
@@ -48,11 +46,6 @@ export class AppInitService {
    * This should be called once when the app starts
    */
   async initialize(): Promise<void> {
-    // Only run in browser, not during SSR
-    if (!isPlatformBrowser(this.platformId)) {
-      return;
-    }
-
     if (this.initialized) {
       return;
     }

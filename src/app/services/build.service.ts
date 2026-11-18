@@ -1,5 +1,4 @@
-import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { DbService } from './db.service';
 import { StatCalculatorService } from './stat-calculator.service';
@@ -102,7 +101,6 @@ export class BuildService {
     private statCalculator: StatCalculatorService,
     private scoringService: ScoringService,
     private notificationService: NotificationService,
-    @Inject(PLATFORM_ID) private platformId: Object,
   ) {
     this.loadBuilds();
   }
@@ -111,13 +109,6 @@ export class BuildService {
    * Load all user builds from localStorage
    */
   async loadBuilds() {
-    // Only run in browser
-    if (!isPlatformBrowser(this.platformId)) {
-      this.builds = [];
-      this.buildsSubject.next(this.builds);
-      return;
-    }
-
     const read = readStoredArray<AgentBuild>(BUILDS_STORAGE_KEY);
     let builds = read.items;
     try {
@@ -160,10 +151,6 @@ export class BuildService {
    * Save builds to localStorage
    */
   private async saveBuilds(builds: AgentBuild[]) {
-    // Only run in browser
-    if (!isPlatformBrowser(this.platformId)) {
-      return;
-    }
     this.builds = builds;
 
     if (this.saveBlocked) {

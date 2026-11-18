@@ -46,7 +46,7 @@ describe('UpgradePlansComponent copy-on-edit (BUG-14)', () => {
     localStorage.clear();
     const dataFiles = { load: async () => ({ agents: {} }) } as unknown as DataFileService;
     const builds = { clearMissingPlanLinks: async () => undefined } as unknown as BuildService; // no builds here
-    plans = new UpgradePlanService('browser', dataFiles, notifications as unknown as NotificationService, builds);
+    plans = new UpgradePlanService(dataFiles, notifications as unknown as NotificationService, builds);
     plans.plans$.subscribe(deepFreeze);
     component = createComponent();
   });
