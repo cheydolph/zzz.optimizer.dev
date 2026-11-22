@@ -5,7 +5,6 @@ import { Subject } from 'rxjs';
 import { takeUntil, filter } from 'rxjs/operators';
 import { SwUpdateService } from '../../services/sw-update.service';
 import { environment } from '../../../environments/environment';
-import { fadeIn } from '../../animations/route-animations';
 
 @Component({
   selector: 'app-navigation',
@@ -13,7 +12,6 @@ import { fadeIn } from '../../animations/route-animations';
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [fadeIn],
 })
 export class NavigationComponent implements OnInit, OnDestroy {
   showWhatsNewBadge = false;

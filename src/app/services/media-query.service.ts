@@ -6,6 +6,8 @@ interface DesktopInputs {
   readonly mobileUserAgent: boolean;
   /** `innerWidth` at least 769 px; follows the window's resize events */
   readonly wideViewport: Signal<boolean>;
+  /** Follows the `(prefers-reduced-motion: reduce)` query; not part of the device class */
+  readonly reducedMotion: Signal<boolean>;
 }
 
 /**
@@ -28,6 +30,12 @@ export class MediaQueryService {
     const { mouseWithoutTouch, mobileUserAgent, wideViewport } = this.desktopInputs;
     return mouseWithoutTouch() || (!mobileUserAgent && wideViewport());
   }
+
+  /** True while the device setting asks for reduced motion; follows changes to the setting. */
+  prefersReducedMotion(): boolean {
+    this.desktopInputs ??= watchDesktopInputs();
+    return this.desktopInputs.reducedMotion();
+  }
 }
 
 function watchDesktopInputs(): DesktopInputs {
@@ -45,9 +53,15 @@ function watchDesktopInputs(): DesktopInputs {
   const wideViewport = signal(window.innerWidth >= 769);
   window.addEventListener('resize', () => wideViewport.set(window.innerWidth >= 769));
 
+  // Set up here with the other inputs, so a variant of this function stays a local change (BL-19)
+  const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const reducedMotion = signal(reducedMotionQuery.matches);
+  reducedMotionQuery.addEventListener('change', () => reducedMotion.set(reducedMotionQuery.matches));
+
   return {
     mouseWithoutTouch: mouseWithoutTouch.asReadonly(),
     mobileUserAgent,
     wideViewport: wideViewport.asReadonly(),
+    reducedMotion: reducedMotion.asReadonly(),
   };
 }

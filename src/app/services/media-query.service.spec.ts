@@ -2,20 +2,30 @@ import { MediaQueryService } from './media-query.service';
 
 // PERF-16: the touch check, the user-agent test, the pointer query, and the 769 px width test run once; the pointer
 // query again when it changes, the width test again on a window resize. jsdom has no matchMedia, so each test installs
-// a fake query it can fire.
-function fakeMatchMedia(coarse: boolean) {
-  const listeners: Array<() => void> = [];
+// fake queries it can fire. Slice 4.7a adds the reduced-motion query, set up with the others and followed the same way.
+const COARSE = '(pointer: coarse)';
+const REDUCE = '(prefers-reduced-motion: reduce)';
+
+function fakeMatchMedia(coarse: boolean, reduce = false) {
+  const state: Record<string, boolean> = { [COARSE]: coarse, [REDUCE]: reduce };
+  const listeners: Record<string, Array<() => void>> = {};
   const matchMedia = vi.fn((query: string) => ({
     get matches() {
-      return query === '(pointer: coarse)' ? coarse : false;
+      return state[query] ?? false;
     },
-    addEventListener: (_type: string, listener: () => void) => listeners.push(listener),
+    addEventListener: (_type: string, listener: () => void) => {
+      listeners[query] = [...(listeners[query] ?? []), listener];
+    },
   }));
-  const changePointer = (value: boolean) => {
-    coarse = value;
-    for (const listener of listeners) listener();
+  const change = (query: string, value: boolean) => {
+    state[query] = value;
+    for (const listener of listeners[query] ?? []) listener();
   };
-  return { matchMedia, changePointer };
+  return {
+    matchMedia,
+    changePointer: (value: boolean) => change(COARSE, value),
+    changeReducedMotion: (value: boolean) => change(REDUCE, value),
+  };
 }
 
 // Removes `ontouchstart` from wherever jsdom defines it on the window's prototype chain, for a device without touch
@@ -65,7 +75,8 @@ describe('MediaQueryService', () => {
     expect(service.isDesktopDevice()).toBe(true);
     resizeTo(768);
     expect(service.isDesktopDevice()).toBe(false);
-    expect(media.matchMedia).toHaveBeenCalledTimes(1);
+    // Each query is created once, on the first read
+    expect(media.matchMedia.mock.calls.map(([query]) => query)).toEqual([COARSE, REDUCE]);
   });
 
   it('treats a mouse without touch as a desktop at any width, until the pointer becomes coarse', () => {
@@ -90,5 +101,31 @@ describe('MediaQueryService', () => {
     vi.stubGlobal('innerWidth', 1366);
 
     expect(new MediaQueryService().isDesktopDevice()).toBe(false);
+  });
+
+  it('follows the reduced-motion setting and its changes, without changing the device class', () => {
+    restoreTouchHandler = removeTouchHandler();
+    stubNavigator('maxTouchPoints', 0);
+    const media = fakeMatchMedia(false, true);
+    vi.stubGlobal('matchMedia', media.matchMedia);
+    vi.stubGlobal('innerWidth', 1366);
+    const service = new MediaQueryService();
+
+    expect(service.prefersReducedMotion()).toBe(true);
+    expect(service.isDesktopDevice()).toBe(true);
+    media.changeReducedMotion(false);
+    expect(service.prefersReducedMotion()).toBe(false);
+    media.changeReducedMotion(true);
+    expect(service.prefersReducedMotion()).toBe(true);
+    expect(service.isDesktopDevice()).toBe(true);
+    expect(media.matchMedia).toHaveBeenCalledTimes(2);
+  });
+
+  it('reads no reduced motion when the setting is off', () => {
+    stubNavigator('maxTouchPoints', 5);
+    vi.stubGlobal('matchMedia', fakeMatchMedia(true).matchMedia);
+    vi.stubGlobal('innerWidth', 360);
+
+    expect(new MediaQueryService().prefersReducedMotion()).toBe(false);
   });
 });

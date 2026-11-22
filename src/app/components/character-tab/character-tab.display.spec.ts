@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
@@ -93,7 +92,6 @@ describe('CharacterTabComponent display checks', () => {
       providers: [
         { provide: HttpClient, useValue: new AssetHttp(SRC_DIR) },
         provideRouter([]),
-        provideNoopAnimations(),
         {
           provide: SwUpdate,
           useValue: {

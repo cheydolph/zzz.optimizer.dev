@@ -53,7 +53,6 @@ import { getDiscFormSubstatError, getDiscValidationErrors, hasValidationErrors }
 import { OWNING_UID_STORAGE_KEY, UID_HISTORY_STORAGE_KEY } from '../../constants/storage-keys';
 import { ENKA_INVALID_UID_MESSAGE } from '../../constants/enka-messages';
 import { InfoDialogComponent } from '../info-dialog/info-dialog.component';
-import { fadeIn, scaleIn, fadeInUp, expandCollapse, fadeInFast, slideInRight } from '../../animations/route-animations';
 
 interface MindscapeData {
   mindscapes: {
@@ -98,7 +97,6 @@ interface ScoredDisc {
   templateUrl: './character-tab.component.html',
   styleUrls: ['./character-tab.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [fadeIn, scaleIn, fadeInUp, expandCollapse, fadeInFast, slideInRight],
 })
 export class CharacterTabComponent implements OnInit, OnDestroy {
   // Expose Object for template use
@@ -4148,7 +4146,8 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       return false;
     }
 
-    return this.mediaQueries.isDesktopDevice();
+    // Under reduced motion the static icon replaces the looping video (slice 4.4 decision)
+    return this.mediaQueries.isDesktopDevice() && !this.mediaQueries.prefersReducedMotion();
   }
 
   onWEngineVideoError(event: any, wengine: any): void {

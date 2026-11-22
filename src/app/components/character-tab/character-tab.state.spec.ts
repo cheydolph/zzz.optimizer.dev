@@ -2,7 +2,6 @@ import type { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
 import { EMPTY } from 'rxjs';
@@ -40,7 +39,6 @@ describe('CharacterTabComponent build writes (BUG-17)', () => {
         provideHttpClient(),
         provideHttpClientTesting(),
         provideRouter([]),
-        provideNoopAnimations(),
         {
           provide: SwUpdate,
           useValue: {
@@ -133,7 +131,6 @@ describe('CharacterTabComponent form state (NG-07b)', () => {
         provideHttpClient(),
         provideHttpClientTesting(),
         provideRouter([]),
-        provideNoopAnimations(),
         {
           provide: SwUpdate,
           useValue: {

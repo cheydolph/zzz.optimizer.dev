@@ -2,7 +2,6 @@ import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import type { Type } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
 import { EMPTY } from 'rxjs';
@@ -19,6 +18,7 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { UpdateNotificationComponent } from './update-notification/update-notification.component';
 import { UpgradePlansComponent } from './upgrade-plans/upgrade-plans.component';
 import { WhatsNewComponent } from './whats-new/whats-new.component';
+import { MediaQueryService } from '../services/media-query.service';
 
 /**
  * Smoke tests: every component must construct and complete a first change
@@ -58,7 +58,6 @@ describe('component smoke tests', () => {
     vi.spyOn(console, 'log').mockImplementation(() => undefined);
 
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule],
       providers: [
         provideHttpClient(),
         provideHttpClientTesting(),
@@ -123,4 +122,26 @@ describe('component smoke tests', () => {
       });
     });
   }
+
+  // Slice 4.7a: under reduced motion the build view shows the static W-Engine icon instead of the looping video
+  describe('CharacterTabComponent W-Engine icon', () => {
+    const wEngine = { icon: 'assets/data/images/wengines/Weapon_S_1051.webp' };
+    const cases = [
+      [true, false, true],
+      [true, true, false],
+      [false, false, false],
+      [false, true, false],
+    ] as const;
+    for (const [desktop, reduced, animated] of cases) {
+      it(`is ${animated ? 'animated' : 'static'} on a ${desktop ? 'desktop' : 'phone'} with reduced motion ${reduced ? 'on' : 'off'}`, () => {
+        // The root instance the component injects; afterEach restores the spies
+        const media = TestBed.inject(MediaQueryService);
+        vi.spyOn(media, 'isDesktopDevice').mockReturnValue(desktop);
+        vi.spyOn(media, 'prefersReducedMotion').mockReturnValue(reduced);
+        const component = TestBed.createComponent(CharacterTabComponent).componentInstance;
+        flushPendingRequests();
+        expect(component.isWEngineAnimated(wEngine)).toBe(animated);
+      });
+    }
+  });
 });

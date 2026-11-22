@@ -2,7 +2,6 @@ import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { ElementRef } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
 import { EMPTY } from 'rxjs';
@@ -65,7 +64,6 @@ describe('CharacterTabComponent share image', () => {
         provideHttpClient(),
         provideHttpClientTesting(),
         provideRouter([]),
-        provideNoopAnimations(),
         {
           provide: SwUpdate,
           useValue: {

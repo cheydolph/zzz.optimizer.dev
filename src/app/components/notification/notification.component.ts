@@ -3,7 +3,6 @@ import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRe
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { NotificationService, Notification } from '../../services/notification.service';
-import { slideInRight } from '../../animations/route-animations';
 
 @Component({
   selector: 'app-notification',
@@ -11,7 +10,6 @@ import { slideInRight } from '../../animations/route-animations';
   templateUrl: './notification.component.html',
   styleUrl: './notification.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [slideInRight],
 })
 export class NotificationComponent implements OnInit, OnDestroy {
   notification: Notification | null = null;

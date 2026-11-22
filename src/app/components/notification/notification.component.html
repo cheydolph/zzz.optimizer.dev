@@ -1,5 +1,5 @@
 @if (notification) {
-  <div class="fixed top-5 right-5 z-[10000] md:left-2.5 md:top-2.5" @slideInRight>
+  <div class="fixed top-5 right-5 z-[10000] md:left-2.5 md:top-2.5" animate.enter="fx-slide-right-enter" animate.leave="fx-slide-right-leave">
     <div class="notification flex items-center gap-3 px-6 py-4 rounded-lg shadow-2xl min-w-[300px] max-w-[500px] md:min-w-0 md:w-full transition-all duration-300 hover:scale-105"
       [style.background]="getNotificationBackground()">
       <span class="flex-1 text-[0.95rem] text-white font-medium md:text-sm">{{ notification.message }}</span>

@@ -58,7 +58,7 @@
                 <span class="history-icon">▼</span>
               </button>
               @if (showUidHistoryDropdown) {
-                <div class="uid-history-dropdown-main" @expandCollapse>
+                <div class="uid-history-dropdown-main" animate.enter="fx-fade-enter" animate.leave="fx-fade-leave">
                   <div class="uid-history-header">
                     <span>Recent UIDs</span>
                     <button
@@ -106,7 +106,7 @@
       </div>
       <!-- Important Assumptions Notice -->
       @if (showAssumptionsNotice) {
-        <div class="assumptions-notice" @expandCollapse>
+        <div class="assumptions-notice">
           <div class="notice-icon">ℹ️</div>
           <div class="notice-content">
             <h3>Important Assumptions</h3>
@@ -451,7 +451,7 @@
                 </div>
                 <!-- W-Engine Picker -->
                 @if (showWEnginePicker) {
-                  <div class="wengine-picker" @expandCollapse>
+                  <div class="wengine-picker" animate.enter="fx-fade-enter" animate.leave="fx-fade-leave">
                     <div class="wengine-picker-controls">
                       <input
                         type="text"
@@ -1042,12 +1042,12 @@
                               <div
                                 class="modal-overlay"
                                 (click)="closeAddAgentModal()"
-                                @fadeIn
+                                animate.enter="fx-fade-enter" animate.leave="fx-fade-leave"
                                 role="dialog"
                                 aria-labelledby="add-agent-title"
                                 aria-modal="true"
                                 >
-                                <div class="modal-content" (click)="$event.stopPropagation()" @scaleIn>
+                                <div class="modal-content" (click)="$event.stopPropagation()">
                                   <div class="modal-header">
                                     <h2 id="add-agent-title">Add Agent</h2>
                                     <button
@@ -1354,7 +1354,7 @@
                                 class="modal-overlay"
                                 [class.modal-overlay-high-z]="showLoadoutsModal"
                                 (click)="closeDiscPicker()"
-                                @fadeIn
+                                animate.enter="fx-fade-enter" animate.leave="fx-fade-leave"
                                 role="dialog"
                                 aria-labelledby="disc-picker-title"
                                 aria-modal="true"
@@ -1362,7 +1362,6 @@
                                 <div
                                   class="modal-content disc-picker-modal"
                                   (click)="$event.stopPropagation()"
-                                  @scaleIn
                                   >
                                   <div class="modal-header">
                                     <h2 id="disc-picker-title">
@@ -1445,11 +1444,10 @@
                               <div class="modal-overlay"
                                 [class.modal-overlay-high-z]="showLoadoutsModal"
                                 (click)="closeDiscForm()"
-                                @fadeIn>
+                                animate.enter="fx-fade-enter" animate.leave="fx-fade-leave">
                                 <div
                                   class="modal-content disc-form-modal"
                                   (click)="$event.stopPropagation()"
-                                  @scaleIn
                                   >
                                   <div class="modal-header">
                                     <h2>{{ isEditMode ? "Edit Disc Stats" : "Configure Disc Stats" }}</h2>
@@ -1593,11 +1591,10 @@
 
                             <!-- Compare Discs Modal -->
                             @if (showCompareModal) {
-                              <div class="modal-overlay" (click)="closeCompareModal()" @fadeIn>
+                              <div class="modal-overlay" (click)="closeCompareModal()" animate.enter="fx-fade-enter" animate.leave="fx-fade-leave">
                                 <div
                                   class="modal-content compare-modal-content"
                                   (click)="$event.stopPropagation()"
-                                  @scaleIn
                                   >
                                   <div class="modal-header">
                                     <h2>Compare Discs - {{ formatDiscSlot(compareDiscSlot!) }}</h2>
@@ -1810,7 +1807,7 @@
                               <div
                                 class="modal-overlay"
                                 (click)="closeConfirmDialog()"
-                                @fadeIn
+                                animate.enter="fx-fade-enter" animate.leave="fx-fade-leave"
                                 role="alertdialog"
                                 aria-labelledby="confirm-dialog-title"
                                 aria-describedby="confirm-dialog-message"
@@ -1819,7 +1816,6 @@
                                 <div
                                   class="modal-content confirm-dialog-modal"
                                   (click)="$event.stopPropagation()"
-                                  @scaleIn
                                   >
                                   <div class="modal-header">
                                     <h2 id="confirm-dialog-title">{{ confirmDialogData.title }}</h2>
@@ -1868,9 +1864,9 @@
                               <div
                                 class="modal-overlay"
                                 (click)="closeEnkaImportModal()"
-                                @fadeIn
+                                animate.enter="fx-fade-enter" animate.leave="fx-fade-leave"
                                 >
-                                <div class="modal-content enka-import-modal" (click)="$event.stopPropagation()" @scaleIn>
+                                <div class="modal-content enka-import-modal" (click)="$event.stopPropagation()">
                                   <button
                                     class="modal-close-btn"
                                     (click)="closeEnkaImportModal()"
@@ -1967,12 +1963,12 @@
                                 <div
                                   class="modal-overlay"
                                   (click)="closeShareModal()"
-                                  @fadeIn
+                                  animate.enter="fx-fade-enter" animate.leave="fx-fade-leave"
                                   role="dialog"
                                   aria-labelledby="share-modal-title"
                                   aria-modal="true"
                                   >
-                                  <div class="modal-content share-modal-content" (click)="$event.stopPropagation()" @scaleIn>
+                                  <div class="modal-content share-modal-content" (click)="$event.stopPropagation()">
                                     <div class="modal-header">
                                       <h2 id="share-modal-title">Share Build</h2>
                                       <button
@@ -2235,8 +2231,8 @@
 
                               <!-- Disc Loadouts Modal -->
                               @if (showLoadoutsModal) {
-                                <div class="modal-overlay" (click)="closeLoadoutsModal()" @fadeIn>
-                                  <div class="modal-content loadouts-modal-content" (click)="$event.stopPropagation()" @scaleIn>
+                                <div class="modal-overlay" (click)="closeLoadoutsModal()" animate.enter="fx-fade-enter" animate.leave="fx-fade-leave">
+                                  <div class="modal-content loadouts-modal-content" (click)="$event.stopPropagation()">
                                     <div class="modal-header">
                                       <h2>Disc Loadouts - {{ selectedBuild?.name }}</h2>
                                       <button class="close-btn" (click)="closeLoadoutsModal()">×</button>
@@ -2276,7 +2272,7 @@
                                       <div class="loadouts-divider"></div>
                                       <!-- Save Current Flow -->
                                       @if (showSaveCurrentForm) {
-                                        <div class="save-current-form-section" @expandCollapse>
+                                        <div class="save-current-form-section" animate.enter="fx-fade-enter" animate.leave="fx-fade-leave">
                                           <h3>Save Current Configuration</h3>
                                           <p class="form-description">Save your currently equipped discs ({{ getEquippedDiscsCount(selectedBuild!) }}/6) as a loadout</p>
                                           <div class="save-loadout-form">
@@ -2301,7 +2297,7 @@
                                       }
                                       <!-- Create Empty Flow -->
                                       @if (showCreateEmptyForm) {
-                                        <div class="create-empty-form-section" @expandCollapse>
+                                        <div class="create-empty-form-section" animate.enter="fx-fade-enter" animate.leave="fx-fade-leave">
                                           <h3>Create Empty Loadout</h3>
                                           <p class="form-description">Name your loadout, then select discs for each slot</p>
                                           <div class="save-loadout-form">
@@ -2448,7 +2444,7 @@
                                       </div>
                                       <!-- Preview Section -->
                                       @if (selectedLoadoutForPreview) {
-                                        <div class="loadout-preview-section" @slideInRight>
+                                        <div class="loadout-preview-section" animate.enter="fx-slide-right-enter" animate.leave="fx-slide-right-leave">
                                           <div class="preview-header">
                                             <h3>Preview: {{ selectedLoadoutForPreview.name }}</h3>
                                             <button class="btn-secondary btn-compact" (click)="clearLoadoutPreview()">

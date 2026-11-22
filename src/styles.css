@@ -228,6 +228,70 @@ body {
   }
 }
 
+/* Enter and leave animations, applied by Angular's animate.enter / animate.leave (slice 4.7a; they replaced the
+   @angular/animations triggers fadeIn, expandCollapse, slideInRight, and the loading overlay's slideOut with the same
+   timing). Kept global so encapsulation does not rename the keyframes. The leave classes hold their last frame until
+   Angular removes the element at animationend. The reduced-motion block below shortens all of them. The fades
+   keep trunk's 140/100 ms (f853ffa), chosen over 300/200 ms in slice 4.7a. */
+.fx-fade-enter {
+  animation: fx-fade-in 140ms ease-out;
+}
+
+.fx-fade-leave {
+  animation: fx-fade-out 100ms ease-in forwards;
+}
+
+.fx-slide-right-enter {
+  animation: fx-slide-in-right 300ms ease-out;
+}
+
+.fx-slide-right-leave {
+  animation: fx-slide-out-right 200ms ease-in forwards;
+}
+
+.fx-overlay-leave {
+  animation: fx-overlay-out 600ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes fx-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fx-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fx-slide-in-right {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fx-slide-out-right {
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes fx-overlay-out {
+  to {
+    transform: translateX(100%);
+  }
+}
+
 /* Reduced motion: animations and transitions jump to their end, and navigation does not animate.
    Durations are shortened rather than removed so animations with fill-mode still reach their final frame. */
 @media (prefers-reduced-motion: reduce) {

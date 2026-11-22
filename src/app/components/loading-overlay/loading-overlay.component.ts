@@ -8,26 +8,12 @@ import {
   OnDestroy,
 } from '@angular/core';
 
-import { trigger, transition, style, animate, state } from '@angular/animations';
-
 @Component({
   selector: 'app-loading-overlay',
   imports: [],
   templateUrl: './loading-overlay.component.html',
   styleUrl: './loading-overlay.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [
-    trigger('slideOut', [
-      transition(':leave', [
-        animate(
-          '600ms cubic-bezier(0.4, 0, 0.2, 1)',
-          style({
-            transform: 'translateX(100%)',
-          }),
-        ),
-      ]),
-    ]),
-  ],
 })
 export class LoadingOverlayComponent implements AfterViewInit, OnDestroy {
   @ViewChild('bangbooVideo') bangbooVideo?: ElementRef<HTMLVideoElement>;
