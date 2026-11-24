@@ -1,6 +1,23 @@
 import { Injectable } from '@angular/core';
-import { Agent, BaseStats } from '../models/agent.model';
-import { WEngine } from '../models/wengine.model';
+import {
+  Agent,
+  BaseStats,
+  MindscapeEffect,
+  MindscapeStatBonus,
+  RawAgentAscensionPhase,
+  RawAgentAscensionProp,
+  RawMindscapeCinema,
+  Specialty,
+} from '../models/agent.model';
+import {
+  RawWEngine,
+  RawWEngineEffectProperty,
+  RawWEngineTalent,
+  RefinementProperty,
+  WEngine,
+} from '../models/wengine.model';
+import type { RawDiscSet } from '../models/disc.model';
+import type { DiscSet, DiscSetBonus } from './disc-set.service';
 import { DataMappingService } from './data-mapping.service';
 
 /**
@@ -38,7 +55,7 @@ export class DataTransformerService {
       // Object format: legacy format with numeric keys
       for (const [id, rawAgent] of Object.entries(rawData)) {
         try {
-          const agent = this.transformSingleAgent(id, rawAgent as any);
+          const agent = this.transformSingleAgent(id, rawAgent);
           if (agent) {
             agents.push(agent);
           }
@@ -72,9 +89,9 @@ export class DataTransformerService {
 
     // Check extra_ascension first (agents.json format)
     if (rawAgent.extra_ascension) {
-      const level60Phase = rawAgent.extra_ascension.find((phase: any) => phase.max_level === 60);
+      const level60Phase = rawAgent.extra_ascension.find((phase: RawAgentAscensionPhase) => phase.max_level === 60);
       if (level60Phase && level60Phase.props) {
-        const hpProp = level60Phase.props.find((prop: any) => prop.id === 11102);
+        const hpProp = level60Phase.props.find((prop: RawAgentAscensionProp) => prop.id === 11102);
         if (hpProp) {
           hasHPAscension = true;
           hpAscensionPercent = hpProp.value / 100; // 1800 -> 18
@@ -386,7 +403,7 @@ export class DataTransformerService {
 
     for (const [id, rawWEngine] of Object.entries(rawData)) {
       try {
-        const wEngine = this.transformSingleWEngine(id, rawWEngine as any);
+        const wEngine = this.transformSingleWEngine(id, rawWEngine);
         if (wEngine) {
           wEngines.push(wEngine);
         }
@@ -421,13 +438,13 @@ export class DataTransformerService {
       : this.mappingService.getRarity(rawWEngine.rank);
 
     // Map specialty from WeaponType if available
-    let specialty: 'Attack' | 'Stun' | 'Anomaly' | 'Support' | 'Defense';
+    let specialty: Specialty;
     if (rawWEngine.WeaponType) {
-      const weaponTypeObj = rawWEngine.WeaponType;
-      const weaponTypeValue = Object.values(weaponTypeObj)[0] as string;
-      specialty = this.mappingService.getSpecialtyFromName(weaponTypeValue || 'Attack') as any;
+      const weaponTypeObj: RawWEngine['WeaponType'] = rawWEngine.WeaponType;
+      const weaponTypeValue = Object.values(weaponTypeObj)[0];
+      specialty = this.mappingService.getSpecialtyFromName(weaponTypeValue || 'Attack');
     } else {
-      specialty = this.mappingService.getSpecialty(rawWEngine.type) as any;
+      specialty = this.mappingService.getSpecialty(rawWEngine.type);
     }
 
     // Extract base stat from BaseProperty (already at level 60)
@@ -445,7 +462,7 @@ export class DataTransformerService {
     const subStatValue = isPercentageStat ? (randProp.Value || 0) / 100 : randProp.Value || 0;
 
     // Map substat name to our StatType
-    let subStatType: any = 'ATK%';
+    let subStatType: WEngine['subStat']['type'] = 'ATK%';
     if (subStatName === 'CRIT Rate') {
       subStatType = 'CRIT_Rate';
     } else if (subStatName === 'CRIT DMG') {
@@ -517,7 +534,7 @@ export class DataTransformerService {
   /**
    * Transform new format W-Engine (from weapon/{id}.json files)
    */
-  private transformNewFormatWEngine(id: string, raw: any): WEngine | null {
+  private transformNewFormatWEngine(id: string, raw: RawWEngine): WEngine | null {
     // Extract weapon type - it's an object like { "1": "Attack" }
     const weaponTypeObj = raw.WeaponType || {};
     const weaponTypeKey = Object.keys(weaponTypeObj)[0];
@@ -550,7 +567,7 @@ export class DataTransformerService {
     const subStatValue = isPercentageStat ? (randProp.Value || 0) / 100 : randProp.Value || 0;
 
     // Map substat name to our StatType
-    let subStatType: any = 'ATK%';
+    let subStatType: WEngine['subStat']['type'] = 'ATK%';
     if (subStatName === 'CRIT Rate') {
       subStatType = 'CRIT_Rate';
     } else if (subStatName === 'CRIT DMG') {
@@ -574,8 +591,8 @@ export class DataTransformerService {
     }
 
     // Get effect description from Effect.Desc first, then fallback to Talents (first talent)
-    const talents = raw.Talents || {};
-    const firstTalent = talents['1'] || {};
+    const talents: { [talentId: string]: RawWEngineTalent } = raw.Talents || {};
+    const firstTalent: RawWEngineTalent = talents['1'] || {};
     const effectDesc = raw.Effect?.Desc || firstTalent.Desc || raw.Desc || 'No description available';
 
     // Extract icon from Icon field or construct from rarity/id
@@ -594,7 +611,7 @@ export class DataTransformerService {
     }
 
     // Extract refinement properties if available - prefer Effect.Properties over Talents
-    let refinementProperties: any[] = [];
+    let refinementProperties: RefinementProperty[] = [];
     if (raw.Effect?.Properties && Array.isArray(raw.Effect.Properties)) {
       refinementProperties = this.extractRefinementProperties(raw.Effect.Properties);
     } else {
@@ -632,9 +649,9 @@ export class DataTransformerService {
     let hpAscensionPercent = 0;
 
     if (basicAgent.extra_ascension) {
-      const level60Phase = basicAgent.extra_ascension.find((phase: any) => phase.max_level === 60);
+      const level60Phase = basicAgent.extra_ascension.find((phase: RawAgentAscensionPhase) => phase.max_level === 60);
       if (level60Phase && level60Phase.props) {
-        const hpProp = level60Phase.props.find((prop: any) => prop.id === 11102);
+        const hpProp = level60Phase.props.find((prop: RawAgentAscensionProp) => prop.id === 11102);
         if (hpProp) {
           hasHPAscension = true;
           hpAscensionPercent = hpProp.value / 100; // 1800 -> 18
@@ -725,12 +742,12 @@ export class DataTransformerService {
    * Extract mindscape effects from mindscape_cinemas array
    * Only includes mindscapes that provide stat bonuses matching BaseStats
    */
-  private extractMindscapeEffects(mindscapeCinemas: any[]): any[] {
+  private extractMindscapeEffects(mindscapeCinemas: RawMindscapeCinema[]): MindscapeEffect[] {
     if (!mindscapeCinemas || mindscapeCinemas.length === 0) {
       return [];
     }
 
-    const effects: any[] = [];
+    const effects: MindscapeEffect[] = [];
 
     mindscapeCinemas.forEach((cinema) => {
       const statBonuses = this.parseMindscapeStatBonuses(cinema.description);
@@ -753,11 +770,11 @@ export class DataTransformerService {
    * Parse mindscape description to extract stat bonuses
    * Only extracts bonuses that match BaseStats model
    */
-  private parseMindscapeStatBonuses(description: string): any[] {
-    const bonuses: any[] = [];
+  private parseMindscapeStatBonuses(description: string): MindscapeStatBonus[] {
+    const bonuses: MindscapeStatBonus[] = [];
 
     // Patterns for different stat types
-    const patterns = [
+    const patterns: Array<{ regex: RegExp; type: MindscapeStatBonus['type']; conditional: boolean }> = [
       { regex: /ATK increases by (\d+(?:\.\d+)?)%/i, type: 'ATK%', conditional: false },
       { regex: /HP (?:increases|is increased) by (\d+(?:\.\d+)?)%/i, type: 'HP%', conditional: false },
       { regex: /Max HP increases by (\d+(?:\.\d+)?)%/i, type: 'HP%', conditional: false },
@@ -793,8 +810,8 @@ export class DataTransformerService {
   /**
    * Transform disc sets from equipment JSON files
    */
-  transformDiscSets(rawData: any): any[] {
-    const discSets: any[] = [];
+  transformDiscSets(rawData: any): DiscSet[] {
+    const discSets: DiscSet[] = [];
 
     for (const [id, rawSet] of Object.entries(rawData)) {
       try {
@@ -813,12 +830,12 @@ export class DataTransformerService {
   /**
    * Transform a single disc set from equipment JSON
    */
-  private transformSingleDiscSet(id: string, raw: any): any | null {
+  private transformSingleDiscSet(id: string, raw: RawDiscSet): DiscSet | null {
     if (!raw.Name) {
       return null;
     }
 
-    const bonuses: any[] = [];
+    const bonuses: DiscSetBonus[] = [];
 
     // 2-piece bonus
     if (raw.Desc2) {
@@ -859,7 +876,7 @@ export class DataTransformerService {
    * Properties format: { Name: "ATK", Overclock: { W1: 1000, W2: 1150, ... } }
    * Values are in basis points (1000 = 10%)
    */
-  private extractRefinementProperties(properties: any[]): any[] {
+  private extractRefinementProperties(properties: RawWEngineEffectProperty[]): RefinementProperty[] {
     if (!properties || properties.length === 0) {
       return [];
     }
@@ -870,7 +887,7 @@ export class DataTransformerService {
       const format = prop.Format || '';
 
       // Map property name to our stat type
-      let type: any = 'ATK%';
+      let type: RefinementProperty['type'] = 'ATK%';
       if (name === 'CRIT Rate') {
         type = 'CRIT_Rate';
       } else if (name === 'CRIT DMG') {
@@ -920,7 +937,7 @@ export class DataTransformerService {
    * The actual stat bonuses are in Effect.Properties from wengines.json
    * So this method returns empty array for weapon files
    */
-  private extractRefinementPropertiesFromTalents(): any[] {
+  private extractRefinementPropertiesFromTalents(): RefinementProperty[] {
     // Weapon/{id}.json Talents only contain effect descriptions, not stat bonuses
     // Stat bonuses come from wengines.json Effect.Properties
     return [];

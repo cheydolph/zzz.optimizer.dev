@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { DbService } from './db.service';
@@ -34,15 +34,13 @@ import { versionedUrl } from '../utils/versioned-url';
   providedIn: 'root',
 })
 export class DataImportService {
-  constructor(
-    private http: HttpClient,
-    private db: DbService,
-    private agentService: AgentService,
-    private wEngineService: WEngineService,
-    private discSetService: DiscSetService,
-    private transformer: DataTransformerService,
-    private discSetData: DiscSetDataService,
-  ) {}
+  private readonly http = inject(HttpClient);
+  private readonly db = inject(DbService);
+  private readonly agentService = inject(AgentService);
+  private readonly wEngineService = inject(WEngineService);
+  private readonly discSetService = inject(DiscSetService);
+  private readonly transformer = inject(DataTransformerService);
+  private readonly discSetData = inject(DiscSetDataService);
 
   /**
    * Import REFERENCE DATA: agents from a JSON file in the assets folder

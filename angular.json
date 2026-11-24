@@ -70,41 +70,6 @@
               "sourceMap": true,
               "baseHref": "/"
             },
-            "github-pages": {
-              "baseHref": "/zzz.optimizer/",
-              "outputHashing": "all",
-              "optimization": {
-                "scripts": true,
-                "styles": {
-                  "minify": true,
-                  "inlineCritical": true
-                },
-                "fonts": {
-                  "inline": true
-                }
-              },
-              "sourceMap": false,
-              "namedChunks": false,
-              "serviceWorker": "ngsw-config.json",
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "650kB",
-                  "maximumError": "2MB"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "85kB",
-                  "maximumError": "100kB"
-                }
-              ]
-            },
             "test": {
               "assets": [],
               "fileReplacements": [

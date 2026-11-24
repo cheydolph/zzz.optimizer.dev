@@ -1,27 +1,11 @@
 // services/stat-calculator.service.ts
 import { Injectable } from '@angular/core';
-import { Agent, BaseStats, DiscSlot } from '../models/agent.model';
+import { Agent, BaseStats, DiscSlot, MindscapeData } from '../models/agent.model';
 import { Disc } from '../models/disc.model';
 import { WEngine, RefinementProperty } from '../models/wengine.model';
 // DISC_SETS import removed - now using equipment data from DiscSetDataService
 import { DiscSetDataService, DiscSetEquipmentData } from './disc-set-data.service';
 import { DataFileService } from './data-file.service';
-
-interface MindscapeStatBonus {
-  type: string;
-  value: number;
-  format: string;
-  note: string;
-}
-
-interface MindscapeData {
-  mindscapes: {
-    [agentId: string]: {
-      comment?: string;
-      [level: number]: MindscapeStatBonus[];
-    };
-  };
-}
 
 @Injectable({
   providedIn: 'root',
@@ -130,7 +114,7 @@ export class StatCalculatorService {
     // Filter out disabled discs
     const enabledDiscsOnly = Object.fromEntries(
       Object.entries(discs).filter(([slot, disc]) => disc && (enabledDiscs[slot] ?? true)),
-    ) as { [key in DiscSlot]?: Disc };
+    );
 
     // Apply disc main stats (only from enabled discs)
     this.applyDiscMainStats(stats, enabledDiscsOnly);
@@ -292,8 +276,8 @@ export class StatCalculatorService {
     const discInfo = Object.entries(discs)
       .filter(([_, disc]) => disc !== undefined)
       .map(([slot, disc]) => {
-        const subKey = disc!.subStats.map((s) => `${s.type}:${s.value}`).join(',');
-        return `${slot}:${disc!.uid}:${disc!.mainStat.type}:${disc!.mainStat.value}:${subKey}`;
+        const subKey = disc.subStats.map((s) => `${s.type}:${s.value}`).join(',');
+        return `${slot}:${disc.uid}:${disc.mainStat.type}:${disc.mainStat.value}:${subKey}`;
       })
       .sort()
       .join('|');
@@ -377,6 +361,7 @@ export class StatCalculatorService {
    * @param refinement The refinement level (1-5)
    */
   private applyRefinementBonuses(stats: BaseStats, properties: RefinementProperty[], refinement: number): void {
+    // Clamped to 1-5 in the expression itself
     const refinementKey = `W${Math.min(Math.max(refinement, 1), 5)}` as 'W1' | 'W2' | 'W3' | 'W4' | 'W5';
 
     properties.forEach((prop) => {

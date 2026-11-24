@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { DataImportService } from './data-import.service';
 import { LoadingService } from './loading.service';
 import { NotificationService } from './notification.service';
@@ -32,14 +32,12 @@ function readStoredPlanIds(): ReadonlySet<string> | undefined {
   providedIn: 'root',
 })
 export class AppInitService {
-  private initialized = false;
+  private readonly dataImport = inject(DataImportService);
+  private readonly loadingService = inject(LoadingService);
+  private readonly notificationService = inject(NotificationService);
+  private readonly buildService = inject(BuildService);
 
-  constructor(
-    private dataImport: DataImportService,
-    private loadingService: LoadingService,
-    private notificationService: NotificationService,
-    private buildService: BuildService,
-  ) {}
+  private initialized = false;
 
   /**
    * Initialize the app by loading reference data

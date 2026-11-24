@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Element, Specialty } from '../models/agent.model';
+import { Element, RawAgent, Specialty } from '../models/agent.model';
 
 /**
  * Service for mapping game data IDs and codes to application format
@@ -156,14 +156,14 @@ export class DataMappingService {
   /**
    * Extract agent code name from agents.json data
    */
-  getAgentCodeName(rawAgent: any): string {
+  getAgentCodeName(rawAgent: RawAgent): string {
     return rawAgent.code || rawAgent.EN || 'Unknown';
   }
 
   /**
    * Extract agent description from agents.json data
    */
-  getAgentDescription(rawAgent: any): string {
+  getAgentDescription(rawAgent: RawAgent): string {
     return rawAgent.desc || '';
   }
 }

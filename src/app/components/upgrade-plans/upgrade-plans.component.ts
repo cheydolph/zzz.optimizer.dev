@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
@@ -19,6 +19,12 @@ import { MAIN_STAT_BY_SLOT } from '../../constants/main-stat-possibilities';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UpgradePlansComponent implements OnInit, OnDestroy {
+  private readonly upgradePlanService = inject(UpgradePlanService);
+  private readonly agentService = inject(AgentService);
+  private readonly discSetService = inject(DiscSetService);
+  private readonly notificationService = inject(NotificationService);
+  private readonly cdr = inject(ChangeDetectorRef);
+
   private destroy$ = new Subject<void>();
 
   // Expose Object for template use
@@ -73,14 +79,6 @@ export class UpgradePlansComponent implements OnInit, OnDestroy {
     { key: 'penRatio', label: 'PEN Ratio', isPercentage: true },
     { key: 'energyRegen', label: 'Energy Regen', isPercentage: true },
   ];
-
-  constructor(
-    private upgradePlanService: UpgradePlanService,
-    private agentService: AgentService,
-    private discSetService: DiscSetService,
-    private notificationService: NotificationService,
-    private cdr: ChangeDetectorRef,
-  ) {}
 
   ngOnInit() {
     // Load plans
@@ -355,6 +353,7 @@ export class UpgradePlansComponent implements OnInit, OnDestroy {
 
     reader.onload = (e) => {
       try {
+        // readAsText below always produces a string result
         const json = e.target?.result as string;
         const count = this.upgradePlanService.importPlans(json);
         this.notificationService.success(`Successfully imported ${count} upgrade plan(s)!`, 4000);

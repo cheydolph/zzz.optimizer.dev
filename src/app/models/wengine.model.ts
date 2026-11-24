@@ -1,4 +1,4 @@
-import { Specialty } from './agent.model';
+import { AgentScoring, Specialty } from './agent.model';
 
 // Refinement-based stat bonuses from Effect.Properties
 export interface RefinementProperty {
@@ -65,4 +65,50 @@ export interface WEngine {
   };
   signature?: string;
   icon?: string;
+}
+
+// Raw shapes from `assets/data/wengines.json` (an object keyed by W-Engine id), before
+// DataTransformerService maps them to `WEngine`.
+
+// `BaseProperty` / `RandProperty`: Value is in basis points when Format contains '%'.
+export interface RawWEngineProperty {
+  Name: string;
+  Name2: string;
+  Format: string;
+  Value: number;
+}
+
+// One `Effect.Properties` entry: a stat bonus with one value per refinement, in basis points
+// when Format contains '%'.
+export interface RawWEngineEffectProperty {
+  Name: string;
+  Name2: string;
+  Format: string;
+  Overclock: { W1: number; W2: number; W3: number; W4: number; W5: number };
+}
+
+// One talent of the per-weapon file format; absent from wengines.json.
+export interface RawWEngineTalent {
+  Name?: string;
+  Desc?: string;
+}
+
+export interface RawWEngine {
+  Id: number;
+  CodeName: string;
+  Name: string;
+  Desc: string;
+  Desc2: string;
+  Desc3: string;
+  Rarity: number;
+  Icon: string;
+  WeaponType: { [typeId: string]: string }; // e.g. { "1": "Attack" }
+  BaseProperty: RawWEngineProperty;
+  RandProperty: RawWEngineProperty;
+  Effect: { Properties: RawWEngineEffectProperty[]; Desc: string };
+  scoring?: AgentScoring;
+  // Per-weapon file format only (weapon/{id}.json); absent from wengines.json.
+  Level?: { [level: string]: { Rate: number } };
+  Talents?: { [talentId: string]: RawWEngineTalent };
+  CharacterId?: number;
 }

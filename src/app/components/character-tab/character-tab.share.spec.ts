@@ -1,6 +1,6 @@
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
-import { ElementRef } from '@angular/core';
+import { ElementRef, type Signal, signal, type WritableSignal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
@@ -43,15 +43,20 @@ describe('CharacterTabComponent share image', () => {
   let alertSpy: ReturnType<typeof vi.spyOn>;
   let errorSpy: ReturnType<typeof vi.spyOn>;
 
+  // The component is not rendered, so the spec drives the canvas view query (a signal since NG-10) itself
+  let shareCanvas: WritableSignal<ElementRef<HTMLCanvasElement> | undefined>;
+
   const openModal = () => {
     component.showShareModal = true;
     component.isGeneratingShareImage = true;
-    component.shareCanvasRef = new ElementRef(document.createElement('canvas'));
+    const canvas = document.createElement('canvas');
+    shareCanvas.set(new ElementRef(canvas));
+    return canvas;
   };
   // What Angular does when the modal closes: the click handler, then the view query drops the canvas
   const closeModal = () => {
     component.closeShareModal();
-    component.shareCanvasRef = undefined as unknown as ElementRef<HTMLCanvasElement>; // the @ViewChild after the modal leaves the view
+    shareCanvas.set(undefined); // the view query after the modal leaves the view
   };
 
   beforeEach(() => {
@@ -78,6 +83,9 @@ describe('CharacterTabComponent share image', () => {
     });
     http = TestBed.inject(HttpTestingController);
     component = TestBed.createComponent(CharacterTabComponent).componentInstance;
+    shareCanvas = signal<ElementRef<HTMLCanvasElement> | undefined>(undefined);
+    (component as unknown as { shareCanvasRef: Signal<ElementRef<HTMLCanvasElement> | undefined> }).shareCanvasRef =
+      shareCanvas;
     internals = component as unknown as Internals;
 
     component.selectedBuild = { id: 'b1', agentId: '1091', name: 'Test', equippedDiscs: {} } as unknown as AgentBuild; // only these fields are read
@@ -165,8 +173,7 @@ describe('CharacterTabComponent share image', () => {
   });
 
   it('copies the rendered canvas onto the display canvas and stops the spinner (PERF-09)', async () => {
-    openModal();
-    const display = component.shareCanvasRef.nativeElement;
+    const display = openModal();
     const drawImage = vi.fn();
     // jsdom has no 2D context; only drawImage is called on the display canvas
     vi.spyOn(display, 'getContext').mockReturnValue({ drawImage } as unknown as CanvasRenderingContext2D);
@@ -186,8 +193,7 @@ describe('CharacterTabComponent share image', () => {
   });
 
   it('stops quietly when the modal closes while the image is drawn (BUG-29)', async () => {
-    openModal();
-    const display = component.shareCanvasRef.nativeElement;
+    const display = openModal();
     const drawing = deferred<HTMLCanvasElement>();
     const render = vi.fn(() => drawing.promise);
     vi.spyOn(internals, 'loadCanvasShareService').mockResolvedValue({

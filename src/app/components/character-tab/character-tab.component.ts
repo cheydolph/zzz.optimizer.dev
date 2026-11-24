@@ -2,21 +2,22 @@ import {
   Component,
   OnInit,
   OnDestroy,
-  HostListener,
-  ViewChild,
+  DestroyRef,
   ElementRef,
+  NgZone,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Injector,
   computed,
   signal,
+  inject,
+  viewChild,
 } from '@angular/core';
 import { DatePipe, DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ScrollingModule } from '@angular/cdk/scrolling';
 import { DragDropModule, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Subject, takeUntil, debounceTime, distinctUntilChanged, firstValueFrom } from 'rxjs';
-import { Agent, DiscSlot } from '../../models/agent.model';
+import { Agent, DiscSlot, MindscapeData } from '../../models/agent.model';
 import { WEngine } from '../../models/wengine.model';
 import { Disc, MainStatType, SubStatType } from '../../models/disc.model';
 import { DiscLoadout } from '../../models/disc-loadout.model';
@@ -54,20 +55,6 @@ import { OWNING_UID_STORAGE_KEY, UID_HISTORY_STORAGE_KEY } from '../../constants
 import { ENKA_INVALID_UID_MESSAGE } from '../../constants/enka-messages';
 import { InfoDialogComponent } from '../info-dialog/info-dialog.component';
 
-interface MindscapeData {
-  mindscapes: {
-    [agentId: string]: {
-      [level: string]: Array<{
-        type: string;
-        value: number;
-        format: string;
-        note?: string;
-        name?: string;
-      }>;
-    };
-  };
-}
-
 /** The disc form's state; replaced as a whole on every change (never written in place), so computed() values follow it. */
 interface DiscFormData {
   mainStatType: string; // Only used for slots 4-6
@@ -86,7 +73,6 @@ interface ScoredDisc {
   selector: 'app-character-tab',
   imports: [
     FormsModule,
-    ScrollingModule,
     DragDropModule,
     OptimizerComponent,
     UpgradePlansComponent,
@@ -97,8 +83,31 @@ interface ScoredDisc {
   templateUrl: './character-tab.component.html',
   styleUrls: ['./character-tab.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    '(window:resize)': 'checkIfMobile()',
+    '(window:keydown)': 'handleKeyboardEvent($event)',
+  },
 })
 export class CharacterTabComponent implements OnInit, OnDestroy {
+  private readonly buildService = inject(BuildService);
+  private readonly agentService = inject(AgentService);
+  private readonly wEngineService = inject(WEngineService);
+  private readonly discService = inject(DiscService);
+  private readonly discSetService = inject(DiscSetService);
+  private readonly discLoadoutService = inject(DiscLoadoutService);
+  private readonly statCalculator = inject(StatCalculatorService);
+  private readonly scoringService = inject(ScoringService);
+  private readonly imagePreloader = inject(ImagePreloaderService);
+  private readonly dataMappingService = inject(DataMappingService);
+  private readonly upgradePlanService = inject(UpgradePlanService);
+  private readonly loadingService = inject(LoadingService);
+  private readonly notificationService = inject(NotificationService);
+  private readonly cdr = inject(ChangeDetectorRef);
+  private readonly dataFiles = inject(DataFileService);
+  private readonly dbService = inject(DbService);
+  private readonly injector = inject(Injector);
+  private readonly mediaQueries = inject(MediaQueryService);
+
   // Expose Object for template use
   Object = Object;
 
@@ -227,8 +236,8 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
   }
 
   // Mobile responsiveness
-  @ViewChild('buildHeader', { read: ElementRef }) buildHeader?: ElementRef;
-  @ViewChild('buildsGrid', { read: ElementRef }) buildsGrid?: ElementRef;
+  readonly buildHeader = viewChild('buildHeader', { read: ElementRef });
+  readonly buildsGrid = viewChild('buildsGrid', { read: ElementRef });
   isMobile: boolean = false;
   showScrollTopButton: boolean = false;
   private readonly selectedLoadoutForPreviewState = signal<DiscLoadout | null>(null);
@@ -255,8 +264,8 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
   }
   loadoutCreationSlot: DiscSlot | null = null; // Track which slot we're selecting for
 
-  @ViewChild('shareCanvas') shareCanvasRef!: ElementRef<HTMLCanvasElement>;
-  @ViewChild('shareCard') shareCardRef!: ElementRef<HTMLDivElement>;
+  readonly shareCanvasRef = viewChild<ElementRef<HTMLCanvasElement>>('shareCanvas');
+  readonly shareCardRef = viewChild<ElementRef<HTMLDivElement>>('shareCard');
 
   // Bonus enable/disable toggles (for stat calculations)
   private readonly includeWEngineBonusesState = signal<boolean>(true);
@@ -407,9 +416,10 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
   private previouslyFocusedElement: HTMLElement | null = null;
   private artistCreditChange$ = new Subject<void>();
 
-  // Deferred DOM callbacks (scroll-into-view, focus). Tracked so they can be
-  // cancelled on destroy - they capture element refs and would otherwise run
-  // against a torn-down view if the user navigates away first.
+  // Deferred callbacks (scroll-into-view, focus, share image, flag resets, modal
+  // closes). Tracked so they can be cancelled on destroy - they capture element
+  // refs and state and would otherwise run against a torn-down view if the user
+  // navigates away first.
   private pendingDomTimeouts = new Set<ReturnType<typeof setTimeout>>();
 
   // Click guard flags to prevent double-clicking
@@ -429,26 +439,13 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     this.mindscapeDataState.set(value);
   }
 
-  constructor(
-    private buildService: BuildService,
-    private agentService: AgentService,
-    private wEngineService: WEngineService,
-    private discService: DiscService,
-    private discSetService: DiscSetService,
-    private discLoadoutService: DiscLoadoutService,
-    private statCalculator: StatCalculatorService,
-    private scoringService: ScoringService,
-    private imagePreloader: ImagePreloaderService,
-    private dataMappingService: DataMappingService,
-    private upgradePlanService: UpgradePlanService,
-    private loadingService: LoadingService,
-    private notificationService: NotificationService,
-    private cdr: ChangeDetectorRef,
-    private dataFiles: DataFileService,
-    private dbService: DbService,
-    private injector: Injector,
-    private mediaQueries: MediaQueryService,
-  ) {
+  constructor() {
+    // Scroll fires on every frame while the page scrolls; listen outside the zone (passive) so an event does not
+    // start an application tick. onWindowScroll() marks the view itself when the button toggles.
+    const onScroll = () => this.onWindowScroll();
+    inject(NgZone).runOutsideAngular(() => window.addEventListener('scroll', onScroll, { passive: true }));
+    inject(DestroyRef).onDestroy(() => window.removeEventListener('scroll', onScroll));
+
     // Load mindscape data
     this.loadMindscapeData();
 
@@ -602,7 +599,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * setTimeout for deferred DOM work, cancelled automatically on destroy.
+   * setTimeout for deferred work, cancelled automatically on destroy.
    */
   private deferDom(fn: () => void, delay: number): void {
     const id = setTimeout(() => {
@@ -637,9 +634,9 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     }
 
     // Auto-scroll to agent name/build header on mobile when selecting an agent
-    if (this.isMobile && this.buildHeader) {
+    if (this.isMobile && this.buildHeader()) {
       this.deferDom(() => {
-        this.buildHeader?.nativeElement.scrollIntoView({
+        this.buildHeader()?.nativeElement.scrollIntoView({
           behavior: 'smooth',
           block: 'start',
           inline: 'nearest',
@@ -648,7 +645,6 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     }
   }
 
-  @HostListener('window:resize')
   checkIfMobile() {
     // Include tablets up to 1024px
     const wasMobile = this.isMobile;
@@ -661,7 +657,6 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     }
   }
 
-  @HostListener('window:scroll')
   onWindowScroll() {
     if (!this.isMobile) return;
 
@@ -679,8 +674,9 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     // Scroll back to the agent list rather than the very top of the page - on
     // mobile the builds grid is what the user wants to get back to, and the
     // page header above it is not worth the extra scrolling.
-    if (this.buildsGrid?.nativeElement) {
-      this.buildsGrid.nativeElement.scrollIntoView({
+    const buildsGrid = this.buildsGrid();
+    if (buildsGrid?.nativeElement) {
+      buildsGrid.nativeElement.scrollIntoView({
         behavior: 'smooth',
         block: 'start',
         inline: 'nearest',
@@ -696,6 +692,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     this.showAddAgentModal = true;
     this.selectedAgentForAdd = null;
     // Focus first interactive element after modal renders
+    // The selector only matches button, input and select elements; ?. below handles no match
     this.deferDom(() => {
       const firstFocusable = document.querySelector(
         '.modal-content button, .modal-content input, .modal-content select',
@@ -729,6 +726,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     }
 
     // Check if this agent already has a build
+    // selectedAgentForAdd was checked above; TS drops that narrowing inside the callback
     const existingBuild = this.builds.find((b) => b.agentId === this.selectedAgentForAdd!.id);
     if (existingBuild) {
       alert(`You already have a build for ${this.selectedAgentForAdd.name}. Each agent can only have one build.`);
@@ -958,7 +956,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
         await this.buildService.unequipWEngine(this.selectedBuild.id);
 
         // Wait a tick for the subscription to update
-        await new Promise((resolve) => setTimeout(resolve, 50));
+        await new Promise<void>((resolve) => this.deferDom(() => resolve(), 50));
 
         this.showWEnginePicker = false;
         return;
@@ -1011,7 +1009,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
   protected readonly activeBuildType = computed((): string => {
     this.referenceDataReady();
     if (!this.selectedBuild) return 'CRIT';
-    const equippedDiscs = Object.values(this.selectedBuild.equippedDiscs || {}).filter((d) => d) as Disc[];
+    const equippedDiscs = Object.values(this.selectedBuild.equippedDiscs || {}).filter((d) => d);
     return this.scoringService.resolveBuildType(
       equippedDiscs,
       this.selectedBuild.agentId,
@@ -1207,12 +1205,13 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       return false;
     }
 
+    // selectedBuild was checked above; TS drops that narrowing inside the callback
     const agent = this.referenceAgents.find((a) => a.id === this.selectedBuild!.agentId);
     if (!agent) {
       return false;
     }
 
-    return agent.specialty === this.selectedBuild!.equippedWEngine!.specialty;
+    return agent.specialty === this.selectedBuild.equippedWEngine.specialty;
   });
 
   protected readonly wEngineRefinementBonuses = computed(() => this.computeWEngineRefinementBonuses());
@@ -1267,6 +1266,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       return [];
     }
 
+    // selectedBuild was checked above; TS drops that narrowing inside the callback
     const agent = this.referenceAgents.find((a) => a.id === this.selectedBuild!.agentId);
     if (!agent) {
       return [];
@@ -1370,6 +1370,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       return [];
     }
 
+    // selectedBuild was checked above; TS drops that narrowing inside the callback
     const agent = this.referenceAgents.find((a) => a.id === this.selectedBuild!.agentId);
     if (!agent || !agent.scoring?.buffs) {
       return [];
@@ -1532,7 +1533,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     // Resolve priority stats against the build type the user pinned (or that was
     // auto-detected), so effective substats match the stats we highlight. Dual-build
     // agents value different stats per profile - a flat per-agent list cannot.
-    const equippedDiscsList = Object.values(this.selectedBuild.equippedDiscs || {}).filter((d) => d) as Disc[];
+    const equippedDiscsList = Object.values(this.selectedBuild.equippedDiscs || {}).filter((d) => d);
     const buildWeights = this.scoringService.getBuildStatWeights(
       this.selectedBuild.agentId,
       this.scoringService.resolveBuildType(
@@ -1723,6 +1724,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     // Always ensure we have 4 substat slots
     const existingSubStats = equippedDisc.subStats.map((s) => ({
       type: s.type,
+      // Widened, not narrowed: the padding rows below hold ''
       value: s.value as string | number, // Keep as number for display
     }));
 
@@ -1776,6 +1778,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
   protected readonly fourPcEffectBonuses = computed((): string[] => {
     this.referenceDataReady();
     if (!this.selectedBuild) return [];
+    // selectedBuild was checked above; TS drops that narrowing inside the callback
     const agent = this.referenceAgents.find((a) => a.id === this.selectedBuild!.agentId);
     if (!agent) return [];
 
@@ -1927,10 +1930,10 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
         mainStatType: '',
         mainStatValue: '',
         subStats: [
-          { type: '' as SubStatType, value: '' },
-          { type: '' as SubStatType, value: '' },
-          { type: '' as SubStatType, value: '' },
-          { type: '' as SubStatType, value: '' },
+          { type: '', value: '' },
+          { type: '', value: '' },
+          { type: '', value: '' },
+          { type: '', value: '' },
         ],
       };
     }
@@ -1946,10 +1949,10 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       mainStatType: '',
       mainStatValue: '',
       subStats: [
-        { type: '' as SubStatType, value: '' },
-        { type: '' as SubStatType, value: '' },
-        { type: '' as SubStatType, value: '' },
-        { type: '' as SubStatType, value: '' },
+        { type: '', value: '' },
+        { type: '', value: '' },
+        { type: '', value: '' },
+        { type: '', value: '' },
       ],
     };
     this.cdr.markForCheck();
@@ -2119,7 +2122,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       }
 
       if (subField === 'type') {
-        subStats[index] = { ...subStats[index], type: value as SubStatType };
+        subStats[index] = { ...subStats[index], type: value };
       } else if (subField === 'value') {
         subStats[index] = { ...subStats[index], value: parseFloat(value) || 0 };
       }
@@ -2130,7 +2133,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       }
     } else if (field === 'mainStatType') {
       if (disc.mainStat) {
-        this.compareCustomDisc = { ...disc, mainStat: { ...disc.mainStat, type: value as MainStatType } };
+        this.compareCustomDisc = { ...disc, mainStat: { ...disc.mainStat, type: value } };
       }
     }
 
@@ -2465,6 +2468,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     const equippedDiscsArray = Object.values(this.selectedBuild.equippedDiscs).filter((d) => d !== undefined);
 
     // Get agent info for damage estimation
+    // selectedBuild was checked above; TS drops that narrowing inside the callback
     const agent = this.referenceAgents.find((a) => a.id === this.selectedBuild!.agentId);
 
     // Get active upgrade plan if one is set
@@ -2518,6 +2522,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       this.isWEngineSpecialtyMatch(),
       activePlan,
       this.selectedBuild.preferredBuildType,
+      // selectedBuild was checked above; TS drops that narrowing inside the callback
       this.referenceAgents.find((a) => a.id === this.selectedBuild!.agentId)?.specialty,
     );
   });
@@ -2755,6 +2760,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
 
     // The thumbnails the agent picker and builds list show; the full portrait is fetched by the
     // share image when it is generated (PERF-01).
+    // filter drops the missing icons; TS does not narrow on a truthiness filter
     const imageUrls = agents.map((agent) => agent.iconThumb || agent.icon).filter((icon) => icon) as string[];
 
     this.imagePreloader.preloadImages(imageUrls);
@@ -2770,6 +2776,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     // 1. Image preloader doesn't support video formats (causes console warnings)
     // 2. Videos use lazy loading which is more efficient
     // 3. Videos load on-demand when displayed
+    // filter drops the missing icons; TS does not narrow on a truthiness filter
     const staticImageUrls = wEngines.map((engine) => engine.icon).filter((icon) => icon) as string[];
 
     this.imagePreloader.preloadImages(staticImageUrls);
@@ -2780,6 +2787,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       return; // Don't preload if no disc sets yet
     }
 
+    // filter drops the missing icons; TS does not narrow on a truthiness filter
     const imageUrls = discSets.map((discSet) => discSet.icon).filter((icon) => icon) as string[];
 
     this.imagePreloader.preloadImages(imageUrls);
@@ -2856,7 +2864,6 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
   }
 
   // Keyboard shortcuts handler
-  @HostListener('window:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
     // Esc key - close any open modal
     if (event.key === 'Escape') {
@@ -2999,7 +3006,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     this.cdr.markForCheck();
 
     // Wait for modal and canvas to be rendered
-    setTimeout(() => this.generateShareImage(), 100);
+    this.deferDom(() => this.generateShareImage(), 100);
   }
 
   closeShareModal() {
@@ -3021,9 +3028,9 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     this.cdr.markForCheck();
 
     // Add a small delay to allow the change detection cycle to complete
-    setTimeout(() => {
+    this.deferDom(() => {
       this.generateShareImage();
-      setTimeout(() => (this.isShareOptionUpdating = false), 100);
+      this.deferDom(() => (this.isShareOptionUpdating = false), 100);
     }, 50);
   }
 
@@ -3053,19 +3060,20 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
 
   async generateShareImage() {
     // BUG-28: every exit resets the spinner flag, except the BUG-29 quiet stops below
-    if (!this.selectedBuild || !this.shareCanvasRef) {
+    // The canvas this run draws into. The modal can close, or close and reopen with a new canvas, during an await.
+    const displayCanvas = this.shareCanvasRef()?.nativeElement;
+    if (!this.selectedBuild || !displayCanvas) {
       this.isGeneratingShareImage = false;
       this.cdr.markForCheck();
       return;
     }
-    // The canvas this run draws into. The modal can close, or close and reopen with a new canvas, during an await.
-    const displayCanvas = this.shareCanvasRef.nativeElement;
 
     this.isGeneratingShareImage = true;
     this.cdr.markForCheck(); // Force change detection
 
     try {
       // Get agent data
+      // selectedBuild was checked above; TS drops that narrowing inside the callback
       const agent = this.referenceAgents.find((a) => a.id === this.selectedBuild!.agentId);
       if (!agent) {
         console.error('Agent not found');
@@ -3168,13 +3176,14 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
    * or was reopened with a new canvas (whose own run owns the flag), so the run stops without an alert.
    */
   private isShareCanvasGone(canvas: HTMLCanvasElement): boolean {
-    return this.shareCanvasRef?.nativeElement !== canvas;
+    return this.shareCanvasRef()?.nativeElement !== canvas;
   }
 
   downloadShareImage() {
-    if (!this.selectedBuild || !this.shareCanvasRef) return;
+    const canvas = this.shareCanvasRef()?.nativeElement;
+    if (!this.selectedBuild || !canvas) return;
 
-    const canvas = this.shareCanvasRef.nativeElement;
+    // selectedBuild was checked above; TS drops that narrowing inside the callback (this find runs before toBlob)
     const agent = this.referenceAgents.find((a) => a.id === this.selectedBuild!.agentId);
 
     const timestamp = new Date()
@@ -3238,6 +3247,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
         };
 
         img.onerror = () => reject(new Error('Failed to load image'));
+        // readAsDataURL below always produces a string result
         img.src = e.target?.result as string;
       };
 
@@ -3337,7 +3347,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     this.saveCustomizations();
     this.onShareOptionChange(); // Regenerate preview
 
-    setTimeout(() => (this.isColorUpdating = false), 100);
+    this.deferDom(() => (this.isColorUpdating = false), 100);
   }
 
   onCustomColorSelected() {
@@ -3348,7 +3358,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     this.saveCustomizations();
     this.onShareOptionChange(); // Regenerate preview
 
-    setTimeout(() => (this.isColorUpdating = false), 100);
+    this.deferDom(() => (this.isColorUpdating = false), 100);
   }
 
   isCustomColor(): boolean {
@@ -3381,7 +3391,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
         this.isColorUpdating = true;
         this.saveCustomizations();
         this.onShareOptionChange();
-        setTimeout(() => (this.isColorUpdating = false), 100);
+        this.deferDom(() => (this.isColorUpdating = false), 100);
       }
     }
   }
@@ -3933,7 +3943,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
           this.cdr.markForCheck();
 
           // Close modal after 2 seconds
-          setTimeout(() => {
+          this.deferDom(() => {
             this.closeEnkaImportModal();
           }, 2000);
         }
@@ -3961,6 +3971,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     }
 
     // Filter from locally stored plans for proper change detection
+    // selectedBuild was checked above; TS drops that narrowing inside the callback
     return this.availablePlans.filter((plan) => plan.agentId === this.selectedBuild!.agentId);
   });
 
@@ -3991,6 +4002,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
 
   protected readonly isRuptureAgent = computed((): boolean => {
     if (!this.selectedBuild) return false;
+    // selectedBuild was checked above; TS drops that narrowing inside the callback
     const agent = this.referenceAgents.find((a) => a.id === this.selectedBuild!.agentId);
     return agent?.specialty === 'Rupture';
   });
@@ -4000,6 +4012,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
    */
   protected readonly isArmorerAgent = computed((): boolean => {
     if (!this.selectedBuild) return false;
+    // selectedBuild was checked above; TS drops that narrowing inside the callback
     const agent = this.referenceAgents.find((a) => a.id === this.selectedBuild!.agentId);
     return agent?.specialty === 'Armorer';
   });
@@ -4327,6 +4340,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     // Pre-populate form data with existing disc stats
     const existingSubStats = existingDisc.subStats.map((s) => ({
       type: s.type,
+      // Widened, not narrowed: the padding rows below hold ''
       value: s.value as string | number,
     }));
 
@@ -4423,6 +4437,7 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     this.loadoutValidation = this.discLoadoutService.validateLoadout(loadout, this.allDiscs);
 
     // Get the agent object for stat calculation
+    // selectedBuild was checked above; TS drops that narrowing inside the callback
     const agent = this.referenceAgents.find((a) => a.id === this.selectedBuild!.agentId);
     if (!agent) {
       console.error('[DiscLoadout] Could not find agent:', this.selectedBuild.agentId);
@@ -4510,8 +4525,8 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
       await this.buildService.equipDisc(this.selectedBuild.id, disc);
     }
 
-    // Close modal first (use setTimeout to ensure it happens after async operations)
-    setTimeout(() => {
+    // Close modal first (deferred to ensure it happens after async operations)
+    this.deferDom(() => {
       this.closeLoadoutsModal();
 
       // Show success message with toast notification AFTER modal closes

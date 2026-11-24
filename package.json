@@ -12,7 +12,7 @@
     "build:local": "npm run validate:data && npm run thumbs && node build-scripts/slim-agent-data.js run -- ng build --configuration production --base-href ./",
     "serve:local": "node build-scripts/serve-local.js",
     "start:local": "npm run build:local && node build-scripts/serve-local.js",
-    "build:ghpages": "npm run validate:data && npm run thumbs && node build-scripts/slim-agent-data.js run -- ng build --configuration=github-pages",
+    "build:ghpages": "npm run validate:data && npm run thumbs && node build-scripts/slim-agent-data.js run -- ng build --configuration=production",
     "deploy:ghpages": "npm run build:ghpages && npx angular-cli-ghpages --dir=dist/zzz.optimizer/browser --no-silent",
     "deploy:cleanup": "npm run build:ghpages && node -e \"require('fs').copyFileSync('dist/zzz.optimizer/browser/safety-worker.js', 'dist/zzz.optimizer/browser/ngsw-worker.js')\" && npx angular-cli-ghpages --dir=dist/zzz.optimizer/browser --no-silent",
     "watch": "ng build --watch --configuration=development",

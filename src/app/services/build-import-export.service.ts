@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import Dexie from 'dexie';
 import { BuildService, AgentBuild } from './build.service';
 import { DiscService } from './disc.service';
@@ -42,6 +42,12 @@ interface StoreSnapshot {
   providedIn: 'root',
 })
 export class BuildImportExportService {
+  private readonly buildService = inject(BuildService);
+  private readonly discService = inject(DiscService);
+  private readonly discLoadoutService = inject(DiscLoadoutService);
+  private readonly upgradePlanService = inject(UpgradePlanService);
+  private readonly db = inject(DbService);
+
   private readonly EXPORT_VERSION = '3.1';
 
   // Version history:
@@ -49,14 +55,6 @@ export class BuildImportExportService {
   // 2.0 - Added W-Engine refinement properties, mindscape effects, icons
   // 3.0 - Added disc loadouts support
   // 3.1 - Added upgrade plans (with their IDs, so builds keep their active plan) and share customizations
-
-  constructor(
-    private buildService: BuildService,
-    private discService: DiscService,
-    private discLoadoutService: DiscLoadoutService,
-    private upgradePlanService: UpgradePlanService,
-    private db: DbService,
-  ) {}
 
   /**
    * Export all builds, discs, loadouts, upgrade plans, and share customizations to JSON
@@ -398,6 +396,7 @@ export class BuildImportExportService {
       const reader = new FileReader();
       reader.onload = (e) => {
         if (e.target?.result) {
+          // readAsText below always produces a string result
           resolve(e.target.result as string);
         } else {
           reject(new Error('Failed to read file'));

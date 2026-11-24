@@ -1,12 +1,4 @@
-import {
-  Component,
-  Input,
-  ChangeDetectionStrategy,
-  ViewChild,
-  ElementRef,
-  AfterViewInit,
-  OnDestroy,
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, ElementRef, OnDestroy, effect, input, viewChild } from '@angular/core';
 
 @Component({
   selector: 'app-loading-overlay',
@@ -15,31 +7,22 @@ import {
   styleUrl: './loading-overlay.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoadingOverlayComponent implements AfterViewInit, OnDestroy {
-  @ViewChild('bangbooVideo') bangbooVideo?: ElementRef<HTMLVideoElement>;
-  @Input() message = 'Loading...';
+export class LoadingOverlayComponent implements OnDestroy {
+  readonly bangbooVideo = viewChild<ElementRef<HTMLVideoElement>>('bangbooVideo');
+  readonly message = input('Loading...');
 
-  private _show = false;
+  readonly show = input(false);
+
   private playVideoTimeout: any;
 
-  @Input()
-  set show(value: boolean) {
-    this._show = value;
-    if (value) {
-      // Try to play video when loading overlay becomes visible
-      this.playVideo();
-    }
-  }
-
-  get show(): boolean {
-    return this._show;
-  }
-
-  ngAfterViewInit(): void {
-    // If component is already showing when view initializes, play the video
-    if (this._show) {
-      this.playVideo();
-    }
+  constructor() {
+    // Try to play the video whenever the overlay becomes visible, including when it starts visible
+    // (the old input setter and ngAfterViewInit did this between them)
+    effect(() => {
+      if (this.show()) {
+        this.playVideo();
+      }
+    });
   }
 
   private playVideo(): void {
@@ -50,8 +33,9 @@ export class LoadingOverlayComponent implements AfterViewInit, OnDestroy {
 
     // Use setTimeout to ensure DOM is ready
     this.playVideoTimeout = setTimeout(() => {
-      if (this.bangbooVideo?.nativeElement) {
-        const video = this.bangbooVideo.nativeElement;
+      const bangbooVideo = this.bangbooVideo();
+      if (bangbooVideo?.nativeElement) {
+        const video = bangbooVideo.nativeElement;
 
         // Explicitly set muted to true BEFORE calling play
         // This is critical for browser autoplay policies

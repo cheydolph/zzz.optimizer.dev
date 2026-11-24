@@ -1,5 +1,5 @@
 // services/wengine.service.ts
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { WEngine } from '../models/wengine.model';
 import { DbService } from './db.service';
@@ -8,6 +8,8 @@ import { DbService } from './db.service';
   providedIn: 'root',
 })
 export class WEngineService {
+  private readonly db = inject(DbService);
+
   private wEnginesSubject = new BehaviorSubject<WEngine[]>([]);
   public wEngines$: Observable<WEngine[]> = this.wEnginesSubject.asObservable();
 
@@ -17,7 +19,7 @@ export class WEngineService {
   private wEnginesByRarity = new Map<'S' | 'A' | 'B', WEngine[]>();
   private signatureWEngineMap = new Map<string, WEngine>();
 
-  constructor(private db: DbService) {
+  constructor() {
     this.loadWEngines();
   }
 

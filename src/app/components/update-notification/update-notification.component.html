@@ -1,5 +1,5 @@
 <!-- DEV ONLY: Test button to simulate update notification -->
-@if (showDevTestButton && !updateAvailable) {
+@if (showDevTestButton && !updateAvailable()) {
   <button
     class="dev-test-button"
     (click)="testUpdateNotification()"
@@ -9,7 +9,7 @@
 }
 
 <!-- Actual update notification -->
-@if (updateAvailable) {
+@if (updateAvailable()) {
   <div class="update-notification">
     <div class="update-content">
       <div class="update-icon">

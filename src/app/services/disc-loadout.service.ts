@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { DiscLoadout } from '../models/disc-loadout.model';
 import { Disc } from '../models/disc.model';
@@ -13,6 +13,8 @@ import { NotificationService } from './notification.service';
   providedIn: 'root',
 })
 export class DiscLoadoutService {
+  private readonly notificationService = inject(NotificationService);
+
   private loadoutsSubject = new BehaviorSubject<DiscLoadout[]>([]);
   public loadouts$: Observable<DiscLoadout[]> = this.loadoutsSubject.asObservable();
 
@@ -26,7 +28,7 @@ export class DiscLoadoutService {
   // Set when stored loadouts could not be read or backed up; saving would destroy them (BUG-15).
   private saveBlocked = false;
 
-  constructor(private notificationService: NotificationService) {
+  constructor() {
     this.loadLoadouts();
   }
 
@@ -86,6 +88,7 @@ export class DiscLoadoutService {
   getLoadoutsByAgentId(agentId: string): DiscLoadout[] {
     // Check cache first
     if (this.loadoutsByAgentCache.has(agentId)) {
+      // has() was checked on the line above
       return this.loadoutsByAgentCache.get(agentId)!;
     }
 

@@ -1,5 +1,5 @@
 // services/seo.service.ts
-import { Injectable, Inject, DOCUMENT } from '@angular/core';
+import { Injectable, DOCUMENT, inject } from '@angular/core';
 
 /**
  * SEO Service for managing structured data and meta tags
@@ -8,7 +8,7 @@ import { Injectable, Inject, DOCUMENT } from '@angular/core';
   providedIn: 'root',
 })
 export class SeoService {
-  constructor(@Inject(DOCUMENT) private document: Document) {}
+  private readonly document = inject<Document>(DOCUMENT);
 
   /**
    * Add JSON-LD structured data to the page

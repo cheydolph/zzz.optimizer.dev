@@ -23,7 +23,7 @@ export function readStoredArray<T>(key: string): StoredArrayRead<T> {
     const parsed: unknown = JSON.parse(raw);
     if (Array.isArray(parsed)) {
       // The entries are not validated here; callers read them as they always have.
-      return { items: parsed as T[], saveBlocked: false };
+      return { items: parsed, saveBlocked: false };
     }
   } catch {
     // Not valid JSON: handled below, the same as valid JSON that is not an array.

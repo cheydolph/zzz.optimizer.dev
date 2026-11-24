@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy, inject } from '@angular/core';
 
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -14,14 +14,12 @@ import { environment } from '../../../environments/environment';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavigationComponent implements OnInit, OnDestroy {
+  private readonly swUpdateService = inject(SwUpdateService);
+  private readonly cdr = inject(ChangeDetectorRef);
+  private readonly router = inject(Router);
+
   showWhatsNewBadge = false;
   private destroy$ = new Subject<void>();
-
-  constructor(
-    private swUpdateService: SwUpdateService,
-    private cdr: ChangeDetectorRef,
-    private router: Router,
-  ) {}
 
   ngOnInit(): void {
     // Subscribe to update availability

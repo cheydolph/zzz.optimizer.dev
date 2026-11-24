@@ -1,13 +1,29 @@
+import { TestBed } from '@angular/core/testing';
 import type { UpgradePlan } from '../models/upgrade-plan.model';
-import type { BuildService } from './build.service';
-import type { DataFileService } from './data-file.service';
-import type { NotificationService } from './notification.service';
+import { BuildService } from './build.service';
+import { DataFileService } from './data-file.service';
+import { NotificationService } from './notification.service';
 import { UpgradePlanService } from './upgrade-plan.service';
 
 // BUG-17 (slice 4.6b): every value the service emits is deep-frozen here, so any later in-place write to an
 // emitted array or plan throws (ES modules run in strict mode) and the write path's test fails.
 // The plan-link reset (BUG-30) is covered in its own block below; elsewhere it has no builds to change.
 const noBuilds = { clearMissingPlanLinks: async () => undefined } as unknown as BuildService;
+
+function createService(
+  dataFiles: DataFileService,
+  notifications: NotificationService,
+  builds: BuildService,
+): UpgradePlanService {
+  TestBed.configureTestingModule({
+    providers: [
+      { provide: DataFileService, useValue: dataFiles },
+      { provide: NotificationService, useValue: notifications },
+      { provide: BuildService, useValue: builds },
+    ],
+  });
+  return TestBed.inject(UpgradePlanService);
+}
 
 function deepFreeze<T>(value: T): T {
   if (value !== null && typeof value === 'object' && !Object.isFrozen(value)) {
@@ -26,7 +42,7 @@ describe('UpgradePlanService immutable updates (BUG-17)', () => {
       load: async () => ({ agents: { '1011': { breakpoints: { atk: { min: 1000, optimal: 2000 } } } } }),
     } as unknown as DataFileService;
     const notifications = { error: () => undefined } as unknown as NotificationService;
-    service = new UpgradePlanService(dataFiles, notifications, noBuilds);
+    service = createService(dataFiles, notifications, noBuilds);
     service.plans$.subscribe(deepFreeze);
     service.selectedPlan$.subscribe(deepFreeze);
   });
@@ -72,7 +88,7 @@ describe('UpgradePlanService plan-editor drafts (slice 4.6b)', () => {
     localStorage.clear();
     const dataFiles = { load: async () => ({ agents: {} }) } as unknown as DataFileService;
     const notifications = { error: () => undefined } as unknown as NotificationService;
-    service = new UpgradePlanService(dataFiles, notifications, noBuilds);
+    service = createService(dataFiles, notifications, noBuilds);
     service.plans$.subscribe(deepFreeze);
   });
 
@@ -163,7 +179,7 @@ describe('UpgradePlanService resets builds of removed plans (BUG-30)', () => {
         calls.push([...ids]);
       },
     } as unknown as BuildService; // only the reset is called
-    service = new UpgradePlanService(dataFiles, notifications, builds);
+    service = createService(dataFiles, notifications, builds);
   });
 
   it('passes the remaining plan IDs after a delete, a replace restore, and a clear', async () => {

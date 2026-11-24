@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { DbService } from './db.service';
 
@@ -18,6 +18,8 @@ export interface DiscSet {
   providedIn: 'root',
 })
 export class DiscSetService {
+  private readonly db = inject(DbService);
+
   private discSetsSubject = new BehaviorSubject<DiscSet[]>([]);
   public discSets$: Observable<DiscSet[]> = this.discSetsSubject.asObservable();
 
@@ -25,7 +27,7 @@ export class DiscSetService {
   private discSetMapById = new Map<string, DiscSet>();
   private discSetMapByName = new Map<string, DiscSet>();
 
-  constructor(private db: DbService) {
+  constructor() {
     this.loadDiscSetsFromDb();
   }
 

@@ -1,12 +1,13 @@
-import type { ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import type { Agent } from '../../models/agent.model';
 import type { UpgradePlan } from '../../models/upgrade-plan.model';
-import type { AgentService } from '../../services/agent.service';
-import type { BuildService } from '../../services/build.service';
-import type { DataFileService } from '../../services/data-file.service';
-import type { DiscSetService } from '../../services/disc-set.service';
-import type { NotificationService } from '../../services/notification.service';
+import { AgentService } from '../../services/agent.service';
+import { BuildService } from '../../services/build.service';
+import { DataFileService } from '../../services/data-file.service';
+import { DiscSetService } from '../../services/disc-set.service';
+import { NotificationService } from '../../services/notification.service';
 import { UpgradePlanService } from '../../services/upgrade-plan.service';
 import { UpgradePlansComponent } from './upgrade-plans.component';
 
@@ -30,14 +31,9 @@ describe('UpgradePlansComponent copy-on-edit (BUG-14)', () => {
   ] as Agent[]; // only id and name are read
 
   const notifications = { success: () => undefined, error: () => undefined, warning: () => undefined };
+  // Built in an injection context without a template, as before; it gets the same root plan service as the test
   const createComponent = () => {
-    const created = new UpgradePlansComponent(
-      plans,
-      { agents$: of(agents) } as unknown as AgentService,
-      { discSets$: of([]) } as unknown as DiscSetService,
-      notifications as unknown as NotificationService,
-      { markForCheck: () => undefined } as unknown as ChangeDetectorRef,
-    );
+    const created = TestBed.runInInjectionContext(() => new UpgradePlansComponent());
     created.ngOnInit();
     return created;
   };
@@ -46,7 +42,17 @@ describe('UpgradePlansComponent copy-on-edit (BUG-14)', () => {
     localStorage.clear();
     const dataFiles = { load: async () => ({ agents: {} }) } as unknown as DataFileService;
     const builds = { clearMissingPlanLinks: async () => undefined } as unknown as BuildService; // no builds here
-    plans = new UpgradePlanService(dataFiles, notifications as unknown as NotificationService, builds);
+    TestBed.configureTestingModule({
+      providers: [
+        { provide: DataFileService, useValue: dataFiles },
+        { provide: NotificationService, useValue: notifications },
+        { provide: BuildService, useValue: builds },
+        { provide: AgentService, useValue: { agents$: of(agents) } },
+        { provide: DiscSetService, useValue: { discSets$: of([]) } },
+        { provide: ChangeDetectorRef, useValue: { markForCheck: () => undefined } },
+      ],
+    });
+    plans = TestBed.inject(UpgradePlanService);
     plans.plans$.subscribe(deepFreeze);
     component = createComponent();
   });

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, OnDestroy, inject, signal } from '@angular/core';
 
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -10,18 +10,19 @@ import { environment } from '../../../environments/environment';
   imports: [],
   templateUrl: './update-notification.component.html',
   styleUrl: './update-notification.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UpdateNotificationComponent implements OnInit, OnDestroy {
-  updateAvailable = false;
+  private readonly swUpdateService = inject(SwUpdateService);
+
+  readonly updateAvailable = signal(false);
   showDevTestButton = !environment.production; // Only show in development
   private destroy$ = new Subject<void>();
-
-  constructor(private swUpdateService: SwUpdateService) {}
 
   ngOnInit(): void {
     // Subscribe to update availability
     this.swUpdateService.updateAvailable.pipe(takeUntil(this.destroy$)).subscribe((available) => {
-      this.updateAvailable = available;
+      this.updateAvailable.set(available);
     });
   }
 
@@ -37,6 +38,6 @@ export class UpdateNotificationComponent implements OnInit, OnDestroy {
 
   // DEV ONLY: Manually trigger update notification for testing
   testUpdateNotification(): void {
-    this.updateAvailable = true;
+    this.updateAvailable.set(true);
   }
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { DbService } from './db.service';
 import { StatCalculatorService } from './stat-calculator.service';
@@ -82,6 +82,11 @@ export function normalizeStoredBuild(build: AgentBuild): void {
   providedIn: 'root',
 })
 export class BuildService {
+  private readonly db = inject(DbService);
+  private readonly statCalculator = inject(StatCalculatorService);
+  private readonly scoringService = inject(ScoringService);
+  private readonly notificationService = inject(NotificationService);
+
   private buildsSubject = new BehaviorSubject<AgentBuild[]>([]);
   public builds$: Observable<AgentBuild[]> = this.buildsSubject.asObservable();
 
@@ -96,12 +101,7 @@ export class BuildService {
   // Set when stored builds could not be read or backed up; saving would destroy them (BUG-15).
   private saveBlocked = false;
 
-  constructor(
-    private db: DbService,
-    private statCalculator: StatCalculatorService,
-    private scoringService: ScoringService,
-    private notificationService: NotificationService,
-  ) {
+  constructor() {
     this.loadBuilds();
   }
 

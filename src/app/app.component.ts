@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, OnDestroy, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 import { Subject } from 'rxjs';
@@ -26,20 +26,19 @@ import { AnniversaryService } from './services/anniversary.service';
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit, OnDestroy {
-  title = 'zzz.optimizer';
-  isLoading = false;
-  loadingMessage = 'Loading...';
-  private destroy$ = new Subject<void>();
+  private readonly appInit = inject(AppInitService);
+  private readonly loadingService = inject(LoadingService);
+  private readonly swUpdate = inject(SwUpdateService);
+  private readonly seo = inject(SeoService);
+  private readonly anniversary = inject(AnniversaryService);
 
-  constructor(
-    private appInit: AppInitService,
-    private loadingService: LoadingService,
-    private swUpdate: SwUpdateService,
-    private seo: SeoService,
-    private anniversary: AnniversaryService,
-  ) {}
+  title = 'zzz.optimizer';
+  readonly isLoading = signal(false);
+  readonly loadingMessage = signal('Loading...');
+  private destroy$ = new Subject<void>();
 
   async ngOnInit() {
     // Initialize SEO structured data
@@ -50,11 +49,11 @@ export class AppComponent implements OnInit, OnDestroy {
 
     // Subscribe to loading state
     this.loadingService.loading$.pipe(takeUntil(this.destroy$)).subscribe((loading) => {
-      this.isLoading = loading;
+      this.isLoading.set(loading);
     });
 
     this.loadingService.message$.pipe(takeUntil(this.destroy$)).subscribe((message) => {
-      this.loadingMessage = message;
+      this.loadingMessage.set(message);
     });
 
     // Auto-load reference data on app startup

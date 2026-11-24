@@ -1,11 +1,12 @@
+import { TestBed } from '@angular/core/testing';
 import type { Agent } from '../models/agent.model';
 import type { Disc } from '../models/disc.model';
 import type { WEngine } from '../models/wengine.model';
 import { type AgentBuild, BuildService, normalizeStoredBuild } from './build.service';
-import type { DbService } from './db.service';
-import type { NotificationService } from './notification.service';
-import type { ScoringService } from './scoring.service';
-import type { StatCalculatorService } from './stat-calculator.service';
+import { DbService } from './db.service';
+import { NotificationService } from './notification.service';
+import { ScoringService } from './scoring.service';
+import { StatCalculatorService } from './stat-calculator.service';
 
 describe('normalizeStoredBuild', () => {
   // A build as an old (1.0) export or an old localStorage entry has it: no refinement, toggles,
@@ -68,7 +69,15 @@ describe('BuildService immutable updates (BUG-17)', () => {
       calculateCompositeBuildScore: () => ({ score: 42 }),
     } as unknown as ScoringService;
     const notifications = { error: () => undefined } as unknown as NotificationService;
-    const created = new BuildService(db, stats, scoring, notifications);
+    TestBed.configureTestingModule({
+      providers: [
+        { provide: DbService, useValue: db },
+        { provide: StatCalculatorService, useValue: stats },
+        { provide: ScoringService, useValue: scoring },
+        { provide: NotificationService, useValue: notifications },
+      ],
+    });
+    const created = TestBed.inject(BuildService);
     created.builds$.subscribe(deepFreeze);
     created.selectedBuild$.subscribe(deepFreeze);
     return created;

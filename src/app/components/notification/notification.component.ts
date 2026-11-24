@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -12,14 +12,12 @@ import { NotificationService, Notification } from '../../services/notification.s
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotificationComponent implements OnInit, OnDestroy {
+  private readonly notificationService = inject(NotificationService);
+  private readonly cdr = inject(ChangeDetectorRef);
+
   notification: Notification | null = null;
   isClosing: boolean = false;
   private destroy$ = new Subject<void>();
-
-  constructor(
-    private notificationService: NotificationService,
-    private cdr: ChangeDetectorRef,
-  ) {}
 
   ngOnInit() {
     this.notificationService.notification$.pipe(takeUntil(this.destroy$)).subscribe((notification) => {

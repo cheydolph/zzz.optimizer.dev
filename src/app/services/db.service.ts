@@ -3,6 +3,7 @@ import Dexie, { Table } from 'dexie';
 import { Agent } from '../models/agent.model';
 import { WEngine } from '../models/wengine.model';
 import { Disc } from '../models/disc.model';
+import type { DiscSet } from './disc-set.service';
 import { environment } from '../../environments/environment';
 
 interface AppMetadata {
@@ -36,10 +37,11 @@ interface ShareCustomization {
   providedIn: 'root',
 })
 export class DbService extends Dexie {
+  // The Table fields below are assigned by Dexie in the constructor through this.version().stores()
   // REFERENCE DATA - Loaded from assets, not user-modifiable
   agents!: Table<Agent, string>;
   wEngines!: Table<WEngine, string>;
-  discSets!: Table<any, string>;
+  discSets!: Table<DiscSet, string>;
 
   // USER DATA - Created and managed by users
   discs!: Table<Disc, string>;
@@ -126,9 +128,9 @@ export class DbService extends Dexie {
     return await this.agents.toArray();
   }
 
-  async bulkAddAgents(agents: Agent[]): Promise<string> {
+  async bulkAddAgents(agents: Agent[]): Promise<string[]> {
     // Use bulkPut for reference data to allow updates on reload
-    return (await this.agents.bulkPut(agents, { allKeys: true })) as any;
+    return await this.agents.bulkPut(agents, { allKeys: true });
   }
 
   // W-Engine operations
@@ -152,9 +154,9 @@ export class DbService extends Dexie {
     return await this.wEngines.toArray();
   }
 
-  async bulkAddWEngines(wEngines: WEngine[]): Promise<string> {
+  async bulkAddWEngines(wEngines: WEngine[]): Promise<string[]> {
     // Use bulkPut for reference data to allow updates on reload
-    return (await this.wEngines.bulkPut(wEngines, { allKeys: true })) as any;
+    return await this.wEngines.bulkPut(wEngines, { allKeys: true });
   }
 
   // Disc operations
@@ -178,18 +180,18 @@ export class DbService extends Dexie {
     return await this.discs.toArray();
   }
 
-  async bulkAddDiscs(discs: Disc[]): Promise<string> {
-    return (await this.discs.bulkAdd(discs, { allKeys: true })) as any;
+  async bulkAddDiscs(discs: Disc[]): Promise<string[]> {
+    return await this.discs.bulkAdd(discs, { allKeys: true });
   }
 
   // Disc Set operations
-  async getAllDiscSets(): Promise<any[]> {
+  async getAllDiscSets(): Promise<DiscSet[]> {
     return await this.discSets.toArray();
   }
 
-  async bulkAddDiscSets(discSets: any[]): Promise<string> {
+  async bulkAddDiscSets(discSets: DiscSet[]): Promise<string[]> {
     // Use bulkPut for reference data to allow updates on reload
-    return (await this.discSets.bulkPut(discSets, { allKeys: true })) as any;
+    return await this.discSets.bulkPut(discSets, { allKeys: true });
   }
 
   // Clear reference data only

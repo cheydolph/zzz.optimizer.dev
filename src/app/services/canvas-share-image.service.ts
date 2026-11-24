@@ -75,6 +75,7 @@ export class CanvasShareImageService {
     const canvas = document.createElement('canvas');
     canvas.width = this.WIDTH * this.SCALE;
     canvas.height = this.HEIGHT * this.SCALE;
+    // A new canvas with no other context requested, so the 2d context is not null
     const ctx = canvas.getContext('2d')!;
 
     // Scale context for high-resolution rendering
@@ -186,6 +187,7 @@ export class CanvasShareImageService {
   private async loadImage(src: string): Promise<HTMLImageElement> {
     // Check cache first
     if (this.imageCache.has(src)) {
+      // has() was checked on the line above
       return this.imageCache.get(src)!;
     }
 

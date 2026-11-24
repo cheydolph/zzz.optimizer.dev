@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError, from, timer } from 'rxjs';
 import { switchMap, catchError, retryWhen, mergeMap, map } from 'rxjs/operators';
 import { Disc, MainStatType, SubStat, SubStatType } from '../models/disc.model';
-import { DiscSlot, WEngine } from '../models/agent.model';
+import { DiscSlot } from '../models/agent.model';
+import { WEngine } from '../models/wengine.model';
 import { DbService } from './db.service';
 import { ENKA_INVALID_UID_MESSAGE, ENKA_NOT_CONFIGURED_MESSAGE } from '../constants/enka-messages';
 import { DISC_MAIN_STAT_MAX } from '../constants/main-stat-possibilities';
@@ -161,14 +162,12 @@ const DISC_SET_MAP: { [key: number]: string } = {
   providedIn: 'root',
 })
 export class EnkaApiService {
+  private readonly http = inject(HttpClient);
+  private readonly dbService = inject(DbService);
+
   // Cloudflare Worker proxy URL from environment (kept private, not committed to git)
   // Set this in src/environments/environment.local.ts (which is gitignored)
   private readonly CLOUDFLARE_WORKER = environment.enkaProxyUrl;
-
-  constructor(
-    private http: HttpClient,
-    private dbService: DbService,
-  ) {}
 
   /**
    * Fetch player data from Enka Network API by UID, through our Cloudflare Worker.
@@ -455,6 +454,7 @@ export class EnkaApiService {
       mainStatValue = fixedValues[slot] || 0;
     } else if (slotNum >= 4 && slotNum <= 6) {
       // Drive 4-6 use DISC_MAIN_STAT_MAX lookup
+      // slotNum (parsed from slot) is checked to be 4-6 just above
       const slotKey = slot as 'Drive4' | 'Drive5' | 'Drive6';
       const maxValues = DISC_MAIN_STAT_MAX[slotKey];
       if (maxValues && maxValues[mainStatType] !== undefined) {

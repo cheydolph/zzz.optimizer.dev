@@ -1,5 +1,5 @@
 // services/agent.service.ts
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Agent } from '../models/agent.model';
 import { DbService } from './db.service';
@@ -8,6 +8,8 @@ import { DbService } from './db.service';
   providedIn: 'root',
 })
 export class AgentService {
+  private readonly db = inject(DbService);
+
   private agentsSubject = new BehaviorSubject<Agent[]>([]);
   public agents$: Observable<Agent[]> = this.agentsSubject.asObservable();
 
@@ -17,7 +19,7 @@ export class AgentService {
   private selectedAgentSubject = new BehaviorSubject<Agent | null>(null);
   public selectedAgent$: Observable<Agent | null> = this.selectedAgentSubject.asObservable();
 
-  constructor(private db: DbService) {
+  constructor() {
     this.loadAgents();
   }
 

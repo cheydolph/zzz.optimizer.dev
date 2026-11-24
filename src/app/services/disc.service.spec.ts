@@ -1,5 +1,6 @@
+import { TestBed } from '@angular/core/testing';
 import type { Disc } from '../models/disc.model';
-import type { DbService } from './db.service';
+import { DbService } from './db.service';
 import { DiscService } from './disc.service';
 
 // BUG-17 class (slice 4.6b, NG-05a): updateDisc() emits a new array and never writes into the one it emitted
@@ -26,7 +27,8 @@ describe('DiscService.updateDisc', () => {
   it('emits a new array with a new disc object, keeps untouched discs, and leaves the emitted array alone', async () => {
     const stored = [disc('a'), disc('b')];
     const db = { getAllDiscs: async () => stored, updateDisc: async () => undefined } as unknown as DbService;
-    const service = new DiscService(db);
+    TestBed.configureTestingModule({ providers: [{ provide: DbService, useValue: db }] });
+    const service = TestBed.inject(DiscService);
     await service.loadDiscsFromDb();
     const emitted: Disc[][] = [];
     service.discs$.subscribe((d) => emitted.push(deepFreeze(d)));

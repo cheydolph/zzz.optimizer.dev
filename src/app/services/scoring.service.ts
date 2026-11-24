@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Disc } from '../models/disc.model';
-import { BaseStats, WEngine } from '../models/agent.model';
+import { AgentBuff, AgentDebuff, BaseStats, MindscapeData } from '../models/agent.model';
+import { WEngine } from '../models/wengine.model';
 import {
   DISC_RATING_THRESHOLDS,
   BUILD_RATING_THRESHOLDS,
@@ -54,6 +55,101 @@ interface AgentBreakpoints {
   mainStatWeights?: { [slot: string]: { [stat: string]: number } };
 }
 
+// One main stat entry in agent-stat-weights.json: the main stat's points and the substat weights
+// that apply when a disc in that slot has this main stat.
+interface MainStatWeights {
+  mainStatPoints: number;
+  substatWeights: { [stat: string]: number };
+}
+
+// One build profile (CRIT, Anomaly, ...) of an agent in agent-stat-weights.json, keyed by slot
+// (Drive1 to Drive6), then by main stat.
+interface BuildWeightProfile {
+  contextualWeights?: { [slot: string]: { [mainStat: string]: MainStatWeights } };
+}
+
+interface AgentStatWeights {
+  name: string;
+  builds: { [buildType: string]: BuildWeightProfile };
+}
+
+// agent-breakpoints.json and agent-stat-weights.json: one entry per agent id inside `agents`.
+interface AgentDataFile<T> {
+  comment?: string;
+  agents: { [agentId: string]: T };
+}
+
+// Buffs and debuffs from an agent's or W-Engine's `scoring` block, used by damage estimation.
+interface ScoringModifiers {
+  buffs: AgentBuff[];
+  debuffs: AgentDebuff[];
+  dazeBonus: number;
+}
+
+interface DamageEstimate {
+  directDamage: number;
+  statusDamage?: number;
+  sheerForceDamage?: number;
+  sharpDamage?: number;
+  dazeContribution?: number;
+  totalDamage: number;
+  damageType: string;
+}
+
+// Returned in place of a breakdown when no score could be computed.
+interface ScoreMessage {
+  message: string;
+}
+
+interface DiscScoreBreakdown {
+  mainStatPoints: number;
+  subStatPoints: number;
+  rollBonusPoints: number;
+  godRollBonus: number;
+  allGoodBonus: number;
+  secondaryBonus: number;
+  normalized_score: number;
+  detectedBuild: string | null;
+  totalRolls: number;
+  details: Array<{
+    stat: string;
+    value: number;
+    points: number;
+    rolls: number;
+  }>;
+}
+
+interface BreakpointTally {
+  totalBreakpoints: number;
+  metBreakpoints: number;
+  statDetails: Array<{
+    stat: string;
+    current: number;
+    min: number;
+    optimal: number;
+    metMin: boolean;
+    metOptimal: boolean;
+    isPriority: boolean;
+  }>;
+}
+
+interface BreakpointScoreBreakdown extends BreakpointTally {
+  penaltyMultiplier: number;
+  penalties: Array<{ stat: string; penalty: number }>;
+}
+
+interface CompositeScoreBreakdown {
+  breakpointScore: number;
+  breakpointDetails: BreakpointScoreBreakdown | ScoreMessage;
+  discQualityScore: number;
+  statEfficiencyScore: number;
+  damageScore?: number;
+  damageEstimate: DamageEstimate | null;
+  wEngineContribution: Partial<BaseStats>;
+  mindscapeContribution: Partial<BaseStats>;
+  componentWeights: typeof BUILD_SCORE_WEIGHTS;
+}
+
 interface DiscSetData {
   Id: number;
   Name: string;
@@ -69,26 +165,13 @@ interface DiscSetData {
   };
 }
 
-interface MindscapeData {
-  mindscapes: {
-    [agentId: string]: {
-      comment?: string;
-      [level: number]: Array<{
-        type: string;
-        value: number;
-        note: string;
-      }>;
-    };
-  };
-}
-
 @Injectable({
   providedIn: 'root',
 })
 export class ScoringService {
   private agentBreakpoints: { [agentId: string]: AgentBreakpoints } = {};
   private breakpointsLoaded = false;
-  private agentStatWeights: { [agentId: string]: any } = {};
+  private agentStatWeights: { [agentId: string]: AgentStatWeights } = {};
   private mindscapeData: MindscapeData | null = null;
   private dataLoaded: Promise<void>;
 
@@ -176,7 +259,7 @@ export class ScoringService {
    * with no breakpoints, which reads like a scoring bug rather than a data typo.
    * Roxy (1621) shipped that way. Warn loudly instead of failing quietly.
    */
-  private extractAgentsMap(data: any, fileName: string): { [agentId: string]: any } {
+  private extractAgentsMap<T>(data: AgentDataFile<T>, fileName: string): { [agentId: string]: T } {
     const agents = data?.agents || {};
 
     const strays = Object.keys(data || {}).filter((key) => /^\d+$/.test(key));
@@ -196,7 +279,7 @@ export class ScoringService {
    */
   private async loadAgentBreakpoints() {
     try {
-      const data = await this.dataFiles.load<any>('assets/data/agent-breakpoints.json');
+      const data = await this.dataFiles.load<AgentDataFile<AgentBreakpoints>>('assets/data/agent-breakpoints.json');
       this.agentBreakpoints = this.extractAgentsMap(data, 'agent-breakpoints.json');
       this.breakpointsLoaded = true;
     } catch (error) {
@@ -209,7 +292,7 @@ export class ScoringService {
    */
   private async loadAgentStatWeights() {
     try {
-      const data = await this.dataFiles.load<any>('assets/data/agent-stat-weights.json');
+      const data = await this.dataFiles.load<AgentDataFile<AgentStatWeights>>('assets/data/agent-stat-weights.json');
       this.agentStatWeights = this.extractAgentsMap(data, 'agent-stat-weights.json');
     } catch (error) {
       console.error('Failed to load agent stat weights:', error);
@@ -279,14 +362,14 @@ export class ScoringService {
     };
 
     // Aggregate max weight for each stat across STANDARD main stat configurations only
-    Object.entries(buildData.contextualWeights || {}).forEach(([slot, slotData]: [string, any]) => {
+    Object.entries(buildData.contextualWeights || {}).forEach(([slot, slotData]) => {
       const allowedMainStats = standardMainStats[slot] || [];
 
-      Object.entries(slotData || {}).forEach(([mainStat, mainStatData]: [string, any]) => {
+      Object.entries(slotData || {}).forEach(([mainStat, mainStatData]) => {
         // Only consider standard main stat configurations
         if (allowedMainStats.length === 0 || allowedMainStats.includes(mainStat)) {
           Object.entries(mainStatData.substatWeights || {}).forEach(([stat, weight]) => {
-            buildStatWeights[stat] = Math.max(buildStatWeights[stat] || 0, weight as number);
+            buildStatWeights[stat] = Math.max(buildStatWeights[stat] || 0, weight);
           });
         }
       });
@@ -400,8 +483,8 @@ export class ScoringService {
     agentId?: string,
     buildType?: string,
     upgradePlan?: UpgradePlan, // NEW: Override with user's custom upgrade plan
-  ): { score: number; rating: DiscRating; breakdown: any } {
-    const breakdown = {
+  ): { score: number; rating: DiscRating; breakdown: DiscScoreBreakdown } {
+    const breakdown: DiscScoreBreakdown = {
       mainStatPoints: 0,
       subStatPoints: 0,
       rollBonusPoints: 0,
@@ -409,14 +492,9 @@ export class ScoringService {
       allGoodBonus: 0,
       secondaryBonus: 0,
       normalized_score: 0,
-      detectedBuild: null as string | null,
+      detectedBuild: null,
       totalRolls: 0,
-      details: [] as Array<{
-        stat: string;
-        value: number;
-        points: number;
-        rolls: number;
-      }>,
+      details: [],
     };
 
     // STEP 0: Get contextual weights based on main stat and build type
@@ -449,7 +527,7 @@ export class ScoringService {
         mainStatPoints = 3;
       } else {
         // Drive 4/5/6: Check user's main stat preferences
-        const slotPrefs = upgradePlan.mainStatPreferences[disc.slot as 'Drive4' | 'Drive5' | 'Drive6'];
+        const slotPrefs = upgradePlan.mainStatPreferences[disc.slot];
         if (slotPrefs && slotPrefs[disc.mainStat.type]) {
           mainStatPoints = slotPrefs[disc.mainStat.type] === 'Acceptable' ? 3 : 0;
         } else {
@@ -849,7 +927,7 @@ export class ScoringService {
     agentId: string,
     stats: BaseStats,
     buildType?: string,
-  ): { score: number; rating: BuildRating; breakdown: any } {
+  ): { score: number; rating: BuildRating; breakdown: BreakpointScoreBreakdown | ScoreMessage } {
     const breakpoints = this.agentBreakpoints[agentId];
 
     if (!breakpoints) {
@@ -861,18 +939,10 @@ export class ScoringService {
       };
     }
 
-    const breakdown = {
+    const breakdown: BreakpointTally = {
       totalBreakpoints: 0,
       metBreakpoints: 0,
-      statDetails: [] as Array<{
-        stat: string;
-        current: number;
-        min: number;
-        optimal: number;
-        metMin: boolean;
-        metOptimal: boolean;
-        isPriority: boolean;
-      }>,
+      statDetails: [],
     };
 
     // Map BaseStats to breakpoint keys
@@ -1037,18 +1107,10 @@ export class ScoringService {
     agentRole: string,
     agentElement: string,
     elementalDMGBonus: number = 0,
-    agentScoring?: { buffs: any[]; debuffs: any[]; dazeBonus: number },
-    wengineScoring?: { buffs: any[]; debuffs: any[]; dazeBonus: number },
+    agentScoring?: ScoringModifiers,
+    wengineScoring?: ScoringModifiers,
     wEngineRefinement?: number,
-  ): {
-    directDamage: number;
-    statusDamage?: number;
-    sheerForceDamage?: number;
-    sharpDamage?: number;
-    dazeContribution?: number;
-    totalDamage: number;
-    damageType: string;
-  } {
+  ): DamageEstimate {
     // Get skill multiplier for this agent (from parsed JSON or fallback)
     let skillMultiplier = this.skillParserService.getAgentMultiplier(agentId);
 
@@ -1070,7 +1132,7 @@ export class ScoringService {
 
     // Combine agent and w-engine scoring, tracking the source so that W-Engine
     // conditionals can be resolved at the equipped refinement level
-    const allScoringData: Array<{ scoring: any; isWEngine: boolean }> = [
+    const allScoringData: Array<{ scoring?: ScoringModifiers; isWEngine: boolean }> = [
       { scoring: agentScoring, isWEngine: false },
       { scoring: wengineScoring, isWEngine: true },
     ].filter((entry) => Boolean(entry.scoring));
@@ -1080,7 +1142,7 @@ export class ScoringService {
 
       // Apply buffs (DMG bonuses, stat bonuses, etc.)
       if (scoring.buffs) {
-        scoring.buffs.forEach((buff: any) => {
+        scoring.buffs.forEach((buff) => {
           const value = parseFloat(buff.value) / 100; // Convert % to decimal
 
           switch (buff.type) {
@@ -1135,7 +1197,7 @@ export class ScoringService {
 
       // Apply debuffs (enemy-affecting modifiers)
       if (scoring.debuffs) {
-        scoring.debuffs.forEach((debuff: any) => {
+        scoring.debuffs.forEach((debuff) => {
           const value = parseFloat(debuff.value) / 100; // Convert % to decimal
 
           switch (debuff.type) {
@@ -1602,10 +1664,10 @@ export class ScoringService {
       const buildData = this.agentStatWeights[agentId].builds?.[detectedBuildType];
       if (buildData) {
         // Aggregate max weight for each stat across all disc slots/main stats
-        Object.values(buildData.contextualWeights || {}).forEach((slotData: any) => {
-          Object.values(slotData || {}).forEach((mainStatData: any) => {
+        Object.values(buildData.contextualWeights || {}).forEach((slotData) => {
+          Object.values(slotData || {}).forEach((mainStatData) => {
             Object.entries(mainStatData.substatWeights || {}).forEach(([stat, weight]) => {
-              buildSpecificStatWeights[stat] = Math.max(buildSpecificStatWeights[stat] || 0, weight as number);
+              buildSpecificStatWeights[stat] = Math.max(buildSpecificStatWeights[stat] || 0, weight);
             });
           });
         });
@@ -1792,8 +1854,8 @@ export class ScoringService {
         if (buildData) {
           // Aggregate max weight for this stat across all contexts
           let maxWeight = 0;
-          Object.values(buildData.contextualWeights || {}).forEach((slotData: any) => {
-            Object.values(slotData || {}).forEach((mainStatData: any) => {
+          Object.values(buildData.contextualWeights || {}).forEach((slotData) => {
+            Object.values(slotData || {}).forEach((mainStatData) => {
               const possibleStatNames = statTypeMap[statKey] || [];
               possibleStatNames.forEach((statName) => {
                 const weight = mainStatData.substatWeights?.[statName] || 0;
@@ -1824,7 +1886,7 @@ export class ScoringService {
       };
 
       const possibleStatNames = legacyStatTypeMap[statKey] || [];
-      return possibleStatNames.some((statName) => breakpoints.priorityStats!.includes(statName));
+      return possibleStatNames.some((statName) => breakpoints.priorityStats.includes(statName));
     }
 
     return false;
@@ -1960,6 +2022,7 @@ export class ScoringService {
   ): BaseStats {
     const weightedStats: BaseStats = { ...baseStats };
 
+    // Object.keys() of a Partial<BaseStats> gives BaseStats keys, here and in the Mindscape loop below.
     // Apply W-Engine contributions
     Object.keys(wEngineContribution).forEach((key) => {
       const statKey = key as keyof BaseStats;
@@ -2025,11 +2088,11 @@ export class ScoringService {
     agentRole?: string,
     agentElement?: string,
     agentLevel?: number,
-    agentScoring?: { buffs: any[]; debuffs: any[]; dazeBonus: number },
-    wengineScoring?: { buffs: any[]; debuffs: any[]; dazeBonus: number },
+    agentScoring?: ScoringModifiers,
+    wengineScoring?: ScoringModifiers,
     upgradePlan?: UpgradePlan, // NEW: Use upgrade plan if provided
     preferredBuildType?: string,
-  ): { score: number; rating: BuildRating; breakdown: any } {
+  ): { score: number; rating: BuildRating; breakdown: CompositeScoreBreakdown | ScoreMessage } {
     // Check if build has all 6 discs equipped
     if (!equippedDiscs || equippedDiscs.length < 6) {
       const incompleteRating = BUILD_RATING_THRESHOLDS.find((r) => r.grade === 'INCOMPLETE');
@@ -2100,7 +2163,7 @@ export class ScoringService {
 
     // Calculate damage estimation score (if agent info provided)
     let damageScore = 0;
-    let damageEstimate: any = null;
+    let damageEstimate: DamageEstimate | null = null;
 
     if (agentName && agentRole && agentElement) {
       // Calculate elemental DMG% from equipped discs (slot 5 main stat)
@@ -2232,6 +2295,7 @@ export class ScoringService {
 
     // Check disc quality and find worst discs
     // First, detect build type based on all equipped discs
+    // The filter drops the empty (undefined) slots.
     const allDiscs = discSlots.map((slot) => equippedDiscs[slot]).filter((d) => d) as Disc[];
     const detectedBuildType =
       allDiscs.length > 0 ? this.resolveBuildType(allDiscs, agentId, preferredBuildType) : undefined;
@@ -2302,10 +2366,10 @@ export class ScoringService {
       const buildData = this.agentStatWeights[agentId].builds?.[detectedBuildType];
       if (buildData) {
         // Aggregate max weight for each stat across all disc slots/main stats
-        Object.values(buildData.contextualWeights || {}).forEach((slotData: any) => {
-          Object.values(slotData || {}).forEach((mainStatData: any) => {
+        Object.values(buildData.contextualWeights || {}).forEach((slotData) => {
+          Object.values(slotData || {}).forEach((mainStatData) => {
             Object.entries(mainStatData.substatWeights || {}).forEach(([stat, weight]) => {
-              buildStatWeights[stat] = Math.max(buildStatWeights[stat] || 0, weight as number);
+              buildStatWeights[stat] = Math.max(buildStatWeights[stat] || 0, weight);
             });
           });
         });

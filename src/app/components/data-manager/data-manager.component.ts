@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
 import { DataImportService } from '../../services/data-import.service';
@@ -13,18 +13,16 @@ import { BuildImportExportService } from '../../services/build-import-export.ser
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DataManagerComponent {
+  private readonly dataImportService = inject(DataImportService);
+  private readonly appInitService = inject(AppInitService);
+  private readonly buildImportExportService = inject(BuildImportExportService);
+  private readonly cdr = inject(ChangeDetectorRef);
+
   isLoading = false;
   message = '';
   messageType: 'success' | 'error' | 'info' = 'info';
   selectedFile: File | null = null;
   replaceExisting = false;
-
-  constructor(
-    private dataImportService: DataImportService,
-    private appInitService: AppInitService,
-    private buildImportExportService: BuildImportExportService,
-    private cdr: ChangeDetectorRef,
-  ) {}
 
   async reloadReferenceData() {
     if (confirm('This will reload all reference data (agents, W-Engines) from assets. Continue?')) {

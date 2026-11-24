@@ -1,5 +1,5 @@
 // services/disc.service.ts
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Disc } from '../models/disc.model';
 import { DiscSlot } from '../models/agent.model';
@@ -9,6 +9,8 @@ import { DbService } from './db.service';
   providedIn: 'root',
 })
 export class DiscService {
+  private readonly db = inject(DbService);
+
   private discsSubject = new BehaviorSubject<Disc[]>([]);
   public discs$: Observable<Disc[]> = this.discsSubject.asObservable();
 
@@ -17,7 +19,7 @@ export class DiscService {
   private discsBySet = new Map<string, Disc[]>();
   private unequippedDiscs: Disc[] = [];
 
-  constructor(private db: DbService) {
+  constructor() {
     this.loadDiscsFromDb();
   }
 
@@ -34,12 +36,14 @@ export class DiscService {
       if (!this.discsBySlot.has(disc.slot)) {
         this.discsBySlot.set(disc.slot, []);
       }
+      // Set just above if it was missing
       this.discsBySlot.get(disc.slot)!.push(disc);
 
       // Index by set
       if (!this.discsBySet.has(disc.set)) {
         this.discsBySet.set(disc.set, []);
       }
+      // Set just above if it was missing
       this.discsBySet.get(disc.set)!.push(disc);
 
       // Index unequipped

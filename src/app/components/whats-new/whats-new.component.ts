@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
@@ -22,27 +22,28 @@ interface Changelog {
   imports: [],
   templateUrl: './whats-new.component.html',
   styleUrl: './whats-new.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WhatsNewComponent implements OnInit {
-  changelog: ChangelogVersion[] = [];
-  loading = true;
-  error = false;
+  private readonly http = inject(HttpClient);
 
-  constructor(private http: HttpClient) {}
+  readonly changelog = signal<ChangelogVersion[]>([]);
+  readonly loading = signal(true);
+  readonly error = signal(false);
 
   async ngOnInit() {
     try {
       const data = await firstValueFrom(this.http.get<Changelog>(versionedUrl('assets/data/changelog.json')));
-      this.changelog = data.versions;
-      this.loading = false;
+      this.changelog.set(data.versions);
+      this.loading.set(false);
 
       // Mark that user has viewed the current app version
       // Use environment.appVersion to match what navigation checks against
       localStorage.setItem('last_viewed_version', environment.appVersion);
     } catch (err) {
       console.error('Failed to load changelog:', err);
-      this.error = true;
-      this.loading = false;
+      this.error.set(true);
+      this.loading.set(false);
     }
   }
 

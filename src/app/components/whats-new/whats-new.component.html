@@ -3,27 +3,27 @@
     <h1>What's New</h1>
 
     <!-- Loading state -->
-    @if (loading) {
+    @if (loading()) {
       <div class="loading-message">
         <p>Loading changelog...</p>
       </div>
     }
 
     <!-- Error state -->
-    @if (error) {
+    @if (error()) {
       <div class="error-message">
         <p>Failed to load changelog. Please try refreshing the page.</p>
       </div>
     }
 
     <!-- Changelog content -->
-    @if (!loading && !error) {
+    @if (!loading() && !error()) {
       <div class="changelog-section">
         <p class="intro">
           Stay up to date with the latest features, bug fixes, and improvements to ZZZ Optimizer.
         </p>
         <!-- Version cards -->
-        @for (version of changelog; track version.version) {
+        @for (version of changelog(); track version.version) {
           <div class="version-card">
             <div class="version-header">
               <h2>v{{ version.version }}</h2>
@@ -71,7 +71,7 @@
           </div>
         }
         <!-- No versions available -->
-        @if (changelog.length === 0) {
+        @if (changelog().length === 0) {
           <div class="no-versions">
             <p>No changelog entries available yet.</p>
           </div>

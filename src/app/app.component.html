@@ -5,6 +5,6 @@
 <app-footer></app-footer>
 
 <!-- Global components -->
-<app-loading-overlay [show]="isLoading" [message]="loadingMessage"></app-loading-overlay>
+<app-loading-overlay [show]="isLoading()" [message]="loadingMessage()"></app-loading-overlay>
 <app-notification></app-notification>
 <app-update-notification></app-update-notification>

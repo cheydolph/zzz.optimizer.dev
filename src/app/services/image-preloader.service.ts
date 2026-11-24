@@ -18,6 +18,7 @@ export class ImagePreloaderService {
 
     // If currently loading, return existing promise
     if (this.preloadPromises.has(src)) {
+      // has() was checked on the line above
       return this.preloadPromises.get(src)!;
     }
 

@@ -7,10 +7,10 @@
   (click)="onBackdropClick($event)"
 >
   <div class="info-dialog-box">
-    <h2 id="info-dialog-heading">{{ heading }}</h2>
-    <p id="info-dialog-message" class="info-dialog-message">{{ message }}</p>
+    <h2 id="info-dialog-heading">{{ heading() }}</h2>
+    <p id="info-dialog-message" class="info-dialog-message">{{ message() }}</p>
     <div class="info-dialog-actions">
-      <button type="button" class="info-dialog-ok" autofocus (click)="dismiss()">{{ dismissText }}</button>
+      <button type="button" class="info-dialog-ok" autofocus (click)="dismiss()">{{ dismissText() }}</button>
     </div>
   </div>
 </dialog>

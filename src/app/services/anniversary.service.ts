@@ -1,18 +1,18 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { NotificationService } from './notification.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AnniversaryService {
+  private readonly notificationService = inject(NotificationService);
+
   private readonly ANNIVERSARY_MONTH = 0; // January (0-indexed)
   private readonly ANNIVERSARY_DAY = 10;
   private readonly FLAG_KEY_PREFIX = 'anniversary_confetti_shown_';
 
   private animationFrameId: number | null = null;
   private messageTimeoutId: any = null;
-
-  constructor(private notificationService: NotificationService) {}
 
   /**
    * Check if today is the anniversary and show confetti if not already shown this year

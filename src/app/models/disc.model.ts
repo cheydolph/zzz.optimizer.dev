@@ -50,3 +50,13 @@ export interface Disc {
   equippedBy?: string; // agent id
   lock: boolean;
 }
+
+// The fields DataTransformerService reads from a disc set file, `assets/data/equipment/<id>.json`.
+// The full file shape (with `4pcEffect`) is DiscSetEquipmentData in disc-set-data.service.ts.
+export interface RawDiscSet {
+  Name: string;
+  Desc2: string;
+  Desc4: string;
+  Icon: string;
+  Icon2: string;
+}

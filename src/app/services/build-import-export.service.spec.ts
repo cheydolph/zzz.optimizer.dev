@@ -1,18 +1,15 @@
 import type { HttpClient } from '@angular/common/http';
+import { TestBed } from '@angular/core/testing';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { of } from 'rxjs';
 import type { Disc } from '../models/disc.model';
 import { BuildImportExportService } from './build-import-export.service';
-import { BuildService } from './build.service';
 import { DataFileService } from './data-file.service';
-import type { DbService, ShareCustomization } from './db.service';
-import { DiscLoadoutService } from './disc-loadout.service';
-import { DiscService } from './disc.service';
-import type { NotificationService } from './notification.service';
-import type { ScoringService } from './scoring.service';
-import type { StatCalculatorService } from './stat-calculator.service';
-import { UpgradePlanService } from './upgrade-plan.service';
+import { DbService, type ShareCustomization } from './db.service';
+import { NotificationService } from './notification.service';
+import { ScoringService } from './scoring.service';
+import { StatCalculatorService } from './stat-calculator.service';
 
 // Legacy import through the real Data Manager import path (BUG-08, slice 4.1). jsdom has no
 // IndexedDB, so DbService is replaced by an in-memory stand-in for the calls the import makes.
@@ -44,19 +41,19 @@ function fakeDb() {
 
 function createService() {
   const db = fakeDb();
-  // The stand-in covers only what these import paths call; the casts tell the constructors so.
-  const dbService = db as unknown as DbService;
-  const notifications = { error: () => undefined, warning: () => undefined } as unknown as NotificationService;
+  // The stand-ins cover only what these import paths call; the real build, disc, loadout, and plan services run.
+  const notifications = { error: () => undefined, warning: () => undefined };
   const http = { get: () => of({ agents: {} }) } as unknown as HttpClient;
-  const buildService = new BuildService(dbService, {} as StatCalculatorService, {} as ScoringService, notifications);
-  const service = new BuildImportExportService(
-    buildService,
-    new DiscService(dbService),
-    new DiscLoadoutService(notifications),
-    new UpgradePlanService(new DataFileService(http), notifications, buildService),
-    dbService,
-  );
-  return { db, service };
+  TestBed.configureTestingModule({
+    providers: [
+      { provide: DbService, useValue: db },
+      { provide: NotificationService, useValue: notifications },
+      { provide: StatCalculatorService, useValue: {} },
+      { provide: ScoringService, useValue: {} },
+      { provide: DataFileService, useValue: new DataFileService(http) },
+    ],
+  });
+  return { db, service: TestBed.inject(BuildImportExportService) };
 }
 
 describe('BuildImportExportService legacy import', () => {

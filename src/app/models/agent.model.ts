@@ -78,6 +78,14 @@ export interface AgentBuff {
       [rank: string]: { ratio?: number; cap?: number };
     };
   };
+  note?: string; // Free-text remark on a few entries in the data files
+}
+
+// One enemy-side modifier in a `scoring.debuffs` list (agents.json, wengines.json).
+export interface AgentDebuff {
+  type: string; // e.g., 'DEFShred', 'RESShred', 'DamageTaken', 'StunDMGMult'
+  value: string; // String number like '35'
+  format: '%' | 'flat';
 }
 
 export interface MindscapeEffect {
@@ -104,68 +112,91 @@ export interface MindscapeStatBonus {
   format?: '%' | 'flat'; // New field to distinguish percentage vs flat stats
 }
 
-// models/wengine.model.ts
-export interface WEngineRefinementProperty {
-  name: string;
-  type:
-    | 'ATK%'
-    | 'HP%'
-    | 'DEF%'
-    | 'CRIT_Rate'
-    | 'CRIT_DMG'
-    | 'PEN_Ratio'
-    | 'Energy_Regen'
-    | 'Impact'
-    | 'Anomaly_Proficiency'
-    | 'Anomaly_Mastery'
-    | 'Sheer_Force'
-    | 'Sheer Force';
-  values: {
-    W1: number;
-    W2: number;
-    W3: number;
-    W4: number;
-    W5: number;
+/**
+ * One stat bonus of a mindscape level in `assets/data/mindscape-stats.json` (curated by hand). Not the same data as
+ * `MindscapeStatBonus` above, which is parsed from the agents.json cinema descriptions.
+ */
+export interface MindscapeStatEntry {
+  type: string;
+  value: number;
+  format: string;
+  note: string;
+  name?: string;
+}
+
+/** `assets/data/mindscape-stats.json`: stat bonuses per agent id and mindscape level (1 to 6). */
+export interface MindscapeData {
+  comment?: string;
+  mindscapes: {
+    [agentId: string]: {
+      comment?: string;
+      [level: number]: MindscapeStatEntry[];
+    };
   };
 }
 
-export interface WEngine {
-  id: string;
+// Raw shapes from `assets/data/agents.json` (an array of these), before DataTransformerService
+// maps them to `Agent`. Only the fields that typed code reads are listed.
+
+// An `{ id, name }` pair such as `element` or `specialty`.
+export interface RawIdName {
+  id: number;
   name: string;
-  rarity: 'S' | 'A' | 'B';
-  specialty: 'Attack' | 'Stun' | 'Anomaly' | 'Support' | 'Defense' | 'Rupture' | 'Armorer';
-  /**
-   * Value of the W-Engine's BaseProperty. Named `baseAtk` for historical reasons -
-   * for Armorer W-Engines this is Base DEF, not Base ATK. Check `baseStatType`
-   * before adding it to a stat pool.
-   */
-  baseAtk: number;
-  /**
-   * Which stat the BaseProperty feeds. Armorer W-Engines (e.g. Crimson Thirst)
-   * have Base DEF; everything else has Base ATK. Absent means ATK.
-   */
-  baseStatType?: 'ATK' | 'DEF';
-  subStat: {
-    type:
-      | 'ATK%'
-      | 'HP%'
-      | 'DEF%'
-      | 'CRIT_Rate'
-      | 'CRIT_DMG'
-      | 'PEN_Ratio'
-      | 'Energy_Regen'
-      | 'Impact'
-      | 'Anomaly_Proficiency'
-      | 'Anomaly_Mastery'
-      | 'Sheer_Force'
-      | 'Sheer Force';
-    value: number;
-  };
-  effect: {
-    name: string;
-    description: string;
-    maxRefinement?: string;
-    properties?: WEngineRefinementProperty[];
-  };
-  signature?: string;
+}
+
+// `lvl60_stats`: level 60 base stats in game units (Crit 500 = 5%, SpBarPoint 12 = 1.2/s).
+export interface RawAgentLvl60Stats {
+  HpMax: number;
+  Defence: number;
+  Attack: number;
+  Crit: number;
+  CritDamage: number;
+  PenRate: number;
+  BreakStun: number;
+  ElementAbnormalPower: number;
+  ElementMystery: number;
+  SpBarPoint: number;
+  LacerationDamage?: number; // Armorer only
+  SharpnessAutoAccumulation?: number; // Armorer only
+}
+
+// One property bonus of an `extra_ascension` phase (id 11102 is HP%, value 1800 = 18%).
+export interface RawAgentAscensionProp {
+  id: number;
+  name: string;
+  format: string;
+  value: number;
+  formatted_value: string;
+}
+
+// One `extra_ascension` phase: the core passive bonuses unlocked up to `max_level`.
+export interface RawAgentAscensionPhase {
+  max_level: number;
+  props: RawAgentAscensionProp[];
+}
+
+// One `mindscape_cinemas` entry.
+export interface RawMindscapeCinema {
+  level: 1 | 2 | 3 | 4 | 5 | 6;
+  name: string;
+  description: string;
+  description2: string;
+}
+
+// One agent in agents.json. Some agents have no extra_ascension or mindscape_cinemas.
+export interface RawAgent {
+  id: number;
+  name: string;
+  rarity: 'A' | 'S';
+  element: RawIdName;
+  specialty: RawIdName;
+  Icon: string;
+  scoring: AgentScoring;
+  lvl60_stats: RawAgentLvl60Stats;
+  extra_ascension?: RawAgentAscensionPhase[];
+  mindscape_cinemas?: RawMindscapeCinema[];
+  // Older data formats only, read by DataMappingService; absent from the current agents.json.
+  code?: string;
+  EN?: string;
+  desc?: string;
 }

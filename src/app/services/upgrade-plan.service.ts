@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { UpgradePlan } from '../models/upgrade-plan.model';
 import { hasStoredBackup, readStoredArray, storageReadNotice } from '../utils/stored-array';
@@ -11,6 +11,10 @@ import { BuildService } from './build.service';
   providedIn: 'root',
 })
 export class UpgradePlanService {
+  private readonly dataFiles = inject(DataFileService);
+  private readonly notificationService = inject(NotificationService);
+  private readonly buildService = inject(BuildService);
+
   private plansSubject = new BehaviorSubject<UpgradePlan[]>([]);
   public plans$: Observable<UpgradePlan[]> = this.plansSubject.asObservable();
 
@@ -30,11 +34,7 @@ export class UpgradePlanService {
   // (a save, a restore, a clear), the draft is stale and the next getDraft() starts again from the stored plan.
   private drafts = new Map<string, { base: UpgradePlan; draft: UpgradePlan; edited: boolean }>();
 
-  constructor(
-    private dataFiles: DataFileService,
-    private notificationService: NotificationService,
-    private buildService: BuildService,
-  ) {
+  constructor() {
     this.loadPlans();
     this.breakpointsReady = this.loadAgentBreakpoints();
   }

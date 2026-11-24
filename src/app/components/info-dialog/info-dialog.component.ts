@@ -3,10 +3,10 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  EventEmitter,
-  Input,
-  Output,
-  ViewChild,
+  effect,
+  input,
+  output,
+  viewChild,
 } from '@angular/core';
 
 /**
@@ -15,9 +15,8 @@ import {
  * Esc closes it, and the browser returns focus to whatever opened it. Chosen over a hand-built
  * overlay and over CDK Dialog on 2026-11-12 (no added bundle, works on desktop and mobile).
  *
- * Decorator inputs and outputs, not `input()`/`output()` (user decision 2026-11-12): as the app's
- * first signal-API component it added 3.08 kB to the initial bundle for no measurable gain. The
- * planned signal migrations convert it together with the other components.
+ * Signal inputs, output, and view query since slice 4.7b (NG-10). They were kept as decorators on
+ * 2026-11-12 (user decision) until the planned migrations converted the components together.
  */
 @Component({
   selector: 'app-info-dialog',
@@ -26,25 +25,26 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InfoDialogComponent implements AfterViewInit {
-  @Input() set open(value: boolean) {
-    this.isOpen = value;
-    this.syncOpenState();
-  }
-  @Input() heading = '';
-  @Input() message = '';
-  @Input() dismissText = 'OK';
+  readonly open = input(false);
+  readonly heading = input('');
+  readonly message = input('');
+  readonly dismissText = input('OK');
   /** Emitted once per close, whether by the button, Esc, or a click on the backdrop. */
-  @Output() readonly closed = new EventEmitter<void>();
+  readonly closed = output<void>();
 
-  @ViewChild('dialog', { static: true }) private readonly dialogRef?: ElementRef<HTMLDialogElement>;
-  private isOpen = false;
+  private readonly dialogRef = viewChild<ElementRef<HTMLDialogElement>>('dialog');
+
+  constructor() {
+    // Runs whenever `open` changes (as the old input setter did) and once the dialog element exists
+    effect(() => this.syncOpenState());
+  }
 
   ngAfterViewInit(): void {
     this.syncOpenState();
   }
 
   protected dismiss(): void {
-    const el = this.dialogRef?.nativeElement;
+    const el = this.dialogRef()?.nativeElement;
     if (!el) return;
     if (typeof el.close === 'function') {
       el.close(); // fires the native close event, which emits `closed`
@@ -61,20 +61,20 @@ export class InfoDialogComponent implements AfterViewInit {
 
   /** A click on the dialog element itself (not its content box) is a click on the backdrop. */
   protected onBackdropClick(event: MouseEvent): void {
-    if (event.target === this.dialogRef?.nativeElement) {
+    if (event.target === this.dialogRef()?.nativeElement) {
       this.dismiss();
     }
   }
 
   /** The dialog API is imperative; keep the element in step with the `open` input. */
   private syncOpenState(): void {
-    const el = this.dialogRef?.nativeElement;
+    const el = this.dialogRef()?.nativeElement;
     if (!el) return; // before the view exists; ngAfterViewInit syncs again
-    if (this.isOpen && !el.open) {
+    if (this.open() && !el.open) {
       // The attribute fallback covers environments without the API (jsdom in tests).
       if (typeof el.showModal === 'function') el.showModal();
       else el.setAttribute('open', '');
-    } else if (!this.isOpen && el.open) {
+    } else if (!this.open() && el.open) {
       if (typeof el.close === 'function') el.close();
       else el.removeAttribute('open');
     }

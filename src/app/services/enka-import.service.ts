@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Disc } from '../models/disc.model';
 import { BuildService, AgentBuild } from './build.service';
 import { DiscService } from './disc.service';
@@ -27,12 +27,10 @@ export interface ImportResult {
   providedIn: 'root',
 })
 export class EnkaImportService {
-  constructor(
-    private buildService: BuildService,
-    private discService: DiscService,
-    private dbService: DbService,
-    private discLoadoutService: DiscLoadoutService,
-  ) {}
+  private readonly buildService = inject(BuildService);
+  private readonly discService = inject(DiscService);
+  private readonly dbService = inject(DbService);
+  private readonly discLoadoutService = inject(DiscLoadoutService);
 
   /**
    * Compare Enka builds with existing builds and determine what to import
@@ -51,12 +49,12 @@ export class EnkaImportService {
       if (!existingBuild) {
         // New agent build
         newBuilds.push(enkaBuild);
-        newDiscs.push(...(Object.values(enkaBuild.discs).filter((d) => d !== undefined) as Disc[]));
+        newDiscs.push(...Object.values(enkaBuild.discs).filter((d) => d !== undefined));
       } else {
         // Check if build changed
         if (this.hasChanges(existingBuild, enkaBuild)) {
           updatedBuilds.push({ old: existingBuild, new: enkaBuild });
-          newDiscs.push(...(Object.values(enkaBuild.discs).filter((d) => d !== undefined) as Disc[]));
+          newDiscs.push(...Object.values(enkaBuild.discs).filter((d) => d !== undefined));
         } else {
           unchangedBuilds.push(existingBuild);
         }
@@ -265,6 +263,7 @@ export class EnkaImportService {
 
     for (const slot of allSlots) {
       const existingDisc = existing.equippedDiscs[slot];
+      // Slots come from Object.keys above; a slot missing here reads undefined, handled below
       const incomingDisc = incoming.discs[slot as keyof typeof incoming.discs];
 
       // Slot filled on one side only

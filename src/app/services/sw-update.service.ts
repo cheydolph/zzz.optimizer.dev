@@ -1,5 +1,6 @@
 // services/sw-update.service.ts
-import { Injectable, ApplicationRef, OnDestroy } from '@angular/core';
+import { Injectable, ApplicationRef, OnDestroy, DestroyRef, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SwUpdate } from '@angular/service-worker';
 import { interval, Subject, BehaviorSubject, Observable } from 'rxjs';
 import { first, takeUntil, switchMap } from 'rxjs/operators';
@@ -14,6 +15,11 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class SwUpdateService implements OnDestroy {
+  private readonly swUpdate = inject(SwUpdate);
+  private readonly appRef = inject(ApplicationRef);
+  // init() runs after awaits, outside an injection context, so takeUntilDestroyed() needs the ref passed in
+  private readonly destroyRef = inject(DestroyRef);
+
   private destroy$ = new Subject<void>();
   private readonly VERSION_KEY = 'app_version';
   private readonly INSTALLED_TIMESTAMP_KEY = 'installed_ngsw_timestamp';
@@ -36,11 +42,6 @@ export class SwUpdateService implements OnDestroy {
   public get updateAvailable(): Observable<boolean> {
     return this.updateAvailable$.asObservable();
   }
-
-  constructor(
-    private swUpdate: SwUpdate,
-    private appRef: ApplicationRef,
-  ) {}
 
   /**
    * Initialize service worker update checking
@@ -68,7 +69,6 @@ export class SwUpdateService implements OnDestroy {
     // Start 30-minute interval AFTER app is stable (no immediate check on page load)
     appIsStable$
       .pipe(
-        takeUntil(this.destroy$),
         switchMap(() => {
           const timestamp = new Date().toLocaleTimeString();
           console.log(`[SW Update] ${timestamp} - App is stable - starting 30-minute update check interval`);
@@ -81,6 +81,8 @@ export class SwUpdateService implements OnDestroy {
           console.log(`[SW Update] ${timestamp} - Update check triggered (30min interval)`);
           return this.bustCacheAndCheckForUpdate();
         }),
+        // Last, so it also ends the interval inside switchMap when the service is destroyed (NG-06)
+        takeUntilDestroyed(this.destroyRef),
       )
       .subscribe({
         next: (updateFound) => {
