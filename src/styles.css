@@ -1,5 +1,8 @@
 /* Tailwind CSS v4 */
 @import "tailwindcss";
+/* CSS-18: class names come from templates and code only; text in the data files (changelog, agent data) must not
+   generate utilities */
+@source not "./assets";
 
 /* Custom font: @font-face lives in index.html (subset files and their preload, PERF-06) */
 
