@@ -56,6 +56,13 @@ describe('component smoke tests', () => {
     vi.spyOn(console, 'error').mockImplementation(() => undefined);
     vi.spyOn(console, 'warn').mockImplementation(() => undefined);
     vi.spyOn(console, 'log').mockImplementation(() => undefined);
+    // jsdom has no matchMedia; LoadingOverlayComponent reads the reduced-motion query when it is created
+    vi.stubGlobal('matchMedia', (query: string) => ({
+      matches: false,
+      media: query,
+      addEventListener: () => undefined,
+      removeEventListener: () => undefined,
+    }));
 
     TestBed.configureTestingModule({
       providers: [
@@ -89,6 +96,7 @@ describe('component smoke tests', () => {
   afterEach(() => {
     flushPendingRequests();
     vi.restoreAllMocks();
+    vi.unstubAllGlobals();
   });
 
   for (const [name, component] of COMPONENTS) {
