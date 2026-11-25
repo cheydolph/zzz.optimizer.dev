@@ -2863,43 +2863,51 @@ export class CharacterTabComponent implements OnInit, OnDestroy {
     this.cdr.markForCheck();
   }
 
+  // Escape closes the first open entry of this list, so the order is the priority when several are open
+  // (CC-48: replaces an else-if chain; same order)
+  private readonly escapeClosers: readonly (readonly [isOpen: () => boolean, close: () => void])[] = [
+    [() => this.showConfirmDialog, () => this.closeConfirmDialog()],
+    [() => this.showAddAgentModal, () => this.closeAddAgentModal()],
+    [() => this.showCompareModal, () => this.closeCompareModal()],
+    [() => this.showDiscPicker, () => this.closeDiscPicker()],
+    [() => this.showDiscForm, () => this.closeDiscForm()],
+    [
+      () => this.showWEnginePicker,
+      () => {
+        this.showWEnginePicker = false;
+      },
+    ],
+  ];
+
   // Keyboard shortcuts handler
   handleKeyboardEvent(event: KeyboardEvent) {
-    // Esc key - close any open modal
     if (event.key === 'Escape') {
-      if (this.showConfirmDialog) {
-        this.closeConfirmDialog();
-        event.preventDefault();
-      } else if (this.showAddAgentModal) {
-        this.closeAddAgentModal();
-        event.preventDefault();
-      } else if (this.showCompareModal) {
-        this.closeCompareModal();
-        event.preventDefault();
-      } else if (this.showDiscPicker) {
-        this.closeDiscPicker();
-        event.preventDefault();
-      } else if (this.showDiscForm) {
-        this.closeDiscForm();
-        event.preventDefault();
-      } else if (this.showWEnginePicker) {
-        this.showWEnginePicker = false;
-        event.preventDefault();
-      }
+      this.closeTopEntryOnEscape(event);
     }
-
-    // Enter key - confirm action in modals
     if (event.key === 'Enter' && !event.shiftKey) {
-      if (this.showConfirmDialog) {
-        this.confirmAction();
-        event.preventDefault();
-      } else if (this.showAddAgentModal && this.selectedAgentForAdd) {
-        this.addAgentBuild();
-        event.preventDefault();
-      } else if (this.showDiscForm) {
-        this.createAndEquipDisc();
-        event.preventDefault();
-      }
+      this.confirmOnEnter(event);
+    }
+  }
+
+  private closeTopEntryOnEscape(event: KeyboardEvent) {
+    const open = this.escapeClosers.find(([isOpen]) => isOpen());
+    if (open) {
+      open[1]();
+      event.preventDefault();
+    }
+  }
+
+  // Enter confirms the open modal's main action
+  private confirmOnEnter(event: KeyboardEvent) {
+    if (this.showConfirmDialog) {
+      this.confirmAction();
+      event.preventDefault();
+    } else if (this.showAddAgentModal && this.selectedAgentForAdd) {
+      this.addAgentBuild();
+      event.preventDefault();
+    } else if (this.showDiscForm) {
+      this.createAndEquipDisc();
+      event.preventDefault();
     }
   }
 
